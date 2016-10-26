@@ -1,0 +1,14 @@
+#include "cell.h"
+
+Cell::Cell()
+{
+    void Cell::setColor(int,int,int,int)
+    {
+        pixelColor->
+    }
+    
+    QColor Cell::getColor()
+    {
+        return pixelColor;
+    }
+}
