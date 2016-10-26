@@ -2,6 +2,8 @@
 #include "ui_mainwindow.h"
 #include <QPixmap>
 #include <QGraphicsPixmapItem>
+#include <QImage>
+#include <iostream>
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -12,8 +14,7 @@ MainWindow::MainWindow(QWidget *parent) :
     auto * gS  = new QGraphicsScene(ui->graphicsView);
 
     ui->graphicsView->setScene(gS);
-    //QImage * andy = new QImage("andy.jpg"); // not sure about memory leaks here...
-    // ui->graphicsView->scene()->addItem(new QGraphicsPixmapItem(QPixmap::fromImage(*andy))); // this doesn't work anyways
+    ui->graphicsView->scene()->addPixmap(QPixmap("://andy.png")); // in order for this to work, the file must be added to the resources file
     ui->graphicsView->scene()->addLine(0,0,50,50); // this works though
     ui->graphicsView->update();
 
