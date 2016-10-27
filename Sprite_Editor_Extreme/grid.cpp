@@ -1,5 +1,5 @@
 #include "grid.h"
-
+#include <QRgb>
 Grid::Grid()
 {
     height = 16;
@@ -26,6 +26,7 @@ Grid::Grid(int h,int w)
         width = w;
     }
     image = new QImage(width, height, QImage::Format_ARGB32);
+
 }
 
 QImage* Grid::getImage()
@@ -35,8 +36,8 @@ QImage* Grid::getImage()
 
 void Grid::setPixelColor(int x,int y,QColor color)
 {
-    image->setPixel(x,y,0);
-    //image->setPixelColor(x,y,color);
+    image->setPixelColor(x,y,color);
+
 }
 
 Grid::~Grid()

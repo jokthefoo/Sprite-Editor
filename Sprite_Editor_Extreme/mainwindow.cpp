@@ -5,6 +5,7 @@
 #include <QGraphicsPixmapItem>
 #include <QImage>
 #include <iostream>
+#include <QGraphicsRectItem>
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -15,10 +16,23 @@ MainWindow::MainWindow(QWidget *parent) :
     QGraphicsScene * gS  = new QGraphicsScene(ui->graphicsView);
 
     ui->graphicsView->setScene(gS);
-    //ui->graphicsView->scene()->addPixmap(QPixmap("://andy.png")); // in order for this to work, the file must be added to the resources file
-    //ui->graphicsView->scene()->addLine(0,0,50,50); // this works though
+
+    QGraphicsRectItem * item  = new QGraphicsRectItem(0,0, 256, 256);
+    grid = new Grid(256,256);
+
+    QImage * im = grid->getImage();
+    im->fill(Qt::black);
+
+    ui->graphicsView->scene()->addPixmap(QPixmap::fromImage(*grid->getImage()));
+    ui->graphicsView->scene()->addItem(item);
     ui->graphicsView->update();
 }
+
+
+
+
+
+
 
 void MainWindow::mousePressEvent(QMouseEvent *event)
 {
@@ -26,19 +40,16 @@ void MainWindow::mousePressEvent(QMouseEvent *event)
     if(ui->graphicsView->rect().contains(remapped))
     {
         QPointF mousePoint = ui->graphicsView->mapToScene(remapped);
-
-        Grid grid(256,256);
-        QColor color(255,255,255);
-        grid.setPixelColor(mousePoint.x(),mousePoint.y(),color);
-
-        ui->graphicsView->scene()->addPixmap(QPixmap::fromImage(*grid.getImage()));
-        ui->graphicsView->update();
+        grid->setPixelColor(mousePoint.x(),mousePoint.y(),Qt::white);
+        ui->graphicsView->scene()->addPixmap(QPixmap::fromImage(*grid->getImage()));
+        ui->graphicsView->scene()->update();
     }
 }
 
 MainWindow::~MainWindow()
 {
     delete ui;
+    delete grid;
 }
 
 

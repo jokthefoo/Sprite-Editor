@@ -1,6 +1,7 @@
 #ifndef MAINWINDOW_H
 #define MAINWINDOW_H
 #include <QPaintEvent>
+#include <grid.h>
 
 #include <QMainWindow>
 
@@ -18,6 +19,7 @@ public:
     void mousePressEvent(QMouseEvent *);
 private:
     Ui::MainWindow *ui;
+    Grid * grid;
 
 };
 
