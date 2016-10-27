@@ -14,10 +14,14 @@ TEMPLATE = app
 
 SOURCES += main.cpp\
         mainwindow.cpp \
-    grid.cpp
+    grid.cpp \
+    controller.cpp \
+    model.cpp
 
 HEADERS  += mainwindow.h \
-    grid.h
+    grid.h \
+    controller.h \
+    model.h
 
 FORMS    += mainwindow.ui
 

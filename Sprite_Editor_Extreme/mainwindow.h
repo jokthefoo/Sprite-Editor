@@ -1,9 +1,13 @@
 #ifndef MAINWINDOW_H
 #define MAINWINDOW_H
-#include <QPaintEvent>
-#include <grid.h>
-
 #include <QMainWindow>
+#include <QPaintEvent>
+#include <QPixmap>
+#include <QGraphicsPixmapItem>
+#include <QGraphicsRectItem>
+#include <QImage>
+#include <grid.h>
+#include <iostream>
 
 namespace Ui {
 class MainWindow;
@@ -15,11 +19,19 @@ class MainWindow : public QMainWindow
 
 public:
     explicit MainWindow(QWidget *parent = 0);
+    void updateEditor(QImage * image);
     ~MainWindow();
+
+protected:
     void mousePressEvent(QMouseEvent *);
 private:
-    Ui::MainWindow *ui;
+    int default_width = 256;
+    int default_height = 256;
+
+    Ui::MainWindow * ui;
     Grid * grid;
+    QGraphicsRectItem * boundary;
+    QGraphicsScene * scene;
 
 };
 
