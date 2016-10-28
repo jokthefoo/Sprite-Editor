@@ -16,6 +16,8 @@ public:
     bool containsCoordinate(int, int);
     void setDrawScale(unsigned int);
     QImage *getImage();
+    void drawLinePixels(QPointF,QPointF,QColor);
+    void rotateImage(int );
 private:
     int height;
     int width;

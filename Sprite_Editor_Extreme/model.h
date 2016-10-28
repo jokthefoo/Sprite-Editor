@@ -23,6 +23,8 @@ public:
     void setColor(QColor);
     Project * getProject();
     QColor getColor();
+    void drawLine(QPointF , QPointF );
+    void rotateImage(int);
 
 };
 

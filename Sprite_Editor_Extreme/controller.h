@@ -15,6 +15,8 @@ class Controller : public QObject
 private:
     MainWindow * view;
     Model model;
+    bool drawing;
+    QPointF lastPoint;
 
 public:
     Controller();
@@ -30,7 +32,7 @@ signals:
 public slots:
     void receiveColorChange(QLabel*);
     void receiveButtonInput(QToolButton*);
-    void receiveMouseInput(QPointF);
+    void receiveMouseInput(QPointF, QEvent*);
     void receivePropertyChange(QString, std::vector<int>);
 
 };
