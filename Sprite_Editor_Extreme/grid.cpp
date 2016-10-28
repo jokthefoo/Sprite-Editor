@@ -42,9 +42,19 @@ QImage* Grid::getImage()
 
 void Grid::setPixelColor(int x,int y,QColor color)
 {
+    QPainter painter;
+    QPen pen;
+
     if(this->containsCoordinate(x,y)){
-        image->setPixelColor(x,y,color);
+        painter.begin(image);
+        pen.setWidth(20);
+        pen.setColor(Qt::white);
+        painter.setPen(pen);
+        painter.drawPoint(x,y);
+        painter.end();
+        //image->setPixelColor(x,y,color);
     }
+
 }
 
 bool Grid::containsCoordinate(int x, int y){ // uses cartesian coordinates from top left

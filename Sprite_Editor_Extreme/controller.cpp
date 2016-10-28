@@ -9,6 +9,7 @@ Controller::Controller(MainWindow * w)
    QObject::connect(w, &MainWindow::sendMouseInput, this, &Controller::receiveMouseInput);
    QObject::connect(w, &MainWindow::sendButtonInput, this, &Controller::receiveButtonInput);
    QObject::connect(this, &Controller::sendImage, w, &MainWindow::updateScreen);
+   emit sendImage(this->model.getCurrentFrameImage());
 
 }
 

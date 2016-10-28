@@ -3,9 +3,7 @@
 
 #include <QImage>
 #include <QColor>
-#include <QRgb>
-#include <cmath>
-
+#include <QPainter>
 class Grid
 {
 public:
