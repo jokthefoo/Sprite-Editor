@@ -2,7 +2,12 @@
 
 Project::Project()
 {
+    currentFrame = new Grid;
+    this->frames.push_back(*currentFrame);
+}
 
+Project::~Project(){
+    delete currentFrame;
 }
 
 void Project::drawShapeToCurrent(int x, int y, QPolygon poly){
@@ -22,7 +27,7 @@ void Project::undoAction(){
     //todo
 }
 
-void Project::changeFrame(int frameNumber){
+void Project::changeFrame(unsigned int frameNumber){
     if(frameNumber < this->frames.size()){
         this->currentFrame=&frames[frameNumber];
     }

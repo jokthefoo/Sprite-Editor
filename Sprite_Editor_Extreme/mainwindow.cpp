@@ -7,6 +7,7 @@ MainWindow::MainWindow(QWidget *parent) :
     ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
+    qApp->installEventFilter(this);
     scene = new QGraphicsScene(ui->graphicsView);
     boundary =  new QGraphicsRectItem(0,0, default_width, default_height);
     grid = new Grid(default_width,default_height);
@@ -22,9 +23,19 @@ MainWindow::MainWindow(QWidget *parent) :
 }
 
 
-void MainWindow::updateEditor(QImage *image){
+void MainWindow::updateEditor(QImage *image)
+{
     scene->addPixmap(QPixmap::fromImage(*image));
     ui->graphicsView->update();
+}
+
+
+bool MainWindow::eventFilter(QObject *watched, QEvent *event)
+{
+    if(event->type()==QEvent::MouseMove){
+        QMouseEvent *mouseEvent = static_cast<QMouseEvent*>(event);
+        emit sendMouseInput(mouseEvent);
+    }
 }
 
 void MainWindow::mousePressEvent(QMouseEvent *event)

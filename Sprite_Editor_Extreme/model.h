@@ -1,13 +1,23 @@
 #ifndef MODEL_H
 #define MODEL_H
-#include <QTimer>
+#include <QMouseEvent>
+#include <vector>
+#include <project.h>
+#include <grid.h>
+#include <tool.h>
 
 class model // the model updates the view by sending signals
 {
+
+private:
+    std::vector<Tool> tools;
+    Project project;
+
 public:
     model();
-    QTimer refresh_timer;
-    //the refresh timer will send a signal to update the graphics in the view
+    ~model();
+    void changeTool(QString toolName);
+    void applyTool(Grid grid, Tool tool, QPoint pos);
 
 };
 

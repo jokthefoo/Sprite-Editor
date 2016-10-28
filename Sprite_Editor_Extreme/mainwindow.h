@@ -22,7 +22,11 @@ public:
     void updateEditor(QImage * image);
     ~MainWindow();
 
+signals:
+    void sendMouseInput(QMouseEvent *);
+
 protected:
+    bool eventFilter(QObject *watched, QEvent *event);
     void mousePressEvent(QMouseEvent *);
 private:
     int default_width = 256;

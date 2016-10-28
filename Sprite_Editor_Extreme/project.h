@@ -11,7 +11,8 @@ private:
     Grid * currentFrame;
 public:
     Project();
-    void changeFrame(int frameNumber);
+    ~Project();
+    void changeFrame(unsigned int frameNumber);
     void undoAction();
     void redoAction();
     void drawToCurrent(int x, int y, QColor c);

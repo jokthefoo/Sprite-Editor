@@ -17,13 +17,15 @@ SOURCES += main.cpp\
     grid.cpp \
     controller.cpp \
     model.cpp \
-    project.cpp
+    project.cpp \
+    tool.cpp
 
 HEADERS  += mainwindow.h \
     grid.h \
     controller.h \
     model.h \
-    project.h
+    project.h \
+    tool.h
 
 FORMS    += mainwindow.ui
 
