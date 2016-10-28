@@ -2,9 +2,10 @@
 
 Grid::Grid()
 {
-    height = 16;
-    width = 16;
+    height = default_height;
+    width = default_width;
     image = new QImage(width, height, QImage::Format_ARGB32);
+    image->fill(Qt::black);
 }
 
 void Grid::resize(int h, int w){
@@ -16,7 +17,7 @@ Grid::Grid(int h,int w)
 {
     if(h < 1 || h > 1080)
     {
-        height = 16;
+        height = default_height;
     }
     else
     {
@@ -24,7 +25,7 @@ Grid::Grid(int h,int w)
     }
     if(w < 1 || w > 1920)
     {
-        width = 16;
+       width = default_width;;
     }
     else
     {
@@ -41,8 +42,9 @@ QImage* Grid::getImage()
 
 void Grid::setPixelColor(int x,int y,QColor color)
 {
-    image->setPixelColor(x,y,color);
-
+    if(this->containsCoordinate(x,y)){
+        image->setPixelColor(x,y,color);
+    }
 }
 
 bool Grid::containsCoordinate(int x, int y){ // uses cartesian coordinates from top left

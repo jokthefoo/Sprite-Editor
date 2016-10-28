@@ -23,22 +23,21 @@ public:
     ~MainWindow();
 
 signals:
-    void sendMouseInput(QMouseEvent *);
+    void sendMouseInput(QPointF);
     void sendButtonInput(QString buttonName);
 
 public slots:
     void getButton();
+    void updateScreen(QImage * toShow);
+    // void updatePreview(std::vector<Grid>);
 
 protected:
     bool eventFilter(QObject *watched, QEvent *event);
-    void mousePressEvent(QMouseEvent *);
+    //void mousePressEvent(QMouseEvent *);
 private:
-    int default_width = 256;
-    int default_height = 256;
-
+    void connectComponents();
+    QGraphicsRectItem * boundary; // should move this to the model
     Ui::MainWindow * ui;
-    Grid * grid;
-    QGraphicsRectItem * boundary;
     QGraphicsScene * scene;
 
 };

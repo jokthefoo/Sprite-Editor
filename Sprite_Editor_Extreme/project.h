@@ -17,6 +17,8 @@ public:
     void redoAction();
     void drawToCurrent(int x, int y, QColor c);
     void drawShapeToCurrent(int x, int y,QPolygon);
+    QImage * getCurrentFrameImage();
+    Grid * getCurrentFrame();
 };
 
 #endif // SPRITE_H

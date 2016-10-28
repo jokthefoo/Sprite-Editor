@@ -21,9 +21,13 @@ public:
     //should have slots to capture the input from the user and then will use the model to change
     //the current states.
 
+signals:
+    void sendImage(QImage *);
+
 public slots:
+
     void receiveButtonInput();
-    void receiveMouseInput(QMouseEvent *);
+    void receiveMouseInput(QPointF);
 
 };
 

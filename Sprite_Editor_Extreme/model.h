@@ -13,11 +13,14 @@ private:
     std::vector<Tool> tools;
     Project project;
 
+
 public:
     Model();
     ~Model();
     void changeTool(QString toolName);
     void applyTool(Grid grid, Tool tool, QPoint pos);
+    QImage * getCurrentFrameImage();
+    Grid * getCurrentFrame();
 
 };
 

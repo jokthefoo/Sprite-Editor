@@ -16,7 +16,17 @@ void Project::drawShapeToCurrent(int x, int y, QPolygon poly){
 
 void Project::drawToCurrent(int x, int y, QColor c){
     //todo
-    this->currentFrame->setPixelColor(x,y,c);
+    if(currentFrame->containsCoordinate(x,y)){
+        this->currentFrame->setPixelColor(x,y,c);
+    }
+}
+
+Grid * Project::getCurrentFrame(){
+    return this->currentFrame;
+}
+
+QImage * Project::getCurrentFrameImage(){
+    return currentFrame->getImage();
 }
 
 void Project::redoAction(){
