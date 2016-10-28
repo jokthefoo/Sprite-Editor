@@ -1,7 +1,7 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 #include <QPushButton>
-
+#include <iostream>
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -12,7 +12,7 @@ MainWindow::MainWindow(QWidget *parent) :
 
     scene = new QGraphicsScene(ui->graphicsView);
     ui->graphicsView->setScene(scene);
-
+    connectComponents();
 
 }
 
@@ -41,7 +41,8 @@ void MainWindow::updateScreen(QImage * image){
 
 
 void MainWindow::getButton(){
-    emit sendButtonInput(QObject::sender()->objectName());
+    QToolButton *sender = static_cast<QToolButton*>(QObject::sender());
+    emit sendButtonInput(sender->objectName());
 }
 
 

@@ -22,10 +22,9 @@ void Controller::receiveMouseInput(QPointF point)
     emit sendImage(this->model.getCurrentFrameImage());
 }
 
-void Controller::receiveButtonInput()
+void Controller::receiveButtonInput(QString buttonName)
 {
-    QObject *sender = QObject::sender();
-    QString buttonName = sender->objectName();
-    std::cout << "rawr" << std::endl;
+    std::cout << buttonName.toStdString() << std::endl;
+
 }
 

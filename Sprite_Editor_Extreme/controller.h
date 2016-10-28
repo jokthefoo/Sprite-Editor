@@ -26,7 +26,7 @@ signals:
 
 public slots:
 
-    void receiveButtonInput();
+    void receiveButtonInput(QString);
     void receiveMouseInput(QPointF);
 
 };
