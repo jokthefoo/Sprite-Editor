@@ -8,6 +8,7 @@
 #include <QImage>
 #include <grid.h>
 #include <iostream>
+#include "createnew.h"
 
 namespace Ui {
 class MainWindow;
@@ -34,10 +35,14 @@ public slots:
 protected:
     bool eventFilter(QObject *watched, QEvent *event);
     //void mousePressEvent(QMouseEvent *);
+private slots:
+    void on_newSprite_clicked();
+
 private:
     void connectComponents();
     QGraphicsRectItem * boundary; // should move this to the model
     Ui::MainWindow * ui;
+    createNew * newView;
     QGraphicsScene * scene;
 
 };

@@ -18,7 +18,7 @@ Controller::~Controller(){
 
 void Controller::receiveMouseInput(QPointF point)
 {
-    this->model.getCurrentFrame()->setPixelColor(point.x(),point.y(),Qt::white);
+    this->model.getCurrentFrame()->setPixelColor(point.x(),point.y(),Qt::red);
     emit sendImage(this->model.getCurrentFrameImage());
 }
 

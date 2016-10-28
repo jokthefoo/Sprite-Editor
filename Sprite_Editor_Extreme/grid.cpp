@@ -5,7 +5,7 @@ Grid::Grid()
     height = default_height;
     width = default_width;
     image = new QImage(width, height, QImage::Format_ARGB32);
-    image->fill(Qt::black);
+    image->fill(Qt::white);
 }
 
 void Grid::resize(int h, int w){
@@ -43,7 +43,22 @@ QImage* Grid::getImage()
 void Grid::setPixelColor(int x,int y,QColor color)
 {
     if(this->containsCoordinate(x,y)){
-        image->setPixelColor(x,y,color);
+        x = x - (x%5);
+        y = y - (y%5);
+
+        int saveY = y;
+
+        for(int i = 0; i < 5; i++)
+        {
+           y=saveY;
+           for(int j = 0; j < 5; j++)
+           {
+               image->setPixelColor(x, y, color);
+               y++;
+           }
+           x++;
+
+        }
     }
 }
 

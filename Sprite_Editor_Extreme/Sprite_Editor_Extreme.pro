@@ -18,16 +18,19 @@ SOURCES += main.cpp\
     controller.cpp \
     model.cpp \
     project.cpp \
-    tool.cpp
+    tool.cpp \
+    createnew.cpp
 
 HEADERS  += mainwindow.h \
     grid.h \
     controller.h \
     model.h \
     project.h \
-    tool.h
+    tool.h \
+    createnew.h
 
-FORMS    += mainwindow.ui
+FORMS    += mainwindow.ui \
+    createnew.ui
 
 RESOURCES += \
     resources.qrc

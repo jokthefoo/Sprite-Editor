@@ -20,8 +20,8 @@ private:
     int height;
     int width;
 
-    int default_width = 256;
-    int default_height = 256;
+    int default_width = 500;
+    int default_height = 500;
 
     QImage* image;
 };

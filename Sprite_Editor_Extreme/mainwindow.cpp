@@ -2,6 +2,7 @@
 #include "ui_mainwindow.h"
 #include <QPushButton>
 #include <iostream>
+#include "createnew.h"
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -85,3 +86,10 @@ MainWindow::~MainWindow()
 }
 
 
+
+void MainWindow::on_newSprite_clicked()
+{
+    newView = new createNew(this);
+    newView->show();
+    this->ui->newSprite->hide();
+}

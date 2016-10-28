@@ -4,6 +4,7 @@
 #include <QMouseEvent>
 #include <model.h>
 #include <mainwindow.h>
+#include "createnew.h"
 
 // following the mvc design pattern : https://en.wikipedia.org/wiki/Model-view-controller
 class Controller : public QObject
@@ -12,6 +13,7 @@ class Controller : public QObject
 
 private:
     MainWindow * view;
+    createNew * newView;
     Model model;
 
 public:
