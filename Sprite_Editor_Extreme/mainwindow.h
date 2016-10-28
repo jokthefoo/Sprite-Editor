@@ -6,6 +6,7 @@
 #include <QGraphicsPixmapItem>
 #include <QGraphicsRectItem>
 #include <QImage>
+#include <QToolButton>
 #include <grid.h>
 #include <iostream>
 
@@ -24,7 +25,7 @@ public:
 
 signals:
     void sendMouseInput(QPointF);
-    void sendButtonInput(QString buttonName);
+    void sendButtonInput(QToolButton*);
 
 public slots:
     void getButton();

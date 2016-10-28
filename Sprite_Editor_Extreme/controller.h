@@ -4,6 +4,7 @@
 #include <QMouseEvent>
 #include <model.h>
 #include <mainwindow.h>
+#include <QToolButton>
 
 // following the mvc design pattern : https://en.wikipedia.org/wiki/Model-view-controller
 class Controller : public QObject
@@ -26,7 +27,7 @@ signals:
 
 public slots:
 
-    void receiveButtonInput(QString);
+    void receiveButtonInput(QToolButton*);
     void receiveMouseInput(QPointF);
 
 };

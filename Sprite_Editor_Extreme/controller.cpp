@@ -1,7 +1,4 @@
-
 #include "controller.h"
-#include <mainwindow.h>
-
 
 Controller::Controller(MainWindow * w)
 {
@@ -23,9 +20,9 @@ void Controller::receiveMouseInput(QPointF point)
     emit sendImage(this->model.getCurrentFrameImage());
 }
 
-void Controller::receiveButtonInput(QString buttonName)
+void Controller::receiveButtonInput(QToolButton * button)
 {
-    std::cout << buttonName.toStdString() << std::endl;
+    std::cout << button->objectName().toStdString() << std::endl;
 
 }
 

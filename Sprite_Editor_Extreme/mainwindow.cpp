@@ -1,6 +1,5 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
-#include <QPushButton>
 #include <iostream>
 
 MainWindow::MainWindow(QWidget *parent) :
@@ -42,7 +41,7 @@ void MainWindow::updateScreen(QImage * image){
 
 void MainWindow::getButton(){
     QToolButton *sender = static_cast<QToolButton*>(QObject::sender());
-    emit sendButtonInput(sender->objectName());
+    emit sendButtonInput(sender);
 }
 
 
