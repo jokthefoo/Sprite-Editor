@@ -45,9 +45,12 @@ void Grid::setPixelColor(int x,int y,QColor color)
     QPainter painter;
     QPen pen;
 
+    x = x - x%blocksize;
+    y = y - y%blocksize;
+
     if(this->containsCoordinate(x,y)){
         painter.begin(image);
-        pen.setWidth(20);
+        pen.setWidth(blocksize);
         pen.setColor(Qt::white);
         painter.setPen(pen);
         painter.drawPoint(x,y);
@@ -60,6 +63,8 @@ void Grid::setPixelColor(int x,int y,QColor color)
 bool Grid::containsCoordinate(int x, int y){ // uses cartesian coordinates from top left
      return (x > 0 && y > 0 && x < width && y < height);
 }
+
+
 
 Grid::~Grid()
 {

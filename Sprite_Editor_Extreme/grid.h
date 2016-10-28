@@ -12,15 +12,20 @@ public:
     ~Grid();
     void resize(int, int);
     void setPixelColor(int,int,QColor);
+
     bool containsCoordinate(int, int);
     QImage *getImage();
 private:
     int height;
     int width;
+    int rows;
+    int columns;
+    int blocksize = 16;
 
     int default_width = 256;
     int default_height = 256;
 
+    QPoint snapToGrid(int x, int y);
     QImage* image;
 };
 
