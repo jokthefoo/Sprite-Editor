@@ -15,8 +15,6 @@ public:
     void changeFrame(unsigned int frameNumber);
     void undoAction();
     void redoAction();
-    void drawToCurrent(int x, int y, QColor c);
-    void drawShapeToCurrent(int x, int y,QPolygon);
     QImage * getCurrentFrameImage();
     Grid * getCurrentFrame();
 };

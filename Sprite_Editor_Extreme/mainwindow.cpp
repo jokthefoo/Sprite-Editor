@@ -1,6 +1,6 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
-#include <iostream>
+
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -12,6 +12,7 @@ MainWindow::MainWindow(QWidget *parent) :
     scene = new QGraphicsScene(ui->graphicsView);
     ui->graphicsView->setScene(scene);
     connectComponents();
+    ColorChange(Qt::white);
 
 }
 
@@ -27,6 +28,17 @@ void MainWindow::connectComponents(){
     QObject::connect(ui->rectangle_button, SIGNAL (clicked()), this, SLOT ( getButton() ));
     QObject::connect(ui->rotate_Left_Button, SIGNAL (clicked()), this, SLOT ( getButton() ));
     QObject::connect(ui->rotate_Right_Button, SIGNAL (clicked()), this, SLOT ( getButton() ));
+    QObject::connect(ui->leftColor, SIGNAL (clicked()), this, SLOT ( getLabel() ));
+}
+
+
+void MainWindow::ColorChange(QColor color){
+// side is for right and left click. no need to worry about it now.
+    QPalette p(palette());
+    p.setColor(QPalette::Foreground,color);
+    QString temp("background-color:"+color.name());
+    ui->leftColor->setStyleSheet(temp);
+    ui->leftColor->update();
 }
 
 
@@ -39,18 +51,15 @@ void MainWindow::updateScreen(QImage * image){
 }
 
 
+void MainWindow::getLabel(){
+    QLabel *sender = static_cast<QLabel*>(QObject::sender());
+    emit sendLabelInput(sender);
+}
+
 void MainWindow::getButton(){
     QToolButton *sender = static_cast<QToolButton*>(QObject::sender());
     emit sendButtonInput(sender);
 }
-
-
-//void MainWindow::updateEditor(QImage *image)
-//{
-//    scene->addPixmap(QPixmap::fromImage(*image));
-//    ui->graphicsView->update();
-//}
-
 
 bool MainWindow::eventFilter(QObject *watched, QEvent *event)
 {
@@ -62,21 +71,9 @@ bool MainWindow::eventFilter(QObject *watched, QEvent *event)
         {
              emit sendMouseInput(mousePoint);
         }
-
     }
     return false;
 }
-
-//void MainWindow::mousePressEvent(QMouseEvent *event)
-//{
-//   QPoint remapped = ui->graphicsView->mapFromParent(event->pos()); // gives coordinates relative to parent
-//    QPointF mousePoint = ui->graphicsView->mapToScene(remapped); // converts to cartesian coordinates
-//    if(ui->graphicsView->rect().contains(remapped) && grid->containsCoordinate(mousePoint.x(),mousePoint.y()))
-//    {
-//        grid->setPixelColor(mousePoint.x(),mousePoint.y(),Qt::white);
-//        updateEditor(grid->getImage());
-//    }
-//}
 
 MainWindow::~MainWindow()
 {

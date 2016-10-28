@@ -5,7 +5,8 @@
 #include <model.h>
 #include <mainwindow.h>
 #include <QToolButton>
-
+#include <QLabel>
+#include <QColorDialog>
 // following the mvc design pattern : https://en.wikipedia.org/wiki/Model-view-controller
 class Controller : public QObject
 {
@@ -24,9 +25,10 @@ public:
 
 signals:
     void sendImage(QImage *);
+    void changeSelectedColor(QColor);
 
 public slots:
-
+    void receiveLabelInput(QLabel*);
     void receiveButtonInput(QToolButton*);
     void receiveMouseInput(QPointF);
 

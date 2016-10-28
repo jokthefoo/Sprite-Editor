@@ -9,6 +9,9 @@
 #include <QToolButton>
 #include <grid.h>
 #include <iostream>
+#include <QLabel>
+#include <QPalette>
+
 
 namespace Ui {
 class MainWindow;
@@ -26,10 +29,13 @@ public:
 signals:
     void sendMouseInput(QPointF);
     void sendButtonInput(QToolButton*);
+    void sendLabelInput(QLabel*);
 
 public slots:
     void getButton();
+    void getLabel();
     void updateScreen(QImage * toShow);
+    void ColorChange(QColor); // left is false right is true
     // void updatePreview(std::vector<Grid>);
 
 protected:

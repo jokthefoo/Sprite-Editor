@@ -8,11 +8,6 @@ Grid::Grid()
     image->fill(Qt::black);
 }
 
-void Grid::resize(int h, int w){
-    height=h;
-    width=w;
-}
-
 Grid::Grid(int h,int w)
 {
     if(h < 1 || h > 1080)
@@ -35,6 +30,11 @@ Grid::Grid(int h,int w)
 
 }
 
+void Grid::resize(int h, int w){
+    height=h;
+    width=w;
+}
+
 QImage* Grid::getImage()
 {
     return image;
@@ -51,7 +51,7 @@ void Grid::setPixelColor(int x,int y,QColor color)
     if(this->containsCoordinate(x,y)){
         painter.begin(image);
         pen.setWidth(blocksize);
-        pen.setColor(Qt::white);
+        pen.setColor(color);
         painter.setPen(pen);
         painter.drawPoint(x,y);
         painter.end();
@@ -64,9 +64,7 @@ bool Grid::containsCoordinate(int x, int y){ // uses cartesian coordinates from 
      return (x > 0 && y > 0 && x < width && y < height);
 }
 
-
-
 Grid::~Grid()
 {
-    delete image;
+    if(image!=nullptr) delete image;
 }

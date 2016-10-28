@@ -12,20 +12,23 @@ TARGET = Sprite_Editor_Extreme
 TEMPLATE = app
 
 
+
 SOURCES += main.cpp\
         mainwindow.cpp \
     grid.cpp \
     controller.cpp \
     model.cpp \
     project.cpp \
-    tool.cpp
+    tool.cpp \
+    colorbox.cpp
 
 HEADERS  += mainwindow.h \
     grid.h \
     controller.h \
     model.h \
     project.h \
-    tool.h
+    tool.h \
+    colorbox.h
 
 FORMS    += mainwindow.ui
 

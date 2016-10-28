@@ -10,17 +10,6 @@ Project::~Project(){
     delete currentFrame;
 }
 
-void Project::drawShapeToCurrent(int x, int y, QPolygon poly){
-    //todo
-}
-
-void Project::drawToCurrent(int x, int y, QColor c){
-    //todo
-    if(currentFrame->containsCoordinate(x,y)){
-        this->currentFrame->setPixelColor(x,y,c);
-    }
-}
-
 Grid * Project::getCurrentFrame(){
     return this->currentFrame;
 }

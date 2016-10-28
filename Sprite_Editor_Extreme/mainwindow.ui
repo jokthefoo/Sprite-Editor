@@ -125,7 +125,7 @@
      </rect>
     </property>
     <property name="currentIndex">
-     <number>0</number>
+     <number>1</number>
     </property>
     <widget class="QWidget" name="tab">
      <attribute name="title">
@@ -141,7 +141,7 @@
        </rect>
       </property>
       <property name="text">
-       <string>...</string>
+       <string>Br</string>
       </property>
      </widget>
      <widget class="QToolButton" name="fill_Bucket_Button">
@@ -154,7 +154,7 @@
        </rect>
       </property>
       <property name="text">
-       <string>...</string>
+       <string>Fill</string>
       </property>
      </widget>
      <widget class="QToolButton" name="eraser_Button">
@@ -167,7 +167,7 @@
        </rect>
       </property>
       <property name="text">
-       <string>...</string>
+       <string>Erase</string>
       </property>
      </widget>
      <widget class="QToolButton" name="rectangle_button">
@@ -180,7 +180,7 @@
        </rect>
       </property>
       <property name="text">
-       <string>...</string>
+       <string>Rect</string>
       </property>
      </widget>
     </widget>
@@ -198,7 +198,7 @@
        </rect>
       </property>
       <property name="text">
-       <string>...</string>
+       <string>RotateL</string>
       </property>
      </widget>
      <widget class="QToolButton" name="zoom_Out_Button">
@@ -211,7 +211,7 @@
        </rect>
       </property>
       <property name="text">
-       <string>...</string>
+       <string>ZOut</string>
       </property>
      </widget>
      <widget class="QToolButton" name="rotate_Right_Button">
@@ -224,7 +224,7 @@
        </rect>
       </property>
       <property name="text">
-       <string>...</string>
+       <string>RotateR</string>
       </property>
      </widget>
      <widget class="QToolButton" name="zoom_In_Button">
@@ -237,7 +237,63 @@
        </rect>
       </property>
       <property name="text">
-       <string>...</string>
+       <string>Zoom In</string>
+      </property>
+     </widget>
+     <widget class="ColorBox" name="leftColor">
+      <property name="geometry">
+       <rect>
+        <x>10</x>
+        <y>350</y>
+        <width>61</width>
+        <height>71</height>
+       </rect>
+      </property>
+      <property name="autoFillBackground">
+       <bool>false</bool>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">border: 2px solid grey</string>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+     </widget>
+     <widget class="ColorBox" name="leftColor_2">
+      <property name="geometry">
+       <rect>
+        <x>80</x>
+        <y>350</y>
+        <width>61</width>
+        <height>71</height>
+       </rect>
+      </property>
+      <property name="autoFillBackground">
+       <bool>false</bool>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">border: 2px solid grey</string>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label">
+      <property name="geometry">
+       <rect>
+        <x>10</x>
+        <y>330</y>
+        <width>59</width>
+        <height>14</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <pointsize>8</pointsize>
+       </font>
+      </property>
+      <property name="text">
+       <string>Left Color</string>
       </property>
      </widget>
     </widget>
@@ -249,7 +305,7 @@
      <x>0</x>
      <y>0</y>
      <width>924</width>
-     <height>22</height>
+     <height>19</height>
     </rect>
    </property>
   </widget>
@@ -264,6 +320,13 @@
   <widget class="QStatusBar" name="statusBar"/>
  </widget>
  <layoutdefault spacing="6" margin="11"/>
+ <customwidgets>
+  <customwidget>
+   <class>ColorBox</class>
+   <extends>QLabel</extends>
+   <header>colorbox.h</header>
+  </customwidget>
+ </customwidgets>
  <resources/>
  <connections/>
 </ui>
