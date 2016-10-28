@@ -3,7 +3,7 @@
 Project::Project()
 {
     currentFrame = new Grid;
-    this->frames.push_back(*currentFrame);
+    frames.push_back(*currentFrame);
 }
 
 Project::~Project(){
@@ -11,19 +11,26 @@ Project::~Project(){
 }
 
 Grid * Project::getCurrentFrame(){
-    return this->currentFrame;
+    return currentFrame;
 }
 
-QImage * Project::getCurrentFrameImage(){
-    return currentFrame->getImage();
+void Project::addEmptyFrame(){
+
+
 }
 
-void Project::redoAction(){
-    //todo
+void Project::addNewFrame(Grid *){
+
+
 }
 
-void Project::undoAction(){
-    //todo
+void Project::removeFrame(unsigned int i){
+
+
+}
+
+std::vector<Grid> Project::getAllFrames(){
+    return frames;
 }
 
 void Project::changeFrame(unsigned int frameNumber){

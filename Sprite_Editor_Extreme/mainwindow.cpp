@@ -61,10 +61,9 @@ void MainWindow::getButton(){
     emit sendButtonInput(sender);
 }
 
-bool MainWindow::eventFilter(QObject *watched, QEvent *event)
+bool MainWindow::eventFilter(QObject*, QEvent *event)
 {
     if(event->type()==QEvent::MouseButtonPress){
-        QMouseEvent *mouseEvent = static_cast<QMouseEvent*>(event);
         QPoint remapped = ui->graphicsView->mapFromGlobal(QCursor::pos()); // gives coordinates relative to parent
         QPointF  mousePoint = ui->graphicsView->mapToScene(remapped); // converts to cartesian coordinates
         if(ui->graphicsView->rect().contains(remapped))
@@ -78,6 +77,7 @@ bool MainWindow::eventFilter(QObject *watched, QEvent *event)
 MainWindow::~MainWindow()
 {
     delete ui;
+    delete scene;
 }
 
 

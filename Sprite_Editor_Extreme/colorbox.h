@@ -17,8 +17,6 @@ signals:
 
 protected slots:
     void mousePressEvent(QMouseEvent*);
-
-
 };
 
 #endif // COLORBOX_H

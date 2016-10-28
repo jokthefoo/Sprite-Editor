@@ -48,7 +48,7 @@ void Grid::setPixelColor(int x,int y,QColor color)
     x = x - x%blocksize;
     y = y - y%blocksize;
 
-    if(this->containsCoordinate(x,y)){
+    if(containsCoordinate(x,y)){
         painter.begin(image);
         pen.setWidth(blocksize);
         pen.setColor(color);

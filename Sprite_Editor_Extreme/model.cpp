@@ -2,11 +2,12 @@
 
 Model::Model()
 {
-
+    project = new Project();
+    setColor(Qt::white);
 }
 
 Model::~Model(){
-
+    delete project;
 }
 
 void Model::setColor(QColor q){
@@ -17,22 +18,24 @@ QColor Model::getColor(){
     return currentColor;
 }
 
-void Model::drawShapeToCurrent(int x, int y, QPolygon poly){
+void Model::drawPixel(int x, int y){ // this will be repurposed elsewhere
     //todo
-}
-
-void Model::drawToCurrent(int x, int y){
-    //todo
-    if(project.getCurrentFrame()->containsCoordinate(x,y)){
-         project.getCurrentFrame()->setPixelColor(x,y,currentColor);
+    if(project->getCurrentFrame()->containsCoordinate(x,y)){
+         project->getCurrentFrame()->setPixelColor(x,y,currentColor);
     }
 }
 
-
-Grid * Model::getCurrentFrame(){
-    return this->project.getCurrentFrame();
+Project* Model::getProject(){
+    return project;
 }
 
-QImage * Model::getCurrentFrameImage(){
-    return this->project.getCurrentFrameImage();
+void Model::changeTool(QString toolName){
+
 }
+
+void Model::applyTool(Tool tool, QPoint pos){
+
+
+}
+
+

@@ -1,16 +1,16 @@
 #ifndef MAINWINDOW_H
 #define MAINWINDOW_H
 #include <QMainWindow>
-#include <QPaintEvent>
 #include <QPixmap>
 #include <QGraphicsPixmapItem>
+#include <QLabel>
+#include <QPalette>
 #include <QGraphicsRectItem>
 #include <QImage>
 #include <QToolButton>
 #include <grid.h>
 #include <iostream>
-#include <QLabel>
-#include <QPalette>
+
 
 
 namespace Ui {
@@ -40,7 +40,6 @@ public slots:
 
 protected:
     bool eventFilter(QObject *watched, QEvent *event);
-    //void mousePressEvent(QMouseEvent *);
 private:
     void connectComponents();
     QGraphicsRectItem * boundary; // should move this to the model

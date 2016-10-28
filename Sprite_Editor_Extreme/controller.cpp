@@ -8,7 +8,7 @@ Controller::Controller(MainWindow * w)
    QObject::connect(w, &MainWindow::sendLabelInput, this, &Controller::receiveLabelInput);
    QObject::connect(this, &Controller::sendImage, w, &MainWindow::updateScreen);
    QObject::connect(this, &Controller::changeSelectedColor, w, &MainWindow::ColorChange);
-   emit sendImage(this->model.getCurrentFrameImage());
+   emit sendImage(model.getProject()->getCurrentFrame()->getImage());
 
 }
 
@@ -16,10 +16,13 @@ Controller::~Controller(){
 
 }
 
+
+
+
 void Controller::receiveMouseInput(QPointF point)
 {
-    this->model.drawToCurrent(point.x(),point.y());
-    emit sendImage(this->model.getCurrentFrameImage());
+    model.drawPixel(point.x(),point.y());
+    emit sendImage(model.getProject()->getCurrentFrame()->getImage());
 }
 
 void Controller::receiveButtonInput(QToolButton * button)
@@ -29,14 +32,12 @@ void Controller::receiveButtonInput(QToolButton * button)
 }
 
 void Controller::receiveLabelInput(QLabel * button){ // used for the color picker
-    std::cout << button->objectName().toStdString() << std::endl;
     QString str = button->objectName();
     int x =  QString::compare(str, QString::fromStdString("leftColor"), Qt::CaseInsensitive);
     if(x == 0){
         QColor c = QColorDialog::getColor(Qt::white);
         model.setColor(c);
-        emit this->changeSelectedColor(c);
-        // std::cout << button->objectName().toStdString() << std::endl;
+        emit changeSelectedColor(c);
     }
 }
 

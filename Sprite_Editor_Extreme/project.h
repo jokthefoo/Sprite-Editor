@@ -1,5 +1,5 @@
-#ifndef SPRITE_H
-#define SPRITE_H
+#ifndef PROJECT_H
+#define PROJECT_H
 #include <vector>
 #include <QPolygon>
 #include <grid.h>
@@ -13,9 +13,10 @@ public:
     Project();
     ~Project();
     void changeFrame(unsigned int frameNumber);
-    void undoAction();
-    void redoAction();
-    QImage * getCurrentFrameImage();
+    void addNewFrame(Grid *);
+    void removeFrame(unsigned int);
+    void addEmptyFrame();
+    std::vector<Grid> getAllFrames();
     Grid * getCurrentFrame();
 };
 
