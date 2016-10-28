@@ -6,7 +6,7 @@
 #include <grid.h>
 #include <tool.h>
 
-class model // the model updates the view by sending signals
+class Model // the model updates the view by sending signals
 {
 
 private:
@@ -14,8 +14,8 @@ private:
     Project project;
 
 public:
-    model();
-    ~model();
+    Model();
+    ~Model();
     void changeTool(QString toolName);
     void applyTool(Grid grid, Tool tool, QPoint pos);
 

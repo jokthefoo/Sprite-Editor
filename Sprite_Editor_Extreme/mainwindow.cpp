@@ -1,5 +1,6 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
+#include <QPushButton>
 
 
 MainWindow::MainWindow(QWidget *parent) :
@@ -18,7 +19,14 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->graphicsView->setScene(scene);
     ui->graphicsView->scene()->addItem(boundary);
 
+
+    QObject::connect(ui->add_Frame_Button, SIGNAL (clicked()), this, SLOT ( getButton() ));
     updateEditor(grid->getImage());
+
+}
+
+void MainWindow::getButton(){
+    emit sendButtonInput(QObject::sender()->objectName());
 
 }
 

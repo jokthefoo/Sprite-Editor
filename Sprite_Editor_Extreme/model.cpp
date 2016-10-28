@@ -1,6 +1,14 @@
 #include "model.h"
 
-model::model()
+Model::Model()
 {
+
+}
+
+Model::~Model(){
+
+
+
+
 
 }

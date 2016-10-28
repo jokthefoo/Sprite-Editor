@@ -24,6 +24,10 @@ public:
 
 signals:
     void sendMouseInput(QMouseEvent *);
+    void sendButtonInput(QString buttonName);
+
+public slots:
+    void getButton();
 
 protected:
     bool eventFilter(QObject *watched, QEvent *event);
