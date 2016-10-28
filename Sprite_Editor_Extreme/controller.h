@@ -25,12 +25,13 @@ public:
 
 signals:
     void sendImage(QImage *);
-    void changeSelectedColor(QColor);
+    void sendColor(QColor);
 
 public slots:
-    void receiveLabelInput(QLabel*);
+    void receiveColorChange(QLabel*);
     void receiveButtonInput(QToolButton*);
     void receiveMouseInput(QPointF);
+    void receivePropertyChange(QString, std::vector<int>);
 
 };
 

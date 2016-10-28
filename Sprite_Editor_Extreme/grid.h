@@ -11,13 +11,16 @@ public:
     Grid(int,int);
     ~Grid();
     void resize(int, int);
+    //void setBlockSize(int);
     void setPixelColor(int,int,QColor);
     bool containsCoordinate(int, int);
+    void setDrawScale(unsigned int);
     QImage *getImage();
 private:
     int height;
     int width;
-    int blocksize = 16;
+    int drawScale = 1;
+    int blocksize = 4;
     int default_width = 256;
     int default_height = 256;
     QImage* image;

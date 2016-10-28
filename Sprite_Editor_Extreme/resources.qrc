@@ -1,5 +1,16 @@
 <RCC>
     <qresource prefix="/">
         <file>andy.png</file>
+        <file>resources/back.png</file>
+        <file>resources/brush.png</file>
+        <file>resources/bucket.png</file>
+        <file>resources/forward.png</file>
+        <file>resources/rotateRight.png</file>
+        <file>resources/zoomin.png</file>
+        <file>resources/zoomout.png</file>
+        <file>resources/eraser.png</file>
+        <file>resources/rotateLeft.png</file>
+        <file>resources/play.png</file>
+        <file>resources/polygon.png</file>
     </qresource>
 </RCC>

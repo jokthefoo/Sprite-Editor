@@ -1,4 +1,5 @@
 #include "grid.h"
+#include <cmath>
 
 Grid::Grid()
 {
@@ -40,17 +41,22 @@ QImage* Grid::getImage()
     return image;
 }
 
+void Grid::setDrawScale(unsigned int scaleFactor){
+    drawScale=scaleFactor;
+}
+
+
 void Grid::setPixelColor(int x,int y,QColor color)
 {
     QPainter painter;
     QPen pen;
 
-    x = x - x%blocksize;
-    y = y - y%blocksize;
+    x = x - x %blocksize;
+    y = y - y %blocksize;
 
     if(containsCoordinate(x,y)){
-        painter.begin(image);
-        pen.setWidth(blocksize);
+        painter.begin(image);// the scaling and canvas stuff needs work.
+        pen.setWidth(pow(2,drawScale));
         pen.setColor(color);
         painter.setPen(pen);
         painter.drawPoint(x,y);
@@ -61,7 +67,7 @@ void Grid::setPixelColor(int x,int y,QColor color)
 }
 
 bool Grid::containsCoordinate(int x, int y){ // uses cartesian coordinates from top left
-     return (x > 0 && y > 0 && x < width && y < height);
+     return (x < width && y < height);
 }
 
 Grid::~Grid()

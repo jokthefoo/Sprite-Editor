@@ -29,19 +29,25 @@ public:
 signals:
     void sendMouseInput(QPointF);
     void sendButtonInput(QToolButton*);
-    void sendLabelInput(QLabel*);
+    void sendColorChange(QLabel*);
+    void sendPropertyChange(QString property, std::vector<int>);
+
 
 public slots:
-    void getButton();
-    void getLabel();
+    void propertyChangedMenu(bool);
+    void propertyChangedSpinner(int);
+    void buttonInput();
+    void labelInput();
     void updateScreen(QImage * toShow);
-    void ColorChange(QColor); // left is false right is true
+    void updateColor(QColor); // left is false right is true
     // void updatePreview(std::vector<Grid>);
 
 protected:
     bool eventFilter(QObject *watched, QEvent *event);
+
 private:
     void connectComponents();
+    void setupIcons();
     QGraphicsRectItem * boundary; // should move this to the model
     Ui::MainWindow * ui;
     QGraphicsScene * scene;
