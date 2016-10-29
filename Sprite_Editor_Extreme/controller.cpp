@@ -2,7 +2,7 @@
 
 Controller::Controller(MainWindow * w)
 {
-   this->view = w;
+
    QObject::connect(w, &MainWindow::sendMouseInput, this, &Controller::receiveMouseInput);
    QObject::connect(w, &MainWindow::sendButtonInput, this, &Controller::receiveButtonInput);
    QObject::connect(w, &MainWindow::sendPropertyChange, this, &Controller::receivePropertyChange);

@@ -15,11 +15,8 @@ class Controller : public QObject
     Q_OBJECT
 
 private:
-    MainWindow * view;
     Model model;
     bool drawing;
-
-
 
 public:
     Controller();
