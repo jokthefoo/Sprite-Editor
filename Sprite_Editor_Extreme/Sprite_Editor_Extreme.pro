@@ -22,7 +22,8 @@ SOURCES += main.cpp\
     colorbox.cpp \
     configurationform.cpp \
     property.cpp \
-    tool.cpp
+    tool.cpp \
+    brush.cpp
 
 HEADERS  += mainwindow.h \
     grid.h \
@@ -32,7 +33,8 @@ HEADERS  += mainwindow.h \
     colorbox.h \
     configurationform.h \
     property.h \
-    tool.h
+    tool.h \
+    brush.h
 
 FORMS    += mainwindow.ui \
     configurationform.ui
