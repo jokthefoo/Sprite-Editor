@@ -33,8 +33,7 @@ signals:
     void sendColor(QColor);
 
 public slots:
-    void receiveColorChange(QLabel*);
-    void receiveButtonInput(QToolButton*);
+    void receiveButtonInput(QWidget*);
     void receiveMouseInput(QPointF, QMouseEvent*);
     void receivePropertyChange(Property);
 

@@ -48,7 +48,6 @@ void MainWindow::setupIcons(){
 
 void MainWindow::connectComponents(){
 
-    QObject::connect(ui->leftColor, SIGNAL (clicked()), this, SLOT ( sendLabelInput() ));
     QObject::connect(ui->brushSize, SIGNAL(valueChanged(int)),this, SLOT(spinnerChanged(int)));
     QObject::connect(ui->actionCanvasSize_2, SIGNAL(triggered()), this, SLOT(openConfigurationSelected()));
     QObject::connect(&configuration, SIGNAL(accepted()), this, SLOT(sendConfigurationInput()));
@@ -80,10 +79,6 @@ void MainWindow::sendConfigurationInput(){
     }
 }
 
-void MainWindow::sendLabelInput(){ // could merge
-    QLabel *sender = static_cast<QLabel*>(QObject::sender());
-    emit sendColorChange(sender);
-}
 
 
 void MainWindow::updateColor(QColor color){
@@ -108,10 +103,7 @@ bool MainWindow::eventFilter(QObject* obj, QEvent *event)
     //this will get all the input for every button
     if(event->type()==QEvent::MouseButtonPress){
         QWidget * child = childAt(static_cast<QMouseEvent *>(event)->pos());
-        QToolButton * button = dynamic_cast<QToolButton*>(child);
-        if(button!=NULL){
-            emit sendButtonInput(button);
-        }
+        emit sendButtonInput(child);
     }
 
     if(event->type()==QEvent::MouseButtonPress||event->type()==QEvent::MouseMove||event->type()==QEvent::MouseButtonRelease){

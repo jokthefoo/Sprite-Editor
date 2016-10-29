@@ -5,7 +5,6 @@ Controller::Controller(MainWindow * w)
    this->view = w;
    QObject::connect(w, &MainWindow::sendMouseInput, this, &Controller::receiveMouseInput);
    QObject::connect(w, &MainWindow::sendButtonInput, this, &Controller::receiveButtonInput);
-   QObject::connect(w, &MainWindow::sendColorChange, this, &Controller::receiveColorChange);
    QObject::connect(w, &MainWindow::sendPropertyChange, this, &Controller::receivePropertyChange);
    QObject::connect(this, &Controller::sendImage, w, &MainWindow::updateScreen);
    QObject::connect(this, &Controller::sendColor, w, &MainWindow::updateColor);
@@ -59,35 +58,43 @@ void Controller::receiveMouseInput(QPointF point, QMouseEvent *event)
 }
 
 // decode buttons here
-void Controller::receiveButtonInput(QToolButton *button)
+void Controller::receiveButtonInput(QWidget * child)
 {
-    std::string name = button->objectName().toStdString();
-    QImage * image = model.getProject()->getCurrentFrame()->getImage();
-    if(name == "rotate_Right_Button")
-    {
-        model.rotateImage(90);
-        emit sendImage(image);
-    }else if(name  == "rotate_Left_Button")
-    {
-        model.rotateImage(-90);
-        emit sendImage(image);
-    } else if(name == "brush_Button"){
-        model.changeTool(0);
-    }else{
 
-
-        //......todo
+    QLabel * label = dynamic_cast<QLabel*>(child); // type check the input
+    if(label!=NULL){
+        QString str = label->objectName();
+        int x =  QString::compare(str, QString::fromStdString("leftColor"), Qt::CaseInsensitive);
+        if(x == 0){
+            QColor c = QColorDialog::getColor(Qt::white);
+            model.setColor(c);
+            emit sendColor(c);
+        }
+        return;
     }
 
-}
+    QToolButton * button = dynamic_cast<QToolButton*>(child);
+    if(button!=NULL){
+        std::string name = button->objectName().toStdString();
+        QImage * image = model.getProject()->getCurrentFrame()->getImage();
+        if(name == "rotate_Right_Button")
+        {
+            model.rotateImage(90);
+            emit sendImage(image);
+        }else if(name  == "rotate_Left_Button")
+        {
+            model.rotateImage(-90);
+            emit sendImage(image);
+        } else if(name == "brush_Button"){
+            model.changeTool(0);
+        }else{
 
-void Controller::receiveColorChange(QLabel * button){ // used for the color picker
-    QString str = button->objectName();
-    int x =  QString::compare(str, QString::fromStdString("leftColor"), Qt::CaseInsensitive);
-    if(x == 0){
-        QColor c = QColorDialog::getColor(Qt::white);
-        model.setColor(c);
-        emit sendColor(c);
+
+            //......todo
+        }
+
+        return;
     }
 }
+
 

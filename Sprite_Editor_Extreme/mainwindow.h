@@ -31,8 +31,7 @@ public:
 
 signals:
     void sendMouseInput(QPointF, QMouseEvent*);
-    void sendButtonInput(QToolButton*);
-    void sendColorChange(QLabel*);
+    void sendButtonInput(QWidget*);
     void sendPropertyChange(Property);
 
 
@@ -40,7 +39,6 @@ public slots:
     void sendConfigurationInput();
     void openConfigurationSelected();
     void spinnerChanged(int);
-    void sendLabelInput();
     void updateScreen(QImage * toShow);
     void updateColor(QColor); // left is false right is true
     // void updatePreview(std::vector<Grid>);
