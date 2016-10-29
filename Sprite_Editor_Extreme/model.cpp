@@ -18,9 +18,6 @@ QColor Model::getColor(){
     return currentColor;
 }
 
-
-
-
 void Model::drawPixel(int x, int y){ // this will be repurposed elsewhere
 
     if(project->getCurrentFrame()->containsCoordinate(x,y)){

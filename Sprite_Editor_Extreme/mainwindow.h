@@ -7,13 +7,14 @@
 #include <QPalette>
 #include <QGraphicsRectItem>
 #include <QImage>
+#include <QInputDialog>
+#include <QLineEdit>
+#include <QAction>
 #include <QToolButton>
 #include <grid.h>
 #include <iostream>
 #include <configurationform.h>
 #include <property.h>
-
-
 
 namespace Ui {
 class MainWindow;

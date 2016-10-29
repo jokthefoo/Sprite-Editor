@@ -5,8 +5,10 @@
 #include <QToolButton>
 #include <QLabel>
 #include <QColorDialog>
+#include <vector>
 #include <model.h>
 #include <mainwindow.h>
+
 // following the mvc design pattern : https://en.wikipedia.org/wiki/Model-view-controller
 class Controller : public QObject
 {

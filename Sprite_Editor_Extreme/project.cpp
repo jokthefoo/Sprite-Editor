@@ -16,9 +16,6 @@ Grid * Project::getCurrentFrame(){
 
 void Project::addEmptyFrame(){
 
-
-
-
 }
 
 void Project::setCanvasSize(int w, int h){
@@ -29,11 +26,9 @@ void Project::setCanvasSize(int w, int h){
 
 void Project::addNewFrame(Grid *){
 
-
 }
 
 void Project::removeFrame(unsigned int i){
-
 
 }
 

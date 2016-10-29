@@ -4,6 +4,8 @@
 #include <QImage>
 #include <QColor>
 #include <QPainter>
+#include <cmath>
+
 class Grid
 {
 public:

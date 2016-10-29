@@ -3,6 +3,7 @@
 #include <QMouseEvent>
 #include <QLabel>
 #include <QWidget>
+#include <iostream>
 
 class ColorBox : public QLabel
 {

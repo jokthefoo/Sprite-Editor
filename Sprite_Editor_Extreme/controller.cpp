@@ -1,6 +1,4 @@
-
 #include "controller.h"
-#include <vector>
 
 Controller::Controller(MainWindow * w)
 {

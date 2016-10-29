@@ -1,5 +1,4 @@
 #include "grid.h"
-#include <cmath>
 
 Grid::Grid()
 {
