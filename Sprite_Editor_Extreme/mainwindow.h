@@ -27,7 +27,7 @@ public:
     ~MainWindow();
 
 signals:
-    void sendMouseInput(QPointF);
+    void sendMouseInput(QPointF, QEvent*);
     void sendButtonInput(QToolButton*);
     void sendColorChange(QLabel*);
     void sendPropertyChange(QString property, std::vector<int>);

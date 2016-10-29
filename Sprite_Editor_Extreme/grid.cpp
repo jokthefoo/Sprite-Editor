@@ -45,6 +45,12 @@ void Grid::setDrawScale(unsigned int scaleFactor){
     drawScale=scaleFactor;
 }
 
+void Grid::rotateImage(int degrees)
+{
+    QTransform trans;
+    trans.rotate(degrees);
+    *image = image->transformed(trans);
+}
 
 void Grid::setPixelColor(int x,int y,QColor color)
 {
@@ -60,6 +66,32 @@ void Grid::setPixelColor(int x,int y,QColor color)
         pen.setColor(color);
         painter.setPen(pen);
         painter.drawPoint(x,y);
+        painter.end();
+        //image->setPixelColor(x,y,color);
+    }
+
+}
+
+void Grid::drawLinePixels(QPointF lastPoint,QPointF endPoint,QColor color)
+{
+    QPainter painter;
+    QPen pen;
+
+    int x = lastPoint.x();
+    int y = lastPoint.y();
+    lastPoint.setX(x - x %blocksize);
+    lastPoint.setY(y - y %blocksize);
+    x = endPoint.x();
+    y = endPoint.y();
+    endPoint.setX(x - x %blocksize);
+    endPoint.setY(y - y %blocksize);
+
+    if(containsCoordinate(lastPoint.x(),lastPoint.y()) && containsCoordinate(endPoint.x(),endPoint.y())){
+        painter.begin(image);// the scaling and canvas stuff needs work.
+        pen.setWidth(pow(2,drawScale));
+        pen.setColor(color);
+        painter.setPen(pen);
+        painter.drawLine(lastPoint, endPoint);
         painter.end();
         //image->setPixelColor(x,y,color);
     }

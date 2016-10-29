@@ -25,8 +25,19 @@ void Model::drawPixel(int x, int y){ // this will be repurposed elsewhere
     }
 }
 
+void Model::drawLine(QPointF lastPoint, QPointF endPoint){
+
+    if(project->getCurrentFrame()->containsCoordinate(lastPoint.x(),lastPoint.y()) && project->getCurrentFrame()->containsCoordinate(endPoint.x(),endPoint.y())){
+         project->getCurrentFrame()->drawLinePixels(lastPoint,endPoint,currentColor);
+    }
+}
+
 Project* Model::getProject(){
     return project;
+}
+
+void Model::rotateImage(int degrees){
+    project->getCurrentFrame()->rotateImage(degrees);
 }
 
 void Model::changeTool(QString toolName){
