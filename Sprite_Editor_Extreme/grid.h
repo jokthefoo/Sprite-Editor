@@ -19,10 +19,11 @@ public:
     void drawLinePixels(QPointF,QPointF,QColor);
     void rotateImage(int );
 private:
+    const int initScaleFactor = 3;
     int height;
     int width;
-    int drawScale = 1;
-    int blocksize = 4;
+    int drawScale = initScaleFactor;
+    int blocksize = std::pow(2,initScaleFactor);
     int default_width = 256;
     int default_height = 256;
     QImage* image;

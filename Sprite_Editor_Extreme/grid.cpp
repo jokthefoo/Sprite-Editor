@@ -11,7 +11,7 @@ Grid::Grid()
 
 Grid::Grid(int h,int w)
 {
-    if(h < 1 || h > 1080)
+        if(h < 1 || h > 1080)
     {
         height = default_height;
     }
@@ -47,7 +47,7 @@ QImage* Grid::getImage()
 }
 
 void Grid::setDrawScale(unsigned int scaleFactor){
-    drawScale=scaleFactor;
+    drawScale=scaleFactor+2;
 }
 
 void Grid::rotateImage(int degrees)
