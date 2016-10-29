@@ -2,6 +2,8 @@
 #define CONFIGURATIONFORM_H
 
 #include <QDialog>
+#include <property.h>
+#include <vector>
 
 namespace Ui {
 class ConfigurationForm;
@@ -15,6 +17,7 @@ public:
     explicit ConfigurationForm(QWidget *parent = 0);
     ~ConfigurationForm();
     Ui::ConfigurationForm * get();
+    std::vector<Property> parseConfigurationForm();
 
 
 private:

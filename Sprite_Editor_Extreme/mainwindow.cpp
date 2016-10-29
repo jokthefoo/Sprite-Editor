@@ -57,7 +57,6 @@ void MainWindow::connectComponents(){
 
 void MainWindow::openConfigurationSelected(){
      QAction * action = static_cast<QAction*>(QObject::sender());
-     //send the property change once the canvas stuff is figured out
      this->configuration.show();
      this->configuration.raise();
 
@@ -74,18 +73,11 @@ void MainWindow::spinnerChanged(int value)
 
 void MainWindow::sendConfigurationInput(){
     ConfigurationForm * form = static_cast<ConfigurationForm*>(QObject::sender());
-    //std::cout << "testr" << std::endl;
-    bool ok;
-    bool alsoOk;
-    int cwparse = form->get()->canvasWidthEdit->text().toInt(&alsoOk); // parse text from here
-    int chparse = form->get()->canvasHeightEdit->text().toInt(&ok);
-
-    if(ok&&alsoOk){
-        Property tosend("canvasSize");
-        tosend.addValue(cwparse);
-        tosend.addValue(chparse);
-        emit sendPropertyChange(tosend);
-    }// else the input was invalid
+    std::vector<Property> parse = form->parseConfigurationForm();
+    std::vector<Property>::iterator i;
+    for(i = parse.begin(); i != parse.end(); i++){
+        emit sendPropertyChange(*i);
+    }
 }
 
 void MainWindow::sendLabelInput(){ // could merge
