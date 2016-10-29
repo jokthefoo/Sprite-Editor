@@ -72,8 +72,6 @@ void Controller::receiveButtonInput(QWidget * child)
         } else if(name == "brush_Button"){
             model.changeTool(0);
         }else{
-
-
             //......todo
         }
 
