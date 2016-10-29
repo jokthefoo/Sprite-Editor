@@ -88,12 +88,18 @@ void MainWindow::sendConfigurationInput(){
     ConfigurationForm * form = static_cast<ConfigurationForm*>(QObject::sender());
 
     //std::cout << "testr" << std::endl;
-    form->get()->canvasHeightEdit->text();
-    form->get()->canvasWidthEdit->text(); // parse text from here
+    bool ok;
+    bool alsoOk;
+    int cwparse = form->get()->canvasWidthEdit->text().toInt(&alsoOk); // parse text from here
+    int chparse = form->get()->canvasHeightEdit->text().toInt(&ok);
 
-    // either send the information as a parsable string or a collection of property tuples
-    //emit sendPropertyChange(action->text(),);
-
+    if(ok&&alsoOk){
+        std::vector<int> v;
+        v.push_back(cwparse);
+        v.push_back(chparse);
+        QPair<QString,std::vector<int>> pair("canvasSize",v);
+        emit sendPropertyChange(pair);
+    }// else the input was invalid
 }
 
 void MainWindow::sendLabelInput(){
