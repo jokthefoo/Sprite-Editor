@@ -30,7 +30,6 @@ void Controller::receivePropertyChange(Property p){
         if(p.name.toStdString().compare("canvasSize")==0){
             model.getProject()->setCanvasSize(p.values[0],p.values[1]);
             emit sendImage(model.getProject()->getCurrentFrame()->getImage());
-
         }
     }
 }
@@ -61,23 +60,27 @@ void Controller::receiveMouseInput(QPointF point, QMouseEvent *event)
 
 }
 
+// decode buttons here
 void Controller::receiveButtonInput(QToolButton *button)
 {
     std::string name = button->objectName().toStdString();
-    // decode buttons here
-    //std::cout << button->objectName().toStdString() << std::endl;
+    QImage * image = model.getProject()->getCurrentFrame()->getImage();
     if(name == "rotate_Right_Button")
     {
         model.rotateImage(90);
-    }
-    if(name == "brush_Button"){
-        model.changeTool(0);
-    }
-    if(name  == "rotate_Left_Button")
+        emit sendImage(image);
+    }else if(name  == "rotate_Left_Button")
     {
         model.rotateImage(-90);
+        emit sendImage(image);
+    } else if(name == "brush_Button"){
+        model.changeTool(0);
+    }else{
+
+
+        //......todo
     }
-    emit sendImage(model.getProject()->getCurrentFrame()->getImage());
+
 }
 
 void Controller::receiveColorChange(QLabel * button){ // used for the color picker

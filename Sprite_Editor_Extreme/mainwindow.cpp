@@ -4,7 +4,7 @@
 #include <QLineEdit>
 #include <QAction>
 #include <ui_configurationform.h>
-
+#include <typeinfo>
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -49,17 +49,6 @@ void MainWindow::setupIcons(){
 
 void MainWindow::connectComponents(){
 
-    QObject::connect(ui->add_Frame_Button, SIGNAL (clicked()), this, SLOT ( sendButtonInputM() ));
-    QObject::connect(ui->brush_Button, SIGNAL (clicked()), this, SLOT ( sendButtonInputM() ));
-    QObject::connect(ui->eraser_Button, SIGNAL (clicked()), this, SLOT ( sendButtonInputM() ));
-    QObject::connect(ui->fill_Bucket_Button, SIGNAL (clicked()), this, SLOT ( sendButtonInputM() ));
-    QObject::connect(ui->next_frame_button, SIGNAL (clicked()), this, SLOT ( sendButtonInputM() ));
-    QObject::connect(ui->previous_frame_button, SIGNAL (clicked()), this, SLOT ( sendButtonInputM() ));
-    QObject::connect(ui->zoom_In_Button, SIGNAL (clicked()), this, SLOT ( sendButtonInputM() ));
-    QObject::connect(ui->zoom_Out_Button, SIGNAL (clicked()), this, SLOT ( sendButtonInputM() ));
-    QObject::connect(ui->rectangle_button, SIGNAL (clicked()), this, SLOT ( sendButtonInputM() ));
-    QObject::connect(ui->rotate_Left_Button, SIGNAL (clicked()), this, SLOT ( sendButtonInputM() ));
-    QObject::connect(ui->rotate_Right_Button, SIGNAL (clicked()), this, SLOT ( sendButtonInputM() ));
     QObject::connect(ui->leftColor, SIGNAL (clicked()), this, SLOT ( sendLabelInput() ));
     QObject::connect(ui->brushSize, SIGNAL(valueChanged(int)),this, SLOT(spinnerChanged(int)));
     QObject::connect(ui->actionCanvasSize_2, SIGNAL(triggered()), this, SLOT(openConfigurationSelected()));
@@ -105,10 +94,6 @@ void MainWindow::sendLabelInput(){ // could merge
     emit sendColorChange(sender);
 }
 
-void MainWindow::sendButtonInputM(){
-    QToolButton *sender = static_cast<QToolButton*>(QObject::sender());
-    emit sendButtonInput(sender);
-}
 
 void MainWindow::updateColor(QColor color){
     QPalette p(palette());
@@ -126,14 +111,16 @@ void MainWindow::updateScreen(QImage * image){
     ui->graphicsView->update();
 }
 
-bool MainWindow::eventFilter(QObject*, QEvent *event)
+bool MainWindow::eventFilter(QObject* obj, QEvent *event)
 {
 
+    //this will get all the input for every button
     if(event->type()==QEvent::MouseButtonPress){
-
-
-
-
+        QWidget * child = childAt(static_cast<QMouseEvent *>(event)->pos());
+        QToolButton * button = dynamic_cast<QToolButton*>(child);
+        if(button!=NULL){
+            emit sendButtonInput(button);
+        }
     }
 
     if(event->type()==QEvent::MouseButtonPress||event->type()==QEvent::MouseMove||event->type()==QEvent::MouseButtonRelease){
