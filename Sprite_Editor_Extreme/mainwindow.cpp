@@ -43,9 +43,11 @@ void MainWindow::setupIcons(){
     setupIcon(ui->rectangle_button, ":/resources/polygon.png");
     setupIcon(ui->add_Frame_Button, ":/resources/addFrame.png");
 
+
 }
 
 void MainWindow::connectComponents(){
+
     QObject::connect(ui->add_Frame_Button, SIGNAL (clicked()), this, SLOT ( buttonInput() ));
     QObject::connect(ui->brush_Button, SIGNAL (clicked()), this, SLOT ( buttonInput() ));
     QObject::connect(ui->eraser_Button, SIGNAL (clicked()), this, SLOT ( buttonInput() ));
