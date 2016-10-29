@@ -330,7 +330,7 @@
      <x>0</x>
      <y>0</y>
      <width>775</width>
-     <height>17</height>
+     <height>19</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuFile">
@@ -351,14 +351,12 @@
     <bool>false</bool>
    </attribute>
   </widget>
-  <action name="actionCanvasSize">
-   <property name="text">
-    <string>CanvasSize</string>
-   </property>
-  </action>
   <action name="actionCanvasSize_2">
    <property name="text">
-    <string>CanvasSize</string>
+    <string>Configuration</string>
+   </property>
+   <property name="toolTip">
+    <string>Open configuration page</string>
    </property>
   </action>
  </widget>

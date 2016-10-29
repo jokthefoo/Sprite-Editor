@@ -10,6 +10,7 @@
 #include <QToolButton>
 #include <grid.h>
 #include <iostream>
+#include <configurationform.h>
 
 
 
@@ -30,14 +31,15 @@ signals:
     void sendMouseInput(QPointF, QEvent*);
     void sendButtonInput(QToolButton*);
     void sendColorChange(QLabel*);
-    void sendPropertyChange(QString property, std::vector<int>);
+    void sendPropertyChange(QPair<QString, std::vector<int>>);
 
 
 public slots:
-    void propertyChangedMenu(bool);
-    void propertyChangedSpinner(int);
-    void buttonInput();
-    void labelInput();
+    void sendConfigurationInput();
+    void openConfigurationSelected();
+    void spinnerChanged(int);
+    void sendButtonInputM();
+    void sendLabelInput();
     void updateScreen(QImage * toShow);
     void updateColor(QColor); // left is false right is true
     // void updatePreview(std::vector<Grid>);
@@ -46,6 +48,7 @@ protected:
     bool eventFilter(QObject *watched, QEvent *event);
 
 private:
+    ConfigurationForm configuration;
     void connectComponents();
     void setupIcons();
     QGraphicsRectItem * boundary; // should move this to the model

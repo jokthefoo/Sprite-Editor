@@ -33,7 +33,7 @@ public slots:
     void receiveColorChange(QLabel*);
     void receiveButtonInput(QToolButton*);
     void receiveMouseInput(QPointF, QEvent*);
-    void receivePropertyChange(QString, std::vector<int>);
+    void receivePropertyChange(QPair<QString, std::vector<int>>);
 
 };
 

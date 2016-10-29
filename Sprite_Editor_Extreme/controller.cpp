@@ -1,5 +1,6 @@
+
 #include "controller.h"
-#include <vector>;
+#include <vector>
 
 Controller::Controller(MainWindow * w)
 {
@@ -19,7 +20,9 @@ Controller::~Controller(){
 
 }
 
-void Controller::receivePropertyChange(QString s, std::vector<int> v){
+void Controller::receivePropertyChange(QPair<QString,std::vector<int>> pair){
+    QString s = pair.first;
+    std::vector<int> v = pair.second;
     if(v.size()>0){
         if(QString::compare(s, QString::fromStdString("brushSize"))==0){
             if(v.front()>0){
@@ -50,13 +53,14 @@ void Controller::receiveMouseInput(QPointF point, QEvent *event)
 
 void Controller::receiveButtonInput(QToolButton *button)
 {
-   // decode buttons here
+    std::string name = button->objectName().toStdString();
+    // decode buttons here
     //std::cout << button->objectName().toStdString() << std::endl;
-    if(button->objectName().toStdString() == "rotate_Right_Button")
+    if(name == "rotate_Right_Button")
     {
         model.rotateImage(90);
     }
-    if(button->objectName().toStdString() == "rotate_Left_Button")
+    if(name  == "rotate_Left_Button")
     {
         model.rotateImage(-90);
     }

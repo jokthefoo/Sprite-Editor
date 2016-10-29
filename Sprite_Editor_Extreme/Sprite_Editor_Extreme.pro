@@ -20,7 +20,8 @@ SOURCES += main.cpp\
     model.cpp \
     project.cpp \
     tool.cpp \
-    colorbox.cpp
+    colorbox.cpp \
+    configurationform.cpp
 
 HEADERS  += mainwindow.h \
     grid.h \
@@ -28,9 +29,11 @@ HEADERS  += mainwindow.h \
     model.h \
     project.h \
     tool.h \
-    colorbox.h
+    colorbox.h \
+    configurationform.h
 
-FORMS    += mainwindow.ui
+FORMS    += mainwindow.ui \
+    configurationform.ui
 
 RESOURCES += \
     resources.qrc
