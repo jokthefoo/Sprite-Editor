@@ -103,7 +103,7 @@ void Grid::drawLinePixels(QPointF lastPoint,QPointF endPoint,QColor color)
 }
 
 bool Grid::containsCoordinate(int x, int y){ // uses cartesian coordinates from top left
-     return (x < width && y < height);
+     return (x <= width&&y<=height);
 }
 
 Grid::~Grid()
