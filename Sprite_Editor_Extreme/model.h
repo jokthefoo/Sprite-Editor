@@ -4,7 +4,7 @@
 #include <vector>
 #include <project.h>
 #include <grid.h>
-
+#include <tool.h>
 
 class Model // the model updates the view by sending signals
 {
@@ -12,11 +12,15 @@ class Model // the model updates the view by sending signals
 private:
     Project * project;
     QColor currentColor;
-    QString currentTool;
+    Tool * currentTool;
+    std::vector<Tool*> tools;
+
+
 
 public:
     Model();
     ~Model();
+
     void drawPixel(int x, int y);
     void setColor(QColor);
     Project * getProject();
@@ -24,7 +28,7 @@ public:
     void drawLine(QPointF , QPointF );
     void rotateImage(int);
     void changeTool(int);
-    const QString tool();
+    Tool * getCurrentTool();
 
 };
 

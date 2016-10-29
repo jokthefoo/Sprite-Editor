@@ -18,7 +18,7 @@ private:
     MainWindow * view;
     Model model;
     bool drawing;
-    QPointF lastPoint;
+
 
 
 public:

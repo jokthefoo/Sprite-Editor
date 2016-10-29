@@ -1,9 +1,13 @@
 #include "model.h"
+#include <brush.h>
 
 Model::Model()
 {
     project = new Project();
     setColor(Qt::white);
+    Tool * brush = new Brush();
+    tools.push_back(brush);
+    currentTool = brush; // need to decide on the default tool
 }
 
 Model::~Model(){
@@ -42,11 +46,11 @@ void Model::rotateImage(int degrees){
 
 void Model::changeTool(int i){
     if(i==0){
-        currentTool="brush";
+        currentTool=tools[0];
     }
 }
 
-const QString Model::tool(){
+Tool * Model::getCurrentTool(){
     return currentTool;
 }
 

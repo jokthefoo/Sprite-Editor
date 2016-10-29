@@ -33,28 +33,13 @@ void Controller::receivePropertyChange(Property p){
 
 void Controller::receiveMouseInput(QPointF point, QMouseEvent *event)
 {
+    Grid * currentFrame = model.getProject()->getCurrentFrame();
+    if(model.getCurrentTool()!=nullptr){
 
-    if( model.tool() == "brush" ){ // this way we can capture input on other portions of the form
-        //Also use to check what tool is selected
-        if(model.getProject()->getCurrentFrame()->containsCoordinate(point.x(),point.y())){ // restricts the action to only when in the drawing area.
-            if(event->type() == QEvent::MouseButtonPress && !drawing) // other wise we would be updating the image every time a mouse event was fired
-            {
-                drawing = true;
-                model.drawPixel(point.x(),point.y());
-                lastPoint = point;
-            }else if(drawing && event->type() == QEvent::MouseMove)
-            {
-                model.drawLine(lastPoint,point);
-                lastPoint = point;
-            }else if(drawing && event->type() == QEvent::MouseButtonRelease)
-            {
-                drawing = false;\
-            }
-            emit sendImage(model.getProject()->getCurrentFrame()->getImage());
-      }
+        Tool * tool = model.getCurrentTool();
+        tool->applyTool(currentFrame,point, model.getColor(), event);
+        emit sendImage(model.getProject()->getCurrentFrame()->getImage());
     }
-
-
 }
 
 // decode buttons here
