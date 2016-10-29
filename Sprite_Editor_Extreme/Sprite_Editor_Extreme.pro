@@ -19,18 +19,18 @@ SOURCES += main.cpp\
     controller.cpp \
     model.cpp \
     project.cpp \
-    tool.cpp \
     colorbox.cpp \
-    configurationform.cpp
+    configurationform.cpp \
+    property.cpp
 
 HEADERS  += mainwindow.h \
     grid.h \
     controller.h \
     model.h \
     project.h \
-    tool.h \
     colorbox.h \
-    configurationform.h
+    configurationform.h \
+    property.h
 
 FORMS    += mainwindow.ui \
     configurationform.ui

@@ -11,6 +11,7 @@
 #include <grid.h>
 #include <iostream>
 #include <configurationform.h>
+#include <property.h>
 
 
 
@@ -28,10 +29,10 @@ public:
     ~MainWindow();
 
 signals:
-    void sendMouseInput(QPointF, QEvent*);
+    void sendMouseInput(QPointF, QMouseEvent*);
     void sendButtonInput(QToolButton*);
     void sendColorChange(QLabel*);
-    void sendPropertyChange(QPair<QString, std::vector<int>>);
+    void sendPropertyChange(Property);
 
 
 public slots:

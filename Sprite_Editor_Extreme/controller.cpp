@@ -20,35 +20,45 @@ Controller::~Controller(){
 
 }
 
-void Controller::receivePropertyChange(QPair<QString,std::vector<int>> pair){
-    QString s = pair.first;
-    std::vector<int> v = pair.second;
-    if(v.size()>0){
-        if(QString::compare(s, QString::fromStdString("brushSize"))==0){
-            if(v.front()>0){
-                model.getProject()->getCurrentFrame()->setDrawScale(v.front()); // there may be a better way to do this
+void Controller::receivePropertyChange(Property p){
+    if(p.values.size()>0){
+        if(p.name.toStdString().compare("brushSize")==0){
+            if(p.values.front()>0){
+                model.getProject()->getCurrentFrame()->setDrawScale(p.values.front());
             }
+        }
+        if(p.name.toStdString().compare("canvasSize")==0){
+            model.getProject()->setCanvasSize(p.values[0],p.values[1]);
+            emit sendImage(model.getProject()->getCurrentFrame()->getImage());
+
         }
     }
 }
 
-void Controller::receiveMouseInput(QPointF point, QEvent *event)
+void Controller::receiveMouseInput(QPointF point, QMouseEvent *event)
 {
-    //Also use to check what tool is selected
-    if(event->type() == QEvent::MouseButtonPress && !drawing)
-    {
-        drawing = true;
-        model.drawPixel(point.x(),point.y());
-        lastPoint = point;
-    }else if(drawing && event->type() == QEvent::MouseMove)
-    {
-        model.drawLine(lastPoint,point);
-        lastPoint = point;
-    }else if(drawing && event->type() == QEvent::MouseButtonRelease)
-    {
-        drawing = false;\
+
+    if( model.tool() == "brush" ){ // this way we can capture input on other portions of the form
+        //Also use to check what tool is selected
+        if(model.getProject()->getCurrentFrame()->containsCoordinate(point.x(),point.y())){ // restricts the action to only when in the drawing area.
+            if(event->type() == QEvent::MouseButtonPress && !drawing) // other wise we would be updating the image every time a mouse event was fired
+            {
+                drawing = true;
+                model.drawPixel(point.x(),point.y());
+                lastPoint = point;
+            }else if(drawing && event->type() == QEvent::MouseMove)
+            {
+                model.drawLine(lastPoint,point);
+                lastPoint = point;
+            }else if(drawing && event->type() == QEvent::MouseButtonRelease)
+            {
+                drawing = false;\
+            }
+            emit sendImage(model.getProject()->getCurrentFrame()->getImage());
+      }
     }
-    emit sendImage(model.getProject()->getCurrentFrame()->getImage());
+
+
 }
 
 void Controller::receiveButtonInput(QToolButton *button)
@@ -59,6 +69,9 @@ void Controller::receiveButtonInput(QToolButton *button)
     if(name == "rotate_Right_Button")
     {
         model.rotateImage(90);
+    }
+    if(name == "brush_Button"){
+        model.changeTool(0);
     }
     if(name  == "rotate_Left_Button")
     {

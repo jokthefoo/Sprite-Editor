@@ -18,8 +18,11 @@ QColor Model::getColor(){
     return currentColor;
 }
 
+
+
+
 void Model::drawPixel(int x, int y){ // this will be repurposed elsewhere
-    //todo
+
     if(project->getCurrentFrame()->containsCoordinate(x,y)){
          project->getCurrentFrame()->setPixelColor(x,y,currentColor);
     }
@@ -40,13 +43,15 @@ void Model::rotateImage(int degrees){
     project->getCurrentFrame()->rotateImage(degrees);
 }
 
-void Model::changeTool(QString toolName){
-
+void Model::changeTool(int i){
+    if(i==0){
+        currentTool="brush";
+    }
 }
 
-void Model::applyTool(Tool tool, QPoint pos){
-
-
+const QString Model::tool(){
+    return currentTool;
 }
+
 
 

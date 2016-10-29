@@ -34,6 +34,11 @@ Grid::Grid(int h,int w)
 void Grid::resize(int h, int w){
     height=h;
     width=w;
+    QImage newImage(h,w,QImage::Format_ARGB32);
+    QPainter painter(&newImage);
+    painter.drawImage(QPoint(0,0),*image);
+    painter.end();
+    image->swap(newImage);
 }
 
 QImage* Grid::getImage()

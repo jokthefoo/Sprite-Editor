@@ -18,6 +18,7 @@ private:
     bool drawing;
     QPointF lastPoint;
 
+
 public:
     Controller();
     Controller(MainWindow*);
@@ -32,8 +33,8 @@ signals:
 public slots:
     void receiveColorChange(QLabel*);
     void receiveButtonInput(QToolButton*);
-    void receiveMouseInput(QPointF, QEvent*);
-    void receivePropertyChange(QPair<QString, std::vector<int>>);
+    void receiveMouseInput(QPointF, QMouseEvent*);
+    void receivePropertyChange(Property);
 
 };
 

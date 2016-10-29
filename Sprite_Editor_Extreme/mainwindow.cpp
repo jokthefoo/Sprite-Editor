@@ -78,15 +78,14 @@ void MainWindow::openConfigurationSelected(){
 void MainWindow::spinnerChanged(int value)
 {
     QSpinBox * spin = static_cast<QSpinBox*>(QObject::sender());
-    std::vector<int> container;
-    container.push_back(value);
-    QPair<QString,std::vector<int>> property(spin->objectName(),container);
-    emit sendPropertyChange(property);
+
+    Property tosend(spin->objectName());
+    tosend.addValue(value);
+    emit sendPropertyChange(tosend);
 }
 
 void MainWindow::sendConfigurationInput(){
     ConfigurationForm * form = static_cast<ConfigurationForm*>(QObject::sender());
-
     //std::cout << "testr" << std::endl;
     bool ok;
     bool alsoOk;
@@ -94,15 +93,14 @@ void MainWindow::sendConfigurationInput(){
     int chparse = form->get()->canvasHeightEdit->text().toInt(&ok);
 
     if(ok&&alsoOk){
-        std::vector<int> v;
-        v.push_back(cwparse);
-        v.push_back(chparse);
-        QPair<QString,std::vector<int>> pair("canvasSize",v);
-        emit sendPropertyChange(pair);
+        Property tosend("canvasSize");
+        tosend.addValue(cwparse);
+        tosend.addValue(chparse);
+        emit sendPropertyChange(tosend);
     }// else the input was invalid
 }
 
-void MainWindow::sendLabelInput(){
+void MainWindow::sendLabelInput(){ // could merge
     QLabel *sender = static_cast<QLabel*>(QObject::sender());
     emit sendColorChange(sender);
 }
@@ -130,12 +128,20 @@ void MainWindow::updateScreen(QImage * image){
 
 bool MainWindow::eventFilter(QObject*, QEvent *event)
 {
+
+    if(event->type()==QEvent::MouseButtonPress){
+
+
+
+
+    }
+
     if(event->type()==QEvent::MouseButtonPress||event->type()==QEvent::MouseMove||event->type()==QEvent::MouseButtonRelease){
         QPoint remapped = ui->graphicsView->mapFromGlobal(QCursor::pos()); // gives coordinates relative to parent
         QPointF  mousePoint = ui->graphicsView->mapToScene(remapped); // converts to cartesian coordinates
         if(ui->graphicsView->rect().contains(remapped))
         {
-             emit sendMouseInput(mousePoint, event);
+             emit sendMouseInput(mousePoint, static_cast<QMouseEvent*>(event));
         }
     }
 

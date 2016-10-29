@@ -17,6 +17,14 @@ Grid * Project::getCurrentFrame(){
 void Project::addEmptyFrame(){
 
 
+
+
+}
+
+void Project::setCanvasSize(int w, int h){
+   canvasSize.first=w;
+   canvasSize.second=h;
+   currentFrame->resize(w,h);
 }
 
 void Project::addNewFrame(Grid *){
