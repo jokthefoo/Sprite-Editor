@@ -104,6 +104,7 @@ bool MainWindow::eventFilter(QObject* obj, QEvent *event)
     if(event->type()==QEvent::MouseButtonPress){
         QWidget * child = childAt(static_cast<QMouseEvent *>(event)->pos());
         emit sendButtonInput(child);
+        return false; // skip the rest of the filter. Since we are engaging a button.
     }
 
     if(event->type()==QEvent::MouseButtonPress||event->type()==QEvent::MouseMove||event->type()==QEvent::MouseButtonRelease){

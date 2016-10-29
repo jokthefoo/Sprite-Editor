@@ -64,7 +64,7 @@ void Controller::receiveButtonInput(QWidget * child)
     QLabel * label = dynamic_cast<QLabel*>(child); // type check the input
     if(label!=NULL){
         QString str = label->objectName();
-        int x =  QString::compare(str, QString::fromStdString("leftColor"), Qt::CaseInsensitive);
+        int x =  QString::compare(str, "leftColor", Qt::CaseInsensitive);
         if(x == 0){
             QColor c = QColorDialog::getColor(Qt::white);
             model.setColor(c);

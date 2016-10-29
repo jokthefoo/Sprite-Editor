@@ -19,7 +19,6 @@ public:
     Ui::ConfigurationForm * get();
     std::vector<Property> parseConfigurationForm();
 
-
 private:
     Ui::ConfigurationForm *ui;
 };
