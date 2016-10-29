@@ -28,7 +28,7 @@ void Project::addNewFrame(Grid *){
 
 }
 
-void Project::removeFrame(unsigned int i){
+void Project::removeFrame(unsigned int){
 
 }
 

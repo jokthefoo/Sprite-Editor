@@ -55,7 +55,6 @@ void MainWindow::connectComponents(){
 }
 
 void MainWindow::openConfigurationSelected(){
-     QAction * action = static_cast<QAction*>(QObject::sender());
      this->configuration.show();
      this->configuration.raise();
 
@@ -97,7 +96,7 @@ void MainWindow::updateScreen(QImage * image){
     ui->graphicsView->update();
 }
 
-bool MainWindow::eventFilter(QObject* obj, QEvent *event)
+bool MainWindow::eventFilter(QObject*, QEvent *event)
 {
 
     //this will get all the input for every button

@@ -5,7 +5,7 @@ ColorBox::ColorBox(QWidget* parent) : QLabel(parent)
 
 }
 
-void ColorBox::mousePressEvent(QMouseEvent * event) {
+void ColorBox::mousePressEvent(QMouseEvent *) {
     emit clicked();
 }
 
