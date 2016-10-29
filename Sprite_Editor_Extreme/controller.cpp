@@ -36,6 +36,7 @@ void Controller::receiveMouseInput(QPointF point, QMouseEvent *event)
 
     if( model.tool() == "brush" ){ // this way we can capture input on other portions of the form
         //Also use to check what tool is selected
+
         if(model.getProject()->getCurrentFrame()->containsCoordinate(point.x(),point.y())){ // restricts the action to only when in the drawing area.
             if(event->type() == QEvent::MouseButtonPress && !drawing) // other wise we would be updating the image every time a mouse event was fired
             {
