@@ -9,6 +9,7 @@ Controller::Controller(MainWindow * w)
    QObject::connect(this, &Controller::sendImage, w, &MainWindow::updateScreen);
    QObject::connect(this, &Controller::sendColor, w, &MainWindow::updateColor);
    emit sendImage(model.getProject()->getCurrentFrame()->getImage());
+   emit sendColor(model.getCurrentTool()->color);
    drawing = false;
 
 }
@@ -36,7 +37,7 @@ void Controller::receiveMouseInput(QPointF point, QMouseEvent *event)
     Grid * currentFrame = model.getProject()->getCurrentFrame();
     if(model.getCurrentTool()!=nullptr){
         Tool * tool = model.getCurrentTool();
-        tool->applyTool(currentFrame,point, model.getColor(), event);
+        tool->applyTool(currentFrame,point, event);
         emit sendImage(model.getProject()->getCurrentFrame()->getImage());
     }
 }
@@ -51,7 +52,7 @@ void Controller::receiveButtonInput(QWidget * child)
         int x =  QString::compare(str, "leftColor", Qt::CaseInsensitive);
         if(x == 0){
             QColor c = QColorDialog::getColor(Qt::white);
-            model.setColor(c);
+            model.getCurrentTool()->color=c;
             emit sendColor(c);
         }
         return;
@@ -71,6 +72,7 @@ void Controller::receiveButtonInput(QWidget * child)
             emit sendImage(image);
         } else if(name == "brush_Button"){
             model.changeTool(0);
+            emit sendColor(model.getCurrentTool()->color);
         }else{
             //......todo
         }
