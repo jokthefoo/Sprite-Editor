@@ -58,6 +58,7 @@ void Controller::receiveButtonInput(QWidget * child)
         return;
     }
 
+
     QToolButton * button = dynamic_cast<QToolButton*>(child);
     if(button!=NULL){
         std::string name = button->objectName().toStdString();
@@ -73,7 +74,9 @@ void Controller::receiveButtonInput(QWidget * child)
         } else if(name == "brush_Button"){
             model.changeTool(0);
             emit sendColor(model.getCurrentTool()->color);
-        }else{
+        }else if( name == "play_button"){
+            // start a timer here and tie it to a method in this class
+            // that method will send a image back to the preview for updating
             //......todo
         }
 

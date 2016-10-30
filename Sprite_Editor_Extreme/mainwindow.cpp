@@ -19,6 +19,7 @@ MainWindow::MainWindow(QWidget *parent) :
     updateColor(Qt::white);
     setupIcons();
 
+
 }
 
 void static setupIcon(QToolButton * button, QString filename){

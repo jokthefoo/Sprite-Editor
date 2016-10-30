@@ -108,5 +108,5 @@ bool Grid::containsCoordinate(int x, int y){ // uses cartesian coordinates from 
 
 Grid::~Grid()
 {
-    if(image!=nullptr) delete image;
+    if(image!=NULL) delete image;
 }
