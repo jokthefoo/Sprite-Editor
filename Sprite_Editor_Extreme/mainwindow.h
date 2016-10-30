@@ -50,6 +50,7 @@ private:
     ConfigurationForm configuration;
     void connectComponents();
     void setupIcons();
+    void setupToolTips();
     QGraphicsRectItem * boundary; // should move this to the model
     Ui::MainWindow * ui;
     QGraphicsScene * scene;

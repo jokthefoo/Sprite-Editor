@@ -18,7 +18,7 @@ MainWindow::MainWindow(QWidget *parent) :
     connectComponents();
     updateColor(Qt::white);
     setupIcons();
-
+    setupToolTips();
 }
 
 void static setupIcon(QToolButton * button, QString filename){
@@ -43,7 +43,22 @@ void MainWindow::setupIcons(){
     setupIcon(ui->play_button, ":/resources/play.png");
     setupIcon(ui->rectangle_button, ":/resources/polygon.png");
     setupIcon(ui->add_Frame_Button, ":/resources/addFrame.png");
+}
 
+void MainWindow::setupToolTips()
+{
+    ui->brush_Button->setToolTip("Brush Tool");
+    ui->brushSize->setToolTip("Set Brush Size");
+    ui->fill_Bucket_Button->setToolTip("Fill Bucket Tool");
+    ui->eraser_Button->setToolTip("Eraser Tool");
+    ui->rotate_Left_Button->setToolTip("Rotate sprite 90 degrees to the left");
+    ui->rotate_Right_Button->setToolTip("Rotate sprite 90 degrees to the right");
+    ui->zoom_In_Button->setToolTip("Zoom in");
+    ui->zoom_Out_Button->setToolTip("Zoom out");
+    ui->tabWidget->setTabToolTip(0, "Painting Tools");
+    ui->tabWidget->setTabToolTip(1, "Transformation tools");
+    ui->leftColor->setToolTip("Set color of brush");
+    // not working : ui->actionCanvasSize_2->setToolTip("Open configuration page");
 }
 
 void MainWindow::connectComponents(){
