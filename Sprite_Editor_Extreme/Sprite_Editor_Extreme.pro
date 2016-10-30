@@ -23,7 +23,8 @@ SOURCES += main.cpp\
     configurationform.cpp \
     property.cpp \
     tool.cpp \
-    brush.cpp
+    brush.cpp \
+    previewwindow.cpp
 
 HEADERS  += mainwindow.h \
     grid.h \
@@ -34,10 +35,12 @@ HEADERS  += mainwindow.h \
     configurationform.h \
     property.h \
     tool.h \
-    brush.h
+    brush.h \
+    previewwindow.h
 
 FORMS    += mainwindow.ui \
-    configurationform.ui
+    configurationform.ui \
+    previewwindow.ui
 
 RESOURCES += \
     resources.qrc
