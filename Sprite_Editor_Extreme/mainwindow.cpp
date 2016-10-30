@@ -124,3 +124,9 @@ MainWindow::~MainWindow()
     delete scene;
 }
 
+
+void MainWindow::on_play_button_pressed()
+{
+    preview = new PreviewWindow();
+    preview->show();
+}

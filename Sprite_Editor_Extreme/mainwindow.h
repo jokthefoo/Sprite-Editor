@@ -15,6 +15,7 @@
 #include <iostream>
 #include <configurationform.h>
 #include <property.h>
+#include <previewwindow.h>
 
 namespace Ui {
 class MainWindow;
@@ -46,8 +47,12 @@ public slots:
 protected:
     bool eventFilter(QObject *watched, QEvent *event);
 
+private slots:
+    void on_play_button_pressed();
+
 private:
     ConfigurationForm configuration;
+    PreviewWindow *preview;
     void connectComponents();
     void setupIcons();
     QGraphicsRectItem * boundary; // should move this to the model

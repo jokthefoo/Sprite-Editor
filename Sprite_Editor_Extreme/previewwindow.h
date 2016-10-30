@@ -13,6 +13,7 @@ class PreviewWindow : public QMainWindow
 
 public:
     explicit PreviewWindow(QWidget *parent = 0);
+    Ui::PreviewWindow * get();
     ~PreviewWindow();
 
 private:

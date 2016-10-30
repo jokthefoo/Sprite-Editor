@@ -12,3 +12,8 @@ PreviewWindow::~PreviewWindow()
 {
     delete ui;
 }
+
+Ui::PreviewWindow * PreviewWindow::get()
+{
+    return this->ui;
+}
