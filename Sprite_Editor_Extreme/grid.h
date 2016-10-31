@@ -5,6 +5,7 @@
 #include <QColor>
 #include <QPainter>
 #include <cmath>
+#include <QString>
 
 class Grid
 {
@@ -19,11 +20,14 @@ public:
     void resize(int, int);
     //void setBlockSize(int);
     void setPixelColor(int,int,QColor);
+    QColor getPixelColor(int, int);
     bool containsCoordinate(int, int);
     void setDrawScale(unsigned int);
     QImage *getImage();
     void drawLinePixels(QPointF,QPointF,QColor);
     void rotateImage(int );
+    QString toString();
+    QString toRgba(QColor);
 
 protected:
     const int initScaleFactor = 3;

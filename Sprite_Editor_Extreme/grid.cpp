@@ -104,6 +104,10 @@ void Grid::setPixelColor(int x,int y,QColor color)
 
 }
 
+QColor Grid::getPixelColor(int x, int y){
+    QColor color = image->pixelColor(x, y);
+}
+
 void Grid::drawLinePixels(QPointF lastPoint,QPointF endPoint,QColor color)
 {
     QPainter painter;
@@ -132,6 +136,27 @@ void Grid::drawLinePixels(QPointF lastPoint,QPointF endPoint,QColor color)
 
 bool Grid::containsCoordinate(int x, int y){ // uses cartesian coordinates from top left
      return (x <= width&&y<=height);
+}
+
+QString Grid::toString(){
+    QString formatted;
+    for(int y = 0; y < height; ++y)
+    {
+        for(int x = 0; x < width; ++x)
+        {
+            QColor color = getPixelColor(x, y);
+            formatted += toRgba(color);
+        }
+        formatted += "\n";
+    }
+    return formatted;
+}
+
+QString Grid::toRgba(QColor color){
+    return QString::number(color.red()) + " " +
+            QString::number(color.green()) + " " +
+            QString::number(color.blue()) + " " +
+            QString::number(color.alpha()) + " ";
 }
 
 Grid::~Grid()

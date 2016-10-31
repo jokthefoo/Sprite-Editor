@@ -71,5 +71,17 @@ bool Project::previous(){
   } return false;
 }
 
+QString Project::toString(){
+    int height = canvasSize.second;
+    int width = canvasSize.first;
+
+    QString formatted = QString::number(height) + " " + QString::number(width) + "\n" +
+            QString::number(frames.size()) + "\n";
+
+    foreach (Grid* grid, frames) {
+        formatted += grid->toString();
+    }
+    return formatted;
+}
 
 

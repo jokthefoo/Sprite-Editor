@@ -3,6 +3,7 @@
 #include <vector>
 #include <QPolygon>
 #include <grid.h>
+#include <QString>
 
 class Project
 {
@@ -26,6 +27,7 @@ public:
     void setCanvasSize(int,int);
     QPair<int,int> getCanvasSize();
     QPair<int,int> getImageSize();
+    QString toString();
 
 };
 
