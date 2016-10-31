@@ -26,12 +26,12 @@ void Project::setCanvasSize(int w, int h){
 }
 
 void Project::addNewFrame(Grid * grid){
-    currentFrame = *grid;
+    currentFrame = grid;
     frames.push_back(*currentFrame);
 }
 
 void Project::removeFrame(unsigned int frameIndex){
-    frames.erase(frames.begin() + frameIndex)//might need offset of 1
+    frames.erase(frames.begin() + frameIndex);//might need offset of 1
 }
 
 std::vector<Grid> Project::getAllFrames(){

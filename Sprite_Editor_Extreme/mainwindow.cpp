@@ -127,6 +127,12 @@ MainWindow::~MainWindow()
 
 void MainWindow::on_play_button_pressed()
 {
-    preview = new PreviewWindow();
-    preview->show();
+    if(!preview->isVisible()){
+        preview = new PreviewWindow();
+        preview->show();
+        //change the button icon to pause?
+    }
+    //else
+        //call another slot which will pause the animation
+
 }

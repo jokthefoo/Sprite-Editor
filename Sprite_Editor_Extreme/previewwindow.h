@@ -2,6 +2,8 @@
 #define PREVIEWWINDOW_H
 
 #include <QMainWindow>
+#include <mainwindow.h>
+
 
 namespace Ui {
 class PreviewWindow;
@@ -16,8 +18,13 @@ public:
     Ui::PreviewWindow * get();
     ~PreviewWindow();
 
+private slots:
+    void updatePreview(QImage * toShow);
+
 private:
     Ui::PreviewWindow *ui;
+    QGraphicsRectItem * boundary;
+    QGraphicsScene * scene;
 };
 
 #endif // PREVIEWWINDOW_H
