@@ -52,8 +52,8 @@ void Controller::receiveButtonInput(QWidget * child)
         int x =  QString::compare(str, "leftColor", Qt::CaseInsensitive);
         if(x == 0){
             QColor c = QColorDialog::getColor(Qt::white);
-            model.getCurrentTool()->color=c;
-            emit sendColor(c);
+            model.getCurrentTool()->setColor(c);
+            emit sendColor(model.getCurrentTool()->color);
         }
         return;
     }
@@ -72,6 +72,10 @@ void Controller::receiveButtonInput(QWidget * child)
             emit sendImage(image);
         } else if(name == "brush_Button"){
             model.changeTool(0);
+            emit sendColor(model.getCurrentTool()->color);
+        } else if (name == "eraser_Button")
+        {
+            model.changeTool(1);
             emit sendColor(model.getCurrentTool()->color);
         }else{
             //......todo

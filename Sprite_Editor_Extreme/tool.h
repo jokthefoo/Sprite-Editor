@@ -11,6 +11,7 @@ public:
     Tool();
     void virtual applyTool(Grid *, QPointF, QMouseEvent*);
     QColor color;
+    void virtual setColor(QColor color);
 
 private:
 

@@ -24,4 +24,9 @@ void Brush::applyTool(Grid * frame, QPointF mousePosition, QMouseEvent * event){
   }
 }
 
+void Brush::setColor(QColor color)
+{
+    this->color = color;
+}
+
 
