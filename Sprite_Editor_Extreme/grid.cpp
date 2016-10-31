@@ -9,7 +9,7 @@ Grid::Grid()
 }
 
 Grid::Grid(const Grid& other){
-    this->image = new QImage();
+    this->image = new QImage;
     *this->image = other.image->copy();
     this->height=other.height;
     this->width=other.width;
@@ -38,7 +38,7 @@ void swap(Grid& first, Grid& second){
 
 Grid::Grid(int h,int w)
 {
-        if(h < 1 || h > 1080)
+    if(h < 1 || h > 1080)
     {
         height = default_height;
     }
@@ -136,5 +136,5 @@ bool Grid::containsCoordinate(int x, int y){ // uses cartesian coordinates from 
 
 Grid::~Grid()
 {
-    if(image!=NULL) delete image;
+    if(image!=nullptr) delete image;
 }

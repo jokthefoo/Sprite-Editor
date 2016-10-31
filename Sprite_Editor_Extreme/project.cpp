@@ -2,12 +2,12 @@
 
 Project::Project()
 {
-    currentFrame = new Grid;
-    frames.push_back(*this->currentFrame);
+    Grid grid;
+    frames.push_back(grid);
+    currentFrame = &frames.front();
 }
 
 Project::~Project(){
-    delete currentFrame;
 }
 
 Grid * Project::getCurrentFrame(){
@@ -16,7 +16,7 @@ Grid * Project::getCurrentFrame(){
 
 void Project::addEmptyFrame(){
     Grid * grid = new Grid; // will need to pass in the current size here.
-    frames[workingframe]=*currentFrame;
+    frames[workingframe]=*currentFrame; // save the current state
     frames.push_back(*grid);
     workingframe = frames.size()-1;
     currentFrame = &frames[workingframe];
