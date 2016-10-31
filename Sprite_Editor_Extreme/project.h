@@ -11,6 +11,7 @@ private:
     Grid * currentFrame;
     QPair<int,int> canvasSize;
     QPair<int,int> imageSize;
+    unsigned int workingframe=0;
 public:
     Project();
     ~Project();
@@ -18,6 +19,8 @@ public:
     void addNewFrame(Grid *);
     void removeFrame(unsigned int);
     void addEmptyFrame();
+    bool next();
+    bool previous();
     std::vector<Grid> getAllFrames();
     Grid * getCurrentFrame();
     void setCanvasSize(int,int);

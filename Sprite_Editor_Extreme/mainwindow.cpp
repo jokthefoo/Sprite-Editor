@@ -43,7 +43,7 @@ void MainWindow::setupIcons(){
     setupIcon(ui->previous_frame_button,":/resources/back.png");
     setupIcon(ui->play_button, ":/resources/play.png");
     setupIcon(ui->rectangle_button, ":/resources/polygon.png");
-    setupIcon(ui->add_Frame_Button, ":/resources/addFrame.png");
+    setupIcon(ui->add_frame_button, ":/resources/addFrame.png");
 
 }
 

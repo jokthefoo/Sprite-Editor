@@ -9,7 +9,7 @@ Grid::Grid()
 }
 
 Grid::Grid(const Grid& other){
-    this->image = new QImage;
+    this->image = new QImage();
     *this->image = other.image->copy();
     this->height=other.height;
     this->width=other.width;
@@ -35,9 +35,6 @@ void Grid::swap(Grid& other){
 void swap(Grid& first, Grid& second){
     first.swap(second);
 }
-
-
-
 
 Grid::Grid(int h,int w)
 {
