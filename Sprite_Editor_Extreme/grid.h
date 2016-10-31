@@ -19,7 +19,8 @@ public:
     void setDrawScale(unsigned int);
     QImage *getImage();
     void drawLinePixels(QPointF,QPointF,QColor);
-    void rotateImage(int );
+    void rotateImage(int);
+    QColor pixelColor(int x, int y);
 private:
     const int initScaleFactor = 3;
     int height;

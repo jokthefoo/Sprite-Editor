@@ -23,7 +23,9 @@ SOURCES += main.cpp\
     configurationform.cpp \
     property.cpp \
     tool.cpp \
-    brush.cpp
+    brush.cpp \
+    eraser.cpp \
+    fillbucket.cpp
 
 HEADERS  += mainwindow.h \
     grid.h \
@@ -34,7 +36,9 @@ HEADERS  += mainwindow.h \
     configurationform.h \
     property.h \
     tool.h \
-    brush.h
+    brush.h \
+    eraser.h \
+    fillbucket.h
 
 FORMS    += mainwindow.ui \
     configurationform.ui

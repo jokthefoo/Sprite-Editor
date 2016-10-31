@@ -77,6 +77,10 @@ void Controller::receiveButtonInput(QWidget * child)
         {
             model.changeTool(1);
             emit sendColor(model.getCurrentTool()->color);
+        } else if (name == "fill_Bucket_Button")
+        {
+            model.changeTool(2);
+            emit sendColor(model.getCurrentTool()->color);
         }else{
             //......todo
         }

@@ -110,3 +110,8 @@ Grid::~Grid()
 {
     if(image!=nullptr) delete image;
 }
+
+QColor Grid::pixelColor(int x, int y)
+{
+    return QColor(image->pixel(x, y));
+}
