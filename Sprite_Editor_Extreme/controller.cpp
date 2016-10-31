@@ -81,6 +81,7 @@ void Controller::receiveButtonInput(QWidget * child)
             // that method will send a image back to the preview for updating
             //......todo
             timer.start(100);
+
         } else if( name == "next_frame_button"){
             if(model.getProject()->next()){
                  emit sendImage(model.getProject()->getCurrentFrame()->getImage());
