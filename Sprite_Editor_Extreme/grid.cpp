@@ -8,6 +8,37 @@ Grid::Grid()
     image->fill(Qt::white);
 }
 
+Grid::Grid(const Grid& other){
+    this->image = new QImage;
+    *this->image = other.image->copy();
+    this->height=other.height;
+    this->width=other.width;
+    this->drawScale=other.drawScale;
+}
+
+Grid& Grid::operator=(const Grid& other)
+{
+    Grid temp(other);
+    this->swap(temp);
+    return *this;
+
+}
+
+void Grid::swap(Grid& other){
+    this->image->swap(*(other.image));
+    std::swap(height,other.height);
+    std::swap(width,other.width);
+    std::swap(drawScale,other.drawScale);
+
+}
+
+void swap(Grid& first, Grid& second){
+    first.swap(second);
+}
+
+
+
+
 Grid::Grid(int h,int w)
 {
         if(h < 1 || h > 1080)
