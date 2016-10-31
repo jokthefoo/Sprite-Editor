@@ -28,6 +28,7 @@ class MainWindow : public QMainWindow
 public:
     explicit MainWindow(QWidget *parent = 0);
     void updateEditor(QImage * image);
+    PreviewWindow * getPreview();
     ~MainWindow();
 
 signals:
@@ -42,6 +43,7 @@ public slots:
     void spinnerChanged(int);
     void updateScreen(QImage * toShow);
     void updateColor(QColor); // left is false right is true
+
     // void updatePreview(std::vector<Grid>);
 
 protected:
@@ -52,7 +54,7 @@ private slots:
 
 private:
     ConfigurationForm configuration;
-    PreviewWindow *preview;
+    PreviewWindow preview;
     void connectComponents();
     void setupIcons();
     QGraphicsRectItem * boundary; // should move this to the model

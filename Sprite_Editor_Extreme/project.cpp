@@ -15,10 +15,11 @@ Grid * Project::getCurrentFrame(){
 }
 
 void Project::addEmptyFrame(){
-     Grid * grid = new Grid();
-     frames.push_back(*grid);
-     workingframe = frames.size()-1;
-     currentFrame = &frames[frames.size()-1];
+    Grid * grid = new Grid; // will need to pass in the current size here.
+    frames[workingframe]=*currentFrame;
+    frames.push_back(*grid);
+    workingframe = frames.size()-1;
+    currentFrame = &frames[workingframe];
 
 }
 
@@ -29,19 +30,19 @@ void Project::setCanvasSize(int w, int h){
 }
 
 void Project::addNewFrame(Grid * grid){
+    frames[workingframe]=*currentFrame;
     frames.push_back(*grid);
     workingframe = frames.size()-1;
-    currentFrame = &frames[frames.size()-1];
+    currentFrame = &frames[workingframe];
 }
 
 void Project::removeFrame(unsigned int frameIndex){
-   frames.erase(frames.begin() + frameIndex);//might need offset of 1
+    frames.erase(frames.begin() + frameIndex);//might need offset of 1
+
 }
 
 std::vector<Grid> Project::getAllFrames(){
-    std::vector<Grid> grid;
-    return grid;
-
+  return frames;
 }
 
 void Project::changeFrame(unsigned int frameNumber){
@@ -53,7 +54,7 @@ void Project::changeFrame(unsigned int frameNumber){
 
 
 bool Project::next(){
-  if(workingframe+1 < frames.size())
+  if(workingframe+1< frames.size())
   {
      workingframe++;
      currentFrame = &frames[workingframe];

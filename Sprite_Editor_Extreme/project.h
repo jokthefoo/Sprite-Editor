@@ -16,7 +16,7 @@ public:
     Project();
     ~Project();
     void changeFrame(unsigned int frameNumber);
-    void addNewFrame(Grid *);
+    void addNewFrame(Grid *grid);
     void removeFrame(unsigned int);
     void addEmptyFrame();
     bool next();

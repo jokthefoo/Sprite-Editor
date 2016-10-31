@@ -8,6 +8,8 @@ Controller::Controller(MainWindow * w)
    QObject::connect(w, &MainWindow::sendPropertyChange, this, &Controller::receivePropertyChange);
    QObject::connect(this, &Controller::sendImage, w, &MainWindow::updateScreen);
    QObject::connect(this, &Controller::sendColor, w, &MainWindow::updateColor);
+   QObject::connect(this, &Controller::sendPreviewImage, w->getPreview(), &PreviewWindow::updatePreview);
+   QObject::connect(&timer, &QTimer::timeout, this, &Controller::timeoutSendImage);
    emit sendImage(model.getProject()->getCurrentFrame()->getImage());
    emit sendColor(model.getCurrentTool()->color);
    drawing = false;
@@ -78,6 +80,7 @@ void Controller::receiveButtonInput(QWidget * child)
             // start a timer here and tie it to a method in this class
             // that method will send a image back to the preview for updating
             //......todo
+            timer.start(100);
         } else if( name == "next_frame_button"){
             if(model.getProject()->next()){
                  emit sendImage(model.getProject()->getCurrentFrame()->getImage());
@@ -87,7 +90,8 @@ void Controller::receiveButtonInput(QWidget * child)
                 emit sendImage(model.getProject()->getCurrentFrame()->getImage());
             }
         }else if(name == "add_frame_button"){
-            model.getProject()->addEmptyFrame();
+            Grid * grid = new Grid;
+            model.getProject()->addNewFrame(grid);
             emit sendImage(model.getProject()->getCurrentFrame()->getImage());
 
         }
@@ -95,4 +99,16 @@ void Controller::receiveButtonInput(QWidget * child)
     }
 }
 
+int animation_counter = 0;
+void Controller::timeoutSendImage(){
+    std::vector<Grid> g = model.getProject()->getAllFrames(); // might want to send a pointer of the frames so we
+    // aren't copying the vector every time.
 
+    int size = g.size();
+    if(animation_counter < size){
+        emit sendPreviewImage(&(*g[animation_counter].getImage()));
+        animation_counter++;
+    }else{
+        animation_counter = 0;
+    }
+}
