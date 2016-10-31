@@ -3,7 +3,7 @@
 Project::Project()
 {
     currentFrame = new Grid;
-    frames.push_back(*currentFrame);
+    frames.push_back(*this->currentFrame);
 }
 
 Project::~Project(){
@@ -32,10 +32,13 @@ void Project::addNewFrame(Grid * grid){
 
 void Project::removeFrame(unsigned int frameIndex){
     frames.erase(frames.begin() + frameIndex);//might need offset of 1
+
 }
 
 std::vector<Grid> Project::getAllFrames(){
-    return frames;
+    std::vector<Grid> grid;
+    return grid;
+
 }
 
 void Project::changeFrame(unsigned int frameNumber){

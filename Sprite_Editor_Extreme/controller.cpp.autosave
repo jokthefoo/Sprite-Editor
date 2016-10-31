@@ -10,7 +10,7 @@ Controller::Controller(MainWindow * w)
    QObject::connect(this, &Controller::sendImage, w, &MainWindow::updateScreen);
    QObject::connect(this, &Controller::sendColor, w, &MainWindow::updateColor);
    QObject::connect(this, &Controller::sendPreviewImage, preview, &PreviewWindow::updatePreview);
-   QObject::connect()
+   QObject::connect(&timer, &QTimer::timeout, this, &Controller::timeoutSendImage);
    emit sendImage(model.getProject()->getCurrentFrame()->getImage());
    emit sendColor(model.getCurrentTool()->color);
    drawing = false;
@@ -88,7 +88,7 @@ void Controller::receiveButtonInput(QWidget * child)
     }
 }
 
-void timeout(){
+void timeoutSendImage(){
     //extract the correct Qimage and emit the sendPreviewImage signal
 }
 
