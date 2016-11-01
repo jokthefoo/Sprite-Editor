@@ -4,6 +4,7 @@ Grid::Grid()
 {
     height = default_height;
     width = default_width;
+    brushSize = 1;
     image = new QImage(width, height, QImage::Format_ARGB32);
     image->fill(Qt::white);
 }
@@ -13,7 +14,7 @@ Grid::Grid(const Grid& other){
     *this->image = other.image->copy();
     this->height=other.height;
     this->width=other.width;
-
+    this->brushSize = other.brushSize;
 }
 
 Grid& Grid::operator=(const Grid& other)
@@ -21,15 +22,14 @@ Grid& Grid::operator=(const Grid& other)
     Grid temp(other);
     this->swap(temp);
     return *this;
-
 }
 
 void Grid::swap(Grid& other){
     this->image->swap(*(other.image));
     std::swap(height,other.height);
     std::swap(width,other.width);
+    std::swap(brushSize,other.brushSize);
     //std::swap(drawScale,other.drawScale);
-
 }
 
 void swap(Grid& first, Grid& second){
@@ -54,8 +54,14 @@ Grid::Grid(int h,int w)
     {
         width = w;
     }
+    brushSize = 1;
     image = new QImage(width, height, QImage::Format_ARGB32);
+    image->fill(Qt::white);
+}
 
+void Grid::setBrushSize(int x)
+{
+    brushSize = x;
 }
 
 void Grid::resize(int h, int w){
@@ -92,7 +98,7 @@ void Grid::setPixelColor(int x,int y,QColor color)
 
     if(containsCoordinate(x,y)){
         painter.begin(image);
-        pen.setWidth(1);
+        pen.setWidth(brushSize);
         pen.setColor(color);
         painter.setPen(pen);
         painter.drawPoint(x,y);
@@ -112,7 +118,7 @@ void Grid::drawLinePixels(QPointF lastPoint,QPointF endPoint,QColor color)
 
     if(containsCoordinate(lastPoint.x(),lastPoint.y()) && containsCoordinate(endPoint.x(),endPoint.y())){
         painter.begin(image);
-        pen.setWidth(1);
+        pen.setWidth(brushSize);
         pen.setColor(color);
         painter.setPen(pen);
         painter.drawLine(lastPoint, endPoint);

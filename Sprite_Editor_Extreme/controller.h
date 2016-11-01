@@ -24,6 +24,7 @@ public:
     Controller();
     Controller(MainWindow*);
     QTimer timer;
+    void sendAllFrame();
     ~Controller();
     //should have slots to capture the input from the user and then will use the model to change
     //the current states.
@@ -32,7 +33,9 @@ signals:
     void sendImage(QImage *);
     void sendPreviewImage(QImage *);
     void sendColor(QColor);
+    void sendFrames(std::vector<QImage>, int);
     void saveAs(QString);
+    void sendNewFrame(QImage *);
 
 public slots:
     void receiveButtonInput(QWidget*);

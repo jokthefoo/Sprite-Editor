@@ -9,11 +9,14 @@ Controller::Controller(MainWindow * w)
     QObject::connect(w, &MainWindow::sendSaveAs, this, &Controller::receiveSaveAs);
     QObject::connect(w, &MainWindow::sendOpenProj, this, &Controller::receiveOpenProj);
     QObject::connect(this, &Controller::sendImage, w, &MainWindow::updateScreen);
+    QObject::connect(this, &Controller::sendFrames, w, &MainWindow::updateFrames);
+    QObject::connect(this, &Controller::sendNewFrame, w, &MainWindow::addFrameToLayout);
     QObject::connect(this, &Controller::saveAs, w, &MainWindow::saveAsSelected);
     QObject::connect(this, &Controller::sendColor, w, &MainWindow::updateColor);
     QObject::connect(this, &Controller::sendPreviewImage, w->getPreview(), &PreviewWindow::updatePreview);
     QObject::connect(&timer, &QTimer::timeout, this, &Controller::timeoutSendImage);
     emit sendImage(model->getProject()->getCurrentFrame()->getImage());
+    emit sendNewFrame(model->getProject()->getCurrentFrame()->getImage());
     emit sendColor(model->getCurrentTool()->color);
     drawing = false;
 
@@ -34,20 +37,24 @@ void Controller::receiveOpenProj(QString heightWidth, QString numFrames, QString
     QStringList frameList;
 
     frameList = frames.split(QRegularExpression("Frame: \\d+\\n"));
-    frameList.removeFirst();
+    if(frameList.first() == "")
+    {
+        frameList.removeFirst();
+    }
     QStringList::iterator listIt = frameList.begin();
 
-    model->getProject()->removeFrame(0);
 
     for(int i = 0; i < parse; i++){
         Grid * grid = new Grid(h,w);
         grid->fromString(*listIt);
         listIt++;
         model->getProject()->addNewFrame(grid);
+        emit sendNewFrame(grid->getImage());
     }
+    model->getProject()->removeFrame(0);
     model->getProject()->changeFrame(0);
     emit sendImage(model->getProject()->getCurrentFrame()->getImage());
-    //std::vector<Grid> blankFrames = model->getProject()->getAllFrames();
+    sendAllFrame();
 
 
     //for(std::vector<Grid>::iterator it = blankFrames.begin(); it != blankFrames.end(); it++)
@@ -59,6 +66,17 @@ void Controller::receiveOpenProj(QString heightWidth, QString numFrames, QString
 
 }
 
+void Controller::sendAllFrame()
+{
+    std::vector<QImage> frames;
+    std::vector<Grid> temp = model->getProject()->getAllFrames();
+    for(std::vector<Grid>::iterator it = temp.begin(); it != temp.end(); ++it)
+    {
+        frames.push_back(*(it->getImage()));
+    }
+    emit sendFrames(frames, model->getProject()->getWorkingFrame());
+}
+
 void Controller::receiveSaveAs()
 {
     emit saveAs(model->getProject()->toString());
@@ -68,12 +86,13 @@ void Controller::receivePropertyChange(Property p){
     if(p.values.size()>0){
         if(p.name.toStdString().compare("brushSize")==0){
             if(p.values.front()>0){
-                //model->getProject()->getCurrentFrame()->setDrawScale(p.values.front());
+                model->getProject()->getCurrentFrame()->setBrushSize(p.values.front());
             }
         }
         if(p.name.toStdString().compare("canvasSize")==0){
             model->getProject()->setCanvasSize(p.values[0],p.values[1]);
             emit sendImage(model->getProject()->getCurrentFrame()->getImage());
+            sendAllFrame();
         }
     }
 }
@@ -85,6 +104,7 @@ void Controller::receiveMouseInput(QPointF point, QMouseEvent *event)
         Tool * tool = model->getCurrentTool();
         tool->applyTool(currentFrame,point, event);
         emit sendImage(model->getProject()->getCurrentFrame()->getImage());
+        sendAllFrame();
     }
 }
 
@@ -113,10 +133,12 @@ void Controller::receiveButtonInput(QWidget * child)
         {
             model->rotateImage(90);
             emit sendImage(image);
+            sendAllFrame();
         }else if(name  == "rotate_Left_Button")
         {
             model->rotateImage(-90);
             emit sendImage(image);
+            sendAllFrame();
         } else if(name == "brush_Button"){
             model->changeTool(0);
             emit sendColor(model->getCurrentTool()->color);
@@ -133,14 +155,18 @@ void Controller::receiveButtonInput(QWidget * child)
         } else if( name == "next_frame_button"){
             if(model->getProject()->next()){
                  emit sendImage(model->getProject()->getCurrentFrame()->getImage());
+                 sendAllFrame();
             }
         } else if( name == "previous_frame_button"){
             if(model->getProject()->previous()){
                 emit sendImage(model->getProject()->getCurrentFrame()->getImage());
+                sendAllFrame();
             }
         }else if(name == "add_frame_button"){
             model->getProject()->addEmptyFrame();
             emit sendImage(model->getProject()->getCurrentFrame()->getImage());
+            emit sendNewFrame(model->getProject()->getCurrentFrame()->getImage());
+            sendAllFrame();
         }
         return;
     }

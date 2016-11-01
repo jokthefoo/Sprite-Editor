@@ -67,6 +67,10 @@ void Project::addEmptyFrame(){
 void Project::setCanvasSize(int w, int h){
    canvasSize.first=w;
    canvasSize.second=h;
+   for(int i = 0; i < frames.size(); i++)
+   {
+       frames.at(i).resize(w,h);
+   }
    currentFrame->resize(w,h);
    for(std::vector<Grid>::iterator it = frames.begin(); it < frames.end(); ++it){
        it->resize(w,h);
@@ -88,7 +92,7 @@ void Project::removeFrame(unsigned int frameIndex){
 }
 
 std::vector<Grid> Project::getAllFrames(){
-  frames[workingframe]=*currentFrame;
+  //frames[workingframe]=*currentFrame;
   return frames;
 }
 
@@ -99,6 +103,10 @@ void Project::changeFrame(unsigned int frameNumber){
     }
 }
 
+int Project::getWorkingFrame()
+{
+    return workingframe;
+}
 
 bool Project::next(){
   if(workingframe+1< frames.size())
