@@ -1,6 +1,7 @@
 #ifndef PROPERTY_H
 #define PROPERTY_H
 #include <QString>
+#include <vector>
 
 class Property
 {

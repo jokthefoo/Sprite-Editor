@@ -18,7 +18,12 @@ MainWindow::MainWindow(QWidget *parent) :
     connectComponents();
     updateColor(Qt::white);
     setupIcons();
+<<<<<<< HEAD
     setupToolTips();
+=======
+
+
+>>>>>>> refs/remotes/origin/frameintegration
 }
 
 void static setupIcon(QToolButton * button, QString filename){
@@ -42,8 +47,12 @@ void MainWindow::setupIcons(){
     setupIcon(ui->previous_frame_button,":/resources/back.png");
     setupIcon(ui->play_button, ":/resources/play.png");
     setupIcon(ui->rectangle_button, ":/resources/polygon.png");
+<<<<<<< HEAD
     setupIcon(ui->add_Frame_Button, ":/resources/addFrame.png");
 }
+=======
+    setupIcon(ui->add_frame_button, ":/resources/addFrame.png");
+>>>>>>> refs/remotes/origin/frameintegration
 
 void MainWindow::setupToolTips()
 {
@@ -138,3 +147,19 @@ MainWindow::~MainWindow()
     delete scene;
 }
 
+
+PreviewWindow * MainWindow::getPreview(){
+    return &preview;
+}
+
+
+void MainWindow::on_play_button_pressed()
+{
+    if(!preview.isVisible()){
+        preview.show();
+        //change the button icon to pause?
+    }
+    //else
+        //call another slot which will pause the animation
+
+}

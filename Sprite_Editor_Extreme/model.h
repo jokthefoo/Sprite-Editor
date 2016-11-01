@@ -5,6 +5,7 @@
 #include <project.h>
 #include <grid.h>
 #include <tool.h>
+#include <QTimer>
 
 class Model // the model updates the view by sending signals
 {
@@ -13,6 +14,7 @@ private:
     Project * project;
     Tool * currentTool;
     std::vector<Tool*> tools;
+    QTimer timer;
 
 
 

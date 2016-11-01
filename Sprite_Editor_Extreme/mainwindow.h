@@ -15,6 +15,7 @@
 #include <iostream>
 #include <configurationform.h>
 #include <property.h>
+#include <previewwindow.h>
 
 namespace Ui {
 class MainWindow;
@@ -27,6 +28,7 @@ class MainWindow : public QMainWindow
 public:
     explicit MainWindow(QWidget *parent = 0);
     void updateEditor(QImage * image);
+    PreviewWindow * getPreview();
     ~MainWindow();
 
 signals:
@@ -41,13 +43,18 @@ public slots:
     void spinnerChanged(int);
     void updateScreen(QImage * toShow);
     void updateColor(QColor); // left is false right is true
+
     // void updatePreview(std::vector<Grid>);
 
 protected:
     bool eventFilter(QObject *watched, QEvent *event);
 
+private slots:
+    void on_play_button_pressed();
+
 private:
     ConfigurationForm configuration;
+    PreviewWindow preview;
     void connectComponents();
     void setupIcons();
     void setupToolTips();

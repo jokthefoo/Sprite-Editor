@@ -39,7 +39,7 @@ public:
     QFrame *line;
     QFrame *line_2;
     QFrame *line_3;
-    QToolButton *add_Frame_Button;
+    QToolButton *add_frame_button;
     QToolButton *previous_frame_button;
     QToolButton *play_button;
     QToolButton *next_frame_button;
@@ -90,9 +90,9 @@ public:
         line_3->setGeometry(QRect(570, 10, 20, 431));
         line_3->setFrameShape(QFrame::VLine);
         line_3->setFrameShadow(QFrame::Sunken);
-        add_Frame_Button = new QToolButton(centralWidget);
-        add_Frame_Button->setObjectName(QStringLiteral("add_Frame_Button"));
-        add_Frame_Button->setGeometry(QRect(520, 460, 51, 41));
+        add_frame_button = new QToolButton(centralWidget);
+        add_frame_button->setObjectName(QStringLiteral("add_frame_button"));
+        add_frame_button->setGeometry(QRect(520, 460, 51, 41));
         previous_frame_button = new QToolButton(centralWidget);
         previous_frame_button->setObjectName(QStringLiteral("previous_frame_button"));
         previous_frame_button->setGeometry(QRect(30, 470, 51, 31));
@@ -194,7 +194,7 @@ public:
 #ifndef QT_NO_TOOLTIP
         actionCanvasSize_2->setToolTip(QApplication::translate("MainWindow", "Open configuration page", 0));
 #endif // QT_NO_TOOLTIP
-        add_Frame_Button->setText(QApplication::translate("MainWindow", "...", 0));
+        add_frame_button->setText(QApplication::translate("MainWindow", "...", 0));
         previous_frame_button->setText(QApplication::translate("MainWindow", "...", 0));
         play_button->setText(QApplication::translate("MainWindow", "...", 0));
         next_frame_button->setText(QApplication::translate("MainWindow", "...", 0));

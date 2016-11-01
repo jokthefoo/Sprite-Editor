@@ -4,6 +4,7 @@
 #include <QMouseEvent>
 #include <QToolButton>
 #include <QLabel>
+#include <QTimer>
 #include <QColorDialog>
 #include <vector>
 #include <model.h>
@@ -21,18 +22,21 @@ private:
 public:
     Controller();
     Controller(MainWindow*);
+    QTimer timer;
     ~Controller();
     //should have slots to capture the input from the user and then will use the model to change
     //the current states.
 
 signals:
     void sendImage(QImage *);
+    void sendPreviewImage(QImage *);
     void sendColor(QColor);
 
 public slots:
     void receiveButtonInput(QWidget*);
     void receiveMouseInput(QPointF, QMouseEvent*);
     void receivePropertyChange(Property);
+    void timeoutSendImage();
 
 };
 

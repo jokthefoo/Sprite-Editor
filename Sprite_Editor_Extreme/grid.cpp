@@ -8,9 +8,37 @@ Grid::Grid()
     image->fill(Qt::white);
 }
 
+Grid::Grid(const Grid& other){
+    this->image = new QImage;
+    *this->image = other.image->copy();
+    this->height=other.height;
+    this->width=other.width;
+    this->drawScale=other.drawScale;
+}
+
+Grid& Grid::operator=(const Grid& other)
+{
+    Grid temp(other);
+    this->swap(temp);
+    return *this;
+
+}
+
+void Grid::swap(Grid& other){
+    this->image->swap(*(other.image));
+    std::swap(height,other.height);
+    std::swap(width,other.width);
+    std::swap(drawScale,other.drawScale);
+
+}
+
+void swap(Grid& first, Grid& second){
+    first.swap(second);
+}
+
 Grid::Grid(int h,int w)
 {
-        if(h < 1 || h > 1080)
+    if(h < 1 || h > 1080)
     {
         height = default_height;
     }
@@ -76,6 +104,10 @@ void Grid::setPixelColor(int x,int y,QColor color)
 
 }
 
+QColor Grid::getPixelColor(int x, int y){
+    QColor color = image->pixelColor(x, y);
+}
+
 void Grid::drawLinePixels(QPointF lastPoint,QPointF endPoint,QColor color)
 {
     QPainter painter;
@@ -104,6 +136,27 @@ void Grid::drawLinePixels(QPointF lastPoint,QPointF endPoint,QColor color)
 
 bool Grid::containsCoordinate(int x, int y){ // uses cartesian coordinates from top left
      return (x <= width&&y<=height);
+}
+
+QString Grid::toString(){
+    QString formatted;
+    for(int y = 0; y < height; ++y)
+    {
+        for(int x = 0; x < width; ++x)
+        {
+            QColor color = getPixelColor(x, y);
+            formatted += toRgba(color);
+        }
+        formatted += "\n";
+    }
+    return formatted;
+}
+
+QString Grid::toRgba(QColor color){
+    return QString::number(color.red()) + " " +
+            QString::number(color.green()) + " " +
+            QString::number(color.blue()) + " " +
+            QString::number(color.alpha()) + " ";
 }
 
 Grid::~Grid()

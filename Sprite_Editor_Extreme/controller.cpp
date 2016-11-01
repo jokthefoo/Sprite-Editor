@@ -8,6 +8,8 @@ Controller::Controller(MainWindow * w)
    QObject::connect(w, &MainWindow::sendPropertyChange, this, &Controller::receivePropertyChange);
    QObject::connect(this, &Controller::sendImage, w, &MainWindow::updateScreen);
    QObject::connect(this, &Controller::sendColor, w, &MainWindow::updateColor);
+   QObject::connect(this, &Controller::sendPreviewImage, w->getPreview(), &PreviewWindow::updatePreview);
+   QObject::connect(&timer, &QTimer::timeout, this, &Controller::timeoutSendImage);
    emit sendImage(model.getProject()->getCurrentFrame()->getImage());
    emit sendColor(model.getCurrentTool()->color);
    drawing = false;
@@ -58,6 +60,7 @@ void Controller::receiveButtonInput(QWidget * child)
         return;
     }
 
+
     QToolButton * button = dynamic_cast<QToolButton*>(child);
     if(button!=NULL){
         std::string name = button->objectName().toStdString();
@@ -73,6 +76,7 @@ void Controller::receiveButtonInput(QWidget * child)
         } else if(name == "brush_Button"){
             model.changeTool(0);
             emit sendColor(model.getCurrentTool()->color);
+<<<<<<< HEAD
         } else if (name == "eraser_Button")
         {
             model.changeTool(1);
@@ -83,10 +87,36 @@ void Controller::receiveButtonInput(QWidget * child)
             emit sendColor(model.getCurrentTool()->color);
         }else{
             //......todo
+=======
+        }else if( name == "play_button"){
+            timer.start(100);
+        } else if( name == "next_frame_button"){
+            if(model.getProject()->next()){
+                 emit sendImage(model.getProject()->getCurrentFrame()->getImage());
+            }
+        } else if( name == "previous_frame_button"){
+            if(model.getProject()->previous()){
+                emit sendImage(model.getProject()->getCurrentFrame()->getImage());
+            }
+        }else if(name == "add_frame_button"){
+            model.getProject()->addEmptyFrame();
+            emit sendImage(model.getProject()->getCurrentFrame()->getImage());
+>>>>>>> refs/remotes/origin/frameintegration
         }
-
         return;
     }
 }
 
+int animation_counter = 0;
+void Controller::timeoutSendImage(){
+    std::vector<Grid> g = model.getProject()->getAllFrames();
+    // might want to send a pointer of the frames so we aren't copying the vector every time.
 
+    int size = g.size();
+    if(animation_counter < size){
+        emit sendPreviewImage(&(*g[animation_counter].getImage()));
+        animation_counter++;
+    }else{
+        animation_counter = 0;
+    }
+}
