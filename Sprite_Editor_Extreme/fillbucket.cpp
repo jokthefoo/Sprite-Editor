@@ -35,7 +35,9 @@ void FillBucket::applyTool(Grid * frame, QPointF mousePosition, QMouseEvent * ev
 // Source: Flood fill - Wikipedia
 void FillBucket::floodFill(QImage * image, int x, int y, QColor targetColor, QColor replacementColor)
 {
-    if (((x >= image->width() || x < 0)||(y >= image->height() || y < 0)))
+    int w = image->width();
+    int h = image->height();
+    if (((x>=w||x < 0)||(y >=h||y < 0)))
     {
         return;
     }else{
@@ -50,8 +52,6 @@ void FillBucket::floodFill(QImage * image, int x, int y, QColor targetColor, QCo
         }
 
         image->setPixelColor(x, y, replacementColor);
-
-
         floodFill(image, x, y + 1, targetColor, replacementColor);
         floodFill(image, x, y - 1, targetColor, replacementColor);
         floodFill(image, x - 1, y, targetColor, replacementColor);
