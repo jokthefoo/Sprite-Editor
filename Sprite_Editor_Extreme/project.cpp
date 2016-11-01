@@ -55,7 +55,8 @@ Grid * Project::getCurrentFrame(){
 }
 
 void Project::addEmptyFrame(){
-    Grid * grid = new Grid(canvasSize.first,canvasSize.second); // will need to pass in the current size here.
+    Grid * grid = new Grid(); // will need to pass in the current size here.
+    grid->resize(canvasSize.first,canvasSize.second);
     frames[workingframe]=*currentFrame; // save the current state
     frames.push_back(*grid);
     workingframe = frames.size()-1;
