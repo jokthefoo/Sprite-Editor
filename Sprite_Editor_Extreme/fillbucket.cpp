@@ -18,7 +18,12 @@ void FillBucket::applyTool(Grid * frame, QPointF mousePosition, QMouseEvent * ev
 
         if (event->type() == QEvent::MouseButtonPress && !drawing)
         {
-            if(mousePosition.x()<0||mousePosition.y()<0) return;
+            int w = frame->getImage()->width();
+            int h = frame->getImage()->height();
+            int x = mousePosition.x();
+            int y = mousePosition.y();
+
+            if(x<0||y<0||x>=w||y>=w) return;
             drawing = true;
             QColor targetColor = frame->pixelColor(mousePosition.x(), mousePosition.y());
             floodFill(frame->getImage(), mousePosition.x(), mousePosition.y(), targetColor, color);
