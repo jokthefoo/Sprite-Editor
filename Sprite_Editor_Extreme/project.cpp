@@ -23,9 +23,13 @@ Project::Project(int h, int w, int numFrames)
 
 Project::Project(const Project& other)
 {
+
     this->canvasSize = other.canvasSize;
     this->currentFrame = other.currentFrame;
-    this->frames = std::move(other.frames);
+    for(auto it = other.frames.begin(); it < other.frames.end(); it++){
+        Grid grid(*it);
+        this->frames.push_back(grid);
+    }
 }
 
 Project& Project::operator=(const Project& other)
@@ -108,6 +112,7 @@ bool Project::previous(){
 }
 
 QString Project::toString(){
+    frames[workingframe]=*currentFrame;
     int height = canvasSize.second;
     int width = canvasSize.first;
 

@@ -29,21 +29,32 @@ void Controller::receiveOpenProj(QString heightWidth, QString numFrames, QString
     list = heightWidth.split(QRegularExpression("\\s+"));
     int h = list.takeFirst().toInt();
     int w = list.takeLast().toInt();
-    model = new Model(h,w,numFrames.toInt());
-
-    std::vector<Grid> blankFrames = model->getProject()->getAllFrames();
-
+    //model = new Model(h,w,numFrames.toInt());
+    model = new Model;
+    int parse = numFrames.toInt();
     QStringList frameList;
+
     frameList = frames.split(QRegularExpression("Frame: \\d+\\n"));
     frameList.removeFirst();
     QStringList::iterator listIt = frameList.begin();
-    for(std::vector<Grid>::iterator it = blankFrames.begin(); it != blankFrames.end(); it++)
-    {
-        it->fromString(*listIt);
+
+    for(int i = 0; i < parse; i++){
+        Grid * grid = new Grid(h,w);
+        grid->fromString(*listIt);
         listIt++;
+        model->getProject()->addNewFrame(grid);
     }
-    QImage *image = model->getProject()->getCurrentFrame()->getImage();
-    emit sendImage(image);
+    emit sendImage(model->getProject()->getCurrentFrame()->getImage());
+    //std::vector<Grid> blankFrames = model->getProject()->getAllFrames();
+
+
+    //for(std::vector<Grid>::iterator it = blankFrames.begin(); it != blankFrames.end(); it++)
+    //{
+    //    it->fromString(*listIt);
+     //   listIt++;
+    //}
+    //QImage *image = model->getProject()->getCurrentFrame()->getImage();
+
 }
 
 void Controller::receiveSaveAs()
