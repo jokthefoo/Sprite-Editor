@@ -23,7 +23,7 @@ public:
     void setPixelColor(int,int,QColor);
     QColor getPixelColor(int, int);
     bool containsCoordinate(int, int);
-    void setDrawScale(unsigned int);
+    //void setDrawScale(unsigned int);
     QImage *getImage();
     void drawLinePixels(QPointF,QPointF,QColor);
     void rotateImage(int);
@@ -36,11 +36,11 @@ public:
     QColor fromRgba(QString);
 
 protected:
-    const int initScaleFactor = 3;
+    //const int initScaleFactor = 3;
     int height;
     int width;
-    int drawScale = initScaleFactor;
-    int blocksize = std::pow(2,initScaleFactor);
+    //int drawScale = initScaleFactor;
+    //int blocksize = std::pow(2,initScaleFactor);
     QImage* image;
 
 };

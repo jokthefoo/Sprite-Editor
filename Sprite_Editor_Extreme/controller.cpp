@@ -38,12 +38,15 @@ void Controller::receiveOpenProj(QString heightWidth, QString numFrames, QString
     frameList.removeFirst();
     QStringList::iterator listIt = frameList.begin();
 
+    model->getProject()->removeFrame(0);
+
     for(int i = 0; i < parse; i++){
         Grid * grid = new Grid(h,w);
         grid->fromString(*listIt);
         listIt++;
         model->getProject()->addNewFrame(grid);
     }
+    model->getProject()->changeFrame(0);
     emit sendImage(model->getProject()->getCurrentFrame()->getImage());
     //std::vector<Grid> blankFrames = model->getProject()->getAllFrames();
 
