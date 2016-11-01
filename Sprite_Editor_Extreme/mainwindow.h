@@ -42,13 +42,16 @@ signals:
 
 
 public slots:
-    void scaleView(int);
+    void updateFrames(std::vector<QImage>, int);
     void saveAsSelected(QString);
     void sendConfigurationInput();
     void openConfigurationSelected();
     void spinnerChanged(int);
     void updateScreen(QImage * toShow);
     void updateColor(QColor); // left is false right is true
+    void addFrameToLayout(QImage *);
+    void zoomIn();
+    void zoomOut();
 
     // void updatePreview(std::vector<Grid>);
 
@@ -61,6 +64,8 @@ private slots:
     void openProj();
 
 private:
+    int currentScale;
+    std::vector<QLabel*> frames;
     ConfigurationForm configuration;
     PreviewWindow preview;
     void connectComponents();

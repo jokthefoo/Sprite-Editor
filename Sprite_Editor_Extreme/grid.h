@@ -32,10 +32,12 @@ public:
     int const default_height = 16;
     void fromString(QString);
     QColor fromRgba(QString);
+    void setBrushSize(int);
 
 protected:
     int height;
     int width;
+    int brushSize;
     QImage* image;
 
 };

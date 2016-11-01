@@ -15,11 +15,14 @@
 #include <QtWidgets/QButtonGroup>
 #include <QtWidgets/QFrame>
 #include <QtWidgets/QGraphicsView>
+#include <QtWidgets/QGroupBox>
+#include <QtWidgets/QHBoxLayout>
 #include <QtWidgets/QHeaderView>
 #include <QtWidgets/QLabel>
 #include <QtWidgets/QMainWindow>
 #include <QtWidgets/QMenu>
 #include <QtWidgets/QMenuBar>
+#include <QtWidgets/QScrollArea>
 #include <QtWidgets/QSpinBox>
 #include <QtWidgets/QStatusBar>
 #include <QtWidgets/QTabWidget>
@@ -60,6 +63,11 @@ public:
     ColorBox *leftColor;
     ColorBox *leftColor_2;
     QLabel *label;
+    QScrollArea *scrollArea;
+    QWidget *scrollAreaWidgetContents_2;
+    QGroupBox *framesBox;
+    QWidget *horizontalLayoutWidget;
+    QHBoxLayout *framesLayout;
     QMenuBar *menuBar;
     QMenu *menuFile;
     QStatusBar *statusBar;
@@ -69,7 +77,8 @@ public:
     {
         if (MainWindow->objectName().isEmpty())
             MainWindow->setObjectName(QStringLiteral("MainWindow"));
-        MainWindow->resize(775, 582);
+        MainWindow->resize(787, 750);
+        MainWindow->setMinimumSize(QSize(500, 750));
         actionCanvasSize_2 = new QAction(MainWindow);
         actionCanvasSize_2->setObjectName(QStringLiteral("actionCanvasSize_2"));
         actionSave_as = new QAction(MainWindow);
@@ -98,7 +107,7 @@ public:
         line_3->setFrameShadow(QFrame::Sunken);
         add_frame_button = new QToolButton(centralWidget);
         add_frame_button->setObjectName(QStringLiteral("add_frame_button"));
-        add_frame_button->setGeometry(QRect(520, 460, 51, 41));
+        add_frame_button->setGeometry(QRect(480, 460, 91, 41));
         previous_frame_button = new QToolButton(centralWidget);
         previous_frame_button->setObjectName(QStringLiteral("previous_frame_button"));
         previous_frame_button->setGeometry(QRect(30, 470, 51, 31));
@@ -110,7 +119,8 @@ public:
         next_frame_button->setGeometry(QRect(170, 470, 51, 31));
         tabWidget = new QTabWidget(centralWidget);
         tabWidget->setObjectName(QStringLiteral("tabWidget"));
-        tabWidget->setGeometry(QRect(590, 10, 151, 391));
+        tabWidget->setGeometry(QRect(590, 10, 171, 391));
+        tabWidget->setTabPosition(QTabWidget::West);
         tab = new QWidget();
         tab->setObjectName(QStringLiteral("tab"));
         brush_Button = new QToolButton(tab);
@@ -163,14 +173,50 @@ public:
         leftColor_2->setStyleSheet(QStringLiteral("border: 2px solid grey"));
         label = new QLabel(centralWidget);
         label->setObjectName(QStringLiteral("label"));
-        label->setGeometry(QRect(600, 410, 59, 14));
+        label->setGeometry(QRect(600, 410, 71, 16));
         QFont font;
         font.setPointSize(8);
         label->setFont(font);
+        scrollArea = new QScrollArea(centralWidget);
+        scrollArea->setObjectName(QStringLiteral("scrollArea"));
+        scrollArea->setGeometry(QRect(20, 510, 561, 131));
+        scrollArea->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
+        scrollArea->setWidgetResizable(true);
+        scrollAreaWidgetContents_2 = new QWidget();
+        scrollAreaWidgetContents_2->setObjectName(QStringLiteral("scrollAreaWidgetContents_2"));
+        scrollAreaWidgetContents_2->setGeometry(QRect(0, 0, 559, 129));
+        scrollArea->setWidget(scrollAreaWidgetContents_2);
+        framesBox = new QGroupBox(centralWidget);
+        framesBox->setObjectName(QStringLiteral("framesBox"));
+        framesBox->setGeometry(QRect(590, 610, 41, 31));
+        horizontalLayoutWidget = new QWidget(framesBox);
+        horizontalLayoutWidget->setObjectName(QStringLiteral("horizontalLayoutWidget"));
+        horizontalLayoutWidget->setGeometry(QRect(10, 20, 531, 101));
+        framesLayout = new QHBoxLayout(horizontalLayoutWidget);
+        framesLayout->setSpacing(6);
+        framesLayout->setContentsMargins(11, 11, 11, 11);
+        framesLayout->setObjectName(QStringLiteral("framesLayout"));
+        framesLayout->setSizeConstraint(QLayout::SetFixedSize);
+        framesLayout->setContentsMargins(0, 0, 0, 0);
         MainWindow->setCentralWidget(centralWidget);
+        graphicsView->raise();
+        line->raise();
+        line_2->raise();
+        line_3->raise();
+        add_frame_button->raise();
+        previous_frame_button->raise();
+        play_button->raise();
+        next_frame_button->raise();
+        tabWidget->raise();
+        leftColor->raise();
+        leftColor_2->raise();
+        label->raise();
+        horizontalLayoutWidget->raise();
+        scrollArea->raise();
+        framesBox->raise();
         menuBar = new QMenuBar(MainWindow);
         menuBar->setObjectName(QStringLiteral("menuBar"));
-        menuBar->setGeometry(QRect(0, 0, 775, 17));
+        menuBar->setGeometry(QRect(0, 0, 787, 17));
         menuFile = new QMenu(menuBar);
         menuFile->setObjectName(QStringLiteral("menuFile"));
         MainWindow->setMenuBar(menuBar);
@@ -204,7 +250,7 @@ public:
 #endif // QT_NO_TOOLTIP
         actionSave_as->setText(QApplication::translate("MainWindow", "Save as...", 0));
         actionOpen_project->setText(QApplication::translate("MainWindow", "Open project...", 0));
-        add_frame_button->setText(QApplication::translate("MainWindow", "...", 0));
+        add_frame_button->setText(QApplication::translate("MainWindow", "Add Frame", 0));
         previous_frame_button->setText(QApplication::translate("MainWindow", "...", 0));
         play_button->setText(QApplication::translate("MainWindow", "...", 0));
         next_frame_button->setText(QApplication::translate("MainWindow", "...", 0));
@@ -221,6 +267,7 @@ public:
         leftColor->setText(QString());
         leftColor_2->setText(QString());
         label->setText(QApplication::translate("MainWindow", "Left Color", 0));
+        framesBox->setTitle(QApplication::translate("MainWindow", "Frames", 0));
         menuFile->setTitle(QApplication::translate("MainWindow", "File", 0));
     } // retranslateUi
 

@@ -19,8 +19,10 @@ MainWindow::MainWindow(QWidget *parent) :
     updateColor(Qt::white);
     setupIcons();
     setupToolTips();
-
-    ui->graphicsView->scale(12,12);
+    ui->framesBox->setLayout(ui->framesLayout);
+    ui->scrollArea->setWidget(ui->framesBox);
+    currentScale = 12;
+    ui->graphicsView->scale(currentScale,currentScale);
 }
 
 void static setupIcon(QToolButton * button, QString filename){
@@ -60,6 +62,10 @@ void MainWindow::setupToolTips()
     ui->tabWidget->setTabToolTip(0, "Painting Tools");
     ui->tabWidget->setTabToolTip(1, "Transformation tools");
     ui->leftColor->setToolTip("Set color of brush");
+    ui->next_frame_button->setToolTip("Next frame");
+    ui->previous_frame_button->setToolTip("Previous frame");
+    ui->play_button->setToolTip("Sprite Preview");
+    ui->add_frame_button->setToolTip("Adds a new empty frame");
     // not working : ui->actionCanvasSize_2->setToolTip("Open configuration page");
 }
 
@@ -70,31 +76,47 @@ void MainWindow::connectComponents(){
     QObject::connect(&configuration, SIGNAL(accepted()), this, SLOT(sendConfigurationInput()));
     QObject::connect(ui->actionSave_as, SIGNAL(triggered()), this, SLOT(sendSaveAsSig()));
     QObject::connect(ui->actionOpen_project, SIGNAL(triggered()), this, SLOT(openProj()));
-
+    QObject::connect(ui->zoom_In_Button, SIGNAL(clicked()), this, SLOT(zoomIn()));
+    QObject::connect(ui->zoom_Out_Button, SIGNAL(clicked()), this, SLOT(zoomOut()));
 }
 
-void MainWindow::scaleView(int scaleFactor)
+void MainWindow::zoomIn()
 {
-    ui->graphicsView->scale(scaleFactor,scaleFactor);
+    currentScale += 2;
+    QTransform trans;
+    trans.scale(currentScale,currentScale);
+    ui->graphicsView->setTransform(trans);
+}
+
+void MainWindow::zoomOut()
+{
+    currentScale -= 2;
+    QTransform trans;
+    trans.scale(currentScale,currentScale);
+    ui->graphicsView->setTransform(trans);
 }
 
 void MainWindow::openProj()
 {
     QString filename = QFileDialog::getOpenFileName(this, "Open file", "", "Sprite Sheet Project File (*.spp)");
     QFile file(filename);
-    file.open(QIODevice::ReadOnly);
-    QTextStream stream(&file);
+    if(file.open(QIODevice::ReadOnly))
+    {
+        QTextStream stream(&file);
 
-    QString heightAndWidth = stream.readLine();
-    QString numFrames = stream.readLine();
-    QString frames;
-    //while(!stream.atEnd())
-    //{
-        //frames = stream.readLine();
-    //}
-    frames = stream.readAll();
-    file.close();
-    emit sendOpenProj(heightAndWidth, numFrames, frames);
+        for(int i = 0; i < frames.size(); i++)
+        {
+            ui->framesLayout->removeWidget(frames.at(i));
+        }
+        frames.clear();
+
+        QString heightAndWidth = stream.readLine();
+        QString numFrames = stream.readLine();
+        QString frameString;
+        frameString = stream.readAll();
+        file.close();
+        emit sendOpenProj(heightAndWidth, numFrames, frameString);
+    }
 }
 
 void MainWindow::sendSaveAsSig()
@@ -151,7 +173,38 @@ void MainWindow::updateScreen(QImage * image){
     boundary =  new QGraphicsRectItem(0,0, image->height(), image->width());
     ui->graphicsView->scene()->addItem(boundary);
     scene->addPixmap(QPixmap::fromImage(*image));
+    ui->framesLayout->update();
     ui->graphicsView->update();
+}
+
+void MainWindow::updateFrames(std::vector<QImage> frameList, int currentFrame)
+{
+    std::vector<QImage>::iterator imIt = frameList.begin();
+    for(int i =0; i < frames.size(); i++)
+    {
+        frames.at(i)->setPixmap(QPixmap::fromImage(*imIt));
+        if(i == currentFrame)
+        {
+            frames.at(i)->setStyleSheet("border: 2px solid yellow");
+        }
+        else
+        {
+            frames.at(i)->setStyleSheet("border: 0px solid white");
+        }
+        imIt++;
+    }
+}
+
+void MainWindow::addFrameToLayout(QImage * image)
+{
+    QLabel * frame = new QLabel();
+    frame->show();
+    frame->setScaledContents(true);
+    frame->setMinimumSize(75,75);
+    frame->setMaximumSize(75,75);
+    frame->setPixmap(QPixmap::fromImage(*image));
+    ui->framesLayout->addWidget(frame);
+    frames.push_back(frame);
 }
 
 bool MainWindow::eventFilter(QObject*, QEvent *event)

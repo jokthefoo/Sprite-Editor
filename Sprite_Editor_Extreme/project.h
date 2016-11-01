@@ -32,6 +32,7 @@ public:
     QPair<int,int> getCanvasSize();
     QPair<int,int> getImageSize();
     QString toString();
+    int getWorkingFrame();
 
 };
 
