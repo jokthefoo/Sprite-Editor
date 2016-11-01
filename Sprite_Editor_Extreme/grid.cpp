@@ -13,7 +13,7 @@ Grid::Grid(const Grid& other){
     *this->image = other.image->copy();
     this->height=other.height;
     this->width=other.width;
-    this->drawScale=other.drawScale;
+    //this->drawScale=other.drawScale;
 }
 
 Grid& Grid::operator=(const Grid& other)
@@ -28,7 +28,7 @@ void Grid::swap(Grid& other){
     this->image->swap(*(other.image));
     std::swap(height,other.height);
     std::swap(width,other.width);
-    std::swap(drawScale,other.drawScale);
+    //std::swap(drawScale,other.drawScale);
 
 }
 
@@ -62,8 +62,9 @@ void Grid::resize(int h, int w){
     height=h;
     width=w;
     QImage newImage(h,w,QImage::Format_ARGB32);
+    newImage.fill(Qt::white);
     QPainter painter(&newImage);
-    painter.drawImage(QPoint(0,0),*image);
+    painter.drawImage(0,0,*image);
     painter.end();
     *image = newImage;
 }
@@ -73,9 +74,9 @@ QImage* Grid::getImage()
     return image;
 }
 
-void Grid::setDrawScale(unsigned int scaleFactor){
-    drawScale=scaleFactor+2;
-}
+//void Grid::setDrawScale(unsigned int scaleFactor){
+//drawScale=scaleFactor+2;
+//}
 
 void Grid::rotateImage(int degrees)
 {
