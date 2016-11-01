@@ -18,12 +18,9 @@ MainWindow::MainWindow(QWidget *parent) :
     connectComponents();
     updateColor(Qt::white);
     setupIcons();
-<<<<<<< HEAD
     setupToolTips();
-=======
 
-
->>>>>>> refs/remotes/origin/frameintegration
+    ui->graphicsView->scale(12,12);
 }
 
 void static setupIcon(QToolButton * button, QString filename){
@@ -47,12 +44,8 @@ void MainWindow::setupIcons(){
     setupIcon(ui->previous_frame_button,":/resources/back.png");
     setupIcon(ui->play_button, ":/resources/play.png");
     setupIcon(ui->rectangle_button, ":/resources/polygon.png");
-<<<<<<< HEAD
-    setupIcon(ui->add_Frame_Button, ":/resources/addFrame.png");
-}
-=======
     setupIcon(ui->add_frame_button, ":/resources/addFrame.png");
->>>>>>> refs/remotes/origin/frameintegration
+}
 
 void MainWindow::setupToolTips()
 {
@@ -75,7 +68,48 @@ void MainWindow::connectComponents(){
     QObject::connect(ui->brushSize, SIGNAL(valueChanged(int)),this, SLOT(spinnerChanged(int)));
     QObject::connect(ui->actionCanvasSize_2, SIGNAL(triggered()), this, SLOT(openConfigurationSelected()));
     QObject::connect(&configuration, SIGNAL(accepted()), this, SLOT(sendConfigurationInput()));
+    QObject::connect(ui->actionSave_as, SIGNAL(triggered()), this, SLOT(sendSaveAsSig()));
+    QObject::connect(ui->actionOpen_project, SIGNAL(triggered()), this, SLOT(openProj()));
 
+}
+
+void MainWindow::scaleView(int scaleFactor)
+{
+    ui->graphicsView->scale(scaleFactor,scaleFactor);
+}
+
+void MainWindow::openProj()
+{
+    QString filename = QFileDialog::getOpenFileName(this, "Open file", "", "Sprite Sheet Project File (*.spp)");
+    QFile file(filename);
+    file.open(QIODevice::ReadOnly);
+    QTextStream stream(&file);
+
+    QString heightAndWidth = stream.readLine();
+    QString numFrames = stream.readLine();
+    QString frames;
+    //while(!stream.atEnd())
+    //{
+        //frames = stream.readLine();
+    //}
+    frames = stream.readAll();
+    file.close();
+    emit sendOpenProj(heightAndWidth, numFrames, frames);
+}
+
+void MainWindow::sendSaveAsSig()
+{
+    emit sendSaveAs();
+}
+
+void MainWindow::saveAsSelected(QString fileInfo)
+{
+    QString filename = QFileDialog::getSaveFileName(this, "Save file", "", "Sprite Sheet Project File (*.spp)");
+    QFile file(filename);
+    file.open(QIODevice::WriteOnly);
+    QTextStream stream(&file);
+    stream << fileInfo;
+    file.close();
 }
 
 void MainWindow::openConfigurationSelected(){

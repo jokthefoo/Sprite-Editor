@@ -25,6 +25,7 @@ SOURCES += main.cpp\
     tool.cpp \
     brush.cpp \
     eraser.cpp \
+    previewwindow.cpp \
     fillbucket.cpp
 
 HEADERS  += mainwindow.h \
@@ -38,9 +39,11 @@ HEADERS  += mainwindow.h \
     tool.h \
     brush.h \
     eraser.h \
+    previewwindow.h \
     fillbucket.h
 
 FORMS    += mainwindow.ui \
+    previewwindow.ui \
     configurationform.ui
 
 RESOURCES += \

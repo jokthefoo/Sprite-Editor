@@ -34,6 +34,8 @@ class Ui_MainWindow
 {
 public:
     QAction *actionCanvasSize_2;
+    QAction *actionSave_as;
+    QAction *actionOpen_project;
     QWidget *centralWidget;
     QGraphicsView *graphicsView;
     QFrame *line;
@@ -70,6 +72,10 @@ public:
         MainWindow->resize(775, 582);
         actionCanvasSize_2 = new QAction(MainWindow);
         actionCanvasSize_2->setObjectName(QStringLiteral("actionCanvasSize_2"));
+        actionSave_as = new QAction(MainWindow);
+        actionSave_as->setObjectName(QStringLiteral("actionSave_as"));
+        actionOpen_project = new QAction(MainWindow);
+        actionOpen_project->setObjectName(QStringLiteral("actionOpen_project"));
         centralWidget = new QWidget(MainWindow);
         centralWidget->setObjectName(QStringLiteral("centralWidget"));
         graphicsView = new QGraphicsView(centralWidget);
@@ -164,7 +170,7 @@ public:
         MainWindow->setCentralWidget(centralWidget);
         menuBar = new QMenuBar(MainWindow);
         menuBar->setObjectName(QStringLiteral("menuBar"));
-        menuBar->setGeometry(QRect(0, 0, 775, 19));
+        menuBar->setGeometry(QRect(0, 0, 775, 17));
         menuFile = new QMenu(menuBar);
         menuFile->setObjectName(QStringLiteral("menuFile"));
         MainWindow->setMenuBar(menuBar);
@@ -178,6 +184,8 @@ public:
         menuBar->addAction(menuFile->menuAction());
         menuFile->addSeparator();
         menuFile->addAction(actionCanvasSize_2);
+        menuFile->addAction(actionSave_as);
+        menuFile->addAction(actionOpen_project);
 
         retranslateUi(MainWindow);
 
@@ -194,6 +202,8 @@ public:
 #ifndef QT_NO_TOOLTIP
         actionCanvasSize_2->setToolTip(QApplication::translate("MainWindow", "Open configuration page", 0));
 #endif // QT_NO_TOOLTIP
+        actionSave_as->setText(QApplication::translate("MainWindow", "Save as...", 0));
+        actionOpen_project->setText(QApplication::translate("MainWindow", "Open project...", 0));
         add_frame_button->setText(QApplication::translate("MainWindow", "...", 0));
         previous_frame_button->setText(QApplication::translate("MainWindow", "...", 0));
         play_button->setText(QApplication::translate("MainWindow", "...", 0));

@@ -9,6 +9,7 @@
 #include <vector>
 #include <model.h>
 #include <mainwindow.h>
+#include <QRegularExpression>
 
 // following the mvc design pattern : https://en.wikipedia.org/wiki/Model-view-controller
 class Controller : public QObject
@@ -16,7 +17,7 @@ class Controller : public QObject
     Q_OBJECT
 
 private:
-    Model model;
+    Model* model;
     bool drawing;
 
 public:
@@ -31,13 +32,15 @@ signals:
     void sendImage(QImage *);
     void sendPreviewImage(QImage *);
     void sendColor(QColor);
+    void saveAs(QString);
 
 public slots:
     void receiveButtonInput(QWidget*);
     void receiveMouseInput(QPointF, QMouseEvent*);
     void receivePropertyChange(Property);
     void timeoutSendImage();
-
+    void receiveSaveAs();
+    void receiveOpenProj(QString,QString,QString);
 };
 
 #endif // CONTROLLER_H

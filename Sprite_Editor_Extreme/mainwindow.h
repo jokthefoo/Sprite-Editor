@@ -16,6 +16,8 @@
 #include <configurationform.h>
 #include <property.h>
 #include <previewwindow.h>
+#include <QFileDialog>
+#include <QTextStream>
 
 namespace Ui {
 class MainWindow;
@@ -35,9 +37,13 @@ signals:
     void sendMouseInput(QPointF, QMouseEvent*);
     void sendButtonInput(QWidget*);
     void sendPropertyChange(Property);
+    void sendSaveAs();
+    void sendOpenProj(QString,QString,QString);
 
 
 public slots:
+    void scaleView(int);
+    void saveAsSelected(QString);
     void sendConfigurationInput();
     void openConfigurationSelected();
     void spinnerChanged(int);
@@ -51,6 +57,8 @@ protected:
 
 private slots:
     void on_play_button_pressed();
+    void sendSaveAsSig();
+    void openProj();
 
 private:
     ConfigurationForm configuration;

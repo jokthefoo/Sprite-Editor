@@ -1,3 +1,4 @@
+
 #include "fillbucket.h"
 
 FillBucket::FillBucket()
@@ -44,6 +45,7 @@ void FillBucket::floodFill(QImage * image, int x, int y, QColor targetColor, QCo
     }
 
     image->setPixelColor(x, y, replacementColor);
+
 
     floodFill(image, x, y + 1, targetColor, replacementColor);
     floodFill(image, x, y - 1, targetColor, replacementColor);

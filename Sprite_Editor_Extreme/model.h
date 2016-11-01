@@ -20,6 +20,10 @@ private:
 
 public:
     Model();
+    Model(int,int,int);
+    Model(const Model&);
+    Model & operator=(const Model&);
+    void swap(Model&);
     ~Model();
     Project * getProject();
     void rotateImage(int);

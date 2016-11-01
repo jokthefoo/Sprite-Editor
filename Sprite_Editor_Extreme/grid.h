@@ -6,6 +6,7 @@
 #include <QPainter>
 #include <cmath>
 #include <QString>
+#include <QRegularExpression>
 
 class Grid
 {
@@ -25,24 +26,21 @@ public:
     void setDrawScale(unsigned int);
     QImage *getImage();
     void drawLinePixels(QPointF,QPointF,QColor);
-<<<<<<< HEAD
     void rotateImage(int);
     QColor pixelColor(int x, int y);
-private:
-=======
-    void rotateImage(int );
     QString toString();
     QString toRgba(QColor);
+    int const default_width = 16;
+    int const default_height = 16;
+    void fromString(QString);
+    QColor fromRgba(QString);
 
 protected:
->>>>>>> refs/remotes/origin/frameintegration
     const int initScaleFactor = 3;
     int height;
     int width;
     int drawScale = initScaleFactor;
     int blocksize = std::pow(2,initScaleFactor);
-    int default_width = 256;
-    int default_height = 256;
     QImage* image;
 
 };

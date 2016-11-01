@@ -15,6 +15,10 @@ private:
     unsigned int workingframe=0;
 public:
     Project();
+    Project(int,int,int);
+    Project(const Project& other);
+    Project& operator=(const Project&);
+    void swap(Project&);
     ~Project();
     void changeFrame(unsigned int frameNumber);
     void addNewFrame(Grid *grid);

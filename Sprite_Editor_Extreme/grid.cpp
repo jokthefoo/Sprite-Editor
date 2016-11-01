@@ -89,12 +89,13 @@ void Grid::setPixelColor(int x,int y,QColor color)
     QPainter painter;
     QPen pen;
 
-    x = x - x %blocksize;
-    y = y - y %blocksize;
+    //x = x - x %blocksize;
+    //y = y - y %blocksize;
 
     if(containsCoordinate(x,y)){
         painter.begin(image);// the scaling and canvas stuff needs work.
-        pen.setWidth(pow(2,drawScale));
+        //pen.setWidth(pow(2,drawScale));
+        pen.setWidth(1);
         pen.setColor(color);
         painter.setPen(pen);
         painter.drawPoint(x,y);
@@ -105,14 +106,14 @@ void Grid::setPixelColor(int x,int y,QColor color)
 }
 
 QColor Grid::getPixelColor(int x, int y){
-    QColor color = image->pixelColor(x, y);
+    return image->pixelColor(x, y);
 }
 
 void Grid::drawLinePixels(QPointF lastPoint,QPointF endPoint,QColor color)
 {
     QPainter painter;
     QPen pen;
-
+/*
     int x = lastPoint.x();
     int y = lastPoint.y();
     lastPoint.setX(x - x %blocksize);
@@ -121,10 +122,11 @@ void Grid::drawLinePixels(QPointF lastPoint,QPointF endPoint,QColor color)
     y = endPoint.y();
     endPoint.setX(x - x %blocksize);
     endPoint.setY(y - y %blocksize);
-
+*/
     if(containsCoordinate(lastPoint.x(),lastPoint.y()) && containsCoordinate(endPoint.x(),endPoint.y())){
         painter.begin(image);// the scaling and canvas stuff needs work.
-        pen.setWidth(pow(2,drawScale));
+        //pen.setWidth(pow(2,drawScale));
+        pen.setWidth(1);
         pen.setColor(color);
         painter.setPen(pen);
         painter.drawLine(lastPoint, endPoint);
@@ -136,6 +138,32 @@ void Grid::drawLinePixels(QPointF lastPoint,QPointF endPoint,QColor color)
 
 bool Grid::containsCoordinate(int x, int y){ // uses cartesian coordinates from top left
      return (x <= width&&y<=height);
+}
+
+void Grid::fromString(QString frame){
+    QStringList pixels;
+    pixels = frame.split(QRegularExpression("\\s+"));
+    QStringList::iterator it = pixels.begin();
+    for(int y = 0; y < height; ++y)
+    {
+        for(int x = 0; x < width; ++x)
+        {
+            QColor color = fromRgba(*it);
+            setPixelColor(x,y,color);
+            it++;
+        }
+    }
+}
+
+QColor Grid::fromRgba(QString color){
+
+    int r = 0,g = 0,b = 0,a = 0;
+    r = color.left(3).toInt();
+    g = color.mid(3,3).toInt();
+    b = color.mid(6,3).toInt();
+    a = color.mid(9,3).toInt();
+
+    return QColor (r,g,b,a);
 }
 
 QString Grid::toString(){
@@ -153,11 +181,60 @@ QString Grid::toString(){
 }
 
 QString Grid::toRgba(QColor color){
-    return QString::number(color.red()) + " " +
-            QString::number(color.green()) + " " +
-            QString::number(color.blue()) + " " +
-            QString::number(color.alpha()) + " ";
-}
+    QString red,green,blue,alpha;
+       if(color.red() < 100 && color.red() > 9)
+       {
+           red = "0" + QString::number(color.red());
+       }
+       else if(color.red() < 10)
+       {
+           red =  "00" + QString::number(color.red());
+       }
+       else
+       {
+           red = QString::number(color.red());
+       }
+
+       if(color.green() < 100 && color.green() > 9)
+       {
+           green = "0" + QString::number(color.green());
+       }
+       else if(color.green() < 10)
+       {
+           green =  "00" + QString::number(color.green());
+       }
+       else
+       {
+           green = QString::number(color.green());
+       }
+
+       if(color.blue() < 100 && color.blue() > 9)
+       {
+           blue = "0" + QString::number(color.blue());
+       }
+       else if(color.blue() < 10)
+       {
+           blue =  "00" + QString::number(color.blue());
+       }
+       else
+       {
+           blue = QString::number(color.blue());
+       }
+
+       if(color.alpha() < 100 && color.alpha() > 9)
+       {
+           alpha = "0" + QString::number(color.alpha());
+       }
+       else if(color.alpha() < 10)
+       {
+           alpha =  "00" + QString::number(color.alpha());
+       }
+       else
+       {
+           alpha = QString::number(color.alpha());
+       }
+       return red + green + blue + alpha + " ";
+   }
 
 Grid::~Grid()
 {

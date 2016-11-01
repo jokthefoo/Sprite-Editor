@@ -4,6 +4,42 @@ Project::Project()
 {
     currentFrame = new Grid;
     frames.push_back(*currentFrame);
+    canvasSize.first=currentFrame->default_width;
+    canvasSize.second=currentFrame->default_height;
+}
+
+Project::Project(int h, int w, int numFrames)
+{
+    Grid *grid;
+    canvasSize.first=w;
+    canvasSize.second=h;
+    for(int x = 0; x < numFrames; x++)
+    {
+        grid = new Grid(h,w);
+        frames.push_back(*grid);
+    }
+    currentFrame = &frames.front();
+}
+
+Project::Project(const Project& other)
+{
+    this->canvasSize = other.canvasSize;
+    this->currentFrame = other.currentFrame;
+    this->frames = std::move(other.frames);
+}
+
+Project& Project::operator=(const Project& other)
+{
+    Project temp(other);
+    this->swap(temp);
+    return *this;
+}
+
+void Project::swap(Project& other)
+{
+    std::swap(canvasSize,other.canvasSize);
+    std::swap(currentFrame,other.currentFrame);
+    std::swap(frames,other.frames);
 }
 
 Project::~Project(){
@@ -78,8 +114,11 @@ QString Project::toString(){
     QString formatted = QString::number(height) + " " + QString::number(width) + "\n" +
             QString::number(frames.size()) + "\n";
 
-    foreach (Grid* grid, frames) {
-        formatted += grid->toString();
+    int frameNum = 0;
+    foreach (Grid grid, frames) {
+        formatted += "Frame: " + QString::number(frameNum) + "\n";
+        formatted += grid.toString();
+        frameNum++;
     }
     return formatted;
 }
