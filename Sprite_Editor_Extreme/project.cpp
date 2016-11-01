@@ -55,7 +55,7 @@ Grid * Project::getCurrentFrame(){
 }
 
 void Project::addEmptyFrame(){
-    Grid * grid = new Grid; // will need to pass in the current size here.
+    Grid * grid = new Grid(canvasSize.first,canvasSize.second); // will need to pass in the current size here.
     frames[workingframe]=*currentFrame; // save the current state
     frames.push_back(*grid);
     workingframe = frames.size()-1;
@@ -67,9 +67,14 @@ void Project::setCanvasSize(int w, int h){
    canvasSize.first=w;
    canvasSize.second=h;
    currentFrame->resize(w,h);
+   for(std::vector<Grid>::iterator it = frames.begin(); it < frames.end(); ++it){
+       it->resize(w,h);
+   }
+   frames[workingframe]=*currentFrame;
 }
 
 void Project::addNewFrame(Grid * grid){
+    grid->resize(canvasSize.first,canvasSize.second);
     frames[workingframe]=*currentFrame;
     frames.push_back(*grid);
     workingframe = frames.size()-1;

@@ -29,7 +29,6 @@ void Controller::receiveOpenProj(QString heightWidth, QString numFrames, QString
     list = heightWidth.split(QRegularExpression("\\s+"));
     int h = list.takeFirst().toInt();
     int w = list.takeLast().toInt();
-    //model = new Model(h,w,numFrames.toInt());
     model = new Model;
     int parse = numFrames.toInt();
     QStringList frameList;
