@@ -61,12 +61,12 @@ Grid::Grid(int h,int w)
 void Grid::resize(int h, int w){
     height=h;
     width=w;
-    QImage newImage(h,w,QImage::Format_ARGB32);
-    newImage.fill(Qt::white);
-    QPainter painter(&newImage);
+    QImage * newImage = new QImage(h,w,QImage::Format_ARGB32);
+    newImage->fill(Qt::white);
+    QPainter painter(newImage);
     painter.drawImage(0,0,*image);
     painter.end();
-    *image = newImage;
+    image = newImage;
 }
 
 QImage* Grid::getImage()

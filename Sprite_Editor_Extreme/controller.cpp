@@ -69,7 +69,7 @@ void Controller::receivePropertyChange(Property p){
     if(p.values.size()>0){
         if(p.name.toStdString().compare("brushSize")==0){
             if(p.values.front()>0){
-                model->getProject()->getCurrentFrame()->setDrawScale(p.values.front());
+                //model->getProject()->getCurrentFrame()->setDrawScale(p.values.front());
             }
         }
         if(p.name.toStdString().compare("canvasSize")==0){
