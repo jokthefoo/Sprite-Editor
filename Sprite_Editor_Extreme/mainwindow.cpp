@@ -104,7 +104,7 @@ void MainWindow::openProj()
     {
         QTextStream stream(&file);
 
-        for(int i = 0; i < frames.size(); i++)
+        for(unsigned int i = 0; i < frames.size(); i++)
         {
             ui->framesLayout->removeWidget(frames.at(i));
         }
@@ -180,7 +180,7 @@ void MainWindow::updateScreen(QImage * image){
 void MainWindow::updateFrames(std::vector<QImage> frameList, int currentFrame)
 {
     std::vector<QImage>::iterator imIt = frameList.begin();
-    for(int i =0; i < frames.size(); i++)
+    for(unsigned int i =0; i < frames.size(); i++)
     {
         frames.at(i)->setPixmap(QPixmap::fromImage(*imIt));
         if(i == currentFrame)

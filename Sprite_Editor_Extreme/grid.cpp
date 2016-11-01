@@ -6,7 +6,7 @@ Grid::Grid()
     width = default_width;
     brushSize = 1;
     image = new QImage(width, height, QImage::Format_ARGB32);
-    //image->fill(Qt::white);
+    image->fill(Qt::white);
 }
 
 Grid::Grid(const Grid& other){
@@ -56,7 +56,7 @@ Grid::Grid(int h,int w)
     }
     brushSize = 1;
     image = new QImage(width, height, QImage::Format_ARGB32);
-    //image->fill(Qt::white);
+    image->fill(Qt::white);
 }
 
 void Grid::setBrushSize(int x)

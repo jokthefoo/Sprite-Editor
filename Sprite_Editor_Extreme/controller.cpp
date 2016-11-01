@@ -44,7 +44,6 @@ void Controller::receiveOpenProj(QString heightWidth, QString numFrames, QString
     }
     QStringList::iterator listIt = frameList.begin();
 
-    model->getProject()->removeFrame(0);
 
     for(int i = 0; i < parse; i++){
         Grid * grid = new Grid(h,w);
@@ -53,6 +52,7 @@ void Controller::receiveOpenProj(QString heightWidth, QString numFrames, QString
         model->getProject()->addNewFrame(grid);
         emit sendNewFrame(grid->getImage());
     }
+    model->getProject()->removeFrame(0);
     model->getProject()->changeFrame(0);
     emit sendImage(model->getProject()->getCurrentFrame()->getImage());
     sendAllFrame();
