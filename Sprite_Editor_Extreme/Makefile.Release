@@ -299,12 +299,19 @@ release/moc_mainwindow.cpp: C:/Qt/5.7/mingw53_32/include/QtWidgets/QMainWindow \
 		C:/Qt/5.7/mingw53_32/include/QtGui/QPainter \
 		C:/Qt/5.7/mingw53_32/include/QtGui/qpainter.h \
 		C:/Qt/5.7/mingw53_32/include/QtCore/QString \
+		C:/Qt/5.7/mingw53_32/include/QtCore/QRegularExpression \
+		C:/Qt/5.7/mingw53_32/include/QtCore/qregularexpression.h \
 		configurationform.h \
 		C:/Qt/5.7/mingw53_32/include/QtWidgets/QDialog \
 		property.h \
 		previewwindow.h \
 		C:/Qt/5.7/mingw53_32/include/QtWidgets/QGraphicsScene \
 		C:/Qt/5.7/mingw53_32/include/QtWidgets/qgraphicsscene.h \
+		C:/Qt/5.7/mingw53_32/include/QtWidgets/QFileDialog \
+		C:/Qt/5.7/mingw53_32/include/QtWidgets/qfiledialog.h \
+		C:/Qt/5.7/mingw53_32/include/QtCore/qdir.h \
+		C:/Qt/5.7/mingw53_32/include/QtCore/qfileinfo.h \
+		C:/Qt/5.7/mingw53_32/include/QtCore/QTextStream \
 		mainwindow.h \
 		C:/Qt/5.7/mingw53_32/bin/moc.exe
 	C:\Qt\5.7\mingw53_32\bin\moc.exe $(DEFINES) -D__GNUC__ -DWIN32 -IC:/Qt/5.7/mingw53_32/mkspecs/win32-g++ -IC:/Users/Jokthefoo/Documents/GitHub/cs3505-a7-sprite-editor-smact/Sprite_Editor_Extreme -IC:/Qt/5.7/mingw53_32/include -IC:/Qt/5.7/mingw53_32/include/QtWidgets -IC:/Qt/5.7/mingw53_32/include/QtGui -IC:/Qt/5.7/mingw53_32/include/QtANGLE -IC:/Qt/5.7/mingw53_32/include/QtCore -I/usr/include/c++/5 -I/usr/include/x86_64-linux-gnu/c++/5 -I/usr/include/c++/5/backward -I/usr/lib/gcc/x86_64-linux-gnu/5/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/5/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include mainwindow.h -o release\moc_mainwindow.cpp
@@ -431,6 +438,8 @@ release/moc_controller.cpp: C:/Qt/5.7/mingw53_32/include/QtCore/QObject \
 		C:/Qt/5.7/mingw53_32/include/QtGui/qtextoption.h \
 		C:/Qt/5.7/mingw53_32/include/QtGui/qpen.h \
 		C:/Qt/5.7/mingw53_32/include/QtCore/QString \
+		C:/Qt/5.7/mingw53_32/include/QtCore/QRegularExpression \
+		C:/Qt/5.7/mingw53_32/include/QtCore/qregularexpression.h \
 		tool.h \
 		C:/Qt/5.7/mingw53_32/include/QtCore/QPointF \
 		mainwindow.h \
@@ -457,6 +466,11 @@ release/moc_controller.cpp: C:/Qt/5.7/mingw53_32/include/QtCore/QObject \
 		previewwindow.h \
 		C:/Qt/5.7/mingw53_32/include/QtWidgets/QGraphicsScene \
 		C:/Qt/5.7/mingw53_32/include/QtWidgets/qgraphicsscene.h \
+		C:/Qt/5.7/mingw53_32/include/QtWidgets/QFileDialog \
+		C:/Qt/5.7/mingw53_32/include/QtWidgets/qfiledialog.h \
+		C:/Qt/5.7/mingw53_32/include/QtCore/qdir.h \
+		C:/Qt/5.7/mingw53_32/include/QtCore/qfileinfo.h \
+		C:/Qt/5.7/mingw53_32/include/QtCore/QTextStream \
 		controller.h \
 		C:/Qt/5.7/mingw53_32/bin/moc.exe
 	C:\Qt\5.7\mingw53_32\bin\moc.exe $(DEFINES) -D__GNUC__ -DWIN32 -IC:/Qt/5.7/mingw53_32/mkspecs/win32-g++ -IC:/Users/Jokthefoo/Documents/GitHub/cs3505-a7-sprite-editor-smact/Sprite_Editor_Extreme -IC:/Qt/5.7/mingw53_32/include -IC:/Qt/5.7/mingw53_32/include/QtWidgets -IC:/Qt/5.7/mingw53_32/include/QtGui -IC:/Qt/5.7/mingw53_32/include/QtANGLE -IC:/Qt/5.7/mingw53_32/include/QtCore -I/usr/include/c++/5 -I/usr/include/x86_64-linux-gnu/c++/5 -I/usr/include/c++/5/backward -I/usr/lib/gcc/x86_64-linux-gnu/5/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/5/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include controller.h -o release\moc_controller.cpp
@@ -1040,12 +1054,19 @@ release/main.o: main.cpp mainwindow.h \
 		C:/Qt/5.7/mingw53_32/include/QtGui/QPainter \
 		C:/Qt/5.7/mingw53_32/include/QtGui/qpainter.h \
 		C:/Qt/5.7/mingw53_32/include/QtCore/QString \
+		C:/Qt/5.7/mingw53_32/include/QtCore/QRegularExpression \
+		C:/Qt/5.7/mingw53_32/include/QtCore/qregularexpression.h \
 		configurationform.h \
 		C:/Qt/5.7/mingw53_32/include/QtWidgets/QDialog \
 		property.h \
 		previewwindow.h \
 		C:/Qt/5.7/mingw53_32/include/QtWidgets/QGraphicsScene \
 		C:/Qt/5.7/mingw53_32/include/QtWidgets/qgraphicsscene.h \
+		C:/Qt/5.7/mingw53_32/include/QtWidgets/QFileDialog \
+		C:/Qt/5.7/mingw53_32/include/QtWidgets/qfiledialog.h \
+		C:/Qt/5.7/mingw53_32/include/QtCore/qdir.h \
+		C:/Qt/5.7/mingw53_32/include/QtCore/qfileinfo.h \
+		C:/Qt/5.7/mingw53_32/include/QtCore/QTextStream \
 		C:/Qt/5.7/mingw53_32/include/QtWidgets/QApplication \
 		C:/Qt/5.7/mingw53_32/include/QtWidgets/qapplication.h \
 		C:/Qt/5.7/mingw53_32/include/QtCore/qcoreapplication.h \
@@ -1198,12 +1219,19 @@ release/mainwindow.o: mainwindow.cpp mainwindow.h \
 		C:/Qt/5.7/mingw53_32/include/QtGui/QPainter \
 		C:/Qt/5.7/mingw53_32/include/QtGui/qpainter.h \
 		C:/Qt/5.7/mingw53_32/include/QtCore/QString \
+		C:/Qt/5.7/mingw53_32/include/QtCore/QRegularExpression \
+		C:/Qt/5.7/mingw53_32/include/QtCore/qregularexpression.h \
 		configurationform.h \
 		C:/Qt/5.7/mingw53_32/include/QtWidgets/QDialog \
 		property.h \
 		previewwindow.h \
 		C:/Qt/5.7/mingw53_32/include/QtWidgets/QGraphicsScene \
 		C:/Qt/5.7/mingw53_32/include/QtWidgets/qgraphicsscene.h \
+		C:/Qt/5.7/mingw53_32/include/QtWidgets/QFileDialog \
+		C:/Qt/5.7/mingw53_32/include/QtWidgets/qfiledialog.h \
+		C:/Qt/5.7/mingw53_32/include/QtCore/qdir.h \
+		C:/Qt/5.7/mingw53_32/include/QtCore/qfileinfo.h \
+		C:/Qt/5.7/mingw53_32/include/QtCore/QTextStream \
 		ui_mainwindow.h \
 		C:/Qt/5.7/mingw53_32/include/QtCore/QVariant \
 		C:/Qt/5.7/mingw53_32/include/QtWidgets/QApplication \
@@ -1229,7 +1257,6 @@ release/mainwindow.o: mainwindow.cpp mainwindow.h \
 		C:/Qt/5.7/mingw53_32/include/QtWidgets/qstyleoption.h \
 		C:/Qt/5.7/mingw53_32/include/QtWidgets/qabstractspinbox.h \
 		C:/Qt/5.7/mingw53_32/include/QtGui/qvalidator.h \
-		C:/Qt/5.7/mingw53_32/include/QtCore/qregularexpression.h \
 		C:/Qt/5.7/mingw53_32/include/QtWidgets/qslider.h \
 		C:/Qt/5.7/mingw53_32/include/QtWidgets/qabstractslider.h \
 		C:/Qt/5.7/mingw53_32/include/QtWidgets/qstyle.h \
@@ -1340,7 +1367,16 @@ release/grid.o: grid.cpp grid.h \
 		C:/Qt/5.7/mingw53_32/include/QtGui/qfontinfo.h \
 		C:/Qt/5.7/mingw53_32/include/QtGui/qfont.h \
 		C:/Qt/5.7/mingw53_32/include/QtGui/qfontmetrics.h \
-		C:/Qt/5.7/mingw53_32/include/QtCore/QString
+		C:/Qt/5.7/mingw53_32/include/QtCore/QString \
+		C:/Qt/5.7/mingw53_32/include/QtCore/QRegularExpression \
+		C:/Qt/5.7/mingw53_32/include/QtCore/qregularexpression.h \
+		C:/Qt/5.7/mingw53_32/include/QtCore/qvariant.h \
+		C:/Qt/5.7/mingw53_32/include/QtCore/qmap.h \
+		C:/Qt/5.7/mingw53_32/include/QtCore/qdebug.h \
+		C:/Qt/5.7/mingw53_32/include/QtCore/qtextstream.h \
+		C:/Qt/5.7/mingw53_32/include/QtCore/qlocale.h \
+		C:/Qt/5.7/mingw53_32/include/QtCore/qset.h \
+		C:/Qt/5.7/mingw53_32/include/QtCore/qcontiguouscache.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o release\grid.o grid.cpp
 
 release/controller.o: controller.cpp controller.h \
@@ -1466,6 +1502,8 @@ release/controller.o: controller.cpp controller.h \
 		C:/Qt/5.7/mingw53_32/include/QtGui/qtextoption.h \
 		C:/Qt/5.7/mingw53_32/include/QtGui/qpen.h \
 		C:/Qt/5.7/mingw53_32/include/QtCore/QString \
+		C:/Qt/5.7/mingw53_32/include/QtCore/QRegularExpression \
+		C:/Qt/5.7/mingw53_32/include/QtCore/qregularexpression.h \
 		tool.h \
 		C:/Qt/5.7/mingw53_32/include/QtCore/QPointF \
 		mainwindow.h \
@@ -1491,7 +1529,12 @@ release/controller.o: controller.cpp controller.h \
 		property.h \
 		previewwindow.h \
 		C:/Qt/5.7/mingw53_32/include/QtWidgets/QGraphicsScene \
-		C:/Qt/5.7/mingw53_32/include/QtWidgets/qgraphicsscene.h
+		C:/Qt/5.7/mingw53_32/include/QtWidgets/qgraphicsscene.h \
+		C:/Qt/5.7/mingw53_32/include/QtWidgets/QFileDialog \
+		C:/Qt/5.7/mingw53_32/include/QtWidgets/qfiledialog.h \
+		C:/Qt/5.7/mingw53_32/include/QtCore/qdir.h \
+		C:/Qt/5.7/mingw53_32/include/QtCore/qfileinfo.h \
+		C:/Qt/5.7/mingw53_32/include/QtCore/QTextStream
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o release\controller.o controller.cpp
 
 release/model.o: model.cpp model.h \
@@ -1598,6 +1641,8 @@ release/model.o: model.cpp model.h \
 		C:/Qt/5.7/mingw53_32/include/QtGui/qfont.h \
 		C:/Qt/5.7/mingw53_32/include/QtGui/qfontmetrics.h \
 		C:/Qt/5.7/mingw53_32/include/QtCore/QString \
+		C:/Qt/5.7/mingw53_32/include/QtCore/QRegularExpression \
+		C:/Qt/5.7/mingw53_32/include/QtCore/qregularexpression.h \
 		tool.h \
 		C:/Qt/5.7/mingw53_32/include/QtCore/QPointF \
 		C:/Qt/5.7/mingw53_32/include/QtCore/QTimer \
@@ -1695,7 +1740,16 @@ release/project.o: project.cpp project.h \
 		C:/Qt/5.7/mingw53_32/include/QtGui/qfontinfo.h \
 		C:/Qt/5.7/mingw53_32/include/QtGui/qfont.h \
 		C:/Qt/5.7/mingw53_32/include/QtGui/qfontmetrics.h \
-		C:/Qt/5.7/mingw53_32/include/QtCore/QString
+		C:/Qt/5.7/mingw53_32/include/QtCore/QString \
+		C:/Qt/5.7/mingw53_32/include/QtCore/QRegularExpression \
+		C:/Qt/5.7/mingw53_32/include/QtCore/qregularexpression.h \
+		C:/Qt/5.7/mingw53_32/include/QtCore/qvariant.h \
+		C:/Qt/5.7/mingw53_32/include/QtCore/qmap.h \
+		C:/Qt/5.7/mingw53_32/include/QtCore/qdebug.h \
+		C:/Qt/5.7/mingw53_32/include/QtCore/qtextstream.h \
+		C:/Qt/5.7/mingw53_32/include/QtCore/qlocale.h \
+		C:/Qt/5.7/mingw53_32/include/QtCore/qset.h \
+		C:/Qt/5.7/mingw53_32/include/QtCore/qcontiguouscache.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o release\project.o project.cpp
 
 release/colorbox.o: colorbox.cpp colorbox.h \
@@ -2069,10 +2123,8 @@ release/tool.o: tool.cpp tool.h \
 		C:/Qt/5.7/mingw53_32/include/QtGui/qfont.h \
 		C:/Qt/5.7/mingw53_32/include/QtGui/qfontmetrics.h \
 		C:/Qt/5.7/mingw53_32/include/QtCore/QString \
-		C:/Qt/5.7/mingw53_32/include/QtCore/QPointF \
-		C:/Qt/5.7/mingw53_32/include/QtGui/QMouseEvent \
-		C:/Qt/5.7/mingw53_32/include/QtGui/qevent.h \
-		C:/Qt/5.7/mingw53_32/include/QtGui/qkeysequence.h \
+		C:/Qt/5.7/mingw53_32/include/QtCore/QRegularExpression \
+		C:/Qt/5.7/mingw53_32/include/QtCore/qregularexpression.h \
 		C:/Qt/5.7/mingw53_32/include/QtCore/qvariant.h \
 		C:/Qt/5.7/mingw53_32/include/QtCore/qmap.h \
 		C:/Qt/5.7/mingw53_32/include/QtCore/qdebug.h \
@@ -2080,6 +2132,10 @@ release/tool.o: tool.cpp tool.h \
 		C:/Qt/5.7/mingw53_32/include/QtCore/qlocale.h \
 		C:/Qt/5.7/mingw53_32/include/QtCore/qset.h \
 		C:/Qt/5.7/mingw53_32/include/QtCore/qcontiguouscache.h \
+		C:/Qt/5.7/mingw53_32/include/QtCore/QPointF \
+		C:/Qt/5.7/mingw53_32/include/QtGui/QMouseEvent \
+		C:/Qt/5.7/mingw53_32/include/QtGui/qevent.h \
+		C:/Qt/5.7/mingw53_32/include/QtGui/qkeysequence.h \
 		C:/Qt/5.7/mingw53_32/include/QtCore/qurl.h \
 		C:/Qt/5.7/mingw53_32/include/QtCore/qurlquery.h \
 		C:/Qt/5.7/mingw53_32/include/QtCore/qfile.h \
@@ -2174,12 +2230,8 @@ release/brush.o: brush.cpp brush.h \
 		C:/Qt/5.7/mingw53_32/include/QtGui/qfont.h \
 		C:/Qt/5.7/mingw53_32/include/QtGui/qfontmetrics.h \
 		C:/Qt/5.7/mingw53_32/include/QtCore/QString \
-		C:/Qt/5.7/mingw53_32/include/QtCore/QPoint \
-		tool.h \
-		C:/Qt/5.7/mingw53_32/include/QtCore/QPointF \
-		C:/Qt/5.7/mingw53_32/include/QtGui/QMouseEvent \
-		C:/Qt/5.7/mingw53_32/include/QtGui/qevent.h \
-		C:/Qt/5.7/mingw53_32/include/QtGui/qkeysequence.h \
+		C:/Qt/5.7/mingw53_32/include/QtCore/QRegularExpression \
+		C:/Qt/5.7/mingw53_32/include/QtCore/qregularexpression.h \
 		C:/Qt/5.7/mingw53_32/include/QtCore/qvariant.h \
 		C:/Qt/5.7/mingw53_32/include/QtCore/qmap.h \
 		C:/Qt/5.7/mingw53_32/include/QtCore/qdebug.h \
@@ -2187,6 +2239,12 @@ release/brush.o: brush.cpp brush.h \
 		C:/Qt/5.7/mingw53_32/include/QtCore/qlocale.h \
 		C:/Qt/5.7/mingw53_32/include/QtCore/qset.h \
 		C:/Qt/5.7/mingw53_32/include/QtCore/qcontiguouscache.h \
+		C:/Qt/5.7/mingw53_32/include/QtCore/QPoint \
+		tool.h \
+		C:/Qt/5.7/mingw53_32/include/QtCore/QPointF \
+		C:/Qt/5.7/mingw53_32/include/QtGui/QMouseEvent \
+		C:/Qt/5.7/mingw53_32/include/QtGui/qevent.h \
+		C:/Qt/5.7/mingw53_32/include/QtGui/qkeysequence.h \
 		C:/Qt/5.7/mingw53_32/include/QtCore/qurl.h \
 		C:/Qt/5.7/mingw53_32/include/QtCore/qurlquery.h \
 		C:/Qt/5.7/mingw53_32/include/QtCore/qfile.h \
@@ -2281,12 +2339,8 @@ release/eraser.o: eraser.cpp eraser.h \
 		C:/Qt/5.7/mingw53_32/include/QtGui/qfont.h \
 		C:/Qt/5.7/mingw53_32/include/QtGui/qfontmetrics.h \
 		C:/Qt/5.7/mingw53_32/include/QtCore/QString \
-		C:/Qt/5.7/mingw53_32/include/QtCore/QPoint \
-		tool.h \
-		C:/Qt/5.7/mingw53_32/include/QtCore/QPointF \
-		C:/Qt/5.7/mingw53_32/include/QtGui/QMouseEvent \
-		C:/Qt/5.7/mingw53_32/include/QtGui/qevent.h \
-		C:/Qt/5.7/mingw53_32/include/QtGui/qkeysequence.h \
+		C:/Qt/5.7/mingw53_32/include/QtCore/QRegularExpression \
+		C:/Qt/5.7/mingw53_32/include/QtCore/qregularexpression.h \
 		C:/Qt/5.7/mingw53_32/include/QtCore/qvariant.h \
 		C:/Qt/5.7/mingw53_32/include/QtCore/qmap.h \
 		C:/Qt/5.7/mingw53_32/include/QtCore/qdebug.h \
@@ -2294,6 +2348,12 @@ release/eraser.o: eraser.cpp eraser.h \
 		C:/Qt/5.7/mingw53_32/include/QtCore/qlocale.h \
 		C:/Qt/5.7/mingw53_32/include/QtCore/qset.h \
 		C:/Qt/5.7/mingw53_32/include/QtCore/qcontiguouscache.h \
+		C:/Qt/5.7/mingw53_32/include/QtCore/QPoint \
+		tool.h \
+		C:/Qt/5.7/mingw53_32/include/QtCore/QPointF \
+		C:/Qt/5.7/mingw53_32/include/QtGui/QMouseEvent \
+		C:/Qt/5.7/mingw53_32/include/QtGui/qevent.h \
+		C:/Qt/5.7/mingw53_32/include/QtGui/qkeysequence.h \
 		C:/Qt/5.7/mingw53_32/include/QtCore/qurl.h \
 		C:/Qt/5.7/mingw53_32/include/QtCore/qurlquery.h \
 		C:/Qt/5.7/mingw53_32/include/QtCore/qfile.h \
@@ -2408,7 +2468,48 @@ release/previewwindow.o: previewwindow.cpp previewwindow.h \
 		C:/Qt/5.7/mingw53_32/include/QtWidgets/QGraphicsScene \
 		C:/Qt/5.7/mingw53_32/include/QtWidgets/qgraphicsscene.h \
 		C:/Qt/5.7/mingw53_32/include/QtGui/qpen.h \
-		ui_previewwindow.h
+		ui_previewwindow.h \
+		C:/Qt/5.7/mingw53_32/include/QtCore/QVariant \
+		C:/Qt/5.7/mingw53_32/include/QtWidgets/QAction \
+		C:/Qt/5.7/mingw53_32/include/QtWidgets/qaction.h \
+		C:/Qt/5.7/mingw53_32/include/QtWidgets/qactiongroup.h \
+		C:/Qt/5.7/mingw53_32/include/QtWidgets/QApplication \
+		C:/Qt/5.7/mingw53_32/include/QtWidgets/qapplication.h \
+		C:/Qt/5.7/mingw53_32/include/QtCore/qcoreapplication.h \
+		C:/Qt/5.7/mingw53_32/include/QtCore/qeventloop.h \
+		C:/Qt/5.7/mingw53_32/include/QtWidgets/qdesktopwidget.h \
+		C:/Qt/5.7/mingw53_32/include/QtGui/qguiapplication.h \
+		C:/Qt/5.7/mingw53_32/include/QtGui/qinputmethod.h \
+		C:/Qt/5.7/mingw53_32/include/QtWidgets/QButtonGroup \
+		C:/Qt/5.7/mingw53_32/include/QtWidgets/qbuttongroup.h \
+		C:/Qt/5.7/mingw53_32/include/QtWidgets/QGraphicsView \
+		C:/Qt/5.7/mingw53_32/include/QtWidgets/qgraphicsview.h \
+		C:/Qt/5.7/mingw53_32/include/QtGui/qpainter.h \
+		C:/Qt/5.7/mingw53_32/include/QtGui/qtextoption.h \
+		C:/Qt/5.7/mingw53_32/include/QtWidgets/qscrollarea.h \
+		C:/Qt/5.7/mingw53_32/include/QtWidgets/qabstractscrollarea.h \
+		C:/Qt/5.7/mingw53_32/include/QtWidgets/qframe.h \
+		C:/Qt/5.7/mingw53_32/include/QtWidgets/QHeaderView \
+		C:/Qt/5.7/mingw53_32/include/QtWidgets/qheaderview.h \
+		C:/Qt/5.7/mingw53_32/include/QtWidgets/qabstractitemview.h \
+		C:/Qt/5.7/mingw53_32/include/QtCore/qabstractitemmodel.h \
+		C:/Qt/5.7/mingw53_32/include/QtCore/qitemselectionmodel.h \
+		C:/Qt/5.7/mingw53_32/include/QtWidgets/qabstractitemdelegate.h \
+		C:/Qt/5.7/mingw53_32/include/QtWidgets/qstyleoption.h \
+		C:/Qt/5.7/mingw53_32/include/QtWidgets/qabstractspinbox.h \
+		C:/Qt/5.7/mingw53_32/include/QtGui/qvalidator.h \
+		C:/Qt/5.7/mingw53_32/include/QtCore/qregularexpression.h \
+		C:/Qt/5.7/mingw53_32/include/QtWidgets/qslider.h \
+		C:/Qt/5.7/mingw53_32/include/QtWidgets/qabstractslider.h \
+		C:/Qt/5.7/mingw53_32/include/QtWidgets/qstyle.h \
+		C:/Qt/5.7/mingw53_32/include/QtWidgets/qtabbar.h \
+		C:/Qt/5.7/mingw53_32/include/QtWidgets/qrubberband.h \
+		C:/Qt/5.7/mingw53_32/include/QtWidgets/QMenuBar \
+		C:/Qt/5.7/mingw53_32/include/QtWidgets/qmenubar.h \
+		C:/Qt/5.7/mingw53_32/include/QtWidgets/qmenu.h \
+		C:/Qt/5.7/mingw53_32/include/QtWidgets/QStatusBar \
+		C:/Qt/5.7/mingw53_32/include/QtWidgets/qstatusbar.h \
+		C:/Qt/5.7/mingw53_32/include/QtWidgets/QWidget
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o release\previewwindow.o previewwindow.cpp
 
 release/fillbucket.o: fillbucket.cpp fillbucket.h \
@@ -2498,10 +2599,8 @@ release/fillbucket.o: fillbucket.cpp fillbucket.h \
 		C:/Qt/5.7/mingw53_32/include/QtGui/qfont.h \
 		C:/Qt/5.7/mingw53_32/include/QtGui/qfontmetrics.h \
 		C:/Qt/5.7/mingw53_32/include/QtCore/QString \
-		C:/Qt/5.7/mingw53_32/include/QtCore/QPointF \
-		C:/Qt/5.7/mingw53_32/include/QtGui/QMouseEvent \
-		C:/Qt/5.7/mingw53_32/include/QtGui/qevent.h \
-		C:/Qt/5.7/mingw53_32/include/QtGui/qkeysequence.h \
+		C:/Qt/5.7/mingw53_32/include/QtCore/QRegularExpression \
+		C:/Qt/5.7/mingw53_32/include/QtCore/qregularexpression.h \
 		C:/Qt/5.7/mingw53_32/include/QtCore/qvariant.h \
 		C:/Qt/5.7/mingw53_32/include/QtCore/qmap.h \
 		C:/Qt/5.7/mingw53_32/include/QtCore/qdebug.h \
@@ -2509,6 +2608,10 @@ release/fillbucket.o: fillbucket.cpp fillbucket.h \
 		C:/Qt/5.7/mingw53_32/include/QtCore/qlocale.h \
 		C:/Qt/5.7/mingw53_32/include/QtCore/qset.h \
 		C:/Qt/5.7/mingw53_32/include/QtCore/qcontiguouscache.h \
+		C:/Qt/5.7/mingw53_32/include/QtCore/QPointF \
+		C:/Qt/5.7/mingw53_32/include/QtGui/QMouseEvent \
+		C:/Qt/5.7/mingw53_32/include/QtGui/qevent.h \
+		C:/Qt/5.7/mingw53_32/include/QtGui/qkeysequence.h \
 		C:/Qt/5.7/mingw53_32/include/QtCore/qurl.h \
 		C:/Qt/5.7/mingw53_32/include/QtCore/qurlquery.h \
 		C:/Qt/5.7/mingw53_32/include/QtCore/qfile.h \
