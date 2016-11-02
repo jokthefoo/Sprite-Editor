@@ -399,7 +399,7 @@
      <x>0</x>
      <y>0</y>
      <width>1161</width>
-     <height>26</height>
+     <height>17</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuFile">
@@ -410,7 +410,7 @@
     <addaction name="actionCanvasSize_2"/>
     <addaction name="actionSave_as"/>
     <addaction name="actionOpen_project"/>
-    <addaction name="actionExport_to_Gif"/>
+    <addaction name="actionExportToGif"/>
    </widget>
    <addaction name="menuFile"/>
   </widget>
@@ -441,7 +441,7 @@
     <string>Open project...</string>
    </property>
   </action>
-  <action name="actionExport_to_Gif">
+  <action name="actionExportToGif">
    <property name="text">
     <string>Export to Gif</string>
    </property>
