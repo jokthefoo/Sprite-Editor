@@ -26,7 +26,8 @@ SOURCES += main.cpp\
     brush.cpp \
     eraser.cpp \
     previewwindow.cpp \
-    fillbucket.cpp
+    fillbucket.cpp \
+    gif.h
 
 HEADERS  += mainwindow.h \
     grid.h \

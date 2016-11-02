@@ -1,5 +1,6 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
+#include <gif.h>
 
 #include <ui_configurationform.h>
 
@@ -77,6 +78,7 @@ void MainWindow::connectComponents(){
     QObject::connect(&configuration, SIGNAL(accepted()), this, SLOT(sendConfigurationInput()));
     QObject::connect(ui->actionSave_as, SIGNAL(triggered()), this, SLOT(sendSaveAsSig()));
     QObject::connect(ui->actionOpen_project, SIGNAL(triggered()), this, SLOT(openProj()));
+    QObject::connect(ui->actionExport_to_Gif, SIGNAL(triggered()), this, SLOT(exportToGifSig()));
     QObject::connect(ui->zoom_In_Button, SIGNAL(clicked()), this, SLOT(zoomIn()));
     QObject::connect(ui->zoom_Out_Button, SIGNAL(clicked()), this, SLOT(zoomOut()));
 }
@@ -139,6 +141,27 @@ void MainWindow::saveAsSelected(QString fileInfo)
     QTextStream stream(&file);
     stream << fileInfo;
     file.close();
+}
+
+void MainWindow::exportToGifSig()
+{
+    emit sendExportGif();
+}
+
+void MainWindow::exportGif(std::vector<QImage> frameList)
+{
+    GifWriter *gifWriter = new GifWriter();
+    QString filename = QFileDialog::getSaveFileName(this, "Save gif", "", "Sprite Gif File (*.gif)");
+    GifBegin(gifWriter,filename.toLatin1().constData(),frameList[0].width(),frameList[0].height(),50,8,false);
+    QImage image;
+    for(int i = 0; i < frameList.size(); i++)
+    {
+        image = frameList[i];
+        image = image.convertToFormat(QImage::Format_RGBA8888, Qt::OrderedDither);
+        uint8_t *charAr = image.bits();
+        GifWriteFrame(gifWriter,charAr,frameList[0].width(),frameList[0].height(),50,8,false);
+    }
+    GifEnd(gifWriter);
 }
 
 void MainWindow::openConfigurationSelected(){

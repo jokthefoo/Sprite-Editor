@@ -38,10 +38,13 @@ signals:
     void sendButtonInput(QWidget*);
     void sendPropertyChange(Property);
     void sendSaveAs();
+    void sendExportGif();
     void sendOpenProj(QString,QString,QString);
 
 
 public slots:
+    void exportGif(std::vector<QImage>);
+    void exportToGifSig();
     void updateFrames(std::vector<QImage>, int);
     void saveAsSelected(QString);
     void sendConfigurationInput();

@@ -35,10 +35,12 @@ signals:
     void sendPreviewImage(QImage *);
     void sendColor(QColor);
     void sendFrames(std::vector<QImage>, int);
+    void sendFramesForExport(std::vector<QImage>);
     void saveAs(QString);
     void sendNewFrame(QImage *);
 
 public slots:
+    void receiveExport();
     void receiveButtonInput(QWidget*);
     void receiveMouseInput(QPointF, QMouseEvent*);
     void receivePropertyChange(Property);

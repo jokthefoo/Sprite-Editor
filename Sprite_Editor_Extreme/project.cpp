@@ -92,7 +92,7 @@ void Project::removeFrame(unsigned int frameIndex){
 }
 
 std::vector<Grid> Project::getAllFrames(){
-  //frames[workingframe]=*currentFrame;
+  frames[workingframe]=*currentFrame;
   return frames;
 }
 

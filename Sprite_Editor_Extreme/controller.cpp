@@ -7,9 +7,11 @@ Controller::Controller(MainWindow * w)
     QObject::connect(w, &MainWindow::sendButtonInput, this, &Controller::receiveButtonInput);
     QObject::connect(w, &MainWindow::sendPropertyChange, this, &Controller::receivePropertyChange);
     QObject::connect(w, &MainWindow::sendSaveAs, this, &Controller::receiveSaveAs);
+    QObject::connect(w, &MainWindow::sendExportGif, this, &Controller::receiveExport);
     QObject::connect(w, &MainWindow::sendOpenProj, this, &Controller::receiveOpenProj);
     QObject::connect(this, &Controller::sendImage, w, &MainWindow::updateScreen);
     QObject::connect(this, &Controller::sendFrames, w, &MainWindow::updateFrames);
+    QObject::connect(this, &Controller::sendFramesForExport, w, &MainWindow::exportGif);
     QObject::connect(this, &Controller::sendNewFrame, w, &MainWindow::addFrameToLayout);
     QObject::connect(this, &Controller::saveAs, w, &MainWindow::saveAsSelected);
     QObject::connect(this, &Controller::sendColor, w, &MainWindow::updateColor);
@@ -24,6 +26,17 @@ Controller::Controller(MainWindow * w)
 
 Controller::~Controller(){
 
+}
+
+void Controller::receiveExport()
+{
+    std::vector<QImage> frames;
+    std::vector<Grid> temp = model->getProject()->getAllFrames();
+    for(std::vector<Grid>::iterator it = temp.begin(); it != temp.end(); ++it)
+    {
+        frames.push_back(*(it->getImage()));
+    }
+    emit sendFramesForExport(frames);
 }
 
 void Controller::receiveOpenProj(QString heightWidth, QString numFrames, QString frames)

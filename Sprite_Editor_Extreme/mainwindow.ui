@@ -410,6 +410,7 @@
     <addaction name="actionCanvasSize_2"/>
     <addaction name="actionSave_as"/>
     <addaction name="actionOpen_project"/>
+    <addaction name="actionExport_to_Gif"/>
    </widget>
    <addaction name="menuFile"/>
   </widget>
@@ -438,6 +439,11 @@
   <action name="actionOpen_project">
    <property name="text">
     <string>Open project...</string>
+   </property>
+  </action>
+  <action name="actionExport_to_Gif">
+   <property name="text">
+    <string>Export to Gif</string>
    </property>
   </action>
  </widget>
