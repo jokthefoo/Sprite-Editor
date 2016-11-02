@@ -40,8 +40,7 @@ HEADERS  += mainwindow.h \
     brush.h \
     eraser.h \
     previewwindow.h \
-    fillbucket.h \
-    gif.h
+    fillbucket.h
 
 FORMS    += mainwindow.ui \
     previewwindow.ui \
