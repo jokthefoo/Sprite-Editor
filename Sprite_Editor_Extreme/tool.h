@@ -9,9 +9,7 @@ class Tool
 {
 public:
     Tool();
-    void virtual applyTool(Grid *, QPointF, QMouseEvent*);
-    QColor color;
-    void virtual setColor(QColor color);
+    void virtual applyTool(Grid *, QPointF, QMouseEvent*,QColor, int);
 
 private:
 

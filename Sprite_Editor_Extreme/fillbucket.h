@@ -11,10 +11,9 @@ class FillBucket : public Tool
 {
 public:
     FillBucket();
-    void virtual applyTool(Grid*, QPointF, QMouseEvent*) override;
+    void virtual applyTool(Grid*, QPointF, QMouseEvent*, QColor, int) override;
     QPointF lastPoint;
     bool drawing;
-    void virtual setColor(QColor color) override;
 private:
     void floodFill(QImage*, int, int, QColor, QColor);
 };

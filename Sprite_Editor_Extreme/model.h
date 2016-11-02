@@ -13,6 +13,8 @@ class Model // the model updates the view by sending signals
 private:
     Project * project;
     Tool * currentTool;
+    QColor currentColor;
+    int brushSize;
     std::vector<Tool*> tools;
     QTimer timer;
 
@@ -28,6 +30,10 @@ public:
     void rotateImage(int);
     void changeTool(int);
     Tool * getCurrentTool();
+    void setColor(QColor);
+    QColor getColor();
+    void setBrushSize(int);
+    int getBrushSize();
 
 };
 

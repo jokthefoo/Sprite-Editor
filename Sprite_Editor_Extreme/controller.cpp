@@ -17,9 +17,11 @@ Controller::Controller(MainWindow * w)
     QObject::connect(this, &Controller::sendColor, w, &MainWindow::updateColor);
     QObject::connect(this, &Controller::sendPreviewImage, w->getPreview(), &PreviewWindow::updatePreview);
     QObject::connect(&timer, &QTimer::timeout, this, &Controller::timeoutSendImage);
+    QObject::connect(this, &Controller::sendActiveTool, w, &MainWindow::setActiveButton);
     emit sendImage(model->getProject()->getCurrentFrame()->getImage());
     emit sendNewFrame(model->getProject()->getCurrentFrame()->getImage());
-    emit sendColor(model->getCurrentTool()->color);
+    emit sendColor(model->getColor());
+    emit sendActiveTool(0);
     drawing = false;
     allowDrawing = true;
 }
@@ -67,6 +69,8 @@ void Controller::receiveOpenProj(QString heightWidth, QString numFrames, QString
     model->getProject()->removeFrame(0);
     model->getProject()->changeFrame(0);
     emit sendImage(model->getProject()->getCurrentFrame()->getImage());
+    emit sendColor(model->getColor());
+    emit sendActiveTool(0);
     sendAllFrame();
 
 
@@ -99,7 +103,7 @@ void Controller::receivePropertyChange(Property p){
     if(p.values.size()>0){
         if(p.name.toStdString().compare("brushSize")==0){
             if(p.values.front()>0){
-                model->getProject()->getCurrentFrame()->setBrushSize(p.values.front());
+                model->setBrushSize(p.values.front());
             }
         }
         if(p.name.toStdString().compare("canvasSize")==0){
@@ -117,7 +121,7 @@ void Controller::receiveMouseInput(QPointF point, QMouseEvent *event)
         Grid * currentFrame = model->getProject()->getCurrentFrame();
         if(model->getCurrentTool()!=nullptr){
             Tool * tool = model->getCurrentTool();
-            tool->applyTool(currentFrame,point, event);
+            tool->applyTool(currentFrame,point, event,model->getColor(),model->getBrushSize());
             emit sendImage(model->getProject()->getCurrentFrame()->getImage());
             sendAllFrame();
         }
@@ -138,8 +142,8 @@ void Controller::receiveButtonInput(QWidget * child)
             allowDrawing = true;
             if (c.isValid())
             {
-                model->getCurrentTool()->setColor(c);
-                emit sendColor(model->getCurrentTool()->color);
+                model->setColor(c);
+                emit sendColor(model->getColor());
             }
         }
         return;
@@ -155,25 +159,32 @@ void Controller::receiveButtonInput(QWidget * child)
             model->rotateImage(90);
             emit sendImage(image);
             sendAllFrame();
-        }else if(name  == "rotate_Left_Button")
+        }
+        else if(name  == "rotate_Left_Button")
         {
             model->rotateImage(-90);
             emit sendImage(image);
             sendAllFrame();
-        } else if(name == "brush_Button"){
+        }
+        else if(name == "brush_Button")
+        {
             model->changeTool(0);
-            emit sendColor(model->getCurrentTool()->color);
-        } else if (name == "eraser_Button")
+            emit sendActiveTool(0);
+        }
+        else if (name == "eraser_Button")
         {
             model->changeTool(1);
-            emit sendColor(model->getCurrentTool()->color);
-        } else if (name == "fill_Bucket_Button")
+            emit sendActiveTool(1);
+        }
+        else if (name == "fill_Bucket_Button")
         {
             model->changeTool(2);
-            emit sendColor(model->getCurrentTool()->color);
-        }else if( name == "play_button"){
+            emit sendActiveTool(2);
+        }
+        else if( name == "play_button"){
             timer.start(100);
-        } else if( name == "next_frame_button"){
+        }
+        else if( name == "next_frame_button"){
             if(model->getProject()->next()){
                  emit sendImage(model->getProject()->getCurrentFrame()->getImage());
                  sendAllFrame();

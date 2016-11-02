@@ -12,6 +12,7 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->setupUi(this);
     ui->tabWidget->setTabText(0, "Paint");
     ui->tabWidget->setTabText(1,"Transform");
+    ui->tabWidget->setCurrentIndex(0);
     qApp->installEventFilter(this);
     scene = new QGraphicsScene(ui->graphicsView);
     ui->graphicsView->setScene(scene);
@@ -24,7 +25,7 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->scrollArea->setWidget(ui->framesBox);
     currentScale = 12;
     ui->graphicsView->scale(currentScale,currentScale);
-    zoomCount = 1;
+    zoomCount = 6;
 }
 
 void static setupIcon(QToolButton * button, QString filename){
@@ -125,6 +126,7 @@ void MainWindow::openProj()
         frameString = stream.readAll();
         file.close();
         emit sendOpenProj(heightAndWidth, numFrames, frameString);
+        ui->brushSize->setValue(1);
     }
 }
 
@@ -256,6 +258,28 @@ bool MainWindow::eventFilter(QObject*, QEvent *event)
     }
 
     return false;
+}
+
+void MainWindow::setActiveButton(int toolNum)
+{
+    switch(toolNum)
+    {
+        case 0:
+            ui->brush_Button->setStyleSheet("background: chartreuse");
+            ui->eraser_Button->setStyleSheet("background: gainsboro");
+            ui->fill_Bucket_Button->setStyleSheet("background: gainsboro");
+            break;
+        case 1:
+            ui->brush_Button->setStyleSheet("background: gainsboro");
+            ui->eraser_Button->setStyleSheet("background: chartreuse");
+            ui->fill_Bucket_Button->setStyleSheet("background: gainsboro");
+            break;
+        case 2:
+            ui->brush_Button->setStyleSheet("background: gainsboro");
+            ui->eraser_Button->setStyleSheet("background: gainsboro");
+            ui->fill_Bucket_Button->setStyleSheet("background: chartreuse");
+            break;
+    }
 }
 
 MainWindow::~MainWindow()

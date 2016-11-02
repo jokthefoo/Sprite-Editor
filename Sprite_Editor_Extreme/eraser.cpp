@@ -5,7 +5,7 @@ Eraser::Eraser()
 
 }
 
-void Eraser::applyTool(Grid* frame, QPointF mousePosition, QMouseEvent* event)
+void Eraser::applyTool(Grid* frame, QPointF mousePosition, QMouseEvent* event, QColor color, int brushSize)
 {
     // Restricts the action to only when in the drawing area.
     if (frame->containsCoordinate(mousePosition.x(), mousePosition.y()))
@@ -14,20 +14,15 @@ void Eraser::applyTool(Grid* frame, QPointF mousePosition, QMouseEvent* event)
         if (event->type() == QEvent::MouseButtonPress && !drawing)
         {
             drawing = true;
-            frame->setPixelColor(mousePosition.x(), mousePosition.y(), color);
+            frame->setPixelColor(mousePosition.x(), mousePosition.y(), Qt::white, brushSize);
             lastPoint = mousePosition;
         } else if (drawing && event->type() == QEvent::MouseMove)
         {
-            frame->drawLinePixels(lastPoint, mousePosition, color);
+            frame->drawLinePixels(lastPoint, mousePosition, Qt::white, brushSize);
             lastPoint = mousePosition;
         } else if (drawing && event->type() == QEvent::MouseButtonRelease)
         {
             drawing = false;
         }
     }
-}
-
-void Eraser::setColor(QColor color)
-{
-    // Do nothing, eraser should stay background color
 }

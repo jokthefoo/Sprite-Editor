@@ -4,7 +4,6 @@ Grid::Grid()
 {
     height = default_height;
     width = default_width;
-    brushSize = 1;
     image = new QImage(width, height, QImage::Format_ARGB32);
     image->fill(Qt::white);
 }
@@ -14,7 +13,6 @@ Grid::Grid(const Grid& other){
     *this->image = other.image->copy();
     this->height=other.height;
     this->width=other.width;
-    this->brushSize = other.brushSize;
 }
 
 Grid& Grid::operator=(const Grid& other)
@@ -28,8 +26,6 @@ void Grid::swap(Grid& other){
     this->image->swap(*(other.image));
     std::swap(height,other.height);
     std::swap(width,other.width);
-    std::swap(brushSize,other.brushSize);
-    //std::swap(drawScale,other.drawScale);
 }
 
 void swap(Grid& first, Grid& second){
@@ -54,14 +50,8 @@ Grid::Grid(int h,int w)
     {
         width = w;
     }
-    brushSize = 1;
     image = new QImage(width, height, QImage::Format_ARGB32);
     image->fill(Qt::white);
-}
-
-void Grid::setBrushSize(int x)
-{
-    brushSize = x;
 }
 
 void Grid::resize(int h, int w){
@@ -91,7 +81,7 @@ void Grid::rotateImage(int degrees)
     *image = image->transformed(trans);
 }
 
-void Grid::setPixelColor(int x,int y,QColor color)
+void Grid::setPixelColor(int x,int y,QColor color, int brushSize)
 {
     QPainter painter;
     QPen pen;
@@ -111,7 +101,7 @@ QColor Grid::getPixelColor(int x, int y){
     return image->pixelColor(x, y);
 }
 
-void Grid::drawLinePixels(QPointF lastPoint,QPointF endPoint,QColor color)
+void Grid::drawLinePixels(QPointF lastPoint,QPointF endPoint,QColor color, int brushSize)
 {
     QPainter painter;
     QPen pen;
@@ -140,7 +130,7 @@ void Grid::fromString(QString frame){
         for(int x = 0; x < width; ++x)
         {
             QColor color = fromRgba(*it);
-            setPixelColor(x,y,color);
+            setPixelColor(x,y,color,1);
             it++;
         }
     }

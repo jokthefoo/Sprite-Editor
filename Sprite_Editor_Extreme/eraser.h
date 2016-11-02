@@ -10,10 +10,9 @@ class Eraser : public Tool
 {
 public:
     Eraser();
-    void virtual applyTool(Grid*, QPointF, QMouseEvent*) override;
+    void virtual applyTool(Grid*, QPointF, QMouseEvent*, QColor, int) override;
     QPointF lastPoint;
     bool drawing = false;
-    void virtual setColor(QColor color) override;
 };
 
 #endif // ERASER_H

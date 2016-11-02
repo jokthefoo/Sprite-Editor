@@ -9,9 +9,8 @@ Model::Model()
     Tool * brush = new Brush();
     Tool * eraser = new Eraser();
     Tool * fillBucket = new FillBucket();
-    eraser->color = Qt::white;
-    brush->color = Qt::black;
-    fillBucket->color = Qt::black;
+    currentColor = Qt::black;
+    brushSize = 1;
     tools.push_back(brush);
     tools.push_back(eraser);
     tools.push_back(fillBucket);
@@ -24,9 +23,8 @@ Model::Model(int h, int w, int numFrames)
     Tool * brush = new Brush();
     Tool * eraser = new Eraser();
     Tool * fillBucket = new FillBucket();
-    eraser->color = Qt::white;
-    brush->color = Qt::black;
-    fillBucket->color = Qt::black;
+    currentColor = Qt::black;
+    brushSize = 1;
     tools.push_back(brush);
     tools.push_back(eraser);
     tools.push_back(fillBucket);
@@ -77,6 +75,26 @@ void Model::changeTool(int i){
     {
         currentTool = tools[2];
     }
+}
+
+void Model::setBrushSize(int size)
+{
+    brushSize = size;
+}
+
+int Model::getBrushSize()
+{
+    return brushSize;
+}
+
+QColor Model::getColor()
+{
+    return currentColor;
+}
+
+void Model::setColor(QColor c)
+{
+    currentColor = c;
 }
 
 Tool * Model::getCurrentTool(){

@@ -38,6 +38,7 @@ signals:
     void sendFramesForExport(std::vector<QImage>);
     void saveAs(QString);
     void sendNewFrame(QImage *);
+    void sendActiveTool(int);
 
 public slots:
     void receiveExport();

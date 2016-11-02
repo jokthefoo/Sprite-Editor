@@ -55,6 +55,7 @@ public slots:
     void addFrameToLayout(QImage *);
     void zoomIn();
     void zoomOut();
+    void setActiveButton(int);
 
     // void updatePreview(std::vector<Grid>);
 

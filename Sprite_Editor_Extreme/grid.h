@@ -19,11 +19,11 @@ public:
     void swap(Grid&);
     void friend swap(Grid &,Grid &);
     void resize(int, int);
-    void setPixelColor(int,int,QColor);
+    void setPixelColor(int,int,QColor, int);
     QColor getPixelColor(int, int);
     bool containsCoordinate(int, int);
     QImage *getImage();
-    void drawLinePixels(QPointF,QPointF,QColor);
+    void drawLinePixels(QPointF,QPointF,QColor, int);
     void rotateImage(int);
     QColor pixelColor(int x, int y);
     QString toString();
@@ -37,7 +37,6 @@ public:
 protected:
     int height;
     int width;
-    int brushSize;
     QImage* image;
 
 };
