@@ -72,7 +72,7 @@
    <widget class="QToolButton" name="add_frame_button">
     <property name="geometry">
      <rect>
-      <x>480</x>
+      <x>370</x>
       <y>690</y>
       <width>91</width>
       <height>41</height>
@@ -134,7 +134,7 @@
      <enum>QTabWidget::West</enum>
     </property>
     <property name="currentIndex">
-     <number>0</number>
+     <number>1</number>
     </property>
     <widget class="QWidget" name="tab">
      <attribute name="title">
@@ -277,6 +277,32 @@
        <string/>
       </property>
      </widget>
+     <widget class="QToolButton" name="flip_Horizontally">
+      <property name="geometry">
+       <rect>
+        <x>10</x>
+        <y>210</y>
+        <width>41</width>
+        <height>41</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+     </widget>
+     <widget class="QToolButton" name="flip_Vertically">
+      <property name="geometry">
+       <rect>
+        <x>10</x>
+        <y>260</y>
+        <width>41</width>
+        <height>41</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+     </widget>
     </widget>
    </widget>
    <widget class="ColorBox" name="leftColor">
@@ -391,6 +417,19 @@
       </property>
      </layout>
     </widget>
+   </widget>
+   <widget class="QToolButton" name="delete_Frame_Button">
+    <property name="geometry">
+     <rect>
+      <x>470</x>
+      <y>690</y>
+      <width>111</width>
+      <height>41</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Delete Frame</string>
+    </property>
    </widget>
   </widget>
   <widget class="QMenuBar" name="menuBar">

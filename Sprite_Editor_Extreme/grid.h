@@ -33,6 +33,7 @@ public:
     void fromString(QString);
     QColor fromRgba(QString);
     void setBrushSize(int);
+    void flipImage(QString);
 
 protected:
     int height;

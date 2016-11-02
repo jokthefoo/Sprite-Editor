@@ -81,6 +81,17 @@ void Grid::rotateImage(int degrees)
     *image = image->transformed(trans);
 }
 
+void Grid::flipImage(QString horOrVert)
+{
+    if(horOrVert == "hor")
+    {
+        *image = image->mirrored(true,false);
+    }else
+    {
+        *image = image->mirrored(false,true);
+    }
+}
+
 void Grid::setPixelColor(int x,int y,QColor color, int brushSize)
 {
     QPainter painter;

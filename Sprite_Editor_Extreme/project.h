@@ -33,6 +33,7 @@ public:
     QPair<int,int> getImageSize();
     QString toString();
     int getWorkingFrame();
+    void deleteCurrentFrame();
 
 };
 

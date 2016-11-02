@@ -64,7 +64,6 @@ Project* Model::getProject(){
 void Model::rotateImage(int degrees){
     project->getCurrentFrame()->rotateImage(degrees);
 }
-
 void Model::changeTool(int i){
     if(i==0){
         currentTool=tools[0];

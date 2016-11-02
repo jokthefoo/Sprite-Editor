@@ -64,6 +64,16 @@ void Project::addEmptyFrame(){
 
 }
 
+void Project::deleteCurrentFrame()
+{
+    frames.erase(frames.begin()+workingframe);
+    if(workingframe >= frames.size())
+    {
+        workingframe = frames.size()-1;
+    }
+    currentFrame = &frames[workingframe];
+}
+
 void Project::setCanvasSize(int w, int h){
    canvasSize.first=w;
    canvasSize.second=h;

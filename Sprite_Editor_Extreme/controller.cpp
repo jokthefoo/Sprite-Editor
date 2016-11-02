@@ -18,6 +18,7 @@ Controller::Controller(MainWindow * w)
     QObject::connect(this, &Controller::sendPreviewImage, w->getPreview(), &PreviewWindow::updatePreview);
     QObject::connect(&timer, &QTimer::timeout, this, &Controller::timeoutSendImage);
     QObject::connect(this, &Controller::sendActiveTool, w, &MainWindow::setActiveButton);
+    QObject::connect(this, &Controller::sendDeleteFrame, w, &MainWindow::deleteFrame);
     emit sendImage(model->getProject()->getCurrentFrame()->getImage());
     emit sendNewFrame(model->getProject()->getCurrentFrame()->getImage());
     emit sendColor(model->getColor());
@@ -166,6 +167,18 @@ void Controller::receiveButtonInput(QWidget * child)
             emit sendImage(image);
             sendAllFrame();
         }
+        else if(name  == "flip_Horizontally")
+        {
+            model->getProject()->getCurrentFrame()->flipImage("hor");
+            emit sendImage(image);
+            sendAllFrame();
+        }
+        else if(name  == "flip_Vertically")
+        {
+            model->getProject()->getCurrentFrame()->flipImage("vert");
+            emit sendImage(image);
+            sendAllFrame();
+        }
         else if(name == "brush_Button")
         {
             model->changeTool(0);
@@ -184,21 +197,38 @@ void Controller::receiveButtonInput(QWidget * child)
         else if( name == "play_button"){
             timer.start(100);
         }
-        else if( name == "next_frame_button"){
-            if(model->getProject()->next()){
+        else if( name == "next_frame_button")
+        {
+            if(model->getProject()->next())
+            {
                  emit sendImage(model->getProject()->getCurrentFrame()->getImage());
                  sendAllFrame();
             }
-        } else if( name == "previous_frame_button"){
-            if(model->getProject()->previous()){
+        }
+        else if( name == "previous_frame_button")
+        {
+            if(model->getProject()->previous())
+            {
                 emit sendImage(model->getProject()->getCurrentFrame()->getImage());
                 sendAllFrame();
             }
-        }else if(name == "add_frame_button"){
+        }
+        else if(name == "add_frame_button")
+        {
             model->getProject()->addEmptyFrame();
             emit sendImage(model->getProject()->getCurrentFrame()->getImage());
             emit sendNewFrame(model->getProject()->getCurrentFrame()->getImage());
             sendAllFrame();
+        }
+        else if(name == "delete_Frame_Button")
+        {
+            if(model->getProject()->getAllFrames().size() > 1)
+            {
+                emit sendDeleteFrame(model->getProject()->getWorkingFrame());
+                model->getProject()->deleteCurrentFrame();
+                emit sendImage(model->getProject()->getCurrentFrame()->getImage());
+                sendAllFrame();
+            }
         }
         return;
     }

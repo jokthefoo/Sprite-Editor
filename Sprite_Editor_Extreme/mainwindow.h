@@ -56,6 +56,7 @@ public slots:
     void zoomIn();
     void zoomOut();
     void setActiveButton(int);
+    void deleteFrame(int);
 
     // void updatePreview(std::vector<Grid>);
 

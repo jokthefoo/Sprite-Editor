@@ -50,6 +50,8 @@ void MainWindow::setupIcons(){
     setupIcon(ui->play_button, ":/resources/play.png");
     setupIcon(ui->rectangle_button, ":/resources/polygon.png");
     setupIcon(ui->add_frame_button, ":/resources/addFrame.png");
+    setupIcon(ui->flip_Horizontally, ":/resources/flipHorz.png");
+    setupIcon(ui->flip_Vertically, ":/resources/flipVert.png");
 }
 
 void MainWindow::setupToolTips()
@@ -60,6 +62,8 @@ void MainWindow::setupToolTips()
     ui->eraser_Button->setToolTip("Eraser Tool");
     ui->rotate_Left_Button->setToolTip("Rotate sprite 90 degrees to the left");
     ui->rotate_Right_Button->setToolTip("Rotate sprite 90 degrees to the right");
+    ui->flip_Horizontally->setToolTip("Flips the sprite across the X axis");
+    ui->flip_Vertically->setToolTip("Flips the sprite across the Y axis");
     ui->zoom_In_Button->setToolTip("Zoom in");
     ui->zoom_Out_Button->setToolTip("Zoom out");
     ui->tabWidget->setTabToolTip(0, "Painting Tools");
@@ -69,6 +73,7 @@ void MainWindow::setupToolTips()
     ui->previous_frame_button->setToolTip("Previous frame");
     ui->play_button->setToolTip("Sprite Preview");
     ui->add_frame_button->setToolTip("Adds a new empty frame");
+    ui->delete_Frame_Button->setToolTip("Deletes the current frame");
     // not working : ui->actionCanvasSize_2->setToolTip("Open configuration page");
 }
 
@@ -237,6 +242,12 @@ void MainWindow::addFrameToLayout(QImage * image)
     frame->setPixmap(QPixmap::fromImage(*image));
     ui->framesLayout->addWidget(frame);
     frames.push_back(frame);
+}
+
+void MainWindow::deleteFrame(int frameToDelete)
+{
+    ui->framesLayout->removeWidget(frames[frameToDelete]);
+    frames.erase(frames.begin()+frameToDelete);
 }
 
 bool MainWindow::eventFilter(QObject*, QEvent *event)

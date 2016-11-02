@@ -39,6 +39,7 @@ signals:
     void saveAs(QString);
     void sendNewFrame(QImage *);
     void sendActiveTool(int);
+    void sendDeleteFrame(int);
 
 public slots:
     void receiveExport();
