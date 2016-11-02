@@ -65,6 +65,7 @@ private slots:
 
 private:
     int currentScale;
+    int zoomCount;
     std::vector<QLabel*> frames;
     ConfigurationForm configuration;
     PreviewWindow preview;

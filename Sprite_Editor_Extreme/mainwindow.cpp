@@ -23,6 +23,7 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->scrollArea->setWidget(ui->framesBox);
     currentScale = 12;
     ui->graphicsView->scale(currentScale,currentScale);
+    zoomCount = 1;
 }
 
 void static setupIcon(QToolButton * button, QString filename){
@@ -82,6 +83,7 @@ void MainWindow::connectComponents(){
 
 void MainWindow::zoomIn()
 {
+    zoomCount+=1;
     currentScale += 2;
     QTransform trans;
     trans.scale(currentScale,currentScale);
@@ -90,10 +92,15 @@ void MainWindow::zoomIn()
 
 void MainWindow::zoomOut()
 {
-    currentScale -= 2;
-    QTransform trans;
-    trans.scale(currentScale,currentScale);
-    ui->graphicsView->setTransform(trans);
+    if(zoomCount > 1)
+    {
+        zoomCount-=1;
+        currentScale -= 2;
+        QTransform trans;
+        trans.scale(currentScale,currentScale);
+        ui->graphicsView->setTransform(trans);
+    }
+
 }
 
 void MainWindow::openProj()
