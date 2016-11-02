@@ -6,7 +6,6 @@
 #include <grid.h>
 #include <tool.h>
 #include <QTimer>
-#include <gif.h>
 
 class Model // the model updates the view by sending signals
 {
@@ -16,7 +15,6 @@ private:
     Tool * currentTool;
     std::vector<Tool*> tools;
     QTimer timer;
-    GifWriter gifWriter;
 
 
 public:

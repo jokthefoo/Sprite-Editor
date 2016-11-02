@@ -83,18 +83,5 @@ Tool * Model::getCurrentTool(){
     return currentTool;
 }
 
-void Model::createGif(){
-    GifWriter writer = new GifWriter();
-    GifBegin(writer);
-
-    foreach (Grid grid, project->frames) {
-
-        uchar * c = grid.getImage()->bits();
-        GifWriteFrame(writer, c, grid.getImage()->width(), grid.getImage()->height(), 50);
-
-    }
-    GifEnd(writer);
-}
-
 
 
