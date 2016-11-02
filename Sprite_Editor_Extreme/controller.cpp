@@ -19,7 +19,7 @@ Controller::Controller(MainWindow * w)
     emit sendNewFrame(model->getProject()->getCurrentFrame()->getImage());
     emit sendColor(model->getCurrentTool()->color);
     drawing = false;
-
+    allowDrawing = true;
 }
 
 Controller::~Controller(){
@@ -99,12 +99,15 @@ void Controller::receivePropertyChange(Property p){
 
 void Controller::receiveMouseInput(QPointF point, QMouseEvent *event)
 {
-    Grid * currentFrame = model->getProject()->getCurrentFrame();
-    if(model->getCurrentTool()!=nullptr){
-        Tool * tool = model->getCurrentTool();
-        tool->applyTool(currentFrame,point, event);
-        emit sendImage(model->getProject()->getCurrentFrame()->getImage());
-        sendAllFrame();
+    if (allowDrawing)
+    {
+        Grid * currentFrame = model->getProject()->getCurrentFrame();
+        if(model->getCurrentTool()!=nullptr){
+            Tool * tool = model->getCurrentTool();
+            tool->applyTool(currentFrame,point, event);
+            emit sendImage(model->getProject()->getCurrentFrame()->getImage());
+            sendAllFrame();
+        }
     }
 }
 
@@ -117,9 +120,14 @@ void Controller::receiveButtonInput(QWidget * child)
         QString str = label->objectName();
         int x =  QString::compare(str, "leftColor", Qt::CaseInsensitive);
         if(x == 0){
+            allowDrawing = false;
             QColor c = QColorDialog::getColor(Qt::white);
-            model->getCurrentTool()->setColor(c);
-            emit sendColor(model->getCurrentTool()->color);
+            allowDrawing = true;
+            if (c.isValid())
+            {
+                model->getCurrentTool()->setColor(c);
+                emit sendColor(model->getCurrentTool()->color);
+            }
         }
         return;
     }

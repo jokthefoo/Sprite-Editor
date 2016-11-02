@@ -19,6 +19,7 @@ class Controller : public QObject
 private:
     Model* model;
     bool drawing;
+    bool allowDrawing;
 
 public:
     Controller();
