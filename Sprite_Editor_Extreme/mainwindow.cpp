@@ -1,5 +1,6 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
+#include <gif.h>
 
 #include <ui_configurationform.h>
 
@@ -11,6 +12,7 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->setupUi(this);
     ui->tabWidget->setTabText(0, "Paint");
     ui->tabWidget->setTabText(1,"Transform");
+    ui->tabWidget->setCurrentIndex(0);
     qApp->installEventFilter(this);
     scene = new QGraphicsScene(ui->graphicsView);
     ui->graphicsView->setScene(scene);
@@ -19,8 +21,11 @@ MainWindow::MainWindow(QWidget *parent) :
     updateColor(Qt::white);
     setupIcons();
     setupToolTips();
-
-    ui->graphicsView->scale(12,12);
+    ui->framesBox->setLayout(ui->framesLayout);
+    ui->scrollArea->setWidget(ui->framesBox);
+    currentScale = 12;
+    ui->graphicsView->scale(currentScale,currentScale);
+    zoomCount = 6;
 }
 
 void static setupIcon(QToolButton * button, QString filename){
@@ -45,6 +50,8 @@ void MainWindow::setupIcons(){
     setupIcon(ui->play_button, ":/resources/play.png");
     setupIcon(ui->rectangle_button, ":/resources/polygon.png");
     setupIcon(ui->add_frame_button, ":/resources/addFrame.png");
+    setupIcon(ui->flip_Horizontally, ":/resources/flipHorz.png");
+    setupIcon(ui->flip_Vertically, ":/resources/flipVert.png");
 }
 
 void MainWindow::setupToolTips()
@@ -55,11 +62,18 @@ void MainWindow::setupToolTips()
     ui->eraser_Button->setToolTip("Eraser Tool");
     ui->rotate_Left_Button->setToolTip("Rotate sprite 90 degrees to the left");
     ui->rotate_Right_Button->setToolTip("Rotate sprite 90 degrees to the right");
+    ui->flip_Horizontally->setToolTip("Flips the sprite across the X axis");
+    ui->flip_Vertically->setToolTip("Flips the sprite across the Y axis");
     ui->zoom_In_Button->setToolTip("Zoom in");
     ui->zoom_Out_Button->setToolTip("Zoom out");
     ui->tabWidget->setTabToolTip(0, "Painting Tools");
     ui->tabWidget->setTabToolTip(1, "Transformation tools");
     ui->leftColor->setToolTip("Set color of brush");
+    ui->next_frame_button->setToolTip("Next frame");
+    ui->previous_frame_button->setToolTip("Previous frame");
+    ui->play_button->setToolTip("Sprite Preview");
+    ui->add_frame_button->setToolTip("Adds a new empty frame");
+    ui->delete_Frame_Button->setToolTip("Deletes the current frame");
     // not working : ui->actionCanvasSize_2->setToolTip("Open configuration page");
 }
 
@@ -70,31 +84,55 @@ void MainWindow::connectComponents(){
     QObject::connect(&configuration, SIGNAL(accepted()), this, SLOT(sendConfigurationInput()));
     QObject::connect(ui->actionSave_as, SIGNAL(triggered()), this, SLOT(sendSaveAsSig()));
     QObject::connect(ui->actionOpen_project, SIGNAL(triggered()), this, SLOT(openProj()));
-
+    QObject::connect(ui->actionExportToGif, SIGNAL(triggered()), this, SLOT(exportToGifSig()));
+    QObject::connect(ui->zoom_In_Button, SIGNAL(clicked()), this, SLOT(zoomIn()));
+    QObject::connect(ui->zoom_Out_Button, SIGNAL(clicked()), this, SLOT(zoomOut()));
 }
 
-void MainWindow::scaleView(int scaleFactor)
+void MainWindow::zoomIn()
 {
-    ui->graphicsView->scale(scaleFactor,scaleFactor);
+    zoomCount+=1;
+    currentScale += 2;
+    QTransform trans;
+    trans.scale(currentScale,currentScale);
+    ui->graphicsView->setTransform(trans);
+}
+
+void MainWindow::zoomOut()
+{
+    if(zoomCount > 1)
+    {
+        zoomCount-=1;
+        currentScale -= 2;
+        QTransform trans;
+        trans.scale(currentScale,currentScale);
+        ui->graphicsView->setTransform(trans);
+    }
+
 }
 
 void MainWindow::openProj()
 {
     QString filename = QFileDialog::getOpenFileName(this, "Open file", "", "Sprite Sheet Project File (*.spp)");
     QFile file(filename);
-    file.open(QIODevice::ReadOnly);
-    QTextStream stream(&file);
+    if(file.open(QIODevice::ReadOnly))
+    {
+        QTextStream stream(&file);
 
-    QString heightAndWidth = stream.readLine();
-    QString numFrames = stream.readLine();
-    QString frames;
-    //while(!stream.atEnd())
-    //{
-        //frames = stream.readLine();
-    //}
-    frames = stream.readAll();
-    file.close();
-    emit sendOpenProj(heightAndWidth, numFrames, frames);
+        for(unsigned int i = 0; i < frames.size(); i++)
+        {
+            ui->framesLayout->removeWidget(frames.at(i));
+        }
+        frames.clear();
+
+        QString heightAndWidth = stream.readLine();
+        QString numFrames = stream.readLine();
+        QString frameString;
+        frameString = stream.readAll();
+        file.close();
+        emit sendOpenProj(heightAndWidth, numFrames, frameString);
+        ui->brushSize->setValue(1);
+    }
 }
 
 void MainWindow::sendSaveAsSig()
@@ -110,6 +148,27 @@ void MainWindow::saveAsSelected(QString fileInfo)
     QTextStream stream(&file);
     stream << fileInfo;
     file.close();
+}
+
+void MainWindow::exportToGifSig()
+{
+    emit sendExportGif();
+}
+
+void MainWindow::exportGif(std::vector<QImage> frameList)
+{
+    GifWriter *gifWriter = new GifWriter();
+    QString filename = QFileDialog::getSaveFileName(this, "Save gif", "", "Sprite Gif File (*.gif)");
+    GifBegin(gifWriter,filename.toLatin1().constData(),frameList[0].width(),frameList[0].height(),5,8,false);
+    QImage image;
+    for(int i = 0; i < frameList.size(); i++)
+    {
+        image = frameList[i];
+        image = image.convertToFormat(QImage::Format_RGBA8888, Qt::OrderedDither);
+        uint8_t *charAr = image.bits();
+        GifWriteFrame(gifWriter,charAr,frameList[0].width(),frameList[0].height(),5,8,false);
+    }
+    GifEnd(gifWriter);
 }
 
 void MainWindow::openConfigurationSelected(){
@@ -151,7 +210,44 @@ void MainWindow::updateScreen(QImage * image){
     boundary =  new QGraphicsRectItem(0,0, image->height(), image->width());
     ui->graphicsView->scene()->addItem(boundary);
     scene->addPixmap(QPixmap::fromImage(*image));
+    ui->framesLayout->update();
     ui->graphicsView->update();
+}
+
+void MainWindow::updateFrames(std::vector<QImage> frameList, int currentFrame)
+{
+    std::vector<QImage>::iterator imIt = frameList.begin();
+    for(unsigned int i =0; i < frames.size(); i++)
+    {
+        frames.at(i)->setPixmap(QPixmap::fromImage(*imIt));
+        if(i == currentFrame)
+        {
+            frames.at(i)->setStyleSheet("border: 2px solid yellow");
+        }
+        else
+        {
+            frames.at(i)->setStyleSheet("border: 0px solid white");
+        }
+        imIt++;
+    }
+}
+
+void MainWindow::addFrameToLayout(QImage * image)
+{
+    QLabel * frame = new QLabel();
+    frame->show();
+    frame->setScaledContents(true);
+    frame->setMinimumSize(75,75);
+    frame->setMaximumSize(75,75);
+    frame->setPixmap(QPixmap::fromImage(*image));
+    ui->framesLayout->addWidget(frame);
+    frames.push_back(frame);
+}
+
+void MainWindow::deleteFrame(int frameToDelete)
+{
+    ui->framesLayout->removeWidget(frames[frameToDelete]);
+    frames.erase(frames.begin()+frameToDelete);
 }
 
 bool MainWindow::eventFilter(QObject*, QEvent *event)
@@ -173,6 +269,37 @@ bool MainWindow::eventFilter(QObject*, QEvent *event)
     }
 
     return false;
+}
+
+void MainWindow::setActiveButton(int toolNum)
+{
+    switch(toolNum)
+    {
+        case 0:
+            ui->brush_Button->setStyleSheet("background: chartreuse");
+            ui->eraser_Button->setStyleSheet("background: gainsboro");
+            ui->fill_Bucket_Button->setStyleSheet("background: gainsboro");
+            ui->rectangle_button->setStyleSheet("background: gainsboro");
+            break;
+        case 1:
+            ui->brush_Button->setStyleSheet("background: gainsboro");
+            ui->eraser_Button->setStyleSheet("background: chartreuse");
+            ui->fill_Bucket_Button->setStyleSheet("background: gainsboro");
+            ui->rectangle_button->setStyleSheet("background: gainsboro");
+            break;
+        case 2:
+            ui->brush_Button->setStyleSheet("background: gainsboro");
+            ui->eraser_Button->setStyleSheet("background: gainsboro");
+            ui->fill_Bucket_Button->setStyleSheet("background: chartreuse");
+            ui->rectangle_button->setStyleSheet("background: gainsboro");
+            break;
+        case 3:
+            ui->brush_Button->setStyleSheet("background: gainsboro");
+            ui->eraser_Button->setStyleSheet("background: gainsboro");
+            ui->fill_Bucket_Button->setStyleSheet("background: gainsboro");
+            ui->rectangle_button->setStyleSheet("background: chartreuse");
+            break;
+    }
 }
 
 MainWindow::~MainWindow()

@@ -9,10 +9,9 @@ class Brush : public Tool
 {
 public:
     Brush();
-    void virtual applyTool(Grid*, QPointF, QMouseEvent*) override;
+    void virtual applyTool(Grid*, QPointF, QMouseEvent*, QColor, int) override;
     QPointF lastPoint;
     bool drawing = false;
-    void virtual setColor(QColor color) override;
 };
 
 #endif // BRUSH_H

@@ -2,6 +2,7 @@
 #include <brush.h>
 #include <eraser.h>
 #include <fillbucket.h>
+#include <polygonbrush.h>
 
 Model::Model()
 {
@@ -9,13 +10,28 @@ Model::Model()
     Tool * brush = new Brush();
     Tool * eraser = new Eraser();
     Tool * fillBucket = new FillBucket();
-    eraser->color = Qt::white;
-    brush->color = Qt::black;
-    fillBucket->color = Qt::black;
+    Tool * polygonBrush = new PolygonBrush();
+    currentColor = Qt::black;
+    brushSize = 1;
     tools.push_back(brush);
     tools.push_back(eraser);
     tools.push_back(fillBucket);
-    currentTool = brush;
+    tools.push_back(polygonBrush);
+    currentTool = brush; // need to decide on the default tool
+}
+
+Model::Model(int h, int w, int numFrames)
+{
+    project = new Project(h,w,numFrames);
+    Tool * brush = new Brush();
+    Tool * eraser = new Eraser();
+    Tool * fillBucket = new FillBucket();
+    currentColor = Qt::black;
+    brushSize = 1;
+    tools.push_back(brush);
+    tools.push_back(eraser);
+    tools.push_back(fillBucket);
+    currentTool = brush; // need to decide on the default tool
 }
 
 Model::Model(const Model& other)
@@ -51,7 +67,6 @@ Project* Model::getProject(){
 void Model::rotateImage(int degrees){
     project->getCurrentFrame()->rotateImage(degrees);
 }
-
 void Model::changeTool(int i){
     if(i==0){
         currentTool=tools[0];
@@ -61,7 +76,30 @@ void Model::changeTool(int i){
     } else if (i == 2)
     {
         currentTool = tools[2];
+    } else if (i == 3)
+    {
+        currentTool = tools[3];
     }
+}
+
+void Model::setBrushSize(int size)
+{
+    brushSize = size;
+}
+
+int Model::getBrushSize()
+{
+    return brushSize;
+}
+
+QColor Model::getColor()
+{
+    return currentColor;
+}
+
+void Model::setColor(QColor c)
+{
+    currentColor = c;
 }
 
 Tool * Model::getCurrentTool(){

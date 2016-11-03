@@ -15,7 +15,6 @@ Grid::Grid(const Grid& other){
     *this->image = other.image->copy();
     this->height=other.height;
     this->width=other.width;
-
 }
 
 Grid& Grid::operator=(const Grid& other)
@@ -23,15 +22,12 @@ Grid& Grid::operator=(const Grid& other)
     Grid temp(other);
     this->swap(temp);
     return *this;
-
 }
 
 void Grid::swap(Grid& other){
     this->image->swap(*(other.image));
     std::swap(height,other.height);
     std::swap(width,other.width);
-    //std::swap(drawScale,other.drawScale);
-
 }
 
 void swap(Grid& first, Grid& second){
@@ -57,7 +53,7 @@ Grid::Grid(int h,int w)
         width = w;
     }
     image = new QImage(width, height, QImage::Format_ARGB32);
-
+    image->fill(Qt::white);
 }
 
 void Grid::resize(int h, int w){
@@ -87,14 +83,25 @@ void Grid::rotateImage(int degrees)
     *image = image->transformed(trans);
 }
 
-void Grid::setPixelColor(int x,int y,QColor color)
+void Grid::flipImage(QString horOrVert)
+{
+    if(horOrVert == "hor")
+    {
+        *image = image->mirrored(true,false);
+    }else
+    {
+        *image = image->mirrored(false,true);
+    }
+}
+
+void Grid::setPixelColor(int x,int y,QColor color, int brushSize)
 {
     QPainter painter;
     QPen pen;
 
     if(containsCoordinate(x,y)){
         painter.begin(image);
-        pen.setWidth(1);
+        pen.setWidth(brushSize);
         pen.setColor(color);
         painter.setPen(pen);
         painter.drawPoint(x,y);
@@ -103,18 +110,32 @@ void Grid::setPixelColor(int x,int y,QColor color)
 
 }
 
+void Grid::drawPolygon(const QPointF* points, int pointCount, QColor color, int brushSize)
+{
+    QPainter painter;
+    QPen pen;
+
+    painter.begin(image);
+    pen.setWidth(brushSize);
+    pen.setColor(color);
+    painter.setPen(pen);
+    painter.drawPolygon(points, pointCount);
+    painter.end();
+
+}
+
 QColor Grid::getPixelColor(int x, int y){
     return image->pixelColor(x, y);
 }
 
-void Grid::drawLinePixels(QPointF lastPoint,QPointF endPoint,QColor color)
+void Grid::drawLinePixels(QPointF lastPoint,QPointF endPoint,QColor color, int brushSize)
 {
     QPainter painter;
     QPen pen;
 
     if(containsCoordinate(lastPoint.x(),lastPoint.y()) && containsCoordinate(endPoint.x(),endPoint.y())){
         painter.begin(image);
-        pen.setWidth(1);
+        pen.setWidth(brushSize);
         pen.setColor(color);
         painter.setPen(pen);
         painter.drawLine(lastPoint, endPoint);
@@ -136,7 +157,7 @@ void Grid::fromString(QString frame){
         for(int x = 0; x < width; ++x)
         {
             QColor color = fromRgba(*it);
-            setPixelColor(x,y,color);
+            setPixelColor(x,y,color,1);
             it++;
         }
     }

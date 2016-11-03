@@ -12,5 +12,7 @@
         <file>resources/rotateLeft.png</file>
         <file>resources/play.png</file>
         <file>resources/polygon.png</file>
+        <file>resources/flipHorz.png</file>
+        <file>resources/flipVert.png</file>
     </qresource>
 </RCC>

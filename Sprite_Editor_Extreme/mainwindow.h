@@ -38,17 +38,25 @@ signals:
     void sendButtonInput(QWidget*);
     void sendPropertyChange(Property);
     void sendSaveAs();
+    void sendExportGif();
     void sendOpenProj(QString,QString,QString);
 
 
 public slots:
-    void scaleView(int);
+    void exportGif(std::vector<QImage>);
+    void exportToGifSig();
+    void updateFrames(std::vector<QImage>, int);
     void saveAsSelected(QString);
     void sendConfigurationInput();
     void openConfigurationSelected();
     void spinnerChanged(int);
     void updateScreen(QImage * toShow);
     void updateColor(QColor); // left is false right is true
+    void addFrameToLayout(QImage *);
+    void zoomIn();
+    void zoomOut();
+    void setActiveButton(int);
+    void deleteFrame(int);
 
     // void updatePreview(std::vector<Grid>);
 
@@ -61,6 +69,9 @@ private slots:
     void openProj();
 
 private:
+    int currentScale;
+    int zoomCount;
+    std::vector<QLabel*> frames;
     ConfigurationForm configuration;
     PreviewWindow preview;
     void connectComponents();

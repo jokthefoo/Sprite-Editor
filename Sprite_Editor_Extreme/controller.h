@@ -19,11 +19,13 @@ class Controller : public QObject
 private:
     Model* model;
     bool drawing;
+    bool allowDrawing;
 
 public:
     Controller();
     Controller(MainWindow*);
     QTimer timer;
+    void sendAllFrame();
     ~Controller();
     //should have slots to capture the input from the user and then will use the model to change
     //the current states.
@@ -32,9 +34,15 @@ signals:
     void sendImage(QImage *);
     void sendPreviewImage(QImage *);
     void sendColor(QColor);
+    void sendFrames(std::vector<QImage>, int);
+    void sendFramesForExport(std::vector<QImage>);
     void saveAs(QString);
+    void sendNewFrame(QImage *);
+    void sendActiveTool(int);
+    void sendDeleteFrame(int);
 
 public slots:
+    void receiveExport();
     void receiveButtonInput(QWidget*);
     void receiveMouseInput(QPointF, QMouseEvent*);
     void receivePropertyChange(Property);

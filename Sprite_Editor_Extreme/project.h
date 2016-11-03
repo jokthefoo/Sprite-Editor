@@ -31,6 +31,8 @@ public:
     void setCanvasSize(int,int);
     QPair<int,int> getCanvasSize();
     QString toString();
+    int getWorkingFrame();
+    void deleteCurrentFrame();
 
 };
 
