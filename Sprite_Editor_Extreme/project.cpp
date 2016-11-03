@@ -8,22 +8,8 @@ Project::Project()
     canvasSize.second=currentFrame->default_height;
 }
 
-Project::Project(int h, int w, int numFrames)
-{
-    Grid *grid;
-    canvasSize.first=w;
-    canvasSize.second=h;
-    for(int x = 0; x < numFrames; x++)
-    {
-        grid = new Grid(h,w);
-        frames.push_back(*grid);
-    }
-    currentFrame = &frames.front();
-}
-
 Project::Project(const Project& other)
 {
-
     this->canvasSize = other.canvasSize;
     this->currentFrame = other.currentFrame;
     for(auto it = other.frames.begin(); it < other.frames.end(); it++){
@@ -31,6 +17,9 @@ Project::Project(const Project& other)
         this->frames.push_back(grid);
     }
 }
+
+
+
 
 Project& Project::operator=(const Project& other)
 {

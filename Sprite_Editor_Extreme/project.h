@@ -15,11 +15,11 @@ private:
     unsigned int workingframe=0;
 public:
     Project();
-    Project(int,int,int);
+    ~Project();
     Project(const Project& other);
     Project& operator=(const Project&);
     void swap(Project&);
-    ~Project();
+
     void changeFrame(unsigned int frameNumber);
     void addNewFrame(Grid *grid);
     void removeFrame(unsigned int);
@@ -30,7 +30,6 @@ public:
     Grid * getCurrentFrame();
     void setCanvasSize(int,int);
     QPair<int,int> getCanvasSize();
-    QPair<int,int> getImageSize();
     QString toString();
 
 };

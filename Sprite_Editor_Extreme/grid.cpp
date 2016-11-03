@@ -6,6 +6,8 @@ Grid::Grid()
     width = default_width;
     image = new QImage(width, height, QImage::Format_ARGB32);
     image->fill(Qt::white);
+    history.addEdit(this);
+
 }
 
 Grid::Grid(const Grid& other){

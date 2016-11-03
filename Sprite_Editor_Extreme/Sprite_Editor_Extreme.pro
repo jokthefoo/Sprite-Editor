@@ -26,7 +26,8 @@ SOURCES += main.cpp\
     brush.cpp \
     eraser.cpp \
     previewwindow.cpp \
-    fillbucket.cpp
+    fillbucket.cpp \
+    history.cpp
 
 HEADERS  += mainwindow.h \
     grid.h \
@@ -40,7 +41,8 @@ HEADERS  += mainwindow.h \
     brush.h \
     eraser.h \
     previewwindow.h \
-    fillbucket.h
+    fillbucket.h \
+    history.h
 
 FORMS    += mainwindow.ui \
     previewwindow.ui \

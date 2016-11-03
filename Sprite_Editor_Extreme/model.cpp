@@ -15,22 +15,7 @@ Model::Model()
     tools.push_back(brush);
     tools.push_back(eraser);
     tools.push_back(fillBucket);
-    currentTool = brush; // need to decide on the default tool
-}
-
-Model::Model(int h, int w, int numFrames)
-{
-    project = new Project(h,w,numFrames);
-    Tool * brush = new Brush();
-    Tool * eraser = new Eraser();
-    Tool * fillBucket = new FillBucket();
-    eraser->color = Qt::white;
-    brush->color = Qt::black;
-    fillBucket->color = Qt::black;
-    tools.push_back(brush);
-    tools.push_back(eraser);
-    tools.push_back(fillBucket);
-    currentTool = brush; // need to decide on the default tool
+    currentTool = brush;
 }
 
 Model::Model(const Model& other)
