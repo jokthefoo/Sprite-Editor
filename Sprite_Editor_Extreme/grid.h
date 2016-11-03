@@ -20,6 +20,7 @@ public:
     void friend swap(Grid &,Grid &);
     void resize(int, int);
     void setPixelColor(int,int,QColor, int);
+    void drawPolygon(const QPointF*, int, QColor, int);
     QColor getPixelColor(int, int);
     bool containsCoordinate(int, int);
     QImage *getImage();

@@ -2,6 +2,7 @@
 #include <brush.h>
 #include <eraser.h>
 #include <fillbucket.h>
+#include <polygonbrush.h>
 
 Model::Model()
 {
@@ -9,11 +10,13 @@ Model::Model()
     Tool * brush = new Brush();
     Tool * eraser = new Eraser();
     Tool * fillBucket = new FillBucket();
+    Tool * polygonBrush = new PolygonBrush();
     currentColor = Qt::black;
     brushSize = 1;
     tools.push_back(brush);
     tools.push_back(eraser);
     tools.push_back(fillBucket);
+    tools.push_back(polygonBrush);
     currentTool = brush; // need to decide on the default tool
 }
 
@@ -73,6 +76,9 @@ void Model::changeTool(int i){
     } else if (i == 2)
     {
         currentTool = tools[2];
+    } else if (i == 3)
+    {
+        currentTool = tools[3];
     }
 }
 

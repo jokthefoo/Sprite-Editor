@@ -194,6 +194,11 @@ void Controller::receiveButtonInput(QWidget * child)
             model->changeTool(2);
             emit sendActiveTool(2);
         }
+        else if (name == "rectangle_button")
+        {
+            model->changeTool(3);
+            emit sendActiveTool(3);
+        }
         else if( name == "play_button"){
             timer.start(100);
         }

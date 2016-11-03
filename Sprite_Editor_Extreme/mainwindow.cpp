@@ -279,16 +279,25 @@ void MainWindow::setActiveButton(int toolNum)
             ui->brush_Button->setStyleSheet("background: chartreuse");
             ui->eraser_Button->setStyleSheet("background: gainsboro");
             ui->fill_Bucket_Button->setStyleSheet("background: gainsboro");
+            ui->rectangle_button->setStyleSheet("background: gainsboro");
             break;
         case 1:
             ui->brush_Button->setStyleSheet("background: gainsboro");
             ui->eraser_Button->setStyleSheet("background: chartreuse");
             ui->fill_Bucket_Button->setStyleSheet("background: gainsboro");
+            ui->rectangle_button->setStyleSheet("background: gainsboro");
             break;
         case 2:
             ui->brush_Button->setStyleSheet("background: gainsboro");
             ui->eraser_Button->setStyleSheet("background: gainsboro");
             ui->fill_Bucket_Button->setStyleSheet("background: chartreuse");
+            ui->rectangle_button->setStyleSheet("background: gainsboro");
+            break;
+        case 3:
+            ui->brush_Button->setStyleSheet("background: gainsboro");
+            ui->eraser_Button->setStyleSheet("background: gainsboro");
+            ui->fill_Bucket_Button->setStyleSheet("background: gainsboro");
+            ui->rectangle_button->setStyleSheet("background: chartreuse");
             break;
     }
 }

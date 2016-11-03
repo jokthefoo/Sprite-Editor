@@ -108,6 +108,20 @@ void Grid::setPixelColor(int x,int y,QColor color, int brushSize)
 
 }
 
+void Grid::drawPolygon(const QPointF* points, int pointCount, QColor color, int brushSize)
+{
+    QPainter painter;
+    QPen pen;
+
+    painter.begin(image);
+    pen.setWidth(brushSize);
+    pen.setColor(color);
+    painter.setPen(pen);
+    painter.drawPolygon(points, pointCount);
+    painter.end();
+
+}
+
 QColor Grid::getPixelColor(int x, int y){
     return image->pixelColor(x, y);
 }
