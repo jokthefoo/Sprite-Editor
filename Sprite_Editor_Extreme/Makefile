@@ -62,7 +62,7 @@ SOURCES       = main.cpp \
 		eraser.cpp \
 		previewwindow.cpp \
 		fillbucket.cpp \
-		history.cpp qrc_resources.cpp \
+		polygonbrush.cpp qrc_resources.cpp \
 		moc_mainwindow.cpp \
 		moc_controller.cpp \
 		moc_colorbox.cpp \
@@ -82,7 +82,7 @@ OBJECTS       = main.o \
 		eraser.o \
 		previewwindow.o \
 		fillbucket.o \
-		history.o \
+		polygonbrush.o \
 		qrc_resources.o \
 		moc_mainwindow.o \
 		moc_controller.o \
@@ -249,7 +249,8 @@ DIST          = ../../../../Qt/5.7/gcc_64/mkspecs/features/spec_pre.prf \
 		eraser.h \
 		previewwindow.h \
 		fillbucket.h \
-		history.h main.cpp \
+		gif.h \
+		polygonbrush.h main.cpp \
 		mainwindow.cpp \
 		grid.cpp \
 		controller.cpp \
@@ -263,7 +264,7 @@ DIST          = ../../../../Qt/5.7/gcc_64/mkspecs/features/spec_pre.prf \
 		eraser.cpp \
 		previewwindow.cpp \
 		fillbucket.cpp \
-		history.cpp
+		polygonbrush.cpp
 QMAKE_TARGET  = Sprite_Editor_Extreme
 DESTDIR       = 
 TARGET        = Sprite_Editor_Extreme
@@ -595,8 +596,8 @@ distdir: FORCE
 	@test -d $(DISTDIR) || mkdir -p $(DISTDIR)
 	$(COPY_FILE) --parents $(DIST) $(DISTDIR)/
 	$(COPY_FILE) --parents resources.qrc $(DISTDIR)/
-	$(COPY_FILE) --parents mainwindow.h grid.h controller.h model.h project.h colorbox.h configurationform.h property.h tool.h brush.h eraser.h previewwindow.h fillbucket.h history.h $(DISTDIR)/
-	$(COPY_FILE) --parents main.cpp mainwindow.cpp grid.cpp controller.cpp model.cpp project.cpp colorbox.cpp configurationform.cpp property.cpp tool.cpp brush.cpp eraser.cpp previewwindow.cpp fillbucket.cpp history.cpp $(DISTDIR)/
+	$(COPY_FILE) --parents mainwindow.h grid.h controller.h model.h project.h colorbox.h configurationform.h property.h tool.h brush.h eraser.h previewwindow.h fillbucket.h gif.h polygonbrush.h $(DISTDIR)/
+	$(COPY_FILE) --parents main.cpp mainwindow.cpp grid.cpp controller.cpp model.cpp project.cpp colorbox.cpp configurationform.cpp property.cpp tool.cpp brush.cpp eraser.cpp previewwindow.cpp fillbucket.cpp polygonbrush.cpp $(DISTDIR)/
 	$(COPY_FILE) --parents mainwindow.ui previewwindow.ui configurationform.ui $(DISTDIR)/
 
 
@@ -631,12 +632,14 @@ qrc_resources.cpp: resources.qrc \
 		resources/brush.png \
 		resources/play.png \
 		resources/rotateLeft.png \
+		resources/flipVert.png \
 		resources/forward.png \
 		resources/zoomout.png \
 		resources/rotateRight.png \
 		resources/polygon.png \
 		resources/back.png \
 		resources/zoomin.png \
+		resources/flipHorz.png \
 		resources/eraser.png
 	/home/torrential/Qt/5.7/gcc_64/bin/rcc -name resources resources.qrc -o qrc_resources.cpp
 
@@ -1719,6 +1722,13 @@ mainwindow.o: mainwindow.cpp mainwindow.h \
 		../../../../Qt/5.7/gcc_64/include/QtWidgets/qgraphicsview.h \
 		../../../../Qt/5.7/gcc_64/include/QtWidgets/qscrollarea.h \
 		../../../../Qt/5.7/gcc_64/include/QtWidgets/qabstractscrollarea.h \
+		../../../../Qt/5.7/gcc_64/include/QtWidgets/QGroupBox \
+		../../../../Qt/5.7/gcc_64/include/QtWidgets/qgroupbox.h \
+		../../../../Qt/5.7/gcc_64/include/QtWidgets/QHBoxLayout \
+		../../../../Qt/5.7/gcc_64/include/QtWidgets/qboxlayout.h \
+		../../../../Qt/5.7/gcc_64/include/QtWidgets/qlayout.h \
+		../../../../Qt/5.7/gcc_64/include/QtWidgets/qlayoutitem.h \
+		../../../../Qt/5.7/gcc_64/include/QtWidgets/qgridlayout.h \
 		../../../../Qt/5.7/gcc_64/include/QtWidgets/QHeaderView \
 		../../../../Qt/5.7/gcc_64/include/QtWidgets/qheaderview.h \
 		../../../../Qt/5.7/gcc_64/include/QtWidgets/qabstractitemview.h \
@@ -1737,6 +1747,7 @@ mainwindow.o: mainwindow.cpp mainwindow.h \
 		../../../../Qt/5.7/gcc_64/include/QtWidgets/qmenu.h \
 		../../../../Qt/5.7/gcc_64/include/QtWidgets/QMenuBar \
 		../../../../Qt/5.7/gcc_64/include/QtWidgets/qmenubar.h \
+		../../../../Qt/5.7/gcc_64/include/QtWidgets/QScrollArea \
 		../../../../Qt/5.7/gcc_64/include/QtWidgets/QSpinBox \
 		../../../../Qt/5.7/gcc_64/include/QtWidgets/qspinbox.h \
 		../../../../Qt/5.7/gcc_64/include/QtWidgets/QStatusBar \
@@ -1747,11 +1758,10 @@ mainwindow.o: mainwindow.cpp mainwindow.h \
 		../../../../Qt/5.7/gcc_64/include/QtWidgets/QWidget \
 		colorbox.h \
 		../../../../Qt/5.7/gcc_64/include/QtGui/QMouseEvent \
+		gif.h \
 		ui_configurationform.h \
 		../../../../Qt/5.7/gcc_64/include/QtWidgets/QDialogButtonBox \
-		../../../../Qt/5.7/gcc_64/include/QtWidgets/qdialogbuttonbox.h \
-		../../../../Qt/5.7/gcc_64/include/QtWidgets/QGroupBox \
-		../../../../Qt/5.7/gcc_64/include/QtWidgets/qgroupbox.h
+		../../../../Qt/5.7/gcc_64/include/QtWidgets/qdialogbuttonbox.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o mainwindow.o mainwindow.cpp
 
 grid.o: grid.cpp grid.h \
@@ -2122,7 +2132,8 @@ model.o: model.cpp model.h \
 		brush.h \
 		../../../../Qt/5.7/gcc_64/include/QtCore/QPoint \
 		eraser.h \
-		fillbucket.h
+		fillbucket.h \
+		polygonbrush.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o model.o model.cpp
 
 project.o: project.cpp project.h \
@@ -3092,11 +3103,12 @@ fillbucket.o: fillbucket.cpp fillbucket.h \
 		../../../../Qt/5.7/gcc_64/include/QtCore/QPoint
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o fillbucket.o fillbucket.cpp
 
-history.o: history.cpp history.h \
-		../../../../Qt/5.7/gcc_64/include/QtCore/QStack \
-		../../../../Qt/5.7/gcc_64/include/QtCore/qstack.h \
-		../../../../Qt/5.7/gcc_64/include/QtCore/qvector.h \
-		../../../../Qt/5.7/gcc_64/include/QtCore/qalgorithms.h \
+polygonbrush.o: polygonbrush.cpp polygonbrush.h \
+		grid.h \
+		../../../../Qt/5.7/gcc_64/include/QtGui/QImage \
+		../../../../Qt/5.7/gcc_64/include/QtGui/qimage.h \
+		../../../../Qt/5.7/gcc_64/include/QtGui/qcolor.h \
+		../../../../Qt/5.7/gcc_64/include/QtGui/qrgb.h \
 		../../../../Qt/5.7/gcc_64/include/QtCore/qglobal.h \
 		../../../../Qt/5.7/gcc_64/include/QtCore/qconfig.h \
 		../../../../Qt/5.7/gcc_64/include/QtCore/qfeatures.h \
@@ -3119,8 +3131,11 @@ history.o: history.cpp history.h \
 		../../../../Qt/5.7/gcc_64/include/QtCore/qmutex.h \
 		../../../../Qt/5.7/gcc_64/include/QtCore/qnumeric.h \
 		../../../../Qt/5.7/gcc_64/include/QtCore/qversiontagging.h \
-		../../../../Qt/5.7/gcc_64/include/QtCore/qiterator.h \
+		../../../../Qt/5.7/gcc_64/include/QtCore/qnamespace.h \
+		../../../../Qt/5.7/gcc_64/include/QtCore/qstringlist.h \
 		../../../../Qt/5.7/gcc_64/include/QtCore/qlist.h \
+		../../../../Qt/5.7/gcc_64/include/QtCore/qalgorithms.h \
+		../../../../Qt/5.7/gcc_64/include/QtCore/qiterator.h \
 		../../../../Qt/5.7/gcc_64/include/QtCore/qrefcount.h \
 		../../../../Qt/5.7/gcc_64/include/QtCore/qarraydata.h \
 		../../../../Qt/5.7/gcc_64/include/QtCore/qhashfunctions.h \
@@ -3128,18 +3143,10 @@ history.o: history.cpp history.h \
 		../../../../Qt/5.7/gcc_64/include/QtCore/qpair.h \
 		../../../../Qt/5.7/gcc_64/include/QtCore/qbytearraylist.h \
 		../../../../Qt/5.7/gcc_64/include/QtCore/qbytearray.h \
-		../../../../Qt/5.7/gcc_64/include/QtCore/qnamespace.h \
 		../../../../Qt/5.7/gcc_64/include/QtCore/qstring.h \
 		../../../../Qt/5.7/gcc_64/include/QtCore/qstringbuilder.h \
-		../../../../Qt/5.7/gcc_64/include/QtCore/qstringlist.h \
 		../../../../Qt/5.7/gcc_64/include/QtCore/qregexp.h \
 		../../../../Qt/5.7/gcc_64/include/QtCore/qstringmatcher.h \
-		../../../../Qt/5.7/gcc_64/include/QtCore/qpoint.h \
-		grid.h \
-		../../../../Qt/5.7/gcc_64/include/QtGui/QImage \
-		../../../../Qt/5.7/gcc_64/include/QtGui/qimage.h \
-		../../../../Qt/5.7/gcc_64/include/QtGui/qcolor.h \
-		../../../../Qt/5.7/gcc_64/include/QtGui/qrgb.h \
 		../../../../Qt/5.7/gcc_64/include/QtGui/qrgba64.h \
 		../../../../Qt/5.7/gcc_64/include/QtGui/qpaintdevice.h \
 		../../../../Qt/5.7/gcc_64/include/QtGui/qwindowdefs.h \
@@ -3149,10 +3156,12 @@ history.o: history.cpp history.h \
 		../../../../Qt/5.7/gcc_64/include/QtCore/qrect.h \
 		../../../../Qt/5.7/gcc_64/include/QtCore/qmargins.h \
 		../../../../Qt/5.7/gcc_64/include/QtCore/qsize.h \
+		../../../../Qt/5.7/gcc_64/include/QtCore/qpoint.h \
 		../../../../Qt/5.7/gcc_64/include/QtGui/qpixelformat.h \
 		../../../../Qt/5.7/gcc_64/include/QtGui/qtransform.h \
 		../../../../Qt/5.7/gcc_64/include/QtGui/qmatrix.h \
 		../../../../Qt/5.7/gcc_64/include/QtGui/qpolygon.h \
+		../../../../Qt/5.7/gcc_64/include/QtCore/qvector.h \
 		../../../../Qt/5.7/gcc_64/include/QtGui/qregion.h \
 		../../../../Qt/5.7/gcc_64/include/QtCore/qdatastream.h \
 		../../../../Qt/5.7/gcc_64/include/QtCore/qscopedpointer.h \
@@ -3188,8 +3197,20 @@ history.o: history.cpp history.h \
 		../../../../Qt/5.7/gcc_64/include/QtCore/qtextstream.h \
 		../../../../Qt/5.7/gcc_64/include/QtCore/qlocale.h \
 		../../../../Qt/5.7/gcc_64/include/QtCore/qset.h \
-		../../../../Qt/5.7/gcc_64/include/QtCore/qcontiguouscache.h
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o history.o history.cpp
+		../../../../Qt/5.7/gcc_64/include/QtCore/qcontiguouscache.h \
+		../../../../Qt/5.7/gcc_64/include/QtCore/QPoint \
+		tool.h \
+		../../../../Qt/5.7/gcc_64/include/QtCore/QPointF \
+		../../../../Qt/5.7/gcc_64/include/QtGui/QMouseEvent \
+		../../../../Qt/5.7/gcc_64/include/QtGui/qevent.h \
+		../../../../Qt/5.7/gcc_64/include/QtGui/qkeysequence.h \
+		../../../../Qt/5.7/gcc_64/include/QtCore/qurl.h \
+		../../../../Qt/5.7/gcc_64/include/QtCore/qurlquery.h \
+		../../../../Qt/5.7/gcc_64/include/QtCore/qfile.h \
+		../../../../Qt/5.7/gcc_64/include/QtCore/qfiledevice.h \
+		../../../../Qt/5.7/gcc_64/include/QtGui/qvector2d.h \
+		../../../../Qt/5.7/gcc_64/include/QtGui/qtouchdevice.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o polygonbrush.o polygonbrush.cpp
 
 qrc_resources.o: qrc_resources.cpp 
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o qrc_resources.o qrc_resources.cpp

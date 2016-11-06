@@ -37,15 +37,15 @@ public:
     {
         if (ConfigurationForm->objectName().isEmpty())
             ConfigurationForm->setObjectName(QStringLiteral("ConfigurationForm"));
-        ConfigurationForm->resize(400, 300);
+        ConfigurationForm->resize(204, 101);
         buttonBox = new QDialogButtonBox(ConfigurationForm);
         buttonBox->setObjectName(QStringLiteral("buttonBox"));
-        buttonBox->setGeometry(QRect(110, 260, 171, 32));
+        buttonBox->setGeometry(QRect(10, 60, 171, 32));
         buttonBox->setOrientation(Qt::Horizontal);
         buttonBox->setStandardButtons(QDialogButtonBox::Cancel|QDialogButtonBox::Ok);
         groupBox = new QGroupBox(ConfigurationForm);
         groupBox->setObjectName(QStringLiteral("groupBox"));
-        groupBox->setGeometry(QRect(10, 0, 181, 251));
+        groupBox->setGeometry(QRect(10, 0, 181, 51));
         canvasHeightEdit = new QLineEdit(groupBox);
         canvasHeightEdit->setObjectName(QStringLiteral("canvasHeightEdit"));
         canvasHeightEdit->setGeometry(QRect(40, 20, 41, 22));

@@ -27,12 +27,8 @@ SOURCES += main.cpp\
     eraser.cpp \
     previewwindow.cpp \
     fillbucket.cpp \
-<<<<<<< HEAD
-    history.cpp
-=======
     gif.h \
-    polygonbrush.cpp
->>>>>>> a1b3a42c8bea58bd58e5c1c815bde2565206cf38
+    polygonbrush.cpp \
 
 HEADERS  += mainwindow.h \
     grid.h \
@@ -47,12 +43,8 @@ HEADERS  += mainwindow.h \
     eraser.h \
     previewwindow.h \
     fillbucket.h \
-<<<<<<< HEAD
-    history.h
-=======
     gif.h \
-    polygonbrush.h
->>>>>>> a1b3a42c8bea58bd58e5c1c815bde2565206cf38
+    polygonbrush.h \
 
 FORMS    += mainwindow.ui \
     previewwindow.ui \
