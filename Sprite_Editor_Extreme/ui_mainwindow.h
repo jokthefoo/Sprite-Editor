@@ -57,6 +57,8 @@ public:
     QToolButton *eraser_Button;
     QToolButton *rectangle_button;
     QSpinBox *brushSize;
+    ColorBox *leftColor;
+    QLabel *label;
     QWidget *tab_2;
     QToolButton *rotate_Left_Button;
     QToolButton *zoom_Out_Button;
@@ -64,15 +66,14 @@ public:
     QToolButton *zoom_In_Button;
     QToolButton *flip_Horizontally;
     QToolButton *flip_Vertically;
-    ColorBox *leftColor;
-    ColorBox *leftColor_2;
-    QLabel *label;
+    QToolButton *undo_button;
+    QToolButton *redo_button;
     QScrollArea *scrollArea;
     QWidget *scrollAreaWidgetContents_2;
-    QGroupBox *framesBox;
     QWidget *horizontalLayoutWidget;
     QHBoxLayout *framesLayout;
     QToolButton *delete_Frame_Button;
+    QGroupBox *framesBox;
     QCheckBox *carryOverBox;
     QMenuBar *menuBar;
     QMenu *menuFile;
@@ -83,8 +84,12 @@ public:
     {
         if (MainWindow->objectName().isEmpty())
             MainWindow->setObjectName(QStringLiteral("MainWindow"));
-        MainWindow->resize(1161, 949);
-        MainWindow->setMinimumSize(QSize(500, 750));
+        MainWindow->resize(713, 630);
+        QSizePolicy sizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
+        sizePolicy.setHorizontalStretch(0);
+        sizePolicy.setVerticalStretch(0);
+        sizePolicy.setHeightForWidth(MainWindow->sizePolicy().hasHeightForWidth());
+        MainWindow->setSizePolicy(sizePolicy);
         actionCanvasSize_2 = new QAction(MainWindow);
         actionCanvasSize_2->setObjectName(QStringLiteral("actionCanvasSize_2"));
         actionSave_as = new QAction(MainWindow);
@@ -97,7 +102,7 @@ public:
         centralWidget->setObjectName(QStringLiteral("centralWidget"));
         graphicsView = new QGraphicsView(centralWidget);
         graphicsView->setObjectName(QStringLiteral("graphicsView"));
-        graphicsView->setGeometry(QRect(30, 10, 901, 651));
+        graphicsView->setGeometry(QRect(30, 10, 521, 391));
         line = new QFrame(centralWidget);
         line->setObjectName(QStringLiteral("line"));
         line->setGeometry(QRect(10, 10, 20, 651));
@@ -105,116 +110,182 @@ public:
         line->setFrameShadow(QFrame::Sunken);
         line_2 = new QFrame(centralWidget);
         line_2->setObjectName(QStringLiteral("line_2"));
-        line_2->setGeometry(QRect(30, 660, 901, 20));
+        line_2->setGeometry(QRect(20, 440, 691, 20));
         line_2->setFrameShape(QFrame::HLine);
         line_2->setFrameShadow(QFrame::Sunken);
         line_3 = new QFrame(centralWidget);
         line_3->setObjectName(QStringLiteral("line_3"));
-        line_3->setGeometry(QRect(930, 10, 20, 651));
+        line_3->setGeometry(QRect(550, 0, 20, 451));
         line_3->setFrameShape(QFrame::VLine);
         line_3->setFrameShadow(QFrame::Sunken);
         add_frame_button = new QToolButton(centralWidget);
         add_frame_button->setObjectName(QStringLiteral("add_frame_button"));
-        add_frame_button->setGeometry(QRect(370, 690, 91, 41));
+        add_frame_button->setGeometry(QRect(580, 280, 101, 31));
+        sizePolicy.setHeightForWidth(add_frame_button->sizePolicy().hasHeightForWidth());
+        add_frame_button->setSizePolicy(sizePolicy);
         previous_frame_button = new QToolButton(centralWidget);
         previous_frame_button->setObjectName(QStringLiteral("previous_frame_button"));
-        previous_frame_button->setGeometry(QRect(40, 700, 51, 31));
+        previous_frame_button->setGeometry(QRect(190, 410, 51, 31));
+        sizePolicy.setHeightForWidth(previous_frame_button->sizePolicy().hasHeightForWidth());
+        previous_frame_button->setSizePolicy(sizePolicy);
         play_button = new QToolButton(centralWidget);
         play_button->setObjectName(QStringLiteral("play_button"));
-        play_button->setGeometry(QRect(100, 700, 51, 31));
+        play_button->setGeometry(QRect(250, 410, 51, 31));
+        sizePolicy.setHeightForWidth(play_button->sizePolicy().hasHeightForWidth());
+        play_button->setSizePolicy(sizePolicy);
         next_frame_button = new QToolButton(centralWidget);
         next_frame_button->setObjectName(QStringLiteral("next_frame_button"));
-        next_frame_button->setGeometry(QRect(170, 700, 51, 31));
+        next_frame_button->setGeometry(QRect(310, 410, 51, 31));
+        sizePolicy.setHeightForWidth(next_frame_button->sizePolicy().hasHeightForWidth());
+        next_frame_button->setSizePolicy(sizePolicy);
         tabWidget = new QTabWidget(centralWidget);
         tabWidget->setObjectName(QStringLiteral("tabWidget"));
-        tabWidget->setGeometry(QRect(980, 10, 171, 391));
+        tabWidget->setGeometry(QRect(570, 10, 121, 251));
         tabWidget->setTabPosition(QTabWidget::West);
         tab = new QWidget();
         tab->setObjectName(QStringLiteral("tab"));
         brush_Button = new QToolButton(tab);
         brush_Button->setObjectName(QStringLiteral("brush_Button"));
-        brush_Button->setGeometry(QRect(10, 10, 41, 41));
+        brush_Button->setGeometry(QRect(10, 10, 31, 31));
+        sizePolicy.setHeightForWidth(brush_Button->sizePolicy().hasHeightForWidth());
+        brush_Button->setSizePolicy(sizePolicy);
         brush_Button->setPopupMode(QToolButton::InstantPopup);
         fill_Bucket_Button = new QToolButton(tab);
         fill_Bucket_Button->setObjectName(QStringLiteral("fill_Bucket_Button"));
-        fill_Bucket_Button->setGeometry(QRect(10, 60, 41, 41));
+        fill_Bucket_Button->setGeometry(QRect(50, 10, 31, 31));
+        sizePolicy.setHeightForWidth(fill_Bucket_Button->sizePolicy().hasHeightForWidth());
+        fill_Bucket_Button->setSizePolicy(sizePolicy);
         fill_Bucket_Button->setPopupMode(QToolButton::InstantPopup);
         eraser_Button = new QToolButton(tab);
         eraser_Button->setObjectName(QStringLiteral("eraser_Button"));
-        eraser_Button->setGeometry(QRect(10, 110, 41, 41));
+        eraser_Button->setGeometry(QRect(10, 50, 31, 31));
         eraser_Button->setPopupMode(QToolButton::InstantPopup);
         rectangle_button = new QToolButton(tab);
         rectangle_button->setObjectName(QStringLiteral("rectangle_button"));
-        rectangle_button->setGeometry(QRect(10, 160, 41, 41));
+        rectangle_button->setGeometry(QRect(50, 50, 31, 31));
+        sizePolicy.setHeightForWidth(rectangle_button->sizePolicy().hasHeightForWidth());
+        rectangle_button->setSizePolicy(sizePolicy);
         rectangle_button->setPopupMode(QToolButton::InstantPopup);
         brushSize = new QSpinBox(tab);
         brushSize->setObjectName(QStringLiteral("brushSize"));
-        brushSize->setGeometry(QRect(70, 10, 61, 31));
+        brushSize->setGeometry(QRect(10, 210, 61, 31));
         brushSize->setMinimum(1);
         brushSize->setMaximum(10);
+        leftColor = new ColorBox(tab);
+        leftColor->setObjectName(QStringLiteral("leftColor"));
+        leftColor->setGeometry(QRect(10, 160, 41, 41));
+        sizePolicy.setHeightForWidth(leftColor->sizePolicy().hasHeightForWidth());
+        leftColor->setSizePolicy(sizePolicy);
+        leftColor->setAutoFillBackground(false);
+        leftColor->setStyleSheet(QStringLiteral("border: 2px solid grey"));
+        leftColor->setLineWidth(1);
+        label = new QLabel(tab);
+        label->setObjectName(QStringLiteral("label"));
+        label->setGeometry(QRect(10, 140, 71, 16));
+        QFont font;
+        font.setPointSize(8);
+        label->setFont(font);
         tabWidget->addTab(tab, QString());
         tab_2 = new QWidget();
         tab_2->setObjectName(QStringLiteral("tab_2"));
         rotate_Left_Button = new QToolButton(tab_2);
         rotate_Left_Button->setObjectName(QStringLiteral("rotate_Left_Button"));
-        rotate_Left_Button->setGeometry(QRect(10, 160, 41, 41));
+        rotate_Left_Button->setGeometry(QRect(50, 50, 31, 31));
+        sizePolicy.setHeightForWidth(rotate_Left_Button->sizePolicy().hasHeightForWidth());
+        rotate_Left_Button->setSizePolicy(sizePolicy);
         zoom_Out_Button = new QToolButton(tab_2);
         zoom_Out_Button->setObjectName(QStringLiteral("zoom_Out_Button"));
-        zoom_Out_Button->setGeometry(QRect(10, 60, 41, 41));
+        zoom_Out_Button->setGeometry(QRect(50, 10, 31, 31));
+        sizePolicy.setHeightForWidth(zoom_Out_Button->sizePolicy().hasHeightForWidth());
+        zoom_Out_Button->setSizePolicy(sizePolicy);
         rotate_Right_Button = new QToolButton(tab_2);
         rotate_Right_Button->setObjectName(QStringLiteral("rotate_Right_Button"));
-        rotate_Right_Button->setGeometry(QRect(10, 110, 41, 41));
+        rotate_Right_Button->setGeometry(QRect(10, 50, 31, 31));
+        sizePolicy.setHeightForWidth(rotate_Right_Button->sizePolicy().hasHeightForWidth());
+        rotate_Right_Button->setSizePolicy(sizePolicy);
+        rotate_Right_Button->setStyleSheet(QLatin1String("QToolButton{\n"
+"	-moz-box-shadow:inset 38px -12px 48px -15px #0a1211;\n"
+"	-webkit-box-shadow:inset 38px -12px 48px -15px #0a1211;\n"
+"	box-shadow:inset 38px -12px 48px -15px #0a1211;\n"
+"	background:-webkit-gradient(linear, left top, left bottom, color-stop(0.05, #25b891), color-stop(1, #6c7c7c));\n"
+"	background:-moz-linear-gradient(top, #25b891 5%, #6c7c7c 100%);\n"
+"	background:-webkit-linear-gradient(top, #25b891 5%, #6c7c7c 100%);\n"
+"	background:-o-linear-gradient(top, #25b891 5%, #6c7c7c 100%);\n"
+"	background:-ms-linear-gradient(top, #25b891 5%, #6c7c7c 100%);\n"
+"	background:linear-gradient(to bottom, #25b891 5%, #6c7c7c 100%);\n"
+"	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#25b891', endColorstr='#6c7c7c',GradientType=0);\n"
+"	background-color:#25b891;\n"
+"	-moz-border-radius:5px;\n"
+"	-webkit-border-radius:5px;\n"
+"	border-radius:5px;\n"
+"	border:1px solid #566963;\n"
+"	display:inline-block;\n"
+"	cursor:pointer;\n"
+"	color:#ffccff;\n"
+"	font-family:Arial;\n"
+"	font-size:15px;"
+                        "\n"
+"	font-weight:bold;\n"
+"	padding:14px 9px;\n"
+"	text-decoration:none;\n"
+"	text-shadow:3px 3px 10px #039c85;\n"
+"}"));
         zoom_In_Button = new QToolButton(tab_2);
         zoom_In_Button->setObjectName(QStringLiteral("zoom_In_Button"));
-        zoom_In_Button->setGeometry(QRect(10, 10, 41, 41));
+        zoom_In_Button->setGeometry(QRect(10, 10, 31, 31));
+        sizePolicy.setHeightForWidth(zoom_In_Button->sizePolicy().hasHeightForWidth());
+        zoom_In_Button->setSizePolicy(sizePolicy);
+        zoom_In_Button->setAutoFillBackground(false);
         flip_Horizontally = new QToolButton(tab_2);
         flip_Horizontally->setObjectName(QStringLiteral("flip_Horizontally"));
-        flip_Horizontally->setGeometry(QRect(10, 210, 41, 41));
+        flip_Horizontally->setGeometry(QRect(10, 90, 31, 31));
+        sizePolicy.setHeightForWidth(flip_Horizontally->sizePolicy().hasHeightForWidth());
+        flip_Horizontally->setSizePolicy(sizePolicy);
+        flip_Horizontally->setAutoFillBackground(false);
         flip_Vertically = new QToolButton(tab_2);
         flip_Vertically->setObjectName(QStringLiteral("flip_Vertically"));
-        flip_Vertically->setGeometry(QRect(10, 260, 41, 41));
+        flip_Vertically->setGeometry(QRect(50, 90, 31, 31));
+        sizePolicy.setHeightForWidth(flip_Vertically->sizePolicy().hasHeightForWidth());
+        flip_Vertically->setSizePolicy(sizePolicy);
+        undo_button = new QToolButton(tab_2);
+        undo_button->setObjectName(QStringLiteral("undo_button"));
+        undo_button->setGeometry(QRect(10, 130, 31, 31));
+        sizePolicy.setHeightForWidth(undo_button->sizePolicy().hasHeightForWidth());
+        undo_button->setSizePolicy(sizePolicy);
+        undo_button->setAutoFillBackground(false);
+        redo_button = new QToolButton(tab_2);
+        redo_button->setObjectName(QStringLiteral("redo_button"));
+        redo_button->setGeometry(QRect(50, 130, 31, 31));
+        sizePolicy.setHeightForWidth(redo_button->sizePolicy().hasHeightForWidth());
+        redo_button->setSizePolicy(sizePolicy);
+        redo_button->setAutoFillBackground(false);
         tabWidget->addTab(tab_2, QString());
-        leftColor = new ColorBox(centralWidget);
-        leftColor->setObjectName(QStringLiteral("leftColor"));
-        leftColor->setGeometry(QRect(1000, 420, 61, 71));
-        leftColor->setAutoFillBackground(false);
-        leftColor->setStyleSheet(QStringLiteral("border: 2px solid grey"));
-        leftColor->setLineWidth(1);
-        leftColor_2 = new ColorBox(centralWidget);
-        leftColor_2->setObjectName(QStringLiteral("leftColor_2"));
-        leftColor_2->setGeometry(QRect(1090, 420, 61, 71));
-        leftColor_2->setAutoFillBackground(false);
-        leftColor_2->setStyleSheet(QStringLiteral("border: 2px solid grey"));
-        label = new QLabel(centralWidget);
-        label->setObjectName(QStringLiteral("label"));
-        label->setGeometry(QRect(1000, 400, 71, 16));
-        QFont font;
-        font.setPointSize(8);
-        label->setFont(font);
         scrollArea = new QScrollArea(centralWidget);
         scrollArea->setObjectName(QStringLiteral("scrollArea"));
-        scrollArea->setGeometry(QRect(10, 740, 561, 131));
+        scrollArea->setGeometry(QRect(30, 460, 521, 111));
         scrollArea->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
         scrollArea->setWidgetResizable(true);
         scrollAreaWidgetContents_2 = new QWidget();
         scrollAreaWidgetContents_2->setObjectName(QStringLiteral("scrollAreaWidgetContents_2"));
-        scrollAreaWidgetContents_2->setGeometry(QRect(0, 0, 559, 129));
-        scrollArea->setWidget(scrollAreaWidgetContents_2);
-        framesBox = new QGroupBox(centralWidget);
-        framesBox->setObjectName(QStringLiteral("framesBox"));
-        framesBox->setGeometry(QRect(580, 740, 41, 31));
-        horizontalLayoutWidget = new QWidget(framesBox);
+        scrollAreaWidgetContents_2->setGeometry(QRect(0, 0, 519, 109));
+        horizontalLayoutWidget = new QWidget(scrollAreaWidgetContents_2);
         horizontalLayoutWidget->setObjectName(QStringLiteral("horizontalLayoutWidget"));
-        horizontalLayoutWidget->setGeometry(QRect(10, 20, 531, 101));
+        horizontalLayoutWidget->setGeometry(QRect(10, 10, 481, 91));
         framesLayout = new QHBoxLayout(horizontalLayoutWidget);
         framesLayout->setSpacing(6);
         framesLayout->setContentsMargins(11, 11, 11, 11);
         framesLayout->setObjectName(QStringLiteral("framesLayout"));
         framesLayout->setSizeConstraint(QLayout::SetFixedSize);
         framesLayout->setContentsMargins(0, 0, 0, 0);
+        scrollArea->setWidget(scrollAreaWidgetContents_2);
         delete_Frame_Button = new QToolButton(centralWidget);
         delete_Frame_Button->setObjectName(QStringLiteral("delete_Frame_Button"));
-        delete_Frame_Button->setGeometry(QRect(470, 690, 111, 41));
+        delete_Frame_Button->setGeometry(QRect(580, 320, 101, 31));
+        framesBox = new QGroupBox(centralWidget);
+        framesBox->setObjectName(QStringLiteral("framesBox"));
+        framesBox->setGeometry(QRect(560, 460, 111, 41));
+        sizePolicy.setHeightForWidth(framesBox->sizePolicy().hasHeightForWidth());
+        framesBox->setSizePolicy(sizePolicy);
         carryOverBox = new QCheckBox(centralWidget);
         carryOverBox->setObjectName(QStringLiteral("carryOverBox"));
         carryOverBox->setGeometry(QRect(260, 690, 101, 20));
@@ -222,7 +293,7 @@ public:
         MainWindow->setCentralWidget(centralWidget);
         menuBar = new QMenuBar(MainWindow);
         menuBar->setObjectName(QStringLiteral("menuBar"));
-        menuBar->setGeometry(QRect(0, 0, 1161, 26));
+        menuBar->setGeometry(QRect(0, 0, 713, 19));
         menuFile = new QMenu(menuBar);
         menuFile->setObjectName(QStringLiteral("menuFile"));
         MainWindow->setMenuBar(menuBar);
@@ -266,6 +337,8 @@ public:
         fill_Bucket_Button->setText(QString());
         eraser_Button->setText(QString());
         rectangle_button->setText(QString());
+        leftColor->setText(QString());
+        label->setText(QApplication::translate("MainWindow", "Left Color", 0));
         tabWidget->setTabText(tabWidget->indexOf(tab), QApplication::translate("MainWindow", "Tab 1", 0));
         rotate_Left_Button->setText(QString());
         zoom_Out_Button->setText(QString());
@@ -273,12 +346,11 @@ public:
         zoom_In_Button->setText(QString());
         flip_Horizontally->setText(QString());
         flip_Vertically->setText(QString());
+        undo_button->setText(QString());
+        redo_button->setText(QString());
         tabWidget->setTabText(tabWidget->indexOf(tab_2), QApplication::translate("MainWindow", "Tab 2", 0));
-        leftColor->setText(QString());
-        leftColor_2->setText(QString());
-        label->setText(QApplication::translate("MainWindow", "Left Color", 0));
-        framesBox->setTitle(QApplication::translate("MainWindow", "Frames", 0));
         delete_Frame_Button->setText(QApplication::translate("MainWindow", "Delete Frame", 0));
+        framesBox->setTitle(QApplication::translate("MainWindow", "Frames", 0));
         carryOverBox->setText(QApplication::translate("MainWindow", "Blank Frame", 0));
         menuFile->setTitle(QApplication::translate("MainWindow", "File", 0));
     } // retranslateUi
