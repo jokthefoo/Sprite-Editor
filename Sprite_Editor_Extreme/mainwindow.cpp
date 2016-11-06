@@ -52,6 +52,9 @@ void MainWindow::setupIcons(){
     setupIcon(ui->add_frame_button, ":/resources/addFrame.png");
     setupIcon(ui->flip_Horizontally, ":/resources/flipHorz.png");
     setupIcon(ui->flip_Vertically, ":/resources/flipVert.png");
+    setupIcon(ui->undo_button, ":/resources/undo.png");
+    setupIcon(ui->redo_button, ":/resources/redo.png");
+
 }
 
 void MainWindow::setupToolTips()
@@ -159,9 +162,9 @@ void MainWindow::exportGif(std::vector<QImage> frameList)
 {
     GifWriter *gifWriter = new GifWriter();
     QString filename = QFileDialog::getSaveFileName(this, "Save gif", "", "Sprite Gif File (*.gif)");
-    GifBegin(gifWriter,filename.toLatin1().constData(),frameList[0].width(),frameList[0].height(),5,8,false);
+    GifBegin(gifWriter,filename.toLatin1().constData(),frameList[0].width(),frameList[0].height(),5);
     QImage image;
-    for(int i = 0; i < frameList.size(); i++)
+    for(unsigned int i = 0; i < frameList.size(); i++)
     {
         image = frameList[i];
         image = image.convertToFormat(QImage::Format_RGBA8888, Qt::OrderedDither);
@@ -214,7 +217,7 @@ void MainWindow::updateScreen(QImage * image){
     ui->graphicsView->update();
 }
 
-void MainWindow::updateFrames(std::vector<QImage> frameList, int currentFrame)
+void MainWindow::updateFrames(std::vector<QImage> frameList, unsigned int currentFrame)
 {
     std::vector<QImage>::iterator imIt = frameList.begin();
     for(unsigned int i =0; i < frames.size(); i++)
@@ -244,7 +247,7 @@ void MainWindow::addFrameToLayout(QImage * image)
     frames.push_back(frame);
 }
 
-void MainWindow::deleteFrame(int frameToDelete)
+void MainWindow::deleteFrame(unsigned int frameToDelete)
 {
     ui->framesLayout->removeWidget(frames[frameToDelete]);
     frames.erase(frames.begin()+frameToDelete);
@@ -271,7 +274,7 @@ bool MainWindow::eventFilter(QObject*, QEvent *event)
     return false;
 }
 
-void MainWindow::setActiveButton(int toolNum)
+void MainWindow::setActiveButton(unsigned int toolNum)
 {
     switch(toolNum)
     {

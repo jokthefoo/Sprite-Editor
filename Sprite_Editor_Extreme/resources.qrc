@@ -14,5 +14,7 @@
         <file>resources/polygon.png</file>
         <file>resources/flipHorz.png</file>
         <file>resources/flipVert.png</file>
+        <file>resources/undo.png</file>
+        <file>resources/redo.png</file>
     </qresource>
 </RCC>

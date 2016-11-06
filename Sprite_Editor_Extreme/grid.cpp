@@ -16,6 +16,13 @@ Grid::Grid(const Grid& other){
     this->width=other.width;
 }
 
+Grid::Grid(QImage *image){
+    this->image = new QImage;
+    *this->image = image->copy();
+    this->height=image->height();
+    this->width=image->width();
+}
+
 Grid& Grid::operator=(const Grid& other)
 {
     Grid temp(other);

@@ -8,7 +8,6 @@
 #include <QString>
 #include <QRegularExpression>
 
-
 class Grid
 {
 public:
@@ -17,6 +16,7 @@ public:
     Grid(const Grid&);
     Grid & operator=(const Grid&);
     ~Grid();
+    Grid(QImage * image);
 
     int const default_width = 16;
     int const default_height = 16;
@@ -42,7 +42,6 @@ public:
     void fromString(QString);
     void setBrushSize(int);
     void flipImage(QString);
-
 
 protected:
 

@@ -19,7 +19,9 @@ Project::Project(const Project& other)
 }
 
 
-
+History& Project::getHistory(){
+    return history;
+}
 
 Project& Project::operator=(const Project& other)
 {
@@ -66,7 +68,7 @@ void Project::deleteCurrentFrame()
 void Project::setCanvasSize(int w, int h){
    canvasSize.first=w;
    canvasSize.second=h;
-   for(int i = 0; i < frames.size(); i++)
+   for(unsigned int i = 0; i < frames.size(); i++)
    {
        frames.at(i).resize(w,h);
    }
@@ -96,7 +98,7 @@ std::vector<Grid> Project::getAllFrames(){
 }
 
 void Project::changeFrame(unsigned int frameNumber){
-    if(frameNumber < this->frames.size()){
+    if(frameNumber <=  this->frames.size()){
          this->currentFrame=&frames[frameNumber];
          workingframe=frameNumber;
     }
@@ -140,5 +142,17 @@ QString Project::toString(){
     }
     return formatted;
 }
+
+void Project::undo(){
+   history.changeFrame(this->workingframe);
+   *this->currentFrame=history.back();
+
+}
+
+void Project::redo(){
+  history.changeFrame(this->workingframe);
+     *this->currentFrame=history.foward();
+}
+
 
 

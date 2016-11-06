@@ -119,13 +119,15 @@ void Controller::receiveMouseInput(QPointF point, QMouseEvent *event)
 {
     if (allowDrawing)
     {
-        Grid * currentFrame = model->getProject()->getCurrentFrame();
+      Grid * currentFrame = model->getProject()->getCurrentFrame();
         if(model->getCurrentTool()!=nullptr){
             Tool * tool = model->getCurrentTool();
             tool->applyTool(currentFrame,point, event,model->getColor(),model->getBrushSize());
+            model->getProject()->getHistory().addEdit(currentFrame->getImage());
             emit sendImage(model->getProject()->getCurrentFrame()->getImage());
             sendAllFrame();
         }
+
     }
 }
 
@@ -152,7 +154,7 @@ void Controller::receiveButtonInput(QWidget * child)
 
 
     QToolButton * button = dynamic_cast<QToolButton*>(child);
-    if(button!=NULL){
+    if(button!=NULL){// there's a generic way to do this
         std::string name = button->objectName().toStdString();
         QImage * image = model->getProject()->getCurrentFrame()->getImage();
         if(name == "rotate_Right_Button")
@@ -234,6 +236,10 @@ void Controller::receiveButtonInput(QWidget * child)
                 emit sendImage(model->getProject()->getCurrentFrame()->getImage());
                 sendAllFrame();
             }
+        }else if(name == "undo_button"){
+            model->getProject()->undo();
+        }else if(name == "redo button"){
+            model->getProject()->redo();
         }
         return;
     }

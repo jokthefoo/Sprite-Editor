@@ -45,7 +45,7 @@ signals:
 public slots:
     void exportGif(std::vector<QImage>);
     void exportToGifSig();
-    void updateFrames(std::vector<QImage>, int);
+    void updateFrames(std::vector<QImage>, unsigned int);
     void saveAsSelected(QString);
     void sendConfigurationInput();
     void openConfigurationSelected();
@@ -55,8 +55,8 @@ public slots:
     void addFrameToLayout(QImage *);
     void zoomIn();
     void zoomOut();
-    void setActiveButton(int);
-    void deleteFrame(int);
+    void setActiveButton(unsigned int);
+    void deleteFrame(unsigned int);
 
     // void updatePreview(std::vector<Grid>);
 

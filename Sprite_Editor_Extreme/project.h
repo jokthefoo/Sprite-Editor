@@ -4,6 +4,7 @@
 #include <QPolygon>
 #include <grid.h>
 #include <QString>
+#include <history.h>
 
 class Project
 {
@@ -13,13 +14,18 @@ private:
     QPair<int,int> canvasSize;
     QPair<int,int> imageSize;
     unsigned int workingframe=0;
+    History history;
+
+
 public:
     Project();
     ~Project();
     Project(const Project& other);
     Project& operator=(const Project&);
+    History& getHistory();
     void swap(Project&);
-
+    void undo();
+    void redo();
     void changeFrame(unsigned int frameNumber);
     void addNewFrame(Grid *grid);
     void removeFrame(unsigned int);

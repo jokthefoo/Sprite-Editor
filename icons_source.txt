@@ -9,3 +9,5 @@ https://www.iconfinder.com/icons/1063903/arrow_double_double_arrow_right_icon#si
 https://www.iconfinder.com/icons/106223/play_icon#size=128
 https://www.iconfinder.com/icons/183306/polygon_shape_icon#size=128
 https://www.iconfinder.com/icons/1303892/add_circle_create_new_plus_sign_icon#size=128
+https://www.iconfinder.com/icons/66728/edit_icon#size=128
+https://www.iconfinder.com/iconsets/Hand_Drawn_Web_Icon_Set

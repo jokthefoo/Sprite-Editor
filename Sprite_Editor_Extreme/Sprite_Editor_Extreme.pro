@@ -29,6 +29,7 @@ SOURCES += main.cpp\
     fillbucket.cpp \
     gif.h \
     polygonbrush.cpp \
+    history.cpp
 
 HEADERS  += mainwindow.h \
     grid.h \
@@ -45,6 +46,7 @@ HEADERS  += mainwindow.h \
     fillbucket.h \
     gif.h \
     polygonbrush.h \
+    history.h
 
 FORMS    += mainwindow.ui \
     previewwindow.ui \

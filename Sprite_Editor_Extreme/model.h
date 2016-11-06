@@ -6,6 +6,7 @@
 #include <grid.h>
 #include <tool.h>
 #include <QTimer>
+#include <history.h>
 
 class Model // the model updates the view by sending signals
 {
@@ -17,7 +18,6 @@ private:
     int brushSize;
     std::vector<Tool*> tools;
     QTimer timer;
-
 
 public:
     Model();
