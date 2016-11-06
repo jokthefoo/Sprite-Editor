@@ -25,6 +25,7 @@ Controller::Controller(MainWindow * w)
     emit sendActiveTool(0);
     drawing = false;
     allowDrawing = true;
+    addBlankFrame = true;
 }
 
 Controller::~Controller(){
@@ -111,6 +112,13 @@ void Controller::receivePropertyChange(Property p){
             model->getProject()->setCanvasSize(p.values[0],p.values[1]);
             emit sendImage(model->getProject()->getCurrentFrame()->getImage());
             sendAllFrame();
+        }
+        if (p.name.toStdString().compare("carryOverBox") == 0) {
+            if (p.values.front() == 0) {
+                addBlankFrame = false;
+            } else if (p.values.front() == 2) {
+                addBlankFrame = true;
+            }
         }
     }
 }
@@ -220,7 +228,11 @@ void Controller::receiveButtonInput(QWidget * child)
         }
         else if(name == "add_frame_button")
         {
-            model->getProject()->addEmptyFrame();
+            if (addBlankFrame) {
+                model->getProject()->addEmptyFrame();
+            } else {
+                model->getProject()->carryOverNewFrame(*(model->getProject()->getCurrentFrame()));
+            }
             emit sendImage(model->getProject()->getCurrentFrame()->getImage());
             emit sendNewFrame(model->getProject()->getCurrentFrame()->getImage());
             sendAllFrame();

@@ -64,6 +64,14 @@ void Project::addEmptyFrame(){
 
 }
 
+void Project::carryOverNewFrame(const Grid& previous){
+    Grid * grid = new Grid(previous);
+    frames[workingframe]=*currentFrame; // save the current state
+    frames.push_back(*grid);
+    workingframe = frames.size()-1;
+    currentFrame = &frames[workingframe];
+}
+
 void Project::deleteCurrentFrame()
 {
     frames.erase(frames.begin()+workingframe);

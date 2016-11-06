@@ -13,6 +13,7 @@ INPUT(
 ./release\eraser.o
 ./release\previewwindow.o
 ./release\fillbucket.o
+./release\polygonbrush.o
 ./release\qrc_resources.o
 ./release\moc_mainwindow.o
 ./release\moc_controller.o

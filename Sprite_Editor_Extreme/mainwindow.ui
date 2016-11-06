@@ -431,6 +431,22 @@
      <string>Delete Frame</string>
     </property>
    </widget>
+   <widget class="QCheckBox" name="carryOverBox">
+    <property name="geometry">
+     <rect>
+      <x>260</x>
+      <y>690</y>
+      <width>101</width>
+      <height>20</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Blank Frame</string>
+    </property>
+    <property name="checked">
+     <bool>true</bool>
+    </property>
+   </widget>
   </widget>
   <widget class="QMenuBar" name="menuBar">
    <property name="geometry">
@@ -438,7 +454,7 @@
      <x>0</x>
      <y>0</y>
      <width>1161</width>
-     <height>17</height>
+     <height>26</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuFile">

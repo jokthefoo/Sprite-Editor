@@ -13,6 +13,7 @@ INPUT(
 ./debug\eraser.o
 ./debug\previewwindow.o
 ./debug\fillbucket.o
+./debug\polygonbrush.o
 ./debug\qrc_resources.o
 ./debug\moc_mainwindow.o
 ./debug\moc_controller.o

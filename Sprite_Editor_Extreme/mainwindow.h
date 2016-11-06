@@ -50,6 +50,7 @@ public slots:
     void sendConfigurationInput();
     void openConfigurationSelected();
     void spinnerChanged(int);
+    void checkBoxChanged(int);
     void updateScreen(QImage * toShow);
     void updateColor(QColor); // left is false right is true
     void addFrameToLayout(QImage *);

@@ -13,6 +13,7 @@
 #include <QtWidgets/QAction>
 #include <QtWidgets/QApplication>
 #include <QtWidgets/QButtonGroup>
+#include <QtWidgets/QCheckBox>
 #include <QtWidgets/QFrame>
 #include <QtWidgets/QGraphicsView>
 #include <QtWidgets/QGroupBox>
@@ -72,6 +73,7 @@ public:
     QWidget *horizontalLayoutWidget;
     QHBoxLayout *framesLayout;
     QToolButton *delete_Frame_Button;
+    QCheckBox *carryOverBox;
     QMenuBar *menuBar;
     QMenu *menuFile;
     QStatusBar *statusBar;
@@ -213,10 +215,14 @@ public:
         delete_Frame_Button = new QToolButton(centralWidget);
         delete_Frame_Button->setObjectName(QStringLiteral("delete_Frame_Button"));
         delete_Frame_Button->setGeometry(QRect(470, 690, 111, 41));
+        carryOverBox = new QCheckBox(centralWidget);
+        carryOverBox->setObjectName(QStringLiteral("carryOverBox"));
+        carryOverBox->setGeometry(QRect(260, 690, 101, 20));
+        carryOverBox->setChecked(true);
         MainWindow->setCentralWidget(centralWidget);
         menuBar = new QMenuBar(MainWindow);
         menuBar->setObjectName(QStringLiteral("menuBar"));
-        menuBar->setGeometry(QRect(0, 0, 1161, 17));
+        menuBar->setGeometry(QRect(0, 0, 1161, 26));
         menuFile = new QMenu(menuBar);
         menuFile->setObjectName(QStringLiteral("menuFile"));
         MainWindow->setMenuBar(menuBar);
@@ -273,6 +279,7 @@ public:
         label->setText(QApplication::translate("MainWindow", "Left Color", 0));
         framesBox->setTitle(QApplication::translate("MainWindow", "Frames", 0));
         delete_Frame_Button->setText(QApplication::translate("MainWindow", "Delete Frame", 0));
+        carryOverBox->setText(QApplication::translate("MainWindow", "Blank Frame", 0));
         menuFile->setTitle(QApplication::translate("MainWindow", "File", 0));
     } // retranslateUi
 
