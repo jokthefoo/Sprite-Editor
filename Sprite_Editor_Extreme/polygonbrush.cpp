@@ -5,7 +5,7 @@ PolygonBrush::PolygonBrush()
     drawing = false;
 }
 
-void PolygonBrush::applyTool(Grid * frame, QPointF mousePosition, QMouseEvent * event, QColor color, int brushSize)
+void PolygonBrush::applyTool(Grid * frame, QPointF mousePosition, QMouseEvent * event, QColor color, int brushSize, Project*)
 {
     // Restricts action to drawing area
     if (frame->containsCoordinate(mousePosition.x(), mousePosition.y()))

@@ -6,7 +6,7 @@
 #include <grid.h>
 #include <tool.h>
 #include <QTimer>
-#include <history.h>
+
 
 class Model // the model updates the view by sending signals
 {

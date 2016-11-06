@@ -4,12 +4,13 @@
 #include <QPointF>
 #include <QColor>
 #include <QMouseEvent>
+#include <project.h>
 
 class Tool
 {
 public:
     Tool();
-    void virtual applyTool(Grid *, QPointF, QMouseEvent*,QColor, int);
+    void virtual applyTool(Grid *, QPointF, QMouseEvent*,QColor, int, Project*);
 
 private:
 

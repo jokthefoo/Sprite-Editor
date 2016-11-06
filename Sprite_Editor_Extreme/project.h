@@ -4,25 +4,27 @@
 #include <QPolygon>
 #include <grid.h>
 #include <QString>
-#include <history.h>
+#include <QImage>
+#include <QStack>
+#include <grid.h>
+#include <QHash>
 
 class Project
 {
 private:
-    std::vector<Grid> frames;
-    Grid * currentFrame;
+    std::vector<Grid*> frames;
+    QHash<unsigned int,QStack<Grid>> before;
+    QHash<unsigned int,QStack<Grid>> after;
     QPair<int,int> canvasSize;
     QPair<int,int> imageSize;
     unsigned int workingframe=0;
-    History history;
-
 
 public:
     Project();
     ~Project();
     Project(const Project& other);
     Project& operator=(const Project&);
-    History& getHistory();
+    void addEdit();
     void swap(Project&);
     void undo();
     void redo();
@@ -33,7 +35,7 @@ public:
     void carryOverNewFrame(const Grid& previous);
     bool next();
     bool previous();
-    std::vector<Grid> getAllFrames();
+    std::vector<Grid*> getAllFrames();
     Grid * getCurrentFrame();
     void setCanvasSize(int,int);
     QPair<int,int> getCanvasSize();

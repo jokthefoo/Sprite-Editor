@@ -6,7 +6,7 @@ FillBucket::FillBucket()
     this->drawing = false;
 }
 
-void FillBucket::applyTool(Grid * frame, QPointF mousePosition, QMouseEvent * event, QColor color,int)
+void FillBucket::applyTool(Grid * frame, QPointF mousePosition, QMouseEvent * event, QColor color,int,Project*)
 {
     // Restricts action to drawing area
     if (frame->containsCoordinate(mousePosition.x(), mousePosition.y()))

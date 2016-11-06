@@ -35,10 +35,11 @@ Controller::~Controller(){
 void Controller::receiveExport()
 {
     std::vector<QImage> frames;
-    std::vector<Grid> temp = model->getProject()->getAllFrames();
-    for(std::vector<Grid>::iterator it = temp.begin(); it != temp.end(); ++it)
+    std::vector<Grid*> temp = model->getProject()->getAllFrames();
+    for(std::vector<Grid*>::iterator it = temp.begin(); it != temp.end(); ++it)
     {
-        frames.push_back(*(it->getImage()));
+        Grid * g = *it;
+        frames.push_back(*(g->getImage()));
     }
     emit sendFramesForExport(frames);
 }
@@ -88,10 +89,11 @@ void Controller::receiveOpenProj(QString heightWidth, QString numFrames, QString
 void Controller::sendAllFrame()
 {
     std::vector<QImage> frames;
-    std::vector<Grid> temp = model->getProject()->getAllFrames();
-    for(std::vector<Grid>::iterator it = temp.begin(); it != temp.end(); ++it)
+    std::vector<Grid*> temp = model->getProject()->getAllFrames();
+    for(std::vector<Grid*>::iterator it = temp.begin(); it != temp.end(); ++it)
     {
-        frames.push_back(*(it->getImage()));
+        Grid * g = *it;
+        frames.push_back(*(g->getImage()));
     }
     emit sendFrames(frames, model->getProject()->getWorkingFrame());
 }
@@ -130,8 +132,8 @@ void Controller::receiveMouseInput(QPointF point, QMouseEvent *event)
       Grid * currentFrame = model->getProject()->getCurrentFrame();
         if(model->getCurrentTool()!=nullptr){
             Tool * tool = model->getCurrentTool();
-            tool->applyTool(currentFrame,point, event,model->getColor(),model->getBrushSize());
-            model->getProject()->getHistory().addEdit(currentFrame->getImage());
+            tool->applyTool(currentFrame,point, event,model->getColor(),model->getBrushSize(), model->getProject());
+
             emit sendImage(model->getProject()->getCurrentFrame()->getImage());
             sendAllFrame();
         }
@@ -250,8 +252,12 @@ void Controller::receiveButtonInput(QWidget * child)
             }
         }else if(name == "undo_button"){
             model->getProject()->undo();
+            emit sendImage(model->getProject()->getCurrentFrame()->getImage());
+
         }else if(name == "redo button"){
             model->getProject()->redo();
+            emit sendImage(model->getProject()->getCurrentFrame()->getImage());
+
         }
         return;
     }
@@ -259,12 +265,12 @@ void Controller::receiveButtonInput(QWidget * child)
 
 int animation_counter = 0;
 void Controller::timeoutSendImage(){
-    std::vector<Grid> g = model->getProject()->getAllFrames();
+    std::vector<Grid*> g = model->getProject()->getAllFrames();
     // might want to send a pointer of the frames so we aren't copying the vector every time.
 
     int size = g.size();
     if(animation_counter < size){
-        emit sendPreviewImage(&(*g[animation_counter].getImage()));
+        emit sendPreviewImage(&(*g[animation_counter]->getImage()));
         animation_counter++;
     }else{
         animation_counter = 0;

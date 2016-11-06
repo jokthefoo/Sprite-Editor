@@ -2,65 +2,55 @@
 
 Project::Project()
 {
-    currentFrame = new Grid;
-    frames.push_back(*currentFrame);
-    canvasSize.first=currentFrame->default_width;
-    canvasSize.second=currentFrame->default_height;
+    frames.push_back(new Grid);
+    canvasSize.first=frames[workingframe]->default_width;
+    canvasSize.second=frames[workingframe]->default_height;
 }
 
 Project::Project(const Project& other)
 {
     this->canvasSize = other.canvasSize;
-    this->currentFrame = other.currentFrame;
+    this->workingframe = other.workingframe;
     for(auto it = other.frames.begin(); it < other.frames.end(); it++){
-        Grid grid(*it);
+        Grid * grid = new Grid(**it);
         this->frames.push_back(grid);
     }
-}
-
-
-History& Project::getHistory(){
-    return history;
 }
 
 Project& Project::operator=(const Project& other)
 {
     Project temp(other);
-    this->swap(temp);
+    swap(temp);
     return *this;
 }
 
 void Project::swap(Project& other)
 {
-    std::swap(canvasSize,other.canvasSize);
-    std::swap(currentFrame,other.currentFrame);
     std::swap(frames,other.frames);
+    std::swap(canvasSize,other.canvasSize);
 }
 
 Project::~Project(){
-    delete currentFrame;
+    for(auto it = frames.begin(); it < frames.end(); it++){
+        delete *it;
+    }
 }
 
 Grid * Project::getCurrentFrame(){
-    return currentFrame;
+    return frames[workingframe];
 }
 
 void Project::addEmptyFrame(){
     Grid * grid = new Grid(); // will need to pass in the current size here.
     grid->resize(canvasSize.first,canvasSize.second);
-    frames[workingframe]=*currentFrame; // save the current state
-    frames.push_back(*grid);
+    frames.push_back(grid);
     workingframe = frames.size()-1;
-    currentFrame = &frames[workingframe];
-
 }
 
 void Project::carryOverNewFrame(const Grid& previous){
     Grid * grid = new Grid(previous);
-    frames[workingframe]=*currentFrame; // save the current state
-    frames.push_back(*grid);
+    frames.push_back(grid);
     workingframe = frames.size()-1;
-    currentFrame = &frames[workingframe];
 }
 
 void Project::deleteCurrentFrame()
@@ -70,7 +60,6 @@ void Project::deleteCurrentFrame()
     {
         workingframe = frames.size()-1;
     }
-    currentFrame = &frames[workingframe];
 }
 
 void Project::setCanvasSize(int w, int h){
@@ -78,36 +67,28 @@ void Project::setCanvasSize(int w, int h){
    canvasSize.second=h;
    for(unsigned int i = 0; i < frames.size(); i++)
    {
-       frames.at(i).resize(w,h);
+       frames.at(i)->resize(w,h);
    }
-   currentFrame->resize(w,h);
-   for(std::vector<Grid>::iterator it = frames.begin(); it < frames.end(); ++it){
-       it->resize(w,h);
-   }
-   frames[workingframe]=*currentFrame;
 }
 
 void Project::addNewFrame(Grid * grid){
+    Grid * g = new Grid(*grid);
     grid->resize(canvasSize.first,canvasSize.second);
-    frames[workingframe]=*currentFrame;
-    frames.push_back(*grid);
+    frames.push_back(g);
     workingframe = frames.size()-1;
-    currentFrame = &frames[workingframe];
 }
 
 void Project::removeFrame(unsigned int frameIndex){
     frames.erase(frames.begin() + frameIndex);//might need offset of 1
-
+    // what about changing the working frame?
 }
 
-std::vector<Grid> Project::getAllFrames(){
-  frames[workingframe]=*currentFrame;
+std::vector<Grid*> Project::getAllFrames(){
   return frames;
 }
 
 void Project::changeFrame(unsigned int frameNumber){
     if(frameNumber <=  this->frames.size()){
-         this->currentFrame=&frames[frameNumber];
          workingframe=frameNumber;
     }
 }
@@ -121,7 +102,6 @@ bool Project::next(){
   if(workingframe+1< frames.size())
   {
      workingframe++;
-     currentFrame = &frames[workingframe];
      return true;
   }return false;
 }
@@ -129,13 +109,11 @@ bool Project::next(){
 bool Project::previous(){
   if(workingframe > 0){
       workingframe--;
-      currentFrame = &frames[workingframe];
       return true;
   } return false;
 }
 
 QString Project::toString(){
-    frames[workingframe]=*currentFrame;
     int height = canvasSize.second;
     int width = canvasSize.first;
 
@@ -143,24 +121,30 @@ QString Project::toString(){
             QString::number(frames.size()) + "\n";
 
     int frameNum = 0;
-    foreach (Grid grid, frames) {
+    foreach (Grid * grid, frames) {
         formatted += "Frame: " + QString::number(frameNum) + "\n";
-        formatted += grid.toString();
+        formatted += grid->toString();
         frameNum++;
     }
     return formatted;
 }
 
 void Project::undo(){
-   history.changeFrame(this->workingframe);
-   *this->currentFrame=history.back();
-
+    bool send = before[workingframe].size()>0;
+    if(send){
+       after[workingframe].push(*frames[workingframe]);
+       *frames[workingframe]=before[workingframe].pop();
+    }
 }
 
 void Project::redo(){
-  history.changeFrame(this->workingframe);
-     *this->currentFrame=history.foward();
+    bool send = after[workingframe].size()>0;
+    if(send){
+        before[workingframe].push(*frames[workingframe]);
+        *frames[workingframe]=after[workingframe].pop();
+    }
 }
 
-
-
+void Project::addEdit(){
+    before[workingframe].push_back(Grid(*frames[workingframe]));
+}

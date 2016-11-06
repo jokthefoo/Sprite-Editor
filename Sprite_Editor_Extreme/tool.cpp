@@ -5,7 +5,7 @@ Tool::Tool()
 
 }
 
-void Tool::applyTool(Grid *, QPointF, QMouseEvent*,QColor, int){
+void Tool::applyTool(Grid *, QPointF, QMouseEvent*,QColor, int, Project*){
 
 }
 
