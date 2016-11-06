@@ -30,6 +30,7 @@ public:
     void addNewFrame(Grid *grid);
     void removeFrame(unsigned int);
     void addEmptyFrame();
+    void carryOverNewFrame(const Grid& previous);
     bool next();
     bool previous();
     std::vector<Grid> getAllFrames();

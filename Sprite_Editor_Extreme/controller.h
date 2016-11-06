@@ -20,6 +20,7 @@ private:
     Model* model;
     bool drawing;
     bool allowDrawing;
+    bool addBlankFrame;
 
 public:
     Controller();
