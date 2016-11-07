@@ -152,8 +152,8 @@
           <rect>
            <x>0</x>
            <y>0</y>
-           <width>554</width>
-           <height>68</height>
+           <width>525</width>
+           <height>49</height>
           </rect>
          </property>
          <widget class="QWidget" name="horizontalLayoutWidget">
@@ -203,7 +203,7 @@
          <enum>QTabWidget::West</enum>
         </property>
         <property name="currentIndex">
-         <number>1</number>
+         <number>0</number>
         </property>
         <widget class="QWidget" name="tab">
          <attribute name="title">
@@ -351,6 +351,22 @@
           </property>
           <property name="text">
            <string>Left Color</string>
+          </property>
+         </widget>
+         <widget class="QToolButton" name="select_Button">
+          <property name="geometry">
+           <rect>
+            <x>10</x>
+            <y>90</y>
+            <width>31</width>
+            <height>31</height>
+           </rect>
+          </property>
+          <property name="text">
+           <string>Select</string>
+          </property>
+          <property name="popupMode">
+           <enum>QToolButton::InstantPopup</enum>
           </property>
          </widget>
         </widget>
@@ -626,7 +642,7 @@
      <x>0</x>
      <y>0</y>
      <width>713</width>
-     <height>22</height>
+     <height>17</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuFile">

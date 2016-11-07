@@ -70,6 +70,7 @@ public:
     QSpinBox *brushSize;
     ColorBox *leftColor;
     QLabel *label;
+    QToolButton *select_Button;
     QWidget *tab_2;
     QToolButton *rotate_Left_Button;
     QToolButton *zoom_Out_Button;
@@ -192,7 +193,7 @@ public:
         scrollArea->setWidgetResizable(true);
         scrollAreaWidgetContents_2 = new QWidget();
         scrollAreaWidgetContents_2->setObjectName(QStringLiteral("scrollAreaWidgetContents_2"));
-        scrollAreaWidgetContents_2->setGeometry(QRect(0, 0, 554, 68));
+        scrollAreaWidgetContents_2->setGeometry(QRect(0, 0, 525, 49));
         horizontalLayoutWidget = new QWidget(scrollAreaWidgetContents_2);
         horizontalLayoutWidget->setObjectName(QStringLiteral("horizontalLayoutWidget"));
         horizontalLayoutWidget->setGeometry(QRect(0, 0, 551, 61));
@@ -269,6 +270,10 @@ public:
         QFont font;
         font.setPointSize(8);
         label->setFont(font);
+        select_Button = new QToolButton(tab);
+        select_Button->setObjectName(QStringLiteral("select_Button"));
+        select_Button->setGeometry(QRect(10, 90, 31, 31));
+        select_Button->setPopupMode(QToolButton::InstantPopup);
         tabWidget->addTab(tab, QString());
         tab_2 = new QWidget();
         tab_2->setObjectName(QStringLiteral("tab_2"));
@@ -390,7 +395,7 @@ public:
         MainWindow->setCentralWidget(centralWidget);
         menuBar = new QMenuBar(MainWindow);
         menuBar->setObjectName(QStringLiteral("menuBar"));
-        menuBar->setGeometry(QRect(0, 0, 713, 22));
+        menuBar->setGeometry(QRect(0, 0, 713, 17));
         menuFile = new QMenu(menuBar);
         menuFile->setObjectName(QStringLiteral("menuFile"));
         MainWindow->setMenuBar(menuBar);
@@ -410,7 +415,7 @@ public:
 
         retranslateUi(MainWindow);
 
-        tabWidget->setCurrentIndex(1);
+        tabWidget->setCurrentIndex(0);
 
 
         QMetaObject::connectSlotsByName(MainWindow);
@@ -438,6 +443,7 @@ public:
         rectangle_button->setText(QString());
         leftColor->setText(QString());
         label->setText(QApplication::translate("MainWindow", "Left Color", 0));
+        select_Button->setText(QApplication::translate("MainWindow", "Select", 0));
         tabWidget->setTabText(tabWidget->indexOf(tab), QApplication::translate("MainWindow", "Tab 1", 0));
         rotate_Left_Button->setText(QString());
         zoom_Out_Button->setText(QString());

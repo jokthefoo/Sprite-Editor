@@ -278,7 +278,7 @@ void Controller::decodeAction(QString n){
     }else if(name == "redo_button"){
         model->getProject()->redo();
     }
-    else if(name == "selectbutton"){
+    else if(name == "select_Button"){
         model->changeTool(4);
         emit sendActiveTool(4);
     }
