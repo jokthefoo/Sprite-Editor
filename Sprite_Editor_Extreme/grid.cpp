@@ -170,7 +170,14 @@ bool Grid::containsCoordinate(int x, int y){ // uses cartesian coordinates from 
 
 void Grid::fromString(QString frame){
     QStringList pixels;
-    pixels = frame.split(QRegularExpression("\\s+"));
+    QRegularExpression re("\\d+ \\d+ \\d+ \\d+ ");
+    QRegularExpressionMatchIterator regIt = re.globalMatch(frame);
+    while(regIt.hasNext())
+    {
+        QRegularExpressionMatch match = regIt.next();
+        pixels.append(match.capturedTexts());
+    }
+
     QStringList::iterator it = pixels.begin();
     for(int y = 0; y < height; ++y)
     {
@@ -183,14 +190,21 @@ void Grid::fromString(QString frame){
     }
 }
 
-QColor Grid::fromRgba(QString color){
+QColor Grid::fromRgba(QString color)
+{
+    QStringList values;
+    values = color.split(QRegularExpression("\\s+"));
 
     int r = 0,g = 0,b = 0,a = 0;
-    r = color.left(3).toInt();
-    g = color.mid(3,3).toInt();
-    b = color.mid(6,3).toInt();
-    a = color.mid(9,3).toInt();
-
+    QStringList::iterator it = values.begin();
+    r = it->toInt();
+    it++;
+    g = it->toInt();
+    it++;
+    b = it->toInt();
+    it++;
+    a = it->toInt();
+    it++;
     return QColor (r,g,b,a);
 }
 
@@ -208,61 +222,11 @@ QString Grid::toString(){
     return formatted;
 }
 
-QString Grid::toRgba(QColor color){
-    QString red,green,blue,alpha;
-       if(color.red() < 100 && color.red() > 9)
-       {
-           red = "0" + QString::number(color.red());
-       }
-       else if(color.red() < 10)
-       {
-           red =  "00" + QString::number(color.red());
-       }
-       else
-       {
-           red = QString::number(color.red());
-       }
+QString Grid::toRgba(QColor color)
+{
 
-       if(color.green() < 100 && color.green() > 9)
-       {
-           green = "0" + QString::number(color.green());
-       }
-       else if(color.green() < 10)
-       {
-           green =  "00" + QString::number(color.green());
-       }
-       else
-       {
-           green = QString::number(color.green());
-       }
-
-       if(color.blue() < 100 && color.blue() > 9)
-       {
-           blue = "0" + QString::number(color.blue());
-       }
-       else if(color.blue() < 10)
-       {
-           blue =  "00" + QString::number(color.blue());
-       }
-       else
-       {
-           blue = QString::number(color.blue());
-       }
-
-       if(color.alpha() < 100 && color.alpha() > 9)
-       {
-           alpha = "0" + QString::number(color.alpha());
-       }
-       else if(color.alpha() < 10)
-       {
-           alpha =  "00" + QString::number(color.alpha());
-       }
-       else
-       {
-           alpha = QString::number(color.alpha());
-       }
-       return red + green + blue + alpha + " ";
-   }
+        return QString::number(color.red())+ " " + QString::number((color.green())) + " " + QString::number(color.blue()) + " " + QString::number(color.alpha()) + " ";
+}
 
 Grid::~Grid()
 {

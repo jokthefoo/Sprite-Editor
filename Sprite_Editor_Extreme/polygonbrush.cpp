@@ -34,7 +34,7 @@ void PolygonBrush::applyTool(Grid * frame, QPointF mousePosition, QMouseEvent * 
             } else if (event->button() == Qt::RightButton && points.size() > 2)
             {
                 drawing = true;
-                QPointF pointsArr[points.size()];
+                QPointF * pointsArr = new QPointF[points.size()];
                 std::copy(points.begin(), points.end(), pointsArr);
                 auto itc = colors.begin();
                 for(auto it = points.begin(); it  < points.end(); it++){
@@ -45,6 +45,7 @@ void PolygonBrush::applyTool(Grid * frame, QPointF mousePosition, QMouseEvent * 
                 p->addEdit();
                 frame->drawPolygon(pointsArr, points.size(), color, brushSize);
                 colors.clear();
+                delete [] pointsArr;
                 points.clear();
                 drawing = false;
             }
