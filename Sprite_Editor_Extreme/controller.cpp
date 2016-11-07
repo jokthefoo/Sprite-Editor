@@ -254,7 +254,7 @@ void Controller::receiveButtonInput(QWidget * child)
             sendAllFrame();
             emit sendImage(model->getProject()->getCurrentFrame()->getImage());
 
-        }else if(name == "redo button"){
+        }else if(name == "redo_button"){
             model->getProject()->redo();
             emit sendImage(model->getProject()->getCurrentFrame()->getImage());
             sendAllFrame();
