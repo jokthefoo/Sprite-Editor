@@ -1,6 +1,7 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 #include <gif.h>
+#include <QClipboard>
 
 #include <ui_configurationform.h>
 
@@ -313,24 +314,40 @@ void MainWindow::setActiveButton(unsigned int toolNum)
             ui->eraser_Button->setStyleSheet("background: gainsboro");
             ui->fill_Bucket_Button->setStyleSheet("background: gainsboro");
             ui->rectangle_button->setStyleSheet("background: gainsboro");
+            ui->selectbutton->setStyleSheet("background: gainsboro");
+            ui->graphicsView->setDragMode(QGraphicsView::NoDrag);
             break;
         case 1:
             ui->brush_Button->setStyleSheet("background: gainsboro");
             ui->eraser_Button->setStyleSheet("background: chartreuse");
             ui->fill_Bucket_Button->setStyleSheet("background: gainsboro");
             ui->rectangle_button->setStyleSheet("background: gainsboro");
+            ui->selectbutton->setStyleSheet("background: gainsboro");
+            ui->graphicsView->setDragMode(QGraphicsView::NoDrag);
             break;
         case 2:
             ui->brush_Button->setStyleSheet("background: gainsboro");
             ui->eraser_Button->setStyleSheet("background: gainsboro");
             ui->fill_Bucket_Button->setStyleSheet("background: chartreuse");
             ui->rectangle_button->setStyleSheet("background: gainsboro");
+            ui->selectbutton->setStyleSheet("background: gainsboro");
+            ui->graphicsView->setDragMode(QGraphicsView::NoDrag);
             break;
         case 3:
             ui->brush_Button->setStyleSheet("background: gainsboro");
             ui->eraser_Button->setStyleSheet("background: gainsboro");
             ui->fill_Bucket_Button->setStyleSheet("background: gainsboro");
             ui->rectangle_button->setStyleSheet("background: chartreuse");
+            ui->selectbutton->setStyleSheet("background: gainsboro");
+            ui->graphicsView->setDragMode(QGraphicsView::NoDrag);
+            break;
+        case 4:
+            ui->brush_Button->setStyleSheet("background: gainsboro");
+            ui->eraser_Button->setStyleSheet("background: gainsboro");
+            ui->fill_Bucket_Button->setStyleSheet("background: gainsboro");
+            ui->rectangle_button->setStyleSheet("background: gainsboro");
+            ui->selectbutton->setStyleSheet("background: chartreuse");
+            ui->graphicsView->setDragMode(QGraphicsView::RubberBandDrag);
             break;
     }
 }

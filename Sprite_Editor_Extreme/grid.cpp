@@ -147,12 +147,6 @@ void Grid::drawLinePixels(QPointF lastPoint,QPointF endPoint,QColor color, int b
 }
 
 
-
-
-
-
-
-
 void Grid::drawPolygon(const QPointF* points, int pointCount, QColor color, int brushSize)
 {
     QPainter painter;
@@ -230,63 +224,11 @@ QString Grid::toString(){
     return formatted;
 }
 
-QString Grid::toRgba(QColor color){
-    /*
-    QString red,green,blue,alpha;
-       if(color.red() < 100 && color.red() > 9)
-       {
-           red = "0" + QString::number(color.red());
-       }
-       else if(color.red() < 10)
-       {
-           red =  "00" + QString::number(color.red());
-       }
-       else
-       {
-           red = QString::number(color.red());
-       }
+QString Grid::toRgba(QColor color)
+{
 
-       if(color.green() < 100 && color.green() > 9)
-       {
-           green = "0" + QString::number(color.green());
-       }
-       else if(color.green() < 10)
-       {
-           green =  "00" + QString::number(color.green());
-       }
-       else
-       {
-           green = QString::number(color.green());
-       }
-
-       if(color.blue() < 100 && color.blue() > 9)
-       {
-           blue = "0" + QString::number(color.blue());
-       }
-       else if(color.blue() < 10)
-       {
-           blue =  "00" + QString::number(color.blue());
-       }
-       else
-       {
-           blue = QString::number(color.blue());
-       }
-
-       if(color.alpha() < 100 && color.alpha() > 9)
-       {
-           alpha = "0" + QString::number(color.alpha());
-       }
-       else if(color.alpha() < 10)
-       {
-           alpha =  "00" + QString::number(color.alpha());
-       }
-       else
-       {
-           alpha = QString::number(color.alpha());
-       }
-       return red + green + blue + alpha + " ";*/
         return QString::number(color.red())+ " " + QString::number((color.green())) + " " + QString::number(color.blue()) + " " + QString::number(color.alpha()) + " ";
-   }
+}
 
 Grid::~Grid()
 {
