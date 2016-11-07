@@ -23,18 +23,26 @@ void FillBucket::applyTool(Grid * frame, QPointF mousePosition, QMouseEvent * ev
 
         if (event->type() == QEvent::MouseButtonPress && !drawing)
         {
-            p->addEdit();
             int w = frame->getImage()->width();
             int h = frame->getImage()->height();
             int x = mousePosition.x();
             int y = mousePosition.y();
 
+
             if(x<0||y<0||x>=w||y>=h) return;
+            p->addEdit();
             drawing = true;
-            QColor targetColor = frame->pixelColor(mousePosition.x(), mousePosition.y());
-            targetColor.setAlpha(0);
-            floodFill(frame->getImage(), mousePosition.x(), mousePosition.y(), targetColor, color);
+            QRgb rgb(frame->getImage()->pixel(x,y));
+            int a = qAlpha(frame->getImage()->alphaChannel().pixel(x, y));
+            QColor c(rgb);
+            if(a==255){
+                a=0;
+                c.setAlpha(a);
+            }
+            floodFill(frame->getImage(), mousePosition.x(), mousePosition.y(), c, color);
             drawing = false;
+
+
         }
     }
 }
@@ -59,6 +67,7 @@ void FillBucket::floodFill(QImage * image, int x, int y, QColor targetColor, QCo
         }
 
         image->setPixelColor(x, y, replacementColor);
+
         floodFill(image, x, y + 1, targetColor, replacementColor);
         floodFill(image, x, y - 1, targetColor, replacementColor);
         floodFill(image, x - 1, y, targetColor, replacementColor);

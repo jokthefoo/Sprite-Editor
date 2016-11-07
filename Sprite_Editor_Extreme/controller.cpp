@@ -65,12 +65,6 @@ void Controller::receiveOpenProj(QString heightWidth, QString numFrames, QString
         QRegularExpressionMatch match = regIt.next();
         pixels.append(match.capturedTexts());
     }
-    //pixels = frames.split(QRegularExpression("\\d+ \\d+ \\d+ \\d+ "));
-    // frameList = frames.split(QRegularExpression("Frame: \\d+\\n"));
-    //if(pixels.first() == "")
-    //{
-     //   pixels.removeFirst();
-    //}
 
     QStringList frameList;
     QString currFrame;

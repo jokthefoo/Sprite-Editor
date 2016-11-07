@@ -26,8 +26,14 @@ void PolygonBrush::applyTool(Grid * frame, QPointF mousePosition, QMouseEvent * 
                 int y = mousePosition.y();
                 frame->setPixelColor(x,y,color,brushSize);
                 QRgb rgb(image->pixel(x,y));
+                int a = qAlpha(image->alphaChannel().pixel(x, y));
                 QColor c(rgb);
-                c.setAlpha(0);
+                if(a==255){
+                    a=0;
+                    c.setAlpha(a);
+                }
+
+
                 colors.push_back(c);
                 points.push_back(mousePosition);
                 drawing = false;
