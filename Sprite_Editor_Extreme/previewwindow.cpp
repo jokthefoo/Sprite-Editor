@@ -13,6 +13,7 @@ PreviewWindow::PreviewWindow(QWidget *parent) :
 
 PreviewWindow::~PreviewWindow()
 {
+    delete scene;
     delete ui;
 }
 

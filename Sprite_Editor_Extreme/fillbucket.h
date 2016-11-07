@@ -11,6 +11,7 @@ class FillBucket : public Tool
 {
 public:
     FillBucket();
+    ~FillBucket();
     void virtual applyTool(Grid*, QPointF, QMouseEvent*, QColor, int, Project*) override;
     QPointF lastPoint;
     bool drawing;

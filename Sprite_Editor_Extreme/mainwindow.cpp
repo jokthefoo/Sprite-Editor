@@ -164,18 +164,18 @@ void MainWindow::exportToGifSig()
 
 void MainWindow::exportGif(std::vector<QImage> frameList)
 {
-    GifWriter *gifWriter = new GifWriter();
+    GifWriter gifWriter;
     QString filename = QFileDialog::getSaveFileName(this, "Save gif", "", "Sprite Gif File (*.gif)");
-    GifBegin(gifWriter,filename.toLatin1().constData(),frameList[0].width(),frameList[0].height(),5);
+    GifBegin(&gifWriter,filename.toLatin1().constData(),frameList[0].width(),frameList[0].height(),5);
     QImage image;
     for(unsigned int i = 0; i < frameList.size(); i++)
     {
         image = frameList[i];
         image = image.convertToFormat(QImage::Format_RGBA8888, Qt::OrderedDither);
         uint8_t *charAr = image.bits();
-        GifWriteFrame(gifWriter,charAr,frameList[0].width(),frameList[0].height(),5,8,false);
+        GifWriteFrame(&gifWriter,charAr,frameList[0].width(),frameList[0].height(),5,8,false);
     }
-    GifEnd(gifWriter);
+    GifEnd(&gifWriter);
 }
 
 void MainWindow::openConfigurationSelected(){
@@ -325,6 +325,7 @@ void MainWindow::setActiveButton(unsigned int toolNum)
 
 MainWindow::~MainWindow()
 {
+    delete boundary;
     delete ui;
     delete scene;
 }

@@ -35,6 +35,14 @@ Project::~Project(){
     for(auto it = frames.begin(); it < frames.end(); it++){
         delete *it;
     }
+    QHash<unsigned int, QStack<Grid*>>::iterator it;
+    for (it = before.begin(); it != before.end(); ++it){
+        while((*it).size()) delete (*it).pop();
+    }
+    for (it = after.begin(); it != after.end(); ++it){
+        while((*it).size()) delete (*it).pop();
+    }
+
 }
 
 Grid * Project::getCurrentFrame(){
@@ -74,7 +82,7 @@ void Project::setCanvasSize(int w, int h){
 
 void Project::addNewFrame(Grid * grid){
     grid->resize(canvasSize.first,canvasSize.second);
-    frames.push_back(g);
+    frames.push_back(grid);
     workingframe = frames.size()-1;
 }
 
@@ -84,7 +92,7 @@ void Project::removeFrame(unsigned int frameIndex){
 }
 
 std::vector<Grid*> Project::getAllFrames(){
-  return frames;
+    return frames;
 }
 
 void Project::changeFrame(unsigned int frameNumber){
@@ -146,7 +154,6 @@ void Project::redo(){
 }
 
 void Project::addEdit(){
-
     Grid * temp = new Grid(frames[workingframe]->getImage());
     before[workingframe].push_back(temp);
 }

@@ -52,7 +52,10 @@ void Controller::receiveOpenProj(QString heightWidth, QString numFrames, QString
     list = heightWidth.split(QRegularExpression("\\s+"));
     int h = list.takeFirst().toInt();
     int w = list.takeLast().toInt();
-    model = new Model;
+
+    Model tmp;
+    *model = tmp;
+
     int parse = numFrames.toInt();
     QStringList frameList;
 

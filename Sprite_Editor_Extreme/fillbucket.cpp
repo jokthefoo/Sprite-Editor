@@ -6,6 +6,11 @@ FillBucket::FillBucket()
     this->drawing = false;
 }
 
+FillBucket::~FillBucket(){
+
+}
+
+
 void FillBucket::applyTool(Grid * frame, QPointF mousePosition, QMouseEvent * event, QColor color,int,Project* p)
 {
     // Restricts action to drawing area

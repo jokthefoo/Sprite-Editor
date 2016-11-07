@@ -24,7 +24,6 @@ Grid::Grid(const Grid& other){
 
 Grid::Grid(QImage *image){
     this->image = new QImage(image->size(),QImage::Format_ARGB32_Premultiplied);
-
     this->image->fill(qRgba(0,0,0,0));
     QPainter p;
     p.begin(this->image);
@@ -76,12 +75,12 @@ Grid::Grid(int h,int w)
 void Grid::resize(int h, int w){
     height=h;
     width=w;
-    QImage * newImage = new QImage(h,w,QImage::Format_ARGB32);
-    newImage->fill(QColor(0,0,0,0));
-    QPainter painter(newImage);
+    QImage newImage(h,w,QImage::Format_ARGB32);
+    newImage.fill(QColor(0,0,0,0));
+    QPainter painter(&newImage);
     painter.drawImage(0,0,*image);
     painter.end();
-    image = newImage;
+    *image = newImage;
 }
 
 QImage* Grid::getImage()
@@ -275,7 +274,7 @@ QString Grid::toRgba(QColor color){
 
 Grid::~Grid()
 {
-    if(image!=nullptr) delete image;
+   delete image;
 }
 
 QColor Grid::pixelColor(int x, int y)

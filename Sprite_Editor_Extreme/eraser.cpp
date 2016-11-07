@@ -5,6 +5,10 @@ Eraser::Eraser()
 
 }
 
+Eraser::~Eraser(){
+
+}
+
 void Eraser::applyTool(Grid* frame, QPointF mousePosition, QMouseEvent* event, QColor, int brushSize, Project* p)
 {
     // Restricts the action to only when in the drawing area.

@@ -35,9 +35,6 @@ Model& Model::operator=(const Model& other)
     return *this;
 }
 
-
-
-
 void Model::swap(Model& other)
 {
     std::swap(currentTool,other.currentTool);
@@ -46,9 +43,11 @@ void Model::swap(Model& other)
 }
 
 Model::~Model(){
+    for(auto it = tools.begin(); it < tools.end(); it++){
+        delete *it;
+    }
     delete project;
 }
-
 
 Project* Model::getProject(){
     return project;
