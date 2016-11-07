@@ -46,7 +46,7 @@
           <property name="minimumSize">
            <size>
             <width>90</width>
-            <height>20</height>
+            <height>25</height>
            </size>
           </property>
           <property name="text">
@@ -119,6 +119,12 @@
             <verstretch>20</verstretch>
            </sizepolicy>
           </property>
+          <property name="minimumSize">
+           <size>
+            <width>90</width>
+            <height>25</height>
+           </size>
+          </property>
           <property name="text">
            <string>Add Frame</string>
           </property>
@@ -155,8 +161,8 @@
            <rect>
             <x>0</x>
             <y>0</y>
-            <width>481</width>
-            <height>101</height>
+            <width>551</width>
+            <height>61</height>
            </rect>
           </property>
           <layout class="QHBoxLayout" name="framesLayout">
@@ -178,7 +184,7 @@
      </widget>
     </item>
     <item>
-     <layout class="QVBoxLayout" name="verticalLayout_2" stretch="0,0,0,0">
+     <layout class="QVBoxLayout" name="verticalLayout_2" stretch="0,0,0,0,0,0">
       <item>
        <widget class="QTabWidget" name="tabWidget">
         <property name="sizePolicy">
@@ -504,6 +510,19 @@
        </widget>
       </item>
       <item>
+       <spacer name="verticalSpacer">
+        <property name="orientation">
+         <enum>Qt::Vertical</enum>
+        </property>
+        <property name="sizeHint" stdset="0">
+         <size>
+          <width>20</width>
+          <height>40</height>
+         </size>
+        </property>
+       </spacer>
+      </item>
+      <item>
        <widget class="QLabel" name="label_2">
         <property name="text">
          <string>Undo/Redo</string>
@@ -511,7 +530,7 @@
        </widget>
       </item>
       <item>
-       <layout class="QHBoxLayout" name="horizontalLayout_2">
+       <layout class="QHBoxLayout" name="horizontalLayout_2" stretch="0,1,0">
         <item>
          <widget class="QToolButton" name="undo_button">
           <property name="sizePolicy">
@@ -522,8 +541,8 @@
           </property>
           <property name="minimumSize">
            <size>
-            <width>50</width>
-            <height>50</height>
+            <width>30</width>
+            <height>30</height>
            </size>
           </property>
           <property name="autoFillBackground">
@@ -533,6 +552,19 @@
            <string/>
           </property>
          </widget>
+        </item>
+        <item>
+         <spacer name="horizontalSpacer">
+          <property name="orientation">
+           <enum>Qt::Horizontal</enum>
+          </property>
+          <property name="sizeHint" stdset="0">
+           <size>
+            <width>40</width>
+            <height>20</height>
+           </size>
+          </property>
+         </spacer>
         </item>
         <item>
          <widget class="QToolButton" name="redo_button">
@@ -544,8 +576,8 @@
           </property>
           <property name="minimumSize">
            <size>
-            <width>50</width>
-            <height>50</height>
+            <width>30</width>
+            <height>30</height>
            </size>
           </property>
           <property name="autoFillBackground">
@@ -557,6 +589,19 @@
          </widget>
         </item>
        </layout>
+      </item>
+      <item>
+       <spacer name="verticalSpacer_2">
+        <property name="orientation">
+         <enum>Qt::Vertical</enum>
+        </property>
+        <property name="sizeHint" stdset="0">
+         <size>
+          <width>20</width>
+          <height>40</height>
+         </size>
+        </property>
+       </spacer>
       </item>
       <item>
        <widget class="QCheckBox" name="carryOverBox">

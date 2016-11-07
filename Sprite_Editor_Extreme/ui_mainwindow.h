@@ -45,20 +45,21 @@ public:
     QAction *actionExportToGif;
     QWidget *centralWidget;
     QHBoxLayout *horizontalLayout_3;
-    QHBoxLayout *horizontalLayout_2;
     QVBoxLayout *verticalLayout;
     QGraphicsView *graphicsView;
     QHBoxLayout *horizontalLayout;
-    QSpacerItem *horizontalSpacer_3;
+    QGroupBox *framesBox;
+    QToolButton *delete_Frame_Button;
     QToolButton *previous_frame_button;
     QToolButton *play_button;
     QToolButton *next_frame_button;
-    QSpacerItem *horizontalSpacer_4;
+    QToolButton *add_frame_button;
     QFrame *line_2;
     QScrollArea *scrollArea;
     QWidget *scrollAreaWidgetContents_2;
     QWidget *horizontalLayoutWidget;
     QHBoxLayout *framesLayout;
+    QFrame *line_3;
     QVBoxLayout *verticalLayout_2;
     QTabWidget *tabWidget;
     QWidget *tab;
@@ -76,19 +77,14 @@ public:
     QToolButton *zoom_In_Button;
     QToolButton *flip_Horizontally;
     QToolButton *flip_Vertically;
-    QToolButton *delete_Frame_Button;
-    QGroupBox *framesBox;
-    QToolButton *redo_button;
-    QToolButton *add_frame_button;
-    QToolButton *delete_Frame_Button;
-    QGroupBox *framesBox;
-    QCheckBox *carryOverBox;
-    QToolButton *undo_button;
+    QSpacerItem *verticalSpacer;
     QLabel *label_2;
-    QScrollArea *scrollArea;
-    QWidget *scrollAreaWidgetContents_2;
-    QWidget *horizontalLayoutWidget;
-    QHBoxLayout *framesLayout;
+    QHBoxLayout *horizontalLayout_2;
+    QToolButton *undo_button;
+    QSpacerItem *horizontalSpacer;
+    QToolButton *redo_button;
+    QSpacerItem *verticalSpacer_2;
+    QCheckBox *carryOverBox;
     QMenuBar *menuBar;
     QMenu *menuFile;
     QStatusBar *statusBar;
@@ -98,7 +94,7 @@ public:
     {
         if (MainWindow->objectName().isEmpty())
             MainWindow->setObjectName(QStringLiteral("MainWindow"));
-        MainWindow->resize(718, 630);
+        MainWindow->resize(713, 624);
         QSizePolicy sizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
         sizePolicy.setHorizontalStretch(0);
         sizePolicy.setVerticalStretch(0);
@@ -118,48 +114,29 @@ public:
         horizontalLayout_3->setSpacing(6);
         horizontalLayout_3->setContentsMargins(11, 11, 11, 11);
         horizontalLayout_3->setObjectName(QStringLiteral("horizontalLayout_3"));
-        horizontalLayout_2 = new QHBoxLayout();
-        horizontalLayout_2->setSpacing(6);
-        horizontalLayout_2->setObjectName(QStringLiteral("horizontalLayout_2"));
-        horizontalLayout_2->setSizeConstraint(QLayout::SetDefaultConstraint);
         verticalLayout = new QVBoxLayout();
         verticalLayout->setSpacing(6);
         verticalLayout->setObjectName(QStringLiteral("verticalLayout"));
         graphicsView = new QGraphicsView(centralWidget);
         graphicsView->setObjectName(QStringLiteral("graphicsView"));
-        sizePolicy.setHeightForWidth(graphicsView->sizePolicy().hasHeightForWidth());
-        graphicsView->setSizePolicy(sizePolicy);
-        graphicsView->setMinimumSize(QSize(0, 0));
 
-        graphicsView->setGeometry(QRect(30, 10, 521, 391));
-        line = new QFrame(centralWidget);
-        line->setObjectName(QStringLiteral("line"));
-        line->setGeometry(QRect(10, 10, 20, 651));
-        line->setFrameShape(QFrame::VLine);
-        line->setFrameShadow(QFrame::Sunken);
-        line_2 = new QFrame(centralWidget);
-        line_2->setObjectName(QStringLiteral("line_2"));
-        line_2->setGeometry(QRect(20, 440, 691, 20));
-        line_2->setFrameShape(QFrame::HLine);
-        line_2->setFrameShadow(QFrame::Sunken);
-        line_3 = new QFrame(centralWidget);
-        line_3->setObjectName(QStringLiteral("line_3"));
-        line_3->setGeometry(QRect(550, 0, 20, 451));
-        line_3->setFrameShape(QFrame::VLine);
-        line_3->setFrameShadow(QFrame::Sunken);
-        add_frame_button = new QToolButton(centralWidget);
-        add_frame_button->setObjectName(QStringLiteral("add_frame_button"));
-        add_frame_button->setGeometry(QRect(410, 410, 101, 31));
-        sizePolicy.setHeightForWidth(add_frame_button->sizePolicy().hasHeightForWidth());
-        add_frame_button->setSizePolicy(sizePolicy);
         verticalLayout->addWidget(graphicsView);
 
         horizontalLayout = new QHBoxLayout();
         horizontalLayout->setSpacing(6);
         horizontalLayout->setObjectName(QStringLiteral("horizontalLayout"));
-        horizontalSpacer_3 = new QSpacerItem(40, 20, QSizePolicy::Expanding, QSizePolicy::Minimum);
+        framesBox = new QGroupBox(centralWidget);
+        framesBox->setObjectName(QStringLiteral("framesBox"));
+        sizePolicy.setHeightForWidth(framesBox->sizePolicy().hasHeightForWidth());
+        framesBox->setSizePolicy(sizePolicy);
 
-        horizontalLayout->addItem(horizontalSpacer_3);
+        horizontalLayout->addWidget(framesBox);
+
+        delete_Frame_Button = new QToolButton(centralWidget);
+        delete_Frame_Button->setObjectName(QStringLiteral("delete_Frame_Button"));
+        delete_Frame_Button->setMinimumSize(QSize(90, 25));
+
+        horizontalLayout->addWidget(delete_Frame_Button);
 
         previous_frame_button = new QToolButton(centralWidget);
         previous_frame_button->setObjectName(QStringLiteral("previous_frame_button"));
@@ -182,18 +159,22 @@ public:
 
         next_frame_button = new QToolButton(centralWidget);
         next_frame_button->setObjectName(QStringLiteral("next_frame_button"));
-        next_frame_button->setGeometry(QRect(350, 410, 51, 31));
-        sizePolicy.setHeightForWidth(next_frame_button->sizePolicy().hasHeightForWidth());
-        next_frame_button->setSizePolicy(sizePolicy);
         sizePolicy1.setHeightForWidth(next_frame_button->sizePolicy().hasHeightForWidth());
         next_frame_button->setSizePolicy(sizePolicy1);
         next_frame_button->setMinimumSize(QSize(90, 30));
 
         horizontalLayout->addWidget(next_frame_button);
 
-        horizontalSpacer_4 = new QSpacerItem(40, 20, QSizePolicy::Expanding, QSizePolicy::Minimum);
+        add_frame_button = new QToolButton(centralWidget);
+        add_frame_button->setObjectName(QStringLiteral("add_frame_button"));
+        QSizePolicy sizePolicy2(QSizePolicy::Fixed, QSizePolicy::Fixed);
+        sizePolicy2.setHorizontalStretch(90);
+        sizePolicy2.setVerticalStretch(20);
+        sizePolicy2.setHeightForWidth(add_frame_button->sizePolicy().hasHeightForWidth());
+        add_frame_button->setSizePolicy(sizePolicy2);
+        add_frame_button->setMinimumSize(QSize(90, 25));
 
-        horizontalLayout->addItem(horizontalSpacer_4);
+        horizontalLayout->addWidget(add_frame_button);
 
 
         verticalLayout->addLayout(horizontalLayout);
@@ -207,20 +188,14 @@ public:
 
         scrollArea = new QScrollArea(centralWidget);
         scrollArea->setObjectName(QStringLiteral("scrollArea"));
-        QSizePolicy sizePolicy2(QSizePolicy::Minimum, QSizePolicy::Fixed);
-        sizePolicy2.setHorizontalStretch(0);
-        sizePolicy2.setVerticalStretch(0);
-        sizePolicy2.setHeightForWidth(scrollArea->sizePolicy().hasHeightForWidth());
-        scrollArea->setSizePolicy(sizePolicy2);
-        scrollArea->setMinimumSize(QSize(500, 74));
         scrollArea->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
         scrollArea->setWidgetResizable(true);
         scrollAreaWidgetContents_2 = new QWidget();
         scrollAreaWidgetContents_2->setObjectName(QStringLiteral("scrollAreaWidgetContents_2"));
-        scrollAreaWidgetContents_2->setGeometry(QRect(0, 0, 555, 72));
+        scrollAreaWidgetContents_2->setGeometry(QRect(0, 0, 554, 68));
         horizontalLayoutWidget = new QWidget(scrollAreaWidgetContents_2);
         horizontalLayoutWidget->setObjectName(QStringLiteral("horizontalLayoutWidget"));
-        horizontalLayoutWidget->setGeometry(QRect(10, 0, 541, 69));
+        horizontalLayoutWidget->setGeometry(QRect(0, 0, 551, 61));
         framesLayout = new QHBoxLayout(horizontalLayoutWidget);
         framesLayout->setSpacing(6);
         framesLayout->setContentsMargins(11, 11, 11, 11);
@@ -228,23 +203,28 @@ public:
         framesLayout->setSizeConstraint(QLayout::SetFixedSize);
         framesLayout->setContentsMargins(0, 0, 0, 0);
         scrollArea->setWidget(scrollAreaWidgetContents_2);
-        horizontalLayoutWidget->raise();
 
         verticalLayout->addWidget(scrollArea);
 
         verticalLayout->setStretch(0, 1);
 
-        horizontalLayout_2->addLayout(verticalLayout);
+        horizontalLayout_3->addLayout(verticalLayout);
+
+        line_3 = new QFrame(centralWidget);
+        line_3->setObjectName(QStringLiteral("line_3"));
+        line_3->setFrameShape(QFrame::VLine);
+        line_3->setFrameShadow(QFrame::Sunken);
+
+        horizontalLayout_3->addWidget(line_3);
 
         verticalLayout_2 = new QVBoxLayout();
         verticalLayout_2->setSpacing(6);
         verticalLayout_2->setObjectName(QStringLiteral("verticalLayout_2"));
-
         tabWidget = new QTabWidget(centralWidget);
         tabWidget->setObjectName(QStringLiteral("tabWidget"));
         sizePolicy1.setHeightForWidth(tabWidget->sizePolicy().hasHeightForWidth());
         tabWidget->setSizePolicy(sizePolicy1);
-        tabWidget->setMinimumSize(QSize(131, 276));
+        tabWidget->setMinimumSize(QSize(120, 300));
         tabWidget->setTabPosition(QTabWidget::West);
         tab = new QWidget();
         tab->setObjectName(QStringLiteral("tab"));
@@ -352,64 +332,65 @@ public:
         sizePolicy.setHeightForWidth(flip_Vertically->sizePolicy().hasHeightForWidth());
         flip_Vertically->setSizePolicy(sizePolicy);
         tabWidget->addTab(tab_2, QString());
-        delete_Frame_Button = new QToolButton(centralWidget);
-        delete_Frame_Button->setObjectName(QStringLiteral("delete_Frame_Button"));
-        delete_Frame_Button->setGeometry(QRect(120, 410, 101, 31));
-        framesBox = new QGroupBox(centralWidget);
-        framesBox->setObjectName(QStringLiteral("framesBox"));
-        framesBox->setGeometry(QRect(10, 400, 111, 41));
-        sizePolicy.setHeightForWidth(framesBox->sizePolicy().hasHeightForWidth());
-        framesBox->setSizePolicy(sizePolicy);
-        redo_button = new QToolButton(centralWidget);
-        redo_button->setObjectName(QStringLiteral("redo_button"));
-        redo_button->setGeometry(QRect(610, 410, 31, 31));
-        sizePolicy.setHeightForWidth(redo_button->sizePolicy().hasHeightForWidth());
-        redo_button->setSizePolicy(sizePolicy);
-        redo_button->setAutoFillBackground(false);
-        tabWidget->addTab(tab_2, QString());
 
         verticalLayout_2->addWidget(tabWidget);
 
-        add_frame_button = new QToolButton(centralWidget);
-        add_frame_button->setObjectName(QStringLiteral("add_frame_button"));
-        sizePolicy2.setHeightForWidth(add_frame_button->sizePolicy().hasHeightForWidth());
-        add_frame_button->setSizePolicy(sizePolicy2);
+        verticalSpacer = new QSpacerItem(20, 40, QSizePolicy::Minimum, QSizePolicy::Expanding);
 
-        verticalLayout_2->addWidget(add_frame_button);
+        verticalLayout_2->addItem(verticalSpacer);
 
-        delete_Frame_Button = new QToolButton(centralWidget);
-        delete_Frame_Button->setObjectName(QStringLiteral("delete_Frame_Button"));
-        sizePolicy2.setHeightForWidth(delete_Frame_Button->sizePolicy().hasHeightForWidth());
-        delete_Frame_Button->setSizePolicy(sizePolicy2);
+        label_2 = new QLabel(centralWidget);
+        label_2->setObjectName(QStringLiteral("label_2"));
 
-        verticalLayout_2->addWidget(delete_Frame_Button);
+        verticalLayout_2->addWidget(label_2);
 
-        framesBox = new QGroupBox(centralWidget);
-        framesBox->setObjectName(QStringLiteral("framesBox"));
-        sizePolicy2.setHeightForWidth(framesBox->sizePolicy().hasHeightForWidth());
-        framesBox->setSizePolicy(sizePolicy2);
-        framesBox->setMinimumSize(QSize(20, 64));
+        horizontalLayout_2 = new QHBoxLayout();
+        horizontalLayout_2->setSpacing(6);
+        horizontalLayout_2->setObjectName(QStringLiteral("horizontalLayout_2"));
+        undo_button = new QToolButton(centralWidget);
+        undo_button->setObjectName(QStringLiteral("undo_button"));
+        sizePolicy1.setHeightForWidth(undo_button->sizePolicy().hasHeightForWidth());
+        undo_button->setSizePolicy(sizePolicy1);
+        undo_button->setMinimumSize(QSize(30, 30));
+        undo_button->setAutoFillBackground(false);
 
-        verticalLayout_2->addWidget(framesBox);
+        horizontalLayout_2->addWidget(undo_button);
+
+        horizontalSpacer = new QSpacerItem(40, 20, QSizePolicy::Expanding, QSizePolicy::Minimum);
+
+        horizontalLayout_2->addItem(horizontalSpacer);
+
+        redo_button = new QToolButton(centralWidget);
+        redo_button->setObjectName(QStringLiteral("redo_button"));
+        sizePolicy1.setHeightForWidth(redo_button->sizePolicy().hasHeightForWidth());
+        redo_button->setSizePolicy(sizePolicy1);
+        redo_button->setMinimumSize(QSize(30, 30));
+        redo_button->setAutoFillBackground(false);
+
+        horizontalLayout_2->addWidget(redo_button);
+
+        horizontalLayout_2->setStretch(1, 1);
+
+        verticalLayout_2->addLayout(horizontalLayout_2);
+
+        verticalSpacer_2 = new QSpacerItem(20, 40, QSizePolicy::Minimum, QSizePolicy::Expanding);
+
+        verticalLayout_2->addItem(verticalSpacer_2);
 
         carryOverBox = new QCheckBox(centralWidget);
         carryOverBox->setObjectName(QStringLiteral("carryOverBox"));
+        carryOverBox->setEnabled(true);
         carryOverBox->setChecked(true);
 
         verticalLayout_2->addWidget(carryOverBox);
 
 
-        horizontalLayout_2->addLayout(verticalLayout_2);
-
-        horizontalLayout_2->setStretch(0, 1);
-
-        horizontalLayout_3->addLayout(horizontalLayout_2);
-
+        horizontalLayout_3->addLayout(verticalLayout_2);
 
         MainWindow->setCentralWidget(centralWidget);
         menuBar = new QMenuBar(MainWindow);
         menuBar->setObjectName(QStringLiteral("menuBar"));
-        menuBar->setGeometry(QRect(0, 0, 718, 22));
+        menuBar->setGeometry(QRect(0, 0, 713, 22));
         menuFile = new QMenu(menuBar);
         menuFile->setObjectName(QStringLiteral("menuFile"));
         MainWindow->setMenuBar(menuBar);
@@ -429,7 +410,7 @@ public:
 
         retranslateUi(MainWindow);
 
-        tabWidget->setCurrentIndex(0);
+        tabWidget->setCurrentIndex(1);
 
 
         QMetaObject::connectSlotsByName(MainWindow);
@@ -445,9 +426,12 @@ public:
         actionSave_as->setText(QApplication::translate("MainWindow", "Save as...", 0));
         actionOpen_project->setText(QApplication::translate("MainWindow", "Open project...", 0));
         actionExportToGif->setText(QApplication::translate("MainWindow", "Export to Gif", 0));
+        framesBox->setTitle(QApplication::translate("MainWindow", "Frames", 0));
+        delete_Frame_Button->setText(QApplication::translate("MainWindow", "Delete Frame", 0));
         previous_frame_button->setText(QApplication::translate("MainWindow", "...", 0));
         play_button->setText(QApplication::translate("MainWindow", "...", 0));
         next_frame_button->setText(QApplication::translate("MainWindow", "...", 0));
+        add_frame_button->setText(QApplication::translate("MainWindow", "Add Frame", 0));
         brush_Button->setText(QString());
         fill_Bucket_Button->setText(QString());
         eraser_Button->setText(QString());
@@ -462,12 +446,9 @@ public:
         flip_Horizontally->setText(QString());
         flip_Vertically->setText(QString());
         tabWidget->setTabText(tabWidget->indexOf(tab_2), QApplication::translate("MainWindow", "Tab 2", 0));
-        add_frame_button->setText(QApplication::translate("MainWindow", "Add Frame", 0));
-        delete_Frame_Button->setText(QApplication::translate("MainWindow", "Delete Frame", 0));
-        framesBox->setTitle(QApplication::translate("MainWindow", "Frames", 0));
-        redo_button->setText(QString());
-        undo_button->setText(QString());
         label_2->setText(QApplication::translate("MainWindow", "Undo/Redo", 0));
+        undo_button->setText(QString());
+        redo_button->setText(QString());
         carryOverBox->setText(QApplication::translate("MainWindow", "Blank Frame", 0));
         menuFile->setTitle(QApplication::translate("MainWindow", "File", 0));
     } // retranslateUi
