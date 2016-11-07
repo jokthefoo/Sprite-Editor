@@ -65,9 +65,10 @@ void Controller::receiveOpenProj(QString heightWidth, QString numFrames, QString
     {
         frameList.removeFirst();
     }
+
     QStringList::iterator listIt = frameList.begin();
     for(int i = 0; i < parse; i++){
-        Grid * grid = new Grid;
+        Grid * grid = new Grid(h,w);
         grid->fromString(*listIt);
         listIt++;
         model->getProject()->addNewFrame(grid);
@@ -261,10 +262,3 @@ void Controller::decodeAction(QString n){
     sendAllFrame();
     return;
 }
-
-
-
-
-
-
-

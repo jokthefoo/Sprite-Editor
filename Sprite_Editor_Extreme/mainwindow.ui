@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>713</width>
-    <height>630</height>
+    <height>624</height>
    </rect>
   </property>
   <property name="sizePolicy">
@@ -72,8 +72,8 @@
    <widget class="QToolButton" name="add_frame_button">
     <property name="geometry">
      <rect>
-      <x>580</x>
-      <y>280</y>
+      <x>410</x>
+      <y>410</y>
       <width>101</width>
       <height>31</height>
      </rect>
@@ -91,7 +91,7 @@
    <widget class="QToolButton" name="previous_frame_button">
     <property name="geometry">
      <rect>
-      <x>190</x>
+      <x>230</x>
       <y>410</y>
       <width>51</width>
       <height>31</height>
@@ -110,7 +110,7 @@
    <widget class="QToolButton" name="play_button">
     <property name="geometry">
      <rect>
-      <x>250</x>
+      <x>290</x>
       <y>410</y>
       <width>51</width>
       <height>31</height>
@@ -129,7 +129,7 @@
    <widget class="QToolButton" name="next_frame_button">
     <property name="geometry">
      <rect>
-      <x>310</x>
+      <x>350</x>
       <y>410</y>
       <width>51</width>
       <height>31</height>
@@ -461,57 +461,13 @@
        <string/>
       </property>
      </widget>
-     <widget class="QToolButton" name="undo_button">
-      <property name="geometry">
-       <rect>
-        <x>10</x>
-        <y>130</y>
-        <width>31</width>
-        <height>31</height>
-       </rect>
-      </property>
-      <property name="sizePolicy">
-       <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
-        <horstretch>0</horstretch>
-        <verstretch>0</verstretch>
-       </sizepolicy>
-      </property>
-      <property name="autoFillBackground">
-       <bool>false</bool>
-      </property>
-      <property name="text">
-       <string/>
-      </property>
-     </widget>
-     <widget class="QToolButton" name="redo_button">
-      <property name="geometry">
-       <rect>
-        <x>50</x>
-        <y>130</y>
-        <width>31</width>
-        <height>31</height>
-       </rect>
-      </property>
-      <property name="sizePolicy">
-       <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
-        <horstretch>0</horstretch>
-        <verstretch>0</verstretch>
-       </sizepolicy>
-      </property>
-      <property name="autoFillBackground">
-       <bool>false</bool>
-      </property>
-      <property name="text">
-       <string/>
-      </property>
-     </widget>
     </widget>
    </widget>
    <widget class="QToolButton" name="delete_Frame_Button">
     <property name="geometry">
      <rect>
-      <x>580</x>
-      <y>320</y>
+      <x>120</x>
+      <y>410</y>
       <width>101</width>
       <height>31</height>
      </rect>
@@ -523,7 +479,7 @@
    <widget class="QGroupBox" name="framesBox">
     <property name="geometry">
      <rect>
-      <x>30</x>
+      <x>10</x>
       <y>400</y>
       <width>111</width>
       <height>41</height>
@@ -538,13 +494,72 @@
     <property name="title">
      <string>Frames</string>
     </property>
-    <zorder>scrollArea</zorder>
    </widget>
-   <widget class="QCheckBox" name="carryOverBox">
+   <widget class="QToolButton" name="redo_button">
     <property name="geometry">
      <rect>
-      <x>560</x>
-      <y>510</y>
+      <x>610</x>
+      <y>410</y>
+      <width>31</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="sizePolicy">
+     <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+      <horstretch>0</horstretch>
+      <verstretch>0</verstretch>
+     </sizepolicy>
+    </property>
+    <property name="autoFillBackground">
+     <bool>false</bool>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+   </widget>
+   <widget class="QToolButton" name="undo_button">
+    <property name="geometry">
+     <rect>
+      <x>570</x>
+      <y>410</y>
+      <width>31</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="sizePolicy">
+     <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+      <horstretch>0</horstretch>
+      <verstretch>0</verstretch>
+     </sizepolicy>
+    </property>
+    <property name="autoFillBackground">
+     <bool>false</bool>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_2">
+    <property name="geometry">
+     <rect>
+      <x>570</x>
+      <y>390</y>
+      <width>71</width>
+      <height>16</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Undo/Redo</string>
+    </property>
+   </widget>
+   <widget class="QCheckBox" name="carryOverBox">
+    <property name="enabled">
+     <bool>true</bool>
+    </property>
+    <property name="geometry">
+     <rect>
+      <x>510</x>
+      <y>450</y>
       <width>101</width>
       <height>20</height>
      </rect>
@@ -560,9 +575,9 @@
     <property name="geometry">
      <rect>
       <x>20</x>
-      <y>450</y>
-      <width>521</width>
-      <height>111</height>
+      <y>460</y>
+      <width>479</width>
+      <height>89</height>
      </rect>
     </property>
     <property name="verticalScrollBarPolicy">
@@ -576,8 +591,8 @@
       <rect>
        <x>0</x>
        <y>0</y>
-       <width>519</width>
-       <height>109</height>
+       <width>477</width>
+       <height>87</height>
       </rect>
      </property>
      <widget class="QWidget" name="horizontalLayoutWidget">
@@ -586,7 +601,7 @@
         <x>0</x>
         <y>0</y>
         <width>481</width>
-        <height>91</height>
+        <height>101</height>
        </rect>
       </property>
       <layout class="QHBoxLayout" name="framesLayout">
