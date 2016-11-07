@@ -73,7 +73,6 @@ void Project::setCanvasSize(int w, int h){
 }
 
 void Project::addNewFrame(Grid * grid){
-    Grid * g = new Grid(*grid);
     grid->resize(canvasSize.first,canvasSize.second);
     frames.push_back(g);
     workingframe = frames.size()-1;

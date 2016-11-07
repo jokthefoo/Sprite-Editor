@@ -31,7 +31,7 @@ Controller::Controller(MainWindow * w)
 }
 
 Controller::~Controller(){
-
+    delete model;
 }
 
 void Controller::receiveExport()
