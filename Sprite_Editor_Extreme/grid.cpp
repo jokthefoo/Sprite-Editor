@@ -77,7 +77,7 @@ void Grid::resize(int h, int w){
     height=h;
     width=w;
     QImage * newImage = new QImage(h,w,QImage::Format_ARGB32);
-    newImage->fill(Qt::white);
+    newImage->fill(QColor(0,0,0,0));
     QPainter painter(newImage);
     painter.drawImage(0,0,*image);
     painter.end();

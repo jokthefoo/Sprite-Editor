@@ -22,6 +22,7 @@ Controller::Controller(MainWindow * w)
     QObject::connect(&timer, &QTimer::timeout, this, &Controller::timeoutSendImage);
     QObject::connect(this, &Controller::sendDeleteFrame, w, &MainWindow::deleteFrame);
 
+
     //send the initial state the to the view
     emit sendImage(model->getProject()->getCurrentFrame()->getImage());
     emit sendNewFrame(model->getProject()->getCurrentFrame()->getImage());
@@ -179,18 +180,22 @@ void Controller::decodeAction(QString n){
     std::string name = n.toStdString();
     if(name == "rotate_Right_Button")
     {
+        model->getProject()->addEdit();
         model->rotateImage(90);
     }
     else if(name  == "rotate_Left_Button")
     {
+        model->getProject()->addEdit();
         model->rotateImage(-90);
     }
     else if(name  == "flip_Horizontally")
     {
+        model->getProject()->addEdit();
         model->getProject()->getCurrentFrame()->flipImage("hor");
     }
     else if(name  == "flip_Vertically")
     {
+        model->getProject()->addEdit();
         model->getProject()->getCurrentFrame()->flipImage("vert");
     }
     else if(name == "brush_Button")

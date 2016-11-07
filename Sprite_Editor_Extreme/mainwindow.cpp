@@ -78,6 +78,7 @@ void MainWindow::setupToolTips()
     ui->add_frame_button->setToolTip("Adds a new empty frame");
     ui->delete_Frame_Button->setToolTip("Deletes the current frame");
     ui->carryOverBox->setToolTip("If checked, the next frame added will be blank. If unchecked, the next frame added will be the same as the previous");
+
     // not working : ui->actionCanvasSize_2->setToolTip("Open configuration page");
 }
 
@@ -92,6 +93,7 @@ void MainWindow::connectComponents(){
     QObject::connect(ui->zoom_In_Button, SIGNAL(clicked()), this, SLOT(zoomIn()));
     QObject::connect(ui->zoom_Out_Button, SIGNAL(clicked()), this, SLOT(zoomOut()));
     QObject::connect(ui->carryOverBox, SIGNAL(stateChanged(int)), this, SLOT(checkBoxChanged(int)));
+
 }
 
 void MainWindow::zoomIn()
@@ -194,7 +196,6 @@ void MainWindow::spinnerChanged(int value)
 void MainWindow::checkBoxChanged(int value)
 {
     QCheckBox * box = static_cast<QCheckBox*>(QObject::sender());
-
     Property tosend(box->objectName());
     tosend.addValue(value);
     emit sendPropertyChange(tosend);
@@ -344,3 +345,4 @@ void MainWindow::on_play_button_pressed()
         //call another slot which will pause the animation
 
 }
+
