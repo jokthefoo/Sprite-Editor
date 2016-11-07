@@ -23,5 +23,3 @@ void Brush::applyTool(Grid * frame, QPointF mousePosition, QMouseEvent * event, 
         }
   }
 }
-
-

@@ -11,13 +11,14 @@
 #include <QLineEdit>
 #include <QAction>
 #include <QToolButton>
+#include <QFileDialog>
+#include <QTextStream>
 #include <grid.h>
 #include <iostream>
 #include <configurationform.h>
 #include <property.h>
 #include <previewwindow.h>
-#include <QFileDialog>
-#include <QTextStream>
+
 
 namespace Ui {
 class MainWindow;

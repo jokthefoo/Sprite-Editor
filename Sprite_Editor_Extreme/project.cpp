@@ -3,6 +3,7 @@
 Project::Project()
 {
     frames.push_back(new Grid);
+    workingframe=0;
     canvasSize.first=frames[workingframe]->default_width;
     canvasSize.second=frames[workingframe]->default_height;
 }
@@ -146,6 +147,7 @@ void Project::redo(){
 }
 
 void Project::addEdit(){
+
     Grid * temp = new Grid(frames[workingframe]->getImage());
     before[workingframe].push_back(temp);
 }

@@ -3,6 +3,8 @@
 Controller::Controller(MainWindow * w)
 {
     model = new Model;
+
+    //connect everything
     QObject::connect(w, &MainWindow::sendMouseInput, this, &Controller::receiveMouseInput);
     QObject::connect(w, &MainWindow::sendButtonInput, this, &Controller::receiveButtonInput);
     QObject::connect(w, &MainWindow::sendPropertyChange, this, &Controller::receivePropertyChange);
@@ -16,16 +18,15 @@ Controller::Controller(MainWindow * w)
     QObject::connect(this, &Controller::saveAs, w, &MainWindow::saveAsSelected);
     QObject::connect(this, &Controller::sendColor, w, &MainWindow::updateColor);
     QObject::connect(this, &Controller::sendPreviewImage, w->getPreview(), &PreviewWindow::updatePreview);
-    QObject::connect(&timer, &QTimer::timeout, this, &Controller::timeoutSendImage);
     QObject::connect(this, &Controller::sendActiveTool, w, &MainWindow::setActiveButton);
+    QObject::connect(&timer, &QTimer::timeout, this, &Controller::timeoutSendImage);
     QObject::connect(this, &Controller::sendDeleteFrame, w, &MainWindow::deleteFrame);
+
+    //send the initial state the to the view
     emit sendImage(model->getProject()->getCurrentFrame()->getImage());
     emit sendNewFrame(model->getProject()->getCurrentFrame()->getImage());
     emit sendColor(model->getColor());
     emit sendActiveTool(0);
-    drawing = false;
-    allowDrawing = true;
-    addBlankFrame = true;
 }
 
 Controller::~Controller(){
@@ -59,9 +60,8 @@ void Controller::receiveOpenProj(QString heightWidth, QString numFrames, QString
     {
         frameList.removeFirst();
     }
+
     QStringList::iterator listIt = frameList.begin();
-
-
     for(int i = 0; i < parse; i++){
         Grid * grid = new Grid(h,w);
         grid->fromString(*listIt);
@@ -75,15 +75,6 @@ void Controller::receiveOpenProj(QString heightWidth, QString numFrames, QString
     emit sendColor(model->getColor());
     emit sendActiveTool(0);
     sendAllFrame();
-
-
-    //for(std::vector<Grid>::iterator it = blankFrames.begin(); it != blankFrames.end(); it++)
-    //{
-    //    it->fromString(*listIt);
-     //   listIt++;
-    //}
-    //QImage *image = model->getProject()->getCurrentFrame()->getImage();
-
 }
 
 void Controller::sendAllFrame()
@@ -164,103 +155,7 @@ void Controller::receiveButtonInput(QWidget * child)
 
     QToolButton * button = dynamic_cast<QToolButton*>(child);
     if(button!=NULL){// there's a generic way to do this
-        std::string name = button->objectName().toStdString();
-        QImage * image = model->getProject()->getCurrentFrame()->getImage();
-        if(name == "rotate_Right_Button")
-        {
-            model->rotateImage(90);
-            emit sendImage(image);
-            sendAllFrame();
-        }
-        else if(name  == "rotate_Left_Button")
-        {
-            model->rotateImage(-90);
-            emit sendImage(image);
-            sendAllFrame();
-        }
-        else if(name  == "flip_Horizontally")
-        {
-            model->getProject()->getCurrentFrame()->flipImage("hor");
-            emit sendImage(image);
-            sendAllFrame();
-        }
-        else if(name  == "flip_Vertically")
-        {
-            model->getProject()->getCurrentFrame()->flipImage("vert");
-            emit sendImage(image);
-            sendAllFrame();
-        }
-        else if(name == "brush_Button")
-        {
-            model->changeTool(0);
-            emit sendActiveTool(0);
-        }
-        else if (name == "eraser_Button")
-        {
-            model->changeTool(1);
-            emit sendActiveTool(1);
-        }
-        else if (name == "fill_Bucket_Button")
-        {
-            model->changeTool(2);
-            emit sendActiveTool(2);
-        }
-        else if (name == "rectangle_button")
-        {
-            model->changeTool(3);
-            emit sendActiveTool(3);
-        }
-        else if( name == "play_button"){
-            timer.start(100);
-        }
-        else if( name == "next_frame_button")
-        {
-            if(model->getProject()->next())
-            {
-                 emit sendImage(model->getProject()->getCurrentFrame()->getImage());
-                 sendAllFrame();
-            }
-        }
-        else if( name == "previous_frame_button")
-        {
-            if(model->getProject()->previous())
-            {
-                emit sendImage(model->getProject()->getCurrentFrame()->getImage());
-                sendAllFrame();
-            }
-        }
-        else if(name == "add_frame_button")
-        {
-            if (addBlankFrame) {
-                model->getProject()->addEmptyFrame();
-            } else {
-                model->getProject()->carryOverNewFrame(*(model->getProject()->getCurrentFrame()));
-            }
-            emit sendImage(model->getProject()->getCurrentFrame()->getImage());
-            emit sendNewFrame(model->getProject()->getCurrentFrame()->getImage());
-            sendAllFrame();
-        }
-        else if(name == "delete_Frame_Button")
-        {
-            if(model->getProject()->getAllFrames().size() > 1)
-            {
-                emit sendDeleteFrame(model->getProject()->getWorkingFrame());
-                model->getProject()->deleteCurrentFrame();
-                emit sendImage(model->getProject()->getCurrentFrame()->getImage());
-                sendAllFrame();
-            }
-        }else if(name == "undo_button"){
-            model->getProject()->undo();
-            sendAllFrame();
-            emit sendImage(model->getProject()->getCurrentFrame()->getImage());
-
-        }else if(name == "redo_button"){
-            model->getProject()->redo();
-            emit sendImage(model->getProject()->getCurrentFrame()->getImage());
-            sendAllFrame();
-
-        }
-        return;
+        decodeAction(button->objectName());
     }
 }
 
@@ -277,3 +172,88 @@ void Controller::timeoutSendImage(){
         animation_counter = 0;
     }
 }
+
+
+//decode buttons here:
+void Controller::decodeAction(QString n){
+    std::string name = n.toStdString();
+    if(name == "rotate_Right_Button")
+    {
+        model->rotateImage(90);
+    }
+    else if(name  == "rotate_Left_Button")
+    {
+        model->rotateImage(-90);
+    }
+    else if(name  == "flip_Horizontally")
+    {
+        model->getProject()->getCurrentFrame()->flipImage("hor");
+    }
+    else if(name  == "flip_Vertically")
+    {
+        model->getProject()->getCurrentFrame()->flipImage("vert");
+    }
+    else if(name == "brush_Button")
+    {
+        model->changeTool(0);
+        emit sendActiveTool(0);
+    }
+    else if (name == "eraser_Button")
+    {
+        model->changeTool(1);
+        emit sendActiveTool(1);
+    }
+    else if (name == "fill_Bucket_Button")
+    {
+        model->changeTool(2);
+        emit sendActiveTool(2);
+    }
+    else if (name == "rectangle_button")
+    {
+        model->changeTool(3);
+        emit sendActiveTool(3);
+    }
+    else if( name == "play_button"){
+        timer.start(100);
+    }
+    else if( name == "next_frame_button")
+    {
+        model->getProject()->next();
+    }
+    else if( name == "previous_frame_button")
+    {
+        model->getProject()->previous();
+    }
+    else if(name == "add_frame_button")
+    {
+        if (addBlankFrame) {
+            model->getProject()->addEmptyFrame();
+        } else {
+            model->getProject()->carryOverNewFrame(*(model->getProject()->getCurrentFrame()));
+        }
+        emit sendNewFrame(model->getProject()->getCurrentFrame()->getImage());
+    }
+    else if(name == "delete_Frame_Button")
+    {
+        if(model->getProject()->getAllFrames().size() > 1)
+        {
+            emit sendDeleteFrame(model->getProject()->getWorkingFrame());
+            model->getProject()->deleteCurrentFrame();
+        }
+    }else if(name == "undo_button"){
+        model->getProject()->undo();
+
+    }else if(name == "redo_button"){
+        model->getProject()->redo();
+    }
+    emit sendImage(model->getProject()->getCurrentFrame()->getImage());
+    sendAllFrame();
+    return;
+}
+
+
+
+
+
+
+

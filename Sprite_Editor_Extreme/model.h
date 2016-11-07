@@ -5,19 +5,18 @@
 #include <project.h>
 #include <grid.h>
 #include <tool.h>
-#include <QTimer>
 
 
 class Model // the model updates the view by sending signals
 {
 
 private:
+    int brushSize;
+
     Project * project;
     Tool * currentTool;
     QColor currentColor;
-    int brushSize;
     std::vector<Tool*> tools;
-    QTimer timer;
 
 public:
     Model();
@@ -25,14 +24,15 @@ public:
     Model & operator=(const Model&);
     void swap(Model&);
     ~Model();
-    Project * getProject();
+
+    QColor getColor();
+    int getBrushSize();
+    void setBrushSize(int);
+    void setColor(QColor);
     void rotateImage(int);
     void changeTool(int);
+    Project * getProject();
     Tool * getCurrentTool();
-    void setColor(QColor);
-    QColor getColor();
-    void setBrushSize(int);
-    int getBrushSize();
 
 };
 

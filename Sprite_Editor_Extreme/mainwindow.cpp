@@ -16,7 +16,7 @@ MainWindow::MainWindow(QWidget *parent) :
     qApp->installEventFilter(this);
     scene = new QGraphicsScene(ui->graphicsView);
     ui->graphicsView->setScene(scene);
-    ui->graphicsView->setStyleSheet("background-color:#fffaf0");
+    ui->graphicsView->setStyleSheet("background-color:#d3d3d3");
     connectComponents();
     updateColor(Qt::white);
     setupIcons();

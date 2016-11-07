@@ -11,14 +11,15 @@ Grid::Grid()
 
 Grid::Grid(const Grid& other){
     this->image = new QImage;
-    *this->image = other.image->copy();
+    *this->image = other.image->copy().convertToFormat(QImage::Format_ARGB32);
     this->height=other.height;
     this->width=other.width;
 }
 
 Grid::Grid(QImage *image){
+
     this->image = new QImage;
-    *this->image = image->copy();
+    *this->image = image->copy().convertToFormat(QImage::Format_ARGB32);
     this->height=image->height();
     this->width=image->width();
 }
@@ -78,9 +79,6 @@ QImage* Grid::getImage()
     return image;
 }
 
-//void Grid::setDrawScale(unsigned int scaleFactor){
-//drawScale=scaleFactor+2;
-//}
 
 void Grid::rotateImage(int degrees)
 {
