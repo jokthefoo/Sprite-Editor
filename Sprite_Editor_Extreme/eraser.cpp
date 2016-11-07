@@ -10,14 +10,10 @@ void Eraser::applyTool(Grid* frame, QPointF mousePosition, QMouseEvent* event, Q
     // Restricts the action to only when in the drawing area.
     if (frame->containsCoordinate(mousePosition.x(), mousePosition.y()))
     {
-//        QColor c(0,0,0,0);
-//        c.setAlpha(255);
-        QColor c = Qt::white;
-
+        QColor c(0,0,0,0);
         // Don't update image every time mouse event is fired
         if (event->type() == QEvent::MouseButtonPress && !drawing)
         {
-
             p->addEdit();
             drawing = true;
             frame->setPixelColor(mousePosition.x(), mousePosition.y(), c, brushSize);

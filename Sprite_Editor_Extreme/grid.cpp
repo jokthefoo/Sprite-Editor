@@ -1,25 +1,35 @@
 #include "grid.h"
+#include <QRgba64>
+
 
 Grid::Grid()
 {
     height = default_height;
     width = default_width;
-    image = new QImage(width, height, QImage::Format_ARGB32);
-    image->fill(Qt::white);
+    image = new QImage(width, height, QImage::Format_ARGB32_Premultiplied);
+    image->fill(qRgba(0,0,0,0));
 
 }
 
 Grid::Grid(const Grid& other){
-    this->image = new QImage;
-    *this->image = other.image->copy().convertToFormat(QImage::Format_ARGB32);
+    this->image = new QImage(other.image->size(),QImage::Format_ARGB32_Premultiplied);
+    this->image->fill(qRgba(0,0,0,0));
+    QPainter p;
+    p.begin(this->image);
+    p.drawImage(0,0,*other.image);
+    p.end();
     this->height=other.height;
     this->width=other.width;
 }
 
 Grid::Grid(QImage *image){
+    this->image = new QImage(image->size(),QImage::Format_ARGB32_Premultiplied);
 
-    this->image = new QImage;
-    *this->image = image->copy().convertToFormat(QImage::Format_ARGB32);
+    this->image->fill(qRgba(0,0,0,0));
+    QPainter p;
+    p.begin(this->image);
+    p.drawImage(0,0,image->copy());
+    p.end();
     this->height=image->height();
     this->width=image->width();
 }
@@ -105,14 +115,44 @@ void Grid::setPixelColor(int x,int y,QColor color, int brushSize)
 
     if(containsCoordinate(x,y)){
         painter.begin(image);
-        pen.setWidth(brushSize);
+        if(color==Qt::transparent){
+            painter.setCompositionMode(QPainter::CompositionMode_Clear);
+        }
         pen.setColor(color);
+        pen.setWidth(brushSize);
         painter.setPen(pen);
         painter.drawPoint(x,y);
+
         painter.end();
     }
 
 }
+
+void Grid::drawLinePixels(QPointF lastPoint,QPointF endPoint,QColor color, int brushSize)
+{
+    QPainter painter;
+    QPen pen;
+
+    if(containsCoordinate(lastPoint.x(),lastPoint.y()) && containsCoordinate(endPoint.x(),endPoint.y())){
+        painter.begin(image);
+        pen.setWidth(brushSize);
+        if(color==Qt::transparent){
+            painter.setCompositionMode(QPainter::CompositionMode_Clear);
+        }
+        pen.setColor(color);
+        painter.setPen(pen);
+        painter.drawLine(lastPoint, endPoint);
+        painter.end();
+    }
+
+}
+
+
+
+
+
+
+
 
 void Grid::drawPolygon(const QPointF* points, int pointCount, QColor color, int brushSize)
 {
@@ -132,21 +172,6 @@ QColor Grid::getPixelColor(int x, int y){
     return image->pixelColor(x, y);
 }
 
-void Grid::drawLinePixels(QPointF lastPoint,QPointF endPoint,QColor color, int brushSize)
-{
-    QPainter painter;
-    QPen pen;
-
-    if(containsCoordinate(lastPoint.x(),lastPoint.y()) && containsCoordinate(endPoint.x(),endPoint.y())){
-        painter.begin(image);
-        pen.setWidth(brushSize);
-        pen.setColor(color);
-        painter.setPen(pen);
-        painter.drawLine(lastPoint, endPoint);
-        painter.end();
-    }
-
-}
 
 bool Grid::containsCoordinate(int x, int y){ // uses cartesian coordinates from top left
      return (x <= width&&y<=height);

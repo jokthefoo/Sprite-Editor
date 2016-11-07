@@ -223,7 +223,13 @@ void MainWindow::updateScreen(QImage * image){
     ui->graphicsView->scene()->clear();
     boundary =  new QGraphicsRectItem(0,0, image->height(), image->width());
     ui->graphicsView->scene()->addItem(boundary);
-    scene->addPixmap(QPixmap::fromImage(*image));
+
+    QPainter p(image);
+    QGraphicsPixmapItem *item = new QGraphicsPixmapItem();
+    QPixmap map = QPixmap::fromImage(*image);
+    item->setPixmap(map);
+    scene->addItem(item);
+
     ui->framesLayout->update();
     ui->graphicsView->update();
 }
