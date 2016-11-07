@@ -15,6 +15,7 @@ public:
     bool drawing;
 private:
     std::vector<QPointF> points;
+    std::vector<QColor> colors;
 };
 
 #endif // POLYGONBRUSH_H

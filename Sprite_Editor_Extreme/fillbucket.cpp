@@ -32,6 +32,7 @@ void FillBucket::applyTool(Grid * frame, QPointF mousePosition, QMouseEvent * ev
             if(x<0||y<0||x>=w||y>=h) return;
             drawing = true;
             QColor targetColor = frame->pixelColor(mousePosition.x(), mousePosition.y());
+            targetColor.setAlpha(0);
             floodFill(frame->getImage(), mousePosition.x(), mousePosition.y(), targetColor, color);
             drawing = false;
         }

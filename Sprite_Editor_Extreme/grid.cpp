@@ -147,24 +147,16 @@ void Grid::drawLinePixels(QPointF lastPoint,QPointF endPoint,QColor color, int b
 }
 
 
-
-
-
-
-
-
 void Grid::drawPolygon(const QPointF* points, int pointCount, QColor color, int brushSize)
 {
+
     QPainter painter;
     QPen pen;
-
     painter.begin(image);
     pen.setWidth(brushSize);
     pen.setColor(color);
     painter.setPen(pen);
-    painter.drawPolygon(points, pointCount);
-    painter.end();
-
+    painter.drawPolygon(points,pointCount);
 }
 
 QColor Grid::getPixelColor(int x, int y){
