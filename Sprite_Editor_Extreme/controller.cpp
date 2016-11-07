@@ -53,27 +53,27 @@ void Controller::receiveOpenProj(QString heightWidth, QString numFrames, QString
     int h = list.takeFirst().toInt();
     int w = list.takeLast().toInt();
 
-    Model tmp;
-    *model = tmp;
+    Project pro;
+    *model->getProject()=pro;
+    model->getProject()->deleteCurrentFrame();
 
+    QStringList frameList = frames.split(QRegularExpression("Frame: \\d+\\n"));
     int parse = numFrames.toInt();
-    QStringList frameList;
 
     frameList = frames.split(QRegularExpression("Frame: \\d+\\n"));
     if(frameList.first() == "")
     {
         frameList.removeFirst();
     }
-
     QStringList::iterator listIt = frameList.begin();
     for(int i = 0; i < parse; i++){
-        Grid * grid = new Grid(h,w);
+        Grid * grid = new Grid;
         grid->fromString(*listIt);
         listIt++;
         model->getProject()->addNewFrame(grid);
         emit sendNewFrame(grid->getImage());
     }
-    model->getProject()->removeFrame(0);
+
     model->getProject()->changeFrame(0);
     emit sendImage(model->getProject()->getCurrentFrame()->getImage());
     emit sendColor(model->getColor());
@@ -124,12 +124,15 @@ void Controller::receiveMouseInput(QPointF point, QMouseEvent *event)
 {
     if (allowDrawing)
     {
-      Grid * currentFrame = model->getProject()->getCurrentFrame();
         if(model->getCurrentTool()!=nullptr){
-            Tool * tool = model->getCurrentTool();
-            tool->applyTool(currentFrame,point, event,model->getColor(),model->getBrushSize(), model->getProject());
-            emit sendImage(model->getProject()->getCurrentFrame()->getImage());
-            sendAllFrame();
+            if(model->getProject()!=nullptr){
+                Tool * tool = model->getCurrentTool();
+                if(model->getProject()->getCurrentFrame()!=nullptr){
+                    tool->applyTool(model->getProject()->getCurrentFrame(),point, event,model->getColor(),model->getBrushSize(), model->getProject());
+                    emit sendImage(model->getProject()->getCurrentFrame()->getImage());
+                    sendAllFrame();
+                }
+            }
         }
 
     }

@@ -27,7 +27,7 @@ public:
     Project& operator=(const Project&);
 
     void swap(Project&);
-
+    void clear();
     void addEdit();
     void changeFrame(unsigned int frameNumber);
     void removeFrame(unsigned int);

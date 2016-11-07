@@ -12,14 +12,14 @@ Grid::Grid()
 }
 
 Grid::Grid(const Grid& other){
-    this->image = new QImage(other.image->size(),QImage::Format_ARGB32_Premultiplied);
-    this->image->fill(qRgba(0,0,0,0));
+    image = new QImage(other.image->size(),QImage::Format_ARGB32_Premultiplied);
+    image->fill(qRgba(0,0,0,0));
     QPainter p;
     p.begin(this->image);
     p.drawImage(0,0,*other.image);
     p.end();
-    this->height=other.height;
-    this->width=other.width;
+    height=other.height;
+    width=other.width;
 }
 
 Grid::Grid(QImage *image){
@@ -29,8 +29,8 @@ Grid::Grid(QImage *image){
     p.begin(this->image);
     p.drawImage(0,0,image->copy());
     p.end();
-    this->height=image->height();
-    this->width=image->width();
+    height=image->height();
+    width=image->width();
 }
 
 Grid& Grid::operator=(const Grid& other)
@@ -69,7 +69,7 @@ Grid::Grid(int h,int w)
         width = w;
     }
     image = new QImage(width, height, QImage::Format_ARGB32);
-    image->fill(Qt::white);
+    image->fill(Qt::transparent);
 }
 
 void Grid::resize(int h, int w){

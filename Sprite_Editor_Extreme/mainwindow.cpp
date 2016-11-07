@@ -120,6 +120,7 @@ void MainWindow::zoomOut()
 
 void MainWindow::openProj()
 {
+
     QString filename = QFileDialog::getOpenFileName(this, "Open file", "", "Sprite Sheet Project File (*.spp)");
     QFile file(filename);
     if(file.open(QIODevice::ReadOnly))
@@ -136,10 +137,12 @@ void MainWindow::openProj()
         QString numFrames = stream.readLine();
         QString frameString;
         frameString = stream.readAll();
+
         file.close();
         emit sendOpenProj(heightAndWidth, numFrames, frameString);
         ui->brushSize->setValue(1);
     }
+
 }
 
 void MainWindow::sendSaveAsSig()
@@ -162,20 +165,21 @@ void MainWindow::exportToGifSig()
     emit sendExportGif();
 }
 
+//gif writer doesn't seem to produce what we want...
 void MainWindow::exportGif(std::vector<QImage> frameList)
 {
-    GifWriter gifWriter;
+    GifWriter *gifWriter = new GifWriter(); // leaking memory ?
     QString filename = QFileDialog::getSaveFileName(this, "Save gif", "", "Sprite Gif File (*.gif)");
-    GifBegin(&gifWriter,filename.toLatin1().constData(),frameList[0].width(),frameList[0].height(),5);
+    GifBegin(gifWriter,filename.toLatin1().constData(),frameList[0].width(),frameList[0].height(),5);
     QImage image;
     for(unsigned int i = 0; i < frameList.size(); i++)
     {
         image = frameList[i];
         image = image.convertToFormat(QImage::Format_RGBA8888, Qt::OrderedDither);
         uint8_t *charAr = image.bits();
-        GifWriteFrame(&gifWriter,charAr,frameList[0].width(),frameList[0].height(),5,8,false);
+        GifWriteFrame(gifWriter,charAr,frameList[0].width(),frameList[0].height(),5,8,false);
     }
-    GifEnd(&gifWriter);
+    GifEnd(gifWriter);
 }
 
 void MainWindow::openConfigurationSelected(){

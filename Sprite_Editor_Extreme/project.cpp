@@ -32,7 +32,7 @@ void Project::swap(Project& other)
 }
 
 Project::~Project(){
-    for(auto it = frames.begin(); it < frames.end(); it++){
+    for(auto it = frames.begin(); it != frames.end(); ++it){
         delete *it;
     }
     QHash<unsigned int, QStack<Grid*>>::iterator it;
@@ -57,8 +57,7 @@ void Project::addEmptyFrame(){
 }
 
 void Project::carryOverNewFrame(const Grid& previous){
-    Grid * grid = new Grid(previous);
-    frames.push_back(grid);
+    frames.push_back(new Grid(previous));
     workingframe = frames.size()-1;
 }
 
@@ -151,6 +150,14 @@ void Project::redo(){
         before[workingframe].push(frames[workingframe]);
         frames[workingframe]=after[workingframe].pop();
     }
+}
+
+void Project::clear(){
+     for(int i  = 0; i < workingframe; i++){
+          while(before[i].size()>0) before[i].pop();
+          while(after[i].size()>0) after[i].pop();
+          frames.clear();
+     }
 }
 
 void Project::addEdit(){
