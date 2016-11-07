@@ -129,7 +129,7 @@ QString Project::toString(){
 
     int frameNum = 0;
     foreach (Grid * grid, frames) {
-        formatted += "Frame: " + QString::number(frameNum) + "\n";
+        //formatted += "Frame: " + QString::number(frameNum) + "\n";
         formatted += grid->toString();
         frameNum++;
     }

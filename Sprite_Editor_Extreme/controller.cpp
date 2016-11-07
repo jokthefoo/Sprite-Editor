@@ -56,16 +56,37 @@ void Controller::receiveOpenProj(QString heightWidth, QString numFrames, QString
     Project pro;
     *model->getProject()=pro;
 
-    QStringList frameList = frames.split(QRegularExpression("Frame: \\d+\\n"));
+    QStringList pixels;
     int parse = numFrames.toInt();
-
-    frameList = frames.split(QRegularExpression("Frame: \\d+\\n"));
-    if(frameList.first() == "")
+    QRegularExpression re("\\d+ \\d+ \\d+ \\d+ ");
+    QRegularExpressionMatchIterator regIt = re.globalMatch(frames);
+    while(regIt.hasNext())
     {
-        frameList.removeFirst();
+        QRegularExpressionMatch match = regIt.next();
+        pixels.append(match.capturedTexts());
+    }
+    //pixels = frames.split(QRegularExpression("\\d+ \\d+ \\d+ \\d+ "));
+    // frameList = frames.split(QRegularExpression("Frame: \\d+\\n"));
+    //if(pixels.first() == "")
+    //{
+     //   pixels.removeFirst();
+    //}
+
+    QStringList frameList;
+    QString currFrame;
+    QStringList::iterator listIt = pixels.begin();
+    for(int z = 0; z < parse; z++)
+    {
+        for(int i = 0; i < (h*w); i++)
+        {
+            currFrame += *listIt;
+            listIt++;
+        }
+        frameList.append(currFrame);
+        currFrame = "";
     }
 
-    QStringList::iterator listIt = frameList.begin();
+    listIt = frameList.begin();
     for(int i = 0; i < parse; i++){
         Grid * grid = new Grid(h,w);
         grid->fromString(*listIt);
@@ -73,7 +94,6 @@ void Controller::receiveOpenProj(QString heightWidth, QString numFrames, QString
         model->getProject()->addNewFrame(grid);
         emit sendNewFrame(grid->getImage());
     }
-
     model->getProject()->removeFrame(0);
     model->getProject()->changeFrame(0);
     emit sendImage(model->getProject()->getCurrentFrame()->getImage());

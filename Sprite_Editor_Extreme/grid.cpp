@@ -178,7 +178,14 @@ bool Grid::containsCoordinate(int x, int y){ // uses cartesian coordinates from 
 
 void Grid::fromString(QString frame){
     QStringList pixels;
-    pixels = frame.split(QRegularExpression("\\s+"));
+    QRegularExpression re("\\d+ \\d+ \\d+ \\d+ ");
+    QRegularExpressionMatchIterator regIt = re.globalMatch(frame);
+    while(regIt.hasNext())
+    {
+        QRegularExpressionMatch match = regIt.next();
+        pixels.append(match.capturedTexts());
+    }
+
     QStringList::iterator it = pixels.begin();
     for(int y = 0; y < height; ++y)
     {
@@ -191,14 +198,21 @@ void Grid::fromString(QString frame){
     }
 }
 
-QColor Grid::fromRgba(QString color){
+QColor Grid::fromRgba(QString color)
+{
+    QStringList values;
+    values = color.split(QRegularExpression("\\s+"));
 
     int r = 0,g = 0,b = 0,a = 0;
-    r = color.left(3).toInt();
-    g = color.mid(3,3).toInt();
-    b = color.mid(6,3).toInt();
-    a = color.mid(9,3).toInt();
-
+    QStringList::iterator it = values.begin();
+    r = it->toInt();
+    it++;
+    g = it->toInt();
+    it++;
+    b = it->toInt();
+    it++;
+    a = it->toInt();
+    it++;
     return QColor (r,g,b,a);
 }
 
@@ -217,6 +231,7 @@ QString Grid::toString(){
 }
 
 QString Grid::toRgba(QColor color){
+    /*
     QString red,green,blue,alpha;
        if(color.red() < 100 && color.red() > 9)
        {
@@ -269,7 +284,8 @@ QString Grid::toRgba(QColor color){
        {
            alpha = QString::number(color.alpha());
        }
-       return red + green + blue + alpha + " ";
+       return red + green + blue + alpha + " ";*/
+        return QString::number(color.red())+ " " + QString::number((color.green())) + " " + QString::number(color.blue()) + " " + QString::number(color.alpha()) + " ";
    }
 
 Grid::~Grid()

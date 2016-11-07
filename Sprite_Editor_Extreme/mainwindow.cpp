@@ -133,6 +133,7 @@ void MainWindow::openProj()
             {
                 ui->framesLayout->removeWidget(frames.at(i));
             }
+            frames.at(0)->clear();
             frames.clear();
 
             QString heightAndWidth = stream.readLine();
