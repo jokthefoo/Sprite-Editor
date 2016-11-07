@@ -132,19 +132,20 @@ QString Project::toString(){
 void Project::undo(){
     bool send = before[workingframe].size()>0;
     if(send){
-       after[workingframe].push(*frames[workingframe]);
-       *frames[workingframe]=before[workingframe].pop();
+       after[workingframe].push(frames[workingframe]);
+       frames[workingframe]=before[workingframe].pop();
     }
 }
 
 void Project::redo(){
     bool send = after[workingframe].size()>0;
     if(send){
-        before[workingframe].push(*frames[workingframe]);
-        *frames[workingframe]=after[workingframe].pop();
+        before[workingframe].push(frames[workingframe]);
+        frames[workingframe]=after[workingframe].pop();
     }
 }
 
 void Project::addEdit(){
-    before[workingframe].push_back(Grid(*frames[workingframe]));
+    Grid * temp = new Grid(frames[workingframe]->getImage());
+    before[workingframe].push_back(temp);
 }

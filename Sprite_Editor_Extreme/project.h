@@ -13,8 +13,8 @@ class Project
 {
 private:
     std::vector<Grid*> frames;
-    QHash<unsigned int,QStack<Grid>> before;
-    QHash<unsigned int,QStack<Grid>> after;
+    QHash<unsigned int,QStack<Grid*>> before;
+    QHash<unsigned int,QStack<Grid*>> after;
     QPair<int,int> canvasSize;
     QPair<int,int> imageSize;
     unsigned int workingframe=0;

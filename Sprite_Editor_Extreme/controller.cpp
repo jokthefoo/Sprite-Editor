@@ -133,7 +133,6 @@ void Controller::receiveMouseInput(QPointF point, QMouseEvent *event)
         if(model->getCurrentTool()!=nullptr){
             Tool * tool = model->getCurrentTool();
             tool->applyTool(currentFrame,point, event,model->getColor(),model->getBrushSize(), model->getProject());
-
             emit sendImage(model->getProject()->getCurrentFrame()->getImage());
             sendAllFrame();
         }
@@ -252,11 +251,13 @@ void Controller::receiveButtonInput(QWidget * child)
             }
         }else if(name == "undo_button"){
             model->getProject()->undo();
+            sendAllFrame();
             emit sendImage(model->getProject()->getCurrentFrame()->getImage());
 
-        }else if(name == "redo button"){
+        }else if(name == "redo_button"){
             model->getProject()->redo();
             emit sendImage(model->getProject()->getCurrentFrame()->getImage());
+            sendAllFrame();
 
         }
         return;

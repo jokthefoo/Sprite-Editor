@@ -9,6 +9,7 @@ void Brush::applyTool(Grid * frame, QPointF mousePosition, QMouseEvent * event, 
     if(frame->containsCoordinate(mousePosition.x(),mousePosition.y())){ // restricts the action to only when in the drawing area.
         if(event->type() == QEvent::MouseButtonPress && !drawing) // other wise we would be updating the image every time a mouse event was fired
         {
+            p->addEdit();
             drawing = true;
             frame->setPixelColor(mousePosition.x(),mousePosition.y(),color,brushSize);
             lastPoint = mousePosition;
@@ -18,7 +19,6 @@ void Brush::applyTool(Grid * frame, QPointF mousePosition, QMouseEvent * event, 
             lastPoint = mousePosition;
         }else if(drawing && event->type() == QEvent::MouseButtonRelease)
         {
-            p->addEdit();
             drawing = false;
         }
   }
