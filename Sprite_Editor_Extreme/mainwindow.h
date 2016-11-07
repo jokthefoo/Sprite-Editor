@@ -11,13 +11,14 @@
 #include <QLineEdit>
 #include <QAction>
 #include <QToolButton>
+#include <QFileDialog>
+#include <QTextStream>
 #include <grid.h>
 #include <iostream>
 #include <configurationform.h>
 #include <property.h>
 #include <previewwindow.h>
-#include <QFileDialog>
-#include <QTextStream>
+
 
 namespace Ui {
 class MainWindow;
@@ -58,6 +59,7 @@ public slots:
     void zoomOut();
     void setActiveButton(unsigned int);
     void deleteFrame(unsigned int);
+
 
     // void updatePreview(std::vector<Grid>);
 

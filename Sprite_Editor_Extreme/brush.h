@@ -9,6 +9,7 @@ class Brush : public Tool
 {
 public:
     Brush();
+    ~Brush();
     void virtual applyTool(Grid*, QPointF, QMouseEvent*, QColor, int, Project*) override;
     QPointF lastPoint;
     bool drawing = false;

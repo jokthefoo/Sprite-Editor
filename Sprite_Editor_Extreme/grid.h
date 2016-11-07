@@ -4,7 +4,6 @@
 #include <QImage>
 #include <QColor>
 #include <QPainter>
-#include <cmath>
 #include <QString>
 #include <QRegularExpression>
 

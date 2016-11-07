@@ -16,7 +16,7 @@ MainWindow::MainWindow(QWidget *parent) :
     qApp->installEventFilter(this);
     scene = new QGraphicsScene(ui->graphicsView);
     ui->graphicsView->setScene(scene);
-    ui->graphicsView->setStyleSheet("background-color:#fffaf0");
+    ui->graphicsView->setStyleSheet("background-color:#d3d3d3");
     connectComponents();
     updateColor(Qt::white);
     setupIcons();
@@ -78,6 +78,7 @@ void MainWindow::setupToolTips()
     ui->add_frame_button->setToolTip("Adds a new empty frame");
     ui->delete_Frame_Button->setToolTip("Deletes the current frame");
     ui->carryOverBox->setToolTip("If checked, the next frame added will be blank. If unchecked, the next frame added will be the same as the previous");
+
     // not working : ui->actionCanvasSize_2->setToolTip("Open configuration page");
 }
 
@@ -92,6 +93,7 @@ void MainWindow::connectComponents(){
     QObject::connect(ui->zoom_In_Button, SIGNAL(clicked()), this, SLOT(zoomIn()));
     QObject::connect(ui->zoom_Out_Button, SIGNAL(clicked()), this, SLOT(zoomOut()));
     QObject::connect(ui->carryOverBox, SIGNAL(stateChanged(int)), this, SLOT(checkBoxChanged(int)));
+
 }
 
 void MainWindow::zoomIn()
@@ -118,6 +120,7 @@ void MainWindow::zoomOut()
 
 void MainWindow::openProj()
 {
+
     QString filename = QFileDialog::getOpenFileName(this, "Open file", "", "Sprite Sheet Project File (*.spp)");
     QFile file(filename);
     if(file.open(QIODevice::ReadOnly))
@@ -134,10 +137,12 @@ void MainWindow::openProj()
         QString numFrames = stream.readLine();
         QString frameString;
         frameString = stream.readAll();
+
         file.close();
         emit sendOpenProj(heightAndWidth, numFrames, frameString);
         ui->brushSize->setValue(1);
     }
+
 }
 
 void MainWindow::sendSaveAsSig()
@@ -160,9 +165,10 @@ void MainWindow::exportToGifSig()
     emit sendExportGif();
 }
 
+//gif writer doesn't seem to produce what we want...
 void MainWindow::exportGif(std::vector<QImage> frameList)
 {
-    GifWriter *gifWriter = new GifWriter();
+    GifWriter *gifWriter = new GifWriter(); // leaking memory ?
     QString filename = QFileDialog::getSaveFileName(this, "Save gif", "", "Sprite Gif File (*.gif)");
     GifBegin(gifWriter,filename.toLatin1().constData(),frameList[0].width(),frameList[0].height(),5);
     QImage image;
@@ -194,7 +200,6 @@ void MainWindow::spinnerChanged(int value)
 void MainWindow::checkBoxChanged(int value)
 {
     QCheckBox * box = static_cast<QCheckBox*>(QObject::sender());
-
     Property tosend(box->objectName());
     tosend.addValue(value);
     emit sendPropertyChange(tosend);
@@ -223,7 +228,13 @@ void MainWindow::updateScreen(QImage * image){
     ui->graphicsView->scene()->clear();
     boundary =  new QGraphicsRectItem(0,0, image->height(), image->width());
     ui->graphicsView->scene()->addItem(boundary);
-    scene->addPixmap(QPixmap::fromImage(*image));
+
+    QPainter p(image);
+    QGraphicsPixmapItem *item = new QGraphicsPixmapItem();
+    QPixmap map = QPixmap::fromImage(*image);
+    item->setPixmap(map);
+    scene->addItem(item);
+
     ui->framesLayout->update();
     ui->graphicsView->update();
 }
@@ -318,6 +329,7 @@ void MainWindow::setActiveButton(unsigned int toolNum)
 
 MainWindow::~MainWindow()
 {
+    delete boundary;
     delete ui;
     delete scene;
 }
@@ -338,3 +350,4 @@ void MainWindow::on_play_button_pressed()
         //call another slot which will pause the animation
 
 }
+
