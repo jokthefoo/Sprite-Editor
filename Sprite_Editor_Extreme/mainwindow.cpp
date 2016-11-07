@@ -122,27 +122,29 @@ void MainWindow::openProj()
 {
 
     QString filename = QFileDialog::getOpenFileName(this, "Open file", "", "Sprite Sheet Project File (*.spp)");
-    QFile file(filename);
-    if(file.open(QIODevice::ReadOnly))
+    if(filename != NULL)
     {
-        QTextStream stream(&file);
-
-        for(unsigned int i = 0; i < frames.size(); i++)
+        QFile file(filename);
+        if(file.open(QIODevice::ReadOnly))
         {
-            ui->framesLayout->removeWidget(frames.at(i));
+            QTextStream stream(&file);
+
+            for(unsigned int i = 0; i < frames.size(); i++)
+            {
+                ui->framesLayout->removeWidget(frames.at(i));
+            }
+            frames.clear();
+
+            QString heightAndWidth = stream.readLine();
+            QString numFrames = stream.readLine();
+            QString frameString;
+            frameString = stream.readAll();
+
+            file.close();
+            emit sendOpenProj(heightAndWidth, numFrames, frameString);
+            ui->brushSize->setValue(1);
         }
-        frames.clear();
-
-        QString heightAndWidth = stream.readLine();
-        QString numFrames = stream.readLine();
-        QString frameString;
-        frameString = stream.readAll();
-
-        file.close();
-        emit sendOpenProj(heightAndWidth, numFrames, frameString);
-        ui->brushSize->setValue(1);
     }
-
 }
 
 void MainWindow::sendSaveAsSig()
@@ -153,11 +155,14 @@ void MainWindow::sendSaveAsSig()
 void MainWindow::saveAsSelected(QString fileInfo)
 {
     QString filename = QFileDialog::getSaveFileName(this, "Save file", "", "Sprite Sheet Project File (*.spp)");
-    QFile file(filename);
-    file.open(QIODevice::WriteOnly);
-    QTextStream stream(&file);
-    stream << fileInfo;
-    file.close();
+    if(filename != NULL)
+    {
+        QFile file(filename);
+        file.open(QIODevice::WriteOnly);
+        QTextStream stream(&file);
+        stream << fileInfo;
+        file.close();
+    }
 }
 
 void MainWindow::exportToGifSig()
@@ -175,7 +180,7 @@ void MainWindow::exportGif(std::vector<QImage> frameList)
     for(unsigned int i = 0; i < frameList.size(); i++)
     {
         image = frameList[i];
-        image = image.convertToFormat(QImage::Format_RGBA8888, Qt::OrderedDither);
+        image = image.convertToFormat(QImage::Format_RGBX8888, Qt::ThresholdDither);
         uint8_t *charAr = image.bits();
         GifWriteFrame(gifWriter,charAr,frameList[0].width(),frameList[0].height(),5,8,false);
     }
@@ -251,7 +256,7 @@ void MainWindow::updateFrames(std::vector<QImage> frameList, unsigned int curren
         }
         else
         {
-            frames.at(i)->setStyleSheet("border: 0px solid white");
+            frames.at(i)->setStyleSheet("border: 1px solid black");
         }
         imIt++;
     }
@@ -271,7 +276,9 @@ void MainWindow::addFrameToLayout(QImage * image)
 
 void MainWindow::deleteFrame(unsigned int frameToDelete)
 {
+    frames.at(frameToDelete)->setStyleSheet("border: 1px solid black");
     ui->framesLayout->removeWidget(frames[frameToDelete]);
+    frames.at(frameToDelete)->clear();
     frames.erase(frames.begin()+frameToDelete);
 }
 

@@ -55,7 +55,6 @@ void Controller::receiveOpenProj(QString heightWidth, QString numFrames, QString
 
     Project pro;
     *model->getProject()=pro;
-    model->getProject()->deleteCurrentFrame();
 
     QStringList frameList = frames.split(QRegularExpression("Frame: \\d+\\n"));
     int parse = numFrames.toInt();
@@ -75,6 +74,7 @@ void Controller::receiveOpenProj(QString heightWidth, QString numFrames, QString
         emit sendNewFrame(grid->getImage());
     }
 
+    model->getProject()->removeFrame(0);
     model->getProject()->changeFrame(0);
     emit sendImage(model->getProject()->getCurrentFrame()->getImage());
     emit sendColor(model->getColor());
