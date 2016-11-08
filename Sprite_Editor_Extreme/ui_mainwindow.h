@@ -441,7 +441,7 @@ public:
 "{\n"
 "     spacing: 3px; /* spacing between items in the t"
                         "ool bar */\n"
-"     background: url(:/images/handle.png);\n"
+"     background: url(:/resources/handle.png);\n"
 "}\n"
 "\n"
 "QMenu::separator\n"
@@ -487,8 +487,8 @@ public:
 "\n"
 "QTabBar::tab:last\n"
 "{\n"
-" "
-                        "   margin-right: 0; /* the last selected tab has nothing to overlap with on the right */\n"
+""
+                        "    margin-right: 0; /* the last selected tab has nothing to overlap with on the right */\n"
 "    border-top-right-radius: 3px;\n"
 "}\n"
 "\n"
@@ -521,9 +521,9 @@ public:
 "    padding-bottom: 3px;*/\n"
 "    border-top-left-radius: 3px;\n"
 "    border-top-right-radius: 3px;\n"
-"    background-color: QLinearGradient(x1:0, y1:0, x2:0, y2:1, stop:1 #212121, stop:0.4 #343434, stop:0.2 #343434, stop:0.1 #ffaa00);\n"
-""
-                        "}\n"
+"    background-color: QLinearGradient(x1:0, y1:0, x2:0, y2:1, stop:1 #212121, stop:0.4 #343434, stop:0.2 #343434, stop:0.1 #ffaa00);"
+                        "\n"
+"}\n"
 "\n"
 "QRadioButton::indicator:checked, QRadioButton::indicator:unchecked{\n"
 "    color: #b1b1b1;\n"
@@ -563,14 +563,14 @@ public:
 "\n"
 "QCheckBox::indicator:checked\n"
 "{\n"
-"    image:url(:/images/checkbox.png);\n"
+"    image:url(:/resources/checkbox.png);\n"
 "}\n"
 "\n"
 "QCheckBox::indicator:disabled, QRadioButton::indicator:disabled\n"
 "{\n"
-"    border: 1px solid #444;\n"
-""
-                        "}"));
+"    border: 1px solid "
+                        "#444;\n"
+"}"));
         actionCanvasSize_2 = new QAction(MainWindow);
         actionCanvasSize_2->setObjectName(QStringLiteral("actionCanvasSize_2"));
         actionSave_as = new QAction(MainWindow);
@@ -869,7 +869,7 @@ public:
         MainWindow->setCentralWidget(centralWidget);
         menuBar = new QMenuBar(MainWindow);
         menuBar->setObjectName(QStringLiteral("menuBar"));
-        menuBar->setGeometry(QRect(0, 0, 788, 22));
+        menuBar->setGeometry(QRect(0, 0, 788, 19));
         menuFile = new QMenu(menuBar);
         menuFile->setObjectName(QStringLiteral("menuFile"));
         MainWindow->setMenuBar(menuBar);
