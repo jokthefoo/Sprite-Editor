@@ -2,7 +2,7 @@
 
 Tool::Tool()
 {
-
+   drawing=false;
 }
 
 Tool::~Tool(){

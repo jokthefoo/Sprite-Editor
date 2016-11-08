@@ -12,7 +12,8 @@ public:
     PolygonBrush();
     ~PolygonBrush();
     void virtual applyTool(Grid*, QPointF, QMouseEvent*, QColor, int, Project*) override;
-    bool drawing;
+
+
 private:
     std::vector<QPointF> points;
     std::vector<QColor> colors;

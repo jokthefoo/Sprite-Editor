@@ -29,6 +29,7 @@ Model::Model(const Model& other)
     this->project = other.project;
     this->tools = std::move(other.tools);
     this->currentTool = other.currentTool;
+
 }
 
 Model& Model::operator=(const Model& other)

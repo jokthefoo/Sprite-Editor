@@ -2,6 +2,7 @@
 #include "ui_mainwindow.h"
 #include <gif.h>
 #include <QClipboard>
+#include <qdebug.h>
 
 #include <ui_configurationform.h>
 
@@ -284,23 +285,37 @@ void MainWindow::deleteFrame(unsigned int frameToDelete)
     frames.erase(frames.begin()+frameToDelete);
 }
 
-bool MainWindow::eventFilter(QObject*, QEvent *event)
+bool MainWindow::eventFilter(QObject* obj, QEvent *event)
 {
-
-    //this will get all the input for every button
-    if(event->type()==QEvent::MouseButtonPress){
-        QWidget * child = childAt(static_cast<QMouseEvent *>(event)->pos());
-        emit sendButtonInput(child);
-    }
-
-    if(event->type()==QEvent::MouseButtonPress||event->type()==QEvent::MouseMove||event->type()==QEvent::MouseButtonRelease){
-        QPoint remapped = ui->graphicsView->mapFromGlobal(QCursor::pos()); // gives coordinates relative to parent
-        QPointF  mousePoint = ui->graphicsView->mapToScene(remapped); // converts to cartesian coordinates
-        if(ui->graphicsView->rect().contains(remapped))
-        {
-             emit sendMouseInput(mousePoint, static_cast<QMouseEvent*>(event));
+        //this will get all the input for every button
+        if(event->type()==QEvent::MouseButtonPress){
+            QWidget * child = childAt(static_cast<QMouseEvent *>(event)->pos());
+            QLabel* label = dynamic_cast<QLabel*>(child); // type check the input
+            QToolButton* button = dynamic_cast<QToolButton*>(child);
+            if(label!=NULL||button!=NULL) {
+                if(button!=NULL){
+                    button->animateClick();
+                }
+                emit sendButtonInput(child);
+                return false;
+            }
         }
-    }
+        if(event->type()==QEvent::MouseButtonPress||event->type()==QEvent::MouseMove||event->type()==QEvent::MouseButtonRelease){
+            QPoint remapped = ui->graphicsView->mapFromGlobal(QCursor::pos()); // gives coordinates relative to parent
+            QPointF  mousePoint = ui->graphicsView->mapToScene(remapped); // converts to cartesian coordinates
+            if(ui->graphicsView->rect().contains(remapped))
+            {
+                 emit sendMouseInput(mousePoint, static_cast<QMouseEvent*>(event));
+
+            }
+        }
+
+        QWidget * child = childAt(static_cast<QMouseEvent *>(event)->pos());
+        QGraphicsScene * scene = dynamic_cast<QGraphicsScene*>(child); // type check the input
+        if(scene!=NULL&&event->type()==QEvent::MouseButtonPress||event->type()==QEvent::MouseMove||event->type()==QEvent::MouseButtonRelease)
+        {
+            return true;
+        }
 
     return false;
 }

@@ -13,8 +13,9 @@ public:
     FillBucket();
     ~FillBucket();
     void virtual applyTool(Grid*, QPointF, QMouseEvent*, QColor, int, Project*) override;
+
     QPointF lastPoint;
-    bool drawing;
+
 private:
     void floodFill(QImage*, int, int, QColor, QColor);
 };

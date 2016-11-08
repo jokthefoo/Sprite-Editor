@@ -11,8 +11,8 @@ public:
     Brush();
     ~Brush();
     void virtual applyTool(Grid*, QPointF, QMouseEvent*, QColor, int, Project*) override;
+
     QPointF lastPoint;
-    bool drawing = false;
 };
 
 #endif // BRUSH_H

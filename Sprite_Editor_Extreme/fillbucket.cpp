@@ -1,5 +1,6 @@
 
 #include "fillbucket.h"
+#include <iostream>
 
 FillBucket::FillBucket()
 {
@@ -23,6 +24,7 @@ void FillBucket::applyTool(Grid * frame, QPointF mousePosition, QMouseEvent * ev
 
         if (event->type() == QEvent::MouseButtonPress && !drawing)
         {
+
             int w = frame->getImage()->width();
             int h = frame->getImage()->height();
             int x = mousePosition.x();
@@ -30,8 +32,8 @@ void FillBucket::applyTool(Grid * frame, QPointF mousePosition, QMouseEvent * ev
 
 
             if(x<0||y<0||x>=w||y>=h) return;
-            p->addEdit();
             drawing = true;
+
             QRgb rgb(frame->getImage()->pixel(x,y));
             int a = qAlpha(frame->getImage()->alphaChannel().pixel(x, y));
             QColor c(rgb);
@@ -41,7 +43,6 @@ void FillBucket::applyTool(Grid * frame, QPointF mousePosition, QMouseEvent * ev
             }
             floodFill(frame->getImage(), mousePosition.x(), mousePosition.y(), c, color);
             drawing = false;
-
 
         }
     }

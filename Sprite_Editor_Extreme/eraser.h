@@ -12,8 +12,9 @@ public:
     Eraser();
      ~Eraser();
     void virtual applyTool(Grid*, QPointF, QMouseEvent*, QColor, int, Project*) override;
+
     QPointF lastPoint;
-    bool drawing = false;
+
 };
 
 #endif // ERASER_H

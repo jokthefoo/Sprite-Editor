@@ -28,6 +28,9 @@ Controller::Controller(MainWindow * w)
     emit sendNewFrame(model->getProject()->getCurrentFrame()->getImage());
     emit sendColor(model->getColor());
     emit sendActiveTool(0);
+
+    drawing = false;
+    allowDrawing = true;
 }
 
 Controller::~Controller(){
@@ -149,7 +152,6 @@ void Controller::receiveMouseInput(QPointF point, QMouseEvent *event)
                 }
             }
         }
-
     }
 }
 

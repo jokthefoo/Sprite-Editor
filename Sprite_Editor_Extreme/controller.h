@@ -19,8 +19,8 @@ class Controller : public QObject
 private:
     Model* model;
     QTimer timer;
-    bool drawing = false;
-    bool allowDrawing = true;
+    std::atomic_bool drawing;
+    std::atomic_bool allowDrawing;
     bool addBlankFrame = true;
     void decodeAction(QString);
 
