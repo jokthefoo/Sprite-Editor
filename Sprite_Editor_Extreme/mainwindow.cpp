@@ -1,7 +1,6 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 #include <gif.h>
-#include <QClipboard>
 #include <qdebug.h>
 
 #include <ui_configurationform.h>
@@ -175,7 +174,6 @@ void MainWindow::exportToGifSig()
     emit sendExportGif();
 }
 
-//gif writer doesn't seem to produce what we want...
 void MainWindow::exportGif(std::vector<QImage> frameList)
 {
     GifWriter *gifWriter = new GifWriter(); // leaking memory ?

@@ -22,16 +22,15 @@ void Eraser::applyTool(Grid* frame, QPointF mousePosition, QMouseEvent* event, Q
             drawing = true;
             frame->setPixelColor(mousePosition.x(), mousePosition.y(), c, brushSize);
             lastPoint = mousePosition;
-        } else if (frame->containsCoordinate(mousePosition.x(), mousePosition.y()))
-        {
-          if (drawing && event->type() == QEvent::MouseMove)
-          {
-            frame->drawLinePixels(lastPoint, mousePosition, c, brushSize);
-            lastPoint = mousePosition;
-          }
-        }else if (drawing && event->type() == QEvent::MouseButtonRelease)
-        {
-            drawing = false;
         }
+        else if (drawing && event->type() == QEvent::MouseMove)
+        {
+              frame->drawLinePixels(lastPoint, mousePosition, c, brushSize);
+              lastPoint = mousePosition;
+        }
+    }
+    if (drawing && event->type() == QEvent::MouseButtonRelease)
+    {
+        drawing = false;
     }
 }
