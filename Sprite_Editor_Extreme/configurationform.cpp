@@ -2,14 +2,11 @@
 #include "ui_configurationform.h"
 
 ConfigurationForm::ConfigurationForm(QWidget *parent) :
-    QDialog(parent),
-    ui(new Ui::ConfigurationForm)
-{
+    QDialog(parent), ui(new Ui::ConfigurationForm){
     ui->setupUi(this);
 }
 
-ConfigurationForm::~ConfigurationForm()
-{
+ConfigurationForm::~ConfigurationForm(){
     delete ui;
 }
 

@@ -10,48 +10,42 @@
 class Grid
 {
 public:
-    Grid();
-    Grid(int,int);
-    Grid(const Grid&);
-    Grid & operator=(const Grid&);
+    Grid(); // Default grid constructor
+    Grid(int,int); // Grid constructor allowing you to specify height and width
+    Grid(const Grid&);  // Grid copy constructor
+    Grid & operator=(const Grid&);  // Grid = Grid deep copy
     ~Grid();
-    Grid(QImage * image);
+    Grid(QImage * image);  // Grid constructor based off of exsisting QImage
 
     int const default_width = 16;
     int const default_height = 16;
 
-    void swap(Grid&);
-    void friend swap(Grid &,Grid &);
-    void resize(int, int);
-    void setPixelColor(int,int,QColor);
+    void swap(Grid&); // Used for copy-swap
+    void friend swap(Grid &,Grid &); // Used for copy-swap
+    void resize(int, int); // Allows you to resize a Grid
 
-    QColor fromRgba(QString);
-    QColor getPixelColor(int, int);
-    QImage *getImage();
-    QColor pixelColor(int x, int y);
-    QString toString();
-    QString toRgba(QColor);
+    QColor fromRgba(QString); // Get a color from a string
+    QImage *getImage(); // Returns the Grids QImage
+    QColor pixelColor(int, int); // Get the color of a specific pixel
+    QString toString(); // Get the grid's pixels formatted into a string for saving
+    QString toRgba(QColor); // Convert a color to string format
 
-
-    void setPixelColor(int,int,QColor, int);
-    void drawPolygon(const QPointF*, int, QColor, int);
-    void drawLinePixels(QPointF,QPointF,QColor, int);
-    bool containsCoordinate(int, int);
-    void rotateImage(int);
-    void fromString(QString);
-    void setBrushSize(int);
-    void flipImage(QString);
-    void applyFilter(QColor);
-    void removeFilter();
+    void setPixelColor(int,int,QColor, int); // Set the color of a specific pixel
+    void drawPolygon(const QPointF*, int, QColor, int); // Draw a polygon onto the grid
+    void drawLinePixels(QPointF,QPointF,QColor, int); // Draw a line onto the grid
+    bool containsCoordinate(int, int); // Check if the coordinate is in the grid
+    void rotateImage(int); // Rotate the grid
+    void fromString(QString); // Parse a string into a grid
+    void flipImage(QString); // Flip the grid
+    void applyFilter(QColor); // Apply a filter onto the grid
+    void removeFilter(); // Remove a filter onto the grid
 
 protected:
-
     int height;
     int width;
     QImage* image;
     bool filterActive;
     QColor filterColor;
-
 };
 
 #endif // GRID_H

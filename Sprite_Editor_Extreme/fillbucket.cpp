@@ -1,35 +1,23 @@
-
 #include "fillbucket.h"
-#include <iostream>
 
-FillBucket::FillBucket()
-{
-    this->drawing = false;
-}
+FillBucket::FillBucket(){}
 
-FillBucket::~FillBucket(){
+FillBucket::~FillBucket(){}
 
-}
+// The Fill Bucket tool fills in all connected pixels of the same color to a new color
+void FillBucket::applyTool(Grid * frame, QPointF mousePosition, QMouseEvent * event, QColor color,int,Project* p){
 
-
-void FillBucket::applyTool(Grid * frame, QPointF mousePosition, QMouseEvent * event, QColor color,int,Project* p)
-{
-    // Restricts action to drawing area
-    if (frame->containsCoordinate(mousePosition.x(), mousePosition.y()))
-    {
-        if (drawing)
-        {
+    if (frame->containsCoordinate(mousePosition.x(), mousePosition.y())){ // Restricts action to drawing area
+        if (drawing){
             return;
         }
 
-        if (event->type() == QEvent::MouseButtonPress && !drawing)
-        {
+        if (event->type() == QEvent::MouseButtonPress && !drawing){
 
             int w = frame->getImage()->width();
             int h = frame->getImage()->height();
             int x = mousePosition.x();
             int y = mousePosition.y();
-
 
             if(x<0||y<0||x>=w||y>=h) return;
             drawing = true;
@@ -37,6 +25,7 @@ void FillBucket::applyTool(Grid * frame, QPointF mousePosition, QMouseEvent * ev
             QRgb rgb(frame->getImage()->pixel(x,y));
             int a = qAlpha(frame->getImage()->alphaChannel().pixel(x, y));
             QColor c(rgb);
+
             if(c.red()==0&&c.blue()==0&&c.green()==0&&c.alpha()==65535){
                 c.setAlpha(0);
             }else {
@@ -44,7 +33,6 @@ void FillBucket::applyTool(Grid * frame, QPointF mousePosition, QMouseEvent * ev
             }
             floodFill(frame->getImage(), mousePosition.x(), mousePosition.y(), c, color);
             drawing = false;
-
         }
     }
 }

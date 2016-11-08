@@ -1,15 +1,11 @@
 #include "grid.h"
-#include <QRgba64>
 
-
-Grid::Grid()
-{
+Grid::Grid(){
     height = default_height;
     width = default_width;
     image = new QImage(width, height, QImage::Format_ARGB32_Premultiplied);
     image->fill(qRgba(0,0,0,0));
     filterActive = false;
-
 }
 
 Grid::Grid(const Grid& other){
@@ -37,8 +33,7 @@ Grid::Grid(QImage *image){
     filterActive = false;
 }
 
-Grid& Grid::operator=(const Grid& other)
-{
+Grid& Grid::operator=(const Grid& other){
     Grid temp(other);
     this->swap(temp);
     return *this;
@@ -54,8 +49,7 @@ void swap(Grid& first, Grid& second){
     first.swap(second);
 }
 
-Grid::Grid(int h,int w)
-{
+Grid::Grid(int h,int w){
     if(h < 1 || h > 1080)
     {
         height = default_height;
@@ -88,32 +82,26 @@ void Grid::resize(int h, int w){
     *image = newImage;
 }
 
-QImage* Grid::getImage()
-{
+QImage* Grid::getImage(){
     return image;
 }
 
 
-void Grid::rotateImage(int degrees)
-{
+void Grid::rotateImage(int degrees){
     QTransform trans;
     trans.rotate(degrees);
     *image = image->transformed(trans);
 }
 
-void Grid::flipImage(QString horOrVert)
-{
-    if(horOrVert == "hor")
-    {
+void Grid::flipImage(QString horOrVert){
+    if(horOrVert == "hor"){
         *image = image->mirrored(true,false);
-    }else
-    {
+    }else{
         *image = image->mirrored(false,true);
     }
 }
 
-void Grid::setPixelColor(int x,int y,QColor color, int brushSize)
-{
+void Grid::setPixelColor(int x,int y,QColor color, int brushSize){
     QPainter painter;
     QPen pen;
 
@@ -126,14 +114,12 @@ void Grid::setPixelColor(int x,int y,QColor color, int brushSize)
         pen.setWidth(brushSize);
         painter.setPen(pen);
         painter.drawPoint(x,y);
-
         painter.end();
     }
 
 }
 
-void Grid::drawLinePixels(QPointF lastPoint,QPointF endPoint,QColor color, int brushSize)
-{
+void Grid::drawLinePixels(QPointF lastPoint,QPointF endPoint,QColor color, int brushSize){
     QPainter painter;
     QPen pen;
 
@@ -151,10 +137,7 @@ void Grid::drawLinePixels(QPointF lastPoint,QPointF endPoint,QColor color, int b
 
 }
 
-
-void Grid::drawPolygon(const QPointF* points, int pointCount, QColor color, int brushSize)
-{
-
+void Grid::drawPolygon(const QPointF* points, int pointCount, QColor color, int brushSize){
     QPainter painter;
     QPen pen;
     painter.begin(image);
@@ -164,41 +147,32 @@ void Grid::drawPolygon(const QPointF* points, int pointCount, QColor color, int 
     painter.drawPolygon(points,pointCount);
 }
 
-QColor Grid::getPixelColor(int x, int y){
-    return image->pixelColor(x, y);
-}
-
-
 bool Grid::containsCoordinate(int x, int y){ // uses cartesian coordinates from top left
      return (x <= width&&y<=height);
 }
 
 void Grid::fromString(QString frame){
     QStringList pixels;
-    QRegularExpression re("\\d+ \\d+ \\d+ \\d+ ");
+    QRegularExpression re("\\d+ \\d+ \\d+ \\d+ "); // Match the 4 values of a pixel - rgba
     QRegularExpressionMatchIterator regIt = re.globalMatch(frame);
-    while(regIt.hasNext())
-    {
+    while(regIt.hasNext()){
         QRegularExpressionMatch match = regIt.next();
         pixels.append(match.capturedTexts());
     }
 
     QStringList::iterator it = pixels.begin();
-    for(int y = 0; y < height; ++y)
-    {
-        for(int x = 0; x < width; ++x)
-        {
-            QColor color = fromRgba(*it);
-            setPixelColor(x,y,color,1);
+    for(int y = 0; y < height; ++y){
+        for(int x = 0; x < width; ++x){
+            QColor color = fromRgba(*it); // Get color from the rgba values
+            setPixelColor(x,y,color,1); // Set the color of the pixels starting top left
             it++;
         }
     }
 }
 
-QColor Grid::fromRgba(QString color)
-{
+QColor Grid::fromRgba(QString color){
     QStringList values;
-    values = color.split(QRegularExpression("\\s+"));
+    values = color.split(QRegularExpression("\\s+")); // Values are seperated by a space
 
     int r = 0,g = 0,b = 0,a = 0;
     QStringList::iterator it = values.begin();
@@ -215,32 +189,27 @@ QColor Grid::fromRgba(QString color)
 
 QString Grid::toString(){
     QString formatted;
-    for(int y = 0; y < height; ++y)
-    {
-        for(int x = 0; x < width; ++x)
-        {
+    for(int y = 0; y < height; ++y){
+        for(int x = 0; x < width; ++x){
             QColor color = getPixelColor(x, y);
             formatted += toRgba(color);
         }
-        formatted += "\n";
+        formatted += "\n"; // Puts a row of pixels on one line
     }
     return formatted;
 }
 
-QString Grid::toRgba(QColor color)
-{
-
-        return QString::number(color.red())+ " " + QString::number((color.green())) + " " + QString::number(color.blue()) + " " + QString::number(color.alpha()) + " ";
+// Converts a color to a string of rgba values ex: "255 255 255 255"
+QString Grid::toRgba(QColor color){
+    return QString::number(color.red())+ " " + QString::number((color.green())) + " " + QString::number(color.blue()) + " " + QString::number(color.alpha()) + " ";
 }
 
-Grid::~Grid()
-{
+Grid::~Grid(){
    delete image;
 }
 
-QColor Grid::pixelColor(int x, int y)
-{
-    return QColor(image->pixel(x, y));
+QColor Grid::pixelColor(int x, int y){
+    return image->pixelColor(x, y);
 }
 
 void Grid::applyFilter(QColor) {

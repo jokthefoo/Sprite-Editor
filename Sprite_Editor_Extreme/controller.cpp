@@ -1,7 +1,6 @@
 #include "controller.h"
 
-Controller::Controller(MainWindow * w)
-{
+Controller::Controller(MainWindow * w){
     model = new Model;
 
     //connect everything
@@ -24,8 +23,6 @@ Controller::Controller(MainWindow * w)
     QObject::connect(this, &Controller::sendDeleteFrame, w, &MainWindow::deleteFrame);
     QObject::connect(w, &MainWindow::enableDraw, this, &Controller::enableDraw);
     QObject::connect(w, &MainWindow::disableDraw, this, &Controller::disableDraw);
-
-
 
     //send the initial state the to the view
     emit sendImage(model->getProject()->getCurrentFrame()->getImage());
