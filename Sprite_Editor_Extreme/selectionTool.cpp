@@ -23,6 +23,7 @@ void SelectionTool::applyTool(Grid * frame, QPointF mousePosition, QMouseEvent *
         else if(event->type() == QEvent::MouseButtonRelease && drawing)
         {
             drawing = false;
+
             QPoint topLeft, botRight;
             if(origin.x() < mousePosition.x())
             {
@@ -48,7 +49,8 @@ void SelectionTool::applyTool(Grid * frame, QPointF mousePosition, QMouseEvent *
 
             QImage selection(frame->getImage()->copy(QRect(topLeft,botRight)));
             QClipboard *clip = QApplication::clipboard();
-            clip->setImage(selection);
+            clip->setImage(selection); //save selection to clipboard
+            p->clip=clip;
 
         }
     }

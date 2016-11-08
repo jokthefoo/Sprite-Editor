@@ -44,6 +44,7 @@ public:
     QPair<int,int> getCanvasSize();
     QString toString();
     Grid * getCurrentFrame();
+    QClipboard * clip;
     std::vector<Grid*> getAllFrames();
     int getWorkingFrame();
 

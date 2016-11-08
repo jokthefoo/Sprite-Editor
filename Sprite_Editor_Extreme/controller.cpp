@@ -1,4 +1,6 @@
 #include "controller.h"
+#include <QClipboard>
+#include <QApplication>
 
 Controller::Controller(MainWindow * w)
 {
@@ -22,9 +24,10 @@ Controller::Controller(MainWindow * w)
     QObject::connect(&timer, &QTimer::timeout, this, &Controller::timeoutSendImage);
     QObject::connect(this, &Controller::sendDeleteFrame, w, &MainWindow::deleteFrame);
 
+    //QObject::connect(this, &Controller::testClipUpdate, w, &MainWindow::updateTest);
 
     //send the initial state the to the view
-    emit sendImage(model->getProject()->getCurrentFrame()->getImage());
+    emit sendImage(model->getProject()->getCurrentFrame()->getImage(),testClip());
     emit sendNewFrame(model->getProject()->getCurrentFrame()->getImage());
     emit sendColor(model->getColor());
     emit sendActiveTool(0);
@@ -47,6 +50,14 @@ void Controller::receiveExport()
         frames.push_back(*(g->getImage()));
     }
     emit sendFramesForExport(frames);
+}
+
+QImage Controller::testClip()
+{
+    QClipboard *clip = QApplication::clipboard();
+    QImage test;
+    test = clip->image().copy();
+    return test;
 }
 
 void Controller::receiveOpenProj(QString heightWidth, QString numFrames, QString frames)
@@ -93,7 +104,7 @@ void Controller::receiveOpenProj(QString heightWidth, QString numFrames, QString
     }
     model->getProject()->removeFrame(0);
     model->getProject()->changeFrame(0);
-    emit sendImage(model->getProject()->getCurrentFrame()->getImage());
+    emit sendImage(model->getProject()->getCurrentFrame()->getImage(),testClip());
     emit sendColor(model->getColor());
     emit sendActiveTool(0);
     sendAllFrame();
@@ -125,7 +136,7 @@ void Controller::receivePropertyChange(Property p){
         }
         if(p.name.toStdString().compare("canvasSize")==0){
             model->getProject()->setCanvasSize(p.values[0],p.values[1]);
-            emit sendImage(model->getProject()->getCurrentFrame()->getImage());
+            emit sendImage(model->getProject()->getCurrentFrame()->getImage(),testClip());
             sendAllFrame();
         }
         if (p.name.toStdString().compare("carryOverBox") == 0) {
@@ -147,7 +158,7 @@ void Controller::receiveMouseInput(QPointF point, QMouseEvent *event)
                 Tool * tool = model->getCurrentTool();
                 if(model->getProject()->getCurrentFrame()!=nullptr){
                     tool->applyTool(model->getProject()->getCurrentFrame(),point, event,model->getColor(),model->getBrushSize(), model->getProject());
-                    emit sendImage(model->getProject()->getCurrentFrame()->getImage());
+                    emit sendImage(model->getProject()->getCurrentFrame()->getImage(),testClip());
                     sendAllFrame();
                 }
             }
@@ -165,7 +176,7 @@ void Controller::receiveButtonInput(QWidget * child)
         int x =  QString::compare(str, "leftColor", Qt::CaseInsensitive);
         if(x == 0){
             allowDrawing = false;
-            QColor c = QColorDialog::getColor(Qt::white);
+            QColor c = QColorDialog::getColor(Qt::white,NULL,NULL,QColorDialog::ShowAlphaChannel);
             allowDrawing = true;
             if (c.isValid())
             {
@@ -274,11 +285,15 @@ void Controller::decodeAction(QString n){
     }else if(name == "redo_button"){
         model->getProject()->redo();
     }
-    else if(name == "selectbutton"){
+    else if(name == "select_Button"){
         model->changeTool(4);
         emit sendActiveTool(4);
     }
-    emit sendImage(model->getProject()->getCurrentFrame()->getImage());
+    else if(name == "mouse_Button"){
+        model->changeTool(5);
+        emit sendActiveTool(5);
+    }
+    emit sendImage(model->getProject()->getCurrentFrame()->getImage(),testClip());
     sendAllFrame();
     return;
 }

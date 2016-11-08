@@ -232,7 +232,7 @@ void MainWindow::updateColor(QColor color){
     ui->leftColor->update();
 }
 
-void MainWindow::updateScreen(QImage * image){
+void MainWindow::updateScreen(QImage * image, QImage selectionImage){
     ui->graphicsView->scene()->clear();
     boundary =  new QGraphicsRectItem(0,0, image->height(), image->width());
     ui->graphicsView->scene()->addItem(boundary);
@@ -242,6 +242,12 @@ void MainWindow::updateScreen(QImage * image){
     QPixmap map = QPixmap::fromImage(*image);
     item->setPixmap(map);
     scene->addItem(item);
+
+    QGraphicsPixmapItem * selectItem = new QGraphicsPixmapItem();
+    selectItem->setPixmap(QPixmap::fromImage(selectionImage));
+    selectItem->setFlag(QGraphicsItem::ItemIsMovable, true);
+    selectItem->setFlag(QGraphicsItem::ItemIsSelectable, true);
+    ui->graphicsView->scene()->addItem(selectItem);
 
     ui->framesLayout->update();
     ui->graphicsView->update();
@@ -329,6 +335,8 @@ void MainWindow::setActiveButton(unsigned int toolNum)
             ui->eraser_Button->setStyleSheet("background: gainsboro");
             ui->fill_Bucket_Button->setStyleSheet("background: gainsboro");
             ui->rectangle_button->setStyleSheet("background: gainsboro");
+            ui->select_Button->setStyleSheet("background: gainsboro");
+            ui->mouse_Button->setStyleSheet("background: gainsboro");
             ui->graphicsView->setDragMode(QGraphicsView::NoDrag);
             break;
         case 1:
@@ -336,6 +344,8 @@ void MainWindow::setActiveButton(unsigned int toolNum)
             ui->eraser_Button->setStyleSheet("background: chartreuse");
             ui->fill_Bucket_Button->setStyleSheet("background: gainsboro");
             ui->rectangle_button->setStyleSheet("background: gainsboro");
+            ui->select_Button->setStyleSheet("background: gainsboro");
+            ui->mouse_Button->setStyleSheet("background: gainsboro");
             ui->graphicsView->setDragMode(QGraphicsView::NoDrag);
             break;
         case 2:
@@ -343,6 +353,8 @@ void MainWindow::setActiveButton(unsigned int toolNum)
             ui->eraser_Button->setStyleSheet("background: gainsboro");
             ui->fill_Bucket_Button->setStyleSheet("background: chartreuse");
             ui->rectangle_button->setStyleSheet("background: gainsboro");
+            ui->select_Button->setStyleSheet("background: gainsboro");
+            ui->mouse_Button->setStyleSheet("background: gainsboro");
             ui->graphicsView->setDragMode(QGraphicsView::NoDrag);
             break;
         case 3:
@@ -350,6 +362,8 @@ void MainWindow::setActiveButton(unsigned int toolNum)
             ui->eraser_Button->setStyleSheet("background: gainsboro");
             ui->fill_Bucket_Button->setStyleSheet("background: gainsboro");
             ui->rectangle_button->setStyleSheet("background: chartreuse");
+            ui->select_Button->setStyleSheet("background: gainsboro");
+            ui->mouse_Button->setStyleSheet("background: gainsboro");
             ui->graphicsView->setDragMode(QGraphicsView::NoDrag);
             break;
         case 4:
@@ -357,7 +371,18 @@ void MainWindow::setActiveButton(unsigned int toolNum)
             ui->eraser_Button->setStyleSheet("background: gainsboro");
             ui->fill_Bucket_Button->setStyleSheet("background: gainsboro");
             ui->rectangle_button->setStyleSheet("background: gainsboro");
+            ui->select_Button->setStyleSheet("background: chartreuse");
+            ui->mouse_Button->setStyleSheet("background: gainsboro");
             ui->graphicsView->setDragMode(QGraphicsView::RubberBandDrag);
+            break;
+        case 5:
+            ui->brush_Button->setStyleSheet("background: gainsboro");
+            ui->eraser_Button->setStyleSheet("background: gainsboro");
+            ui->fill_Bucket_Button->setStyleSheet("background: gainsboro");
+            ui->rectangle_button->setStyleSheet("background: gainsboro");
+            ui->select_Button->setStyleSheet("background: gainsboro");
+            ui->mouse_Button->setStyleSheet("background: chartreuse");
+            ui->graphicsView->setDragMode(QGraphicsView::NoDrag);
             break;
     }
 }
