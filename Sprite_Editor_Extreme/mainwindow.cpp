@@ -31,7 +31,7 @@ MainWindow::MainWindow(QWidget *parent) :
 
 
 //helper method to setup an icon for use with a button
-void static setupIcon(QToolButton * button, QString filename){
+void static setupIcon(QToolButton *button, QString filename){
 
     QPixmap map(filename);
     QIcon icon(map);
@@ -61,8 +61,8 @@ void MainWindow::setupIcons(){
 
 }
 
-void MainWindow::setupToolTips()
-{
+void MainWindow::setupToolTips(){
+
     ui->brush_Button->setToolTip("Brush Tool");
     ui->brushSize->setToolTip("Set Brush Size");
     ui->fill_Bucket_Button->setToolTip("Fill Bucket Tool");
@@ -109,8 +109,8 @@ void MainWindow::connectComponents(){
 }
 
 //Zoom in/out using the scaling functionality of the QGraphicsScene
-void MainWindow::zoomIn()
-{
+void MainWindow::zoomIn(){
+
     zoomCount+=1;
     currentScale += 2;
     QTransform trans;
@@ -118,8 +118,8 @@ void MainWindow::zoomIn()
     ui->graphicsView->setTransform(trans);
 }
 
-void MainWindow::zoomOut()
-{
+void MainWindow::zoomOut(){
+
     if(zoomCount > 1)
     {
         zoomCount-=1;
@@ -132,8 +132,7 @@ void MainWindow::zoomOut()
 }
 
 //Parse a saved project and emit the textstream to an observer
-void MainWindow::openProj()
-{
+void MainWindow::openProj(){
 
     emit disableDraw();
     QString filename = QFileDialog::getOpenFileName(this, "Open file", "", "Sprite Sheet Project File (*.spp)");
@@ -167,8 +166,7 @@ void MainWindow::openProj()
 }
 
 //captures input from the file menu
-void MainWindow::sendSaveAsSig()
-{
+void MainWindow::sendSaveAsSig(){
     emit sendSaveAs();
 }
 
@@ -189,14 +187,14 @@ void MainWindow::saveAsSelected(QString fileInfo)
 }
 
 //captures input and sends action signal out
-void MainWindow::exportToGifSig()
-{
+void MainWindow::exportToGifSig(){
+
     emit sendExportGif();
 }
 
 //using the gif.h API, save the project as a .gif image -- DOES NOT WORK WITH ALPHA
-void MainWindow::exportGif(std::vector<QImage> frameList)
-{
+void MainWindow::exportGif(std::vector<QImage> frameList){
+
     GifWriter *gifWriter = new GifWriter(); // leaking memory ?
     emit disableDraw();
     QString filename = QFileDialog::getSaveFileName(this, "Save gif", "", "Sprite Gif File (*.gif)");
@@ -221,8 +219,8 @@ void MainWindow::openConfigurationSelected(){
 }
 
 //emit a changed value for a spinbox
-void MainWindow::spinnerChanged(int value)
-{
+void MainWindow::spinnerChanged(int value){
+
     QSpinBox * spin = static_cast<QSpinBox*>(QObject::sender());
 
     Property tosend(spin->objectName());
@@ -231,8 +229,8 @@ void MainWindow::spinnerChanged(int value)
 }
 
 //emit a changed value for a checkbox
-void MainWindow::checkBoxChanged(int value)
-{
+void MainWindow::checkBoxChanged(int value){
+
     QCheckBox * box = static_cast<QCheckBox*>(QObject::sender());
     Property tosend(box->objectName());
     tosend.addValue(value);
@@ -272,9 +270,9 @@ void MainWindow::updateFilterColor(QColor color){
 }
 
 //update the screen graphics
-void MainWindow::updateScreen(QImage * image){
+void MainWindow::updateScreen(QImage *image){
     ui->graphicsView->scene()->clear();
-    boundary =  new QGraphicsRectItem(0,0, image->height(), image->width());
+    boundary =  new QGraphicsRectItem(-0.5,-0.5, image->height()+1, image->width()+1);
     ui->graphicsView->scene()->addItem(boundary);
 
     QPainter p(image);
@@ -303,8 +301,8 @@ void MainWindow::updateFrames(std::vector<QImage> frameList, unsigned int curren
 }
 
 //add a frame to the model
-void MainWindow::addFrameToLayout(QImage * image){
-    QLabel * frame = new QLabel();
+void MainWindow::addFrameToLayout(QImage *image){
+    QLabel *frame = new QLabel();
     frame->show();
     frame->setScaledContents(true);
     frame->setMinimumSize(75,75);
