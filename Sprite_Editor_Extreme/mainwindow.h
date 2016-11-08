@@ -31,7 +31,7 @@ class MainWindow : public QMainWindow
 public:
     explicit MainWindow(QWidget *parent = 0);
     void updateEditor(QImage *image);
-    PreviewWindow * getPreview();
+    PreviewWindow *getPreview();
     ~MainWindow();
 
 signals:

@@ -31,7 +31,7 @@ MainWindow::MainWindow(QWidget *parent) :
 
 
 //helper method to setup an icon for use with a button
-void static setupIcon(QToolButton * button, QString filename){
+void static setupIcon(QToolButton *button, QString filename){
 
     QPixmap map(filename);
     QIcon icon(map);
@@ -61,8 +61,8 @@ void MainWindow::setupIcons(){
 
 }
 
-void MainWindow::setupToolTips()
-{
+void MainWindow::setupToolTips(){
+
     ui->brush_Button->setToolTip("Brush Tool");
     ui->brushSize->setToolTip("Set Brush Size");
     ui->fill_Bucket_Button->setToolTip("Fill Bucket Tool");
@@ -104,8 +104,8 @@ void MainWindow::connectComponents(){
 }
 
 //Zoom in/out using the scaling functionality of the QGraphicsScene
-void MainWindow::zoomIn()
-{
+void MainWindow::zoomIn(){
+
     zoomCount+=1;
     currentScale += 2;
     QTransform trans;
@@ -113,8 +113,8 @@ void MainWindow::zoomIn()
     ui->graphicsView->setTransform(trans);
 }
 
-void MainWindow::zoomOut()
-{
+void MainWindow::zoomOut(){
+
     if(zoomCount > 1)
     {
         zoomCount-=1;
@@ -127,8 +127,7 @@ void MainWindow::zoomOut()
 }
 
 //Parse a saved project and emit the textstream to an observer
-void MainWindow::openProj()
-{
+void MainWindow::openProj(){
 
     QString filename = QFileDialog::getOpenFileName(this, "Open file", "", "Sprite Sheet Project File (*.spp)");
     if(filename != NULL)
@@ -160,14 +159,13 @@ void MainWindow::openProj()
 }
 
 //captures input from the file menu
-void MainWindow::sendSaveAsSig()
-{
+void MainWindow::sendSaveAsSig(){
     emit sendSaveAs();
 }
 
 //saves the file to the specified filename
-void MainWindow::saveAsSelected(QString fileInfo)
-{
+void MainWindow::saveAsSelected(QString fileInfo){
+
     QString filename = QFileDialog::getSaveFileName(this, "Save file", "", "Sprite Sheet Project File (*.spp)");
     if(filename != NULL)
     {
@@ -180,14 +178,14 @@ void MainWindow::saveAsSelected(QString fileInfo)
 }
 
 //captures input and sends action signal out
-void MainWindow::exportToGifSig()
-{
+void MainWindow::exportToGifSig(){
+
     emit sendExportGif();
 }
 
 //using the gif.h API, save the project as a .gif image -- DOES NOT WORK WITH ALPHA
-void MainWindow::exportGif(std::vector<QImage> frameList)
-{
+void MainWindow::exportGif(std::vector<QImage> frameList){
+
     GifWriter *gifWriter = new GifWriter(); // leaking memory ?
     QString filename = QFileDialog::getSaveFileName(this, "Save gif", "", "Sprite Gif File (*.gif)");
     GifBegin(gifWriter,filename.toLatin1().constData(),frameList[0].width(),frameList[0].height(),5);
@@ -210,8 +208,8 @@ void MainWindow::openConfigurationSelected(){
 }
 
 //emit a changed value for a spinbox
-void MainWindow::spinnerChanged(int value)
-{
+void MainWindow::spinnerChanged(int value){
+
     QSpinBox * spin = static_cast<QSpinBox*>(QObject::sender());
 
     Property tosend(spin->objectName());
@@ -220,8 +218,8 @@ void MainWindow::spinnerChanged(int value)
 }
 
 //emit a changed value for a checkbox
-void MainWindow::checkBoxChanged(int value)
-{
+void MainWindow::checkBoxChanged(int value){
+
     QCheckBox * box = static_cast<QCheckBox*>(QObject::sender());
     Property tosend(box->objectName());
     tosend.addValue(value);
@@ -257,7 +255,7 @@ void MainWindow::updateFilterColor(QColor color){
 }
 
 //update the screen graphics
-void MainWindow::updateScreen(QImage * image){
+void MainWindow::updateScreen(QImage *image){
     ui->graphicsView->scene()->clear();
     boundary =  new QGraphicsRectItem(0,0, image->height(), image->width());
     ui->graphicsView->scene()->addItem(boundary);
@@ -288,8 +286,8 @@ void MainWindow::updateFrames(std::vector<QImage> frameList, unsigned int curren
 }
 
 //add a frame to the model
-void MainWindow::addFrameToLayout(QImage * image){
-    QLabel * frame = new QLabel();
+void MainWindow::addFrameToLayout(QImage *image){
+    QLabel *frame = new QLabel();
     frame->show();
     frame->setScaledContents(true);
     frame->setMinimumSize(75,75);
@@ -308,7 +306,7 @@ void MainWindow::deleteFrame(unsigned int frameToDelete){
 }
 
 //capture and filter input from the application
-bool MainWindow::eventFilter(QObject* obj, QEvent *event){
+bool MainWindow::eventFilter(QObject *obj, QEvent *event){
 
         if(configuration.isHidden()){
             emit enableDraw();
