@@ -9,6 +9,7 @@ namespace Ui {
 class ConfigurationForm;
 }
 
+//Configuration Form for setting the size of our Sprite
 class ConfigurationForm : public QDialog
 {
     Q_OBJECT
