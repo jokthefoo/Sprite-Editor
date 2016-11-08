@@ -153,8 +153,12 @@ void Controller::receivePropertyChange(Property p){
             if (model->getProject()!= nullptr && model->getProject()->getCurrentFrame()!= nullptr) {
                 if (p.values.front() == 0) {
                     model->getProject()->getCurrentFrame()->removeFilter();
+                    emit sendImage(model->getProject()->getCurrentFrame()->getImage());
+                    sendAllFrame();
                 } else if (p.values.front() == 2) {
                     model->getProject()->getCurrentFrame()->applyFilter(model->getFilterColor());
+                    emit sendImage(model->getProject()->getCurrentFrame()->getImage());
+                    sendAllFrame();
                 }
             }
         }

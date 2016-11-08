@@ -29,6 +29,8 @@ MainWindow::MainWindow(QWidget *parent) :
     zoomCount = 6;
 }
 
+
+//helper method to setup an icon for use with a button
 void static setupIcon(QToolButton * button, QString filename){
 
     QPixmap map(filename);
@@ -37,6 +39,7 @@ void static setupIcon(QToolButton * button, QString filename){
     button->setIconSize(map.rect().size());
 }
 
+//set up all the icons with the resources
 void MainWindow::setupIcons(){
 
     setupIcon(ui->brush_Button, ":/resources/brush.png");
@@ -81,9 +84,10 @@ void MainWindow::setupToolTips()
     ui->carryOverBox->setToolTip("If checked, the next frame added will be blank. If unchecked, the next frame added will be the same as the previous");
     ui->colorFilterBox->setToolTip("Apply the color to the entire frame");
 
-    // not working : ui->actionCanvasSize_2->setToolTip("Open configuration page");
 }
 
+//Connect all the components using the SLOTS/SIGNALS interface.
+//An observer ( controller ) will capture these signals.
 void MainWindow::connectComponents(){
 
     QObject::connect(ui->brushSize, SIGNAL(valueChanged(int)),this, SLOT(spinnerChanged(int)));
@@ -99,6 +103,7 @@ void MainWindow::connectComponents(){
 
 }
 
+//Zoom in/out using the scaling functionality of the QGraphicsScene
 void MainWindow::zoomIn()
 {
     zoomCount+=1;
@@ -121,6 +126,7 @@ void MainWindow::zoomOut()
 
 }
 
+//Parse a saved project and emit the textstream to an observer
 void MainWindow::openProj()
 {
 
@@ -130,6 +136,7 @@ void MainWindow::openProj()
         QFile file(filename);
         if(file.open(QIODevice::ReadOnly))
         {
+            //clear old components
             QTextStream stream(&file);
 
             for(unsigned int i = 0; i < frames.size(); i++)
@@ -139,23 +146,26 @@ void MainWindow::openProj()
             frames.at(0)->clear();
             frames.clear();
 
+            //Parse
             QString heightAndWidth = stream.readLine();
             QString numFrames = stream.readLine();
             QString frameString;
             frameString = stream.readAll();
 
-            file.close();
+            file.close(); //clean up and emit signal
             emit sendOpenProj(heightAndWidth, numFrames, frameString);
             ui->brushSize->setValue(1);
         }
     }
 }
 
+//captures input from the file menu
 void MainWindow::sendSaveAsSig()
 {
     emit sendSaveAs();
 }
 
+//saves the file to the specified filename
 void MainWindow::saveAsSelected(QString fileInfo)
 {
     QString filename = QFileDialog::getSaveFileName(this, "Save file", "", "Sprite Sheet Project File (*.spp)");
@@ -169,11 +179,13 @@ void MainWindow::saveAsSelected(QString fileInfo)
     }
 }
 
+//captures input and sends action signal out
 void MainWindow::exportToGifSig()
 {
     emit sendExportGif();
 }
 
+//using the gif.h API, save the project as a .gif image -- DOES NOT WORK WITH ALPHA
 void MainWindow::exportGif(std::vector<QImage> frameList)
 {
     GifWriter *gifWriter = new GifWriter(); // leaking memory ?
@@ -190,12 +202,14 @@ void MainWindow::exportGif(std::vector<QImage> frameList)
     GifEnd(gifWriter);
 }
 
+//show the configureation
 void MainWindow::openConfigurationSelected(){
      this->configuration.show();
      this->configuration.raise();
-
+     emit disableDraw();
 }
 
+//emit a changed value for a spinbox
 void MainWindow::spinnerChanged(int value)
 {
     QSpinBox * spin = static_cast<QSpinBox*>(QObject::sender());
@@ -205,6 +219,7 @@ void MainWindow::spinnerChanged(int value)
     emit sendPropertyChange(tosend);
 }
 
+//emit a changed value for a checkbox
 void MainWindow::checkBoxChanged(int value)
 {
     QCheckBox * box = static_cast<QCheckBox*>(QObject::sender());
@@ -213,6 +228,7 @@ void MainWindow::checkBoxChanged(int value)
     emit sendPropertyChange(tosend);
 }
 
+//parse and emit the property changes of the items in the configuration form
 void MainWindow::sendConfigurationInput(){
     ConfigurationForm * form = static_cast<ConfigurationForm*>(QObject::sender());
     std::vector<Property> parse = form->parseConfigurationForm();
@@ -222,16 +238,16 @@ void MainWindow::sendConfigurationInput(){
     }
 }
 
-
-
+//update color picker color
 void MainWindow::updateColor(QColor color){
     QPalette p(palette());
     p.setColor(QPalette::Foreground,color);
     QString temp("background-color:"+color.name());
-    ui->leftColor->setStyleSheet(temp);
+    ui->leftColor->setStyleSheet(temp+"; border: 2px solid black");
     ui->leftColor->update();
 }
 
+//todo
 void MainWindow::updateFilterColor(QColor color){
     QPalette p(palette());
     p.setColor(QPalette::Foreground,color);
@@ -240,6 +256,7 @@ void MainWindow::updateFilterColor(QColor color){
     ui->colorFilter->update();
 }
 
+//update the screen graphics
 void MainWindow::updateScreen(QImage * image){
     ui->graphicsView->scene()->clear();
     boundary =  new QGraphicsRectItem(0,0, image->height(), image->width());
@@ -255,26 +272,23 @@ void MainWindow::updateScreen(QImage * image){
     ui->graphicsView->update();
 }
 
-void MainWindow::updateFrames(std::vector<QImage> frameList, unsigned int currentFrame)
-{
+//update the visible frames on the window
+void MainWindow::updateFrames(std::vector<QImage> frameList, unsigned int currentFrame){
     std::vector<QImage>::iterator imIt = frameList.begin();
-    for(unsigned int i =0; i < frames.size(); i++)
-    {
+    for(unsigned int i =0; i < frames.size(); i++){
         frames.at(i)->setPixmap(QPixmap::fromImage(*imIt));
-        if(i == currentFrame)
-        {
+        if(i == currentFrame){
             frames.at(i)->setStyleSheet("border: 2px solid yellow");
         }
-        else
-        {
+        else {
             frames.at(i)->setStyleSheet("border: 1px solid black");
         }
         imIt++;
     }
 }
 
-void MainWindow::addFrameToLayout(QImage * image)
-{
+//add a frame to the model
+void MainWindow::addFrameToLayout(QImage * image){
     QLabel * frame = new QLabel();
     frame->show();
     frame->setScaledContents(true);
@@ -285,16 +299,20 @@ void MainWindow::addFrameToLayout(QImage * image)
     frames.push_back(frame);
 }
 
-void MainWindow::deleteFrame(unsigned int frameToDelete)
-{
+//remove a frame at a specified index
+void MainWindow::deleteFrame(unsigned int frameToDelete){
     frames.at(frameToDelete)->setStyleSheet("border: 1px solid black");
     ui->framesLayout->removeWidget(frames[frameToDelete]);
     frames.at(frameToDelete)->clear();
     frames.erase(frames.begin()+frameToDelete);
 }
 
-bool MainWindow::eventFilter(QObject* obj, QEvent *event)
-{
+//capture and filter input from the application
+bool MainWindow::eventFilter(QObject* obj, QEvent *event){
+
+        if(configuration.isHidden()){
+            emit enableDraw();
+        }
         //this will get all the input for every button
         if(event->type()==QEvent::MouseButtonPress){
             QWidget * child = childAt(static_cast<QMouseEvent *>(event)->pos());
@@ -311,8 +329,7 @@ bool MainWindow::eventFilter(QObject* obj, QEvent *event)
         if(event->type()==QEvent::MouseButtonPress||event->type()==QEvent::MouseMove||event->type()==QEvent::MouseButtonRelease){
             QPoint remapped = ui->graphicsView->mapFromGlobal(QCursor::pos()); // gives coordinates relative to parent
             QPointF  mousePoint = ui->graphicsView->mapToScene(remapped); // converts to cartesian coordinates
-            if(ui->graphicsView->rect().contains(remapped))
-            {
+            if(ui->graphicsView->rect().contains(remapped)){
                  emit sendMouseInput(mousePoint, static_cast<QMouseEvent*>(event));
 
             }
@@ -321,18 +338,16 @@ bool MainWindow::eventFilter(QObject* obj, QEvent *event)
 
         QWidget * child = childAt(static_cast<QMouseEvent *>(event)->pos());
         QGraphicsScene * scene = dynamic_cast<QGraphicsScene*>(child); // type check the input
-        if(scene!=NULL&&(event->type()==QEvent::MouseButtonPress||event->type()==QEvent::MouseMove||event->type()==QEvent::MouseButtonRelease))
-        {
+        if(scene!=NULL&&(event->type()==QEvent::MouseButtonPress||event->type()==QEvent::MouseMove||event->type()==QEvent::MouseButtonRelease)){
             return true;
         }
 
     return false;
 }
 
-void MainWindow::setActiveButton(unsigned int toolNum)
-{
-    switch(toolNum)
-    {
+//set active button border dependent on chosen item
+void MainWindow::setActiveButton(unsigned int toolNum){
+    switch(toolNum){
         case 0:
             ui->brush_Button->setStyleSheet("background: chartreuse");
             ui->eraser_Button->setStyleSheet("background: gainsboro");
@@ -371,8 +386,7 @@ void MainWindow::setActiveButton(unsigned int toolNum)
     }
 }
 
-MainWindow::~MainWindow()
-{
+MainWindow::~MainWindow(){
     delete boundary;
     delete ui;
     delete scene;
@@ -384,8 +398,8 @@ PreviewWindow * MainWindow::getPreview(){
 }
 
 
-void MainWindow::on_play_button_pressed()
-{
+//Show the preview window
+void MainWindow::on_play_button_pressed(){
     if(!preview.isVisible()){
         preview.show();
         //change the button icon to pause?

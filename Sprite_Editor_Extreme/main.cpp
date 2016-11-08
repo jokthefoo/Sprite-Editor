@@ -3,8 +3,9 @@
 #include <controller.h>
 #include <QPlatformSurfaceEvent>
 
-int main(int argc, char *argv[])
-{
+
+//Main entry point for the application
+int main(int argc, char *argv[]){
     QApplication a(argc, argv);
     MainWindow w;
 

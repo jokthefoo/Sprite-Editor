@@ -565,13 +565,14 @@ public:
 "\n"
 "QCheckBox::indicator:checked\n"
 "{\n"
+"\n"
 "    image:url(:/resources/checkbox.png);\n"
 "}\n"
 "\n"
 "QCheckBox::indicator:disabled, QRadioButton::indicator:disabled\n"
 "{\n"
-"    border: 1px solid "
-                        "#444;\n"
+"    border: 1px s"
+                        "olid #444;\n"
 "}"));
         actionCanvasSize_2 = new QAction(MainWindow);
         actionCanvasSize_2->setObjectName(QStringLiteral("actionCanvasSize_2"));
@@ -665,7 +666,7 @@ public:
         scrollArea->setWidgetResizable(true);
         scrollAreaWidgetContents_2 = new QWidget();
         scrollAreaWidgetContents_2->setObjectName(QStringLiteral("scrollAreaWidgetContents_2"));
-        scrollAreaWidgetContents_2->setGeometry(QRect(0, 0, 555, 45));
+        scrollAreaWidgetContents_2->setGeometry(QRect(0, 0, 481, 45));
         horizontalLayoutWidget = new QWidget(scrollAreaWidgetContents_2);
         horizontalLayoutWidget->setObjectName(QStringLiteral("horizontalLayoutWidget"));
         horizontalLayoutWidget->setGeometry(QRect(0, 0, 551, 61));
@@ -837,12 +838,12 @@ public:
         undo_button->setObjectName(QStringLiteral("undo_button"));
         sizePolicy1.setHeightForWidth(undo_button->sizePolicy().hasHeightForWidth());
         undo_button->setSizePolicy(sizePolicy1);
-        undo_button->setMinimumSize(QSize(30, 30));
+        undo_button->setMinimumSize(QSize(70, 70));
         undo_button->setAutoFillBackground(false);
 
         horizontalLayout_2->addWidget(undo_button);
 
-        horizontalSpacer = new QSpacerItem(40, 20, QSizePolicy::Expanding, QSizePolicy::Minimum);
+        horizontalSpacer = new QSpacerItem(40, 20, QSizePolicy::Fixed, QSizePolicy::Minimum);
 
         horizontalLayout_2->addItem(horizontalSpacer);
 
@@ -850,7 +851,7 @@ public:
         redo_button->setObjectName(QStringLiteral("redo_button"));
         sizePolicy1.setHeightForWidth(redo_button->sizePolicy().hasHeightForWidth());
         redo_button->setSizePolicy(sizePolicy1);
-        redo_button->setMinimumSize(QSize(30, 30));
+        redo_button->setMinimumSize(QSize(70, 70));
         redo_button->setAutoFillBackground(false);
 
         horizontalLayout_2->addWidget(redo_button);
@@ -876,8 +877,7 @@ public:
         MainWindow->setCentralWidget(centralWidget);
         menuBar = new QMenuBar(MainWindow);
         menuBar->setObjectName(QStringLiteral("menuBar"));
-
-        menuBar->setGeometry(QRect(0, 0, 788, 19));
+        menuBar->setGeometry(QRect(0, 0, 714, 19));
         menuFile = new QMenu(menuBar);
         menuFile->setObjectName(QStringLiteral("menuFile"));
         MainWindow->setMenuBar(menuBar);

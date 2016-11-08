@@ -212,10 +212,59 @@ QColor Grid::pixelColor(int x, int y){
     return image->pixelColor(x, y);
 }
 
-void Grid::applyFilter(QColor) {
-    // TODO
+void Grid::applyFilter(QColor color) {
+    if (!filterActive) {
+        for (int i = 0; i < image->width(); i++) {
+            for (int j = 0; j < image->height(); j++) {
+                // Source: https://forum.qt.io/topic/43435/how-to-mix-two-colors-represented-by-qcolor-type/4
+                QColor currentColor = image->pixelColor(i, j);
+                int ratio = 0.5; // Blend ratio
+                int r = currentColor.red()*(1-ratio) + color.red()*ratio;
+                if (r > 255) {
+                    r = 255;
+                }
+                int g = currentColor.green()*(1-ratio) + color.green()*ratio;
+                if (g > 255) {
+                    g = 255;
+                }
+                int b = currentColor.blue()*(1-ratio) + color.blue()*ratio;
+                if (b > 255) {
+                    b = 255;
+                }
+                QColor newColor = QColor(r, g, b, 100);
+                image->setPixelColor(i, j, newColor);
+            }
+        }
+
+        filterColor = color;
+        filterActive = true;
+    }
 }
 
 void Grid::removeFilter() {
-    // TODO
+    if (filterActive) {
+        for (int i = 0; i < image->width(); i++) {
+            for (int j = 0; j < image->height(); j++) {
+                // Source: https://forum.qt.io/topic/43435/how-to-mix-two-colors-represented-by-qcolor-type/4
+                QColor currentColor = image->pixelColor(i, j);
+                int ratio = 0.5; // Blend ratio
+                int r = currentColor.red()*(1-ratio) - filterColor.red()*ratio;
+                if (r < 0) {
+                    r = 0;
+                }
+                int g = currentColor.green()*(1-ratio) - filterColor.green()*ratio;
+                if (g < 0) {
+                    g = 0;
+                }
+                int b = currentColor.blue()*(1-ratio) - filterColor.blue()*ratio;
+                if (b < 0) {
+                    b = 0;
+                }
+                QColor newColor = QColor(r, g, b, 100);
+                image->setPixelColor(i, j, newColor);
+            }
+        }
+
+        filterActive = false;
+    }
 }

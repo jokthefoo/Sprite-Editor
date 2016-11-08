@@ -1,15 +1,15 @@
 #include "project.h"
 
-Project::Project()
-{
+//This class contains the data representation of each frame that can be edited and the history associated with each frame
+Project::Project(){
     frames.push_back(new Grid);
     workingframe=0;
     canvasSize.first=frames[workingframe]->default_width;
     canvasSize.second=frames[workingframe]->default_height;
 }
 
-Project::Project(const Project& other)
-{
+//Copy/Swap idiom
+Project::Project(const Project& other){
     this->canvasSize = other.canvasSize;
     this->workingframe = other.workingframe;
     for(auto it = other.frames.begin(); it < other.frames.end(); it++){
@@ -18,8 +18,7 @@ Project::Project(const Project& other)
     }
 }
 
-Project& Project::operator=(const Project& other)
-{
+Project& Project::operator=(const Project& other){
     Project temp(other);
     swap(temp);
     return *this;
@@ -31,6 +30,7 @@ void Project::swap(Project& other)
     std::swap(canvasSize,other.canvasSize);
 }
 
+//deallocate all the histories and frames
 Project::~Project(){
     for(auto it = frames.begin(); it != frames.end(); ++it){
         delete *it;
@@ -56,16 +56,15 @@ void Project::addEmptyFrame(){
     workingframe = frames.size()-1;
 }
 
+//create a frame with the contents of the previous frame included
 void Project::carryOverNewFrame(const Grid& previous){
     frames.push_back(new Grid(previous));
     workingframe = frames.size()-1;
 }
 
-void Project::deleteCurrentFrame()
-{
+void Project::deleteCurrentFrame(){
     frames.erase(frames.begin()+workingframe);
-    if(workingframe >= frames.size())
-    {
+    if(workingframe >= frames.size()){
         workingframe = frames.size()-1;
     }
 }
@@ -87,6 +86,7 @@ void Project::addNewFrame(Grid * grid){
 
 void Project::removeFrame(unsigned int frameIndex){
     frames.erase(frames.begin() + frameIndex);//might need offset of 1
+    if(workingframe>frames.size())workingframe = frames.size();
     // what about changing the working frame?
 }
 
@@ -100,19 +100,19 @@ void Project::changeFrame(unsigned int frameNumber){
     }
 }
 
-int Project::getWorkingFrame()
-{
+int Project::getWorkingFrame(){
     return workingframe;
 }
 
+//move onto the next frame
 bool Project::next(){
-  if(workingframe+1< frames.size())
-  {
+  if(workingframe+1< frames.size()){
      workingframe++;
      return true;
   }return false;
 }
 
+//move back to the previous frame
 bool Project::previous(){
   if(workingframe > 0){
       workingframe--;
@@ -120,6 +120,7 @@ bool Project::previous(){
   } return false;
 }
 
+//serialzie the project as a string
 QString Project::toString(){
     int height = canvasSize.second;
     int width = canvasSize.first;
@@ -136,6 +137,7 @@ QString Project::toString(){
     return formatted;
 }
 
+//undo the last action using the Turing machine style history
 void Project::undo(){
     bool send = before[workingframe].size()>0;
     if(send){
@@ -144,6 +146,7 @@ void Project::undo(){
     }
 }
 
+//redo last undid action :D
 void Project::redo(){
     bool send = after[workingframe].size()>0;
     if(send){
@@ -152,14 +155,16 @@ void Project::redo(){
     }
 }
 
+//clear out this project, deletes all data
 void Project::clear(){
      for(int i  = 0; i < workingframe; i++){
-          while(before[i].size()>0) before[i].pop();
-          while(after[i].size()>0) after[i].pop();
+          while(before[i].size()>0) delete before[i].pop();
+          while(after[i].size()>0) delete after[i].pop();
           frames.clear();
      }
 }
 
+//add an edit to the history
 void Project::addEdit(){
     Grid * temp = new Grid(frames[workingframe]->getImage());
     before[workingframe].push_back(temp);

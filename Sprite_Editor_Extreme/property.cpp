@@ -1,7 +1,6 @@
 #include "property.h"
 
-Property::Property(QString n)
-{
+Property::Property(QString n){
     this->name=n;
 }
 
