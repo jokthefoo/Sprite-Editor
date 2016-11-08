@@ -6,11 +6,7 @@
 
 #include <ui_configurationform.h>
 
-MainWindow::MainWindow(QWidget *parent) :
-    QMainWindow(parent),
-    ui(new Ui::MainWindow)
-{
-
+MainWindow::MainWindow(QWidget *parent) :QMainWindow(parent),ui(new Ui::MainWindow){
     ui->setupUi(this);
     ui->tabWidget->setTabText(0, "Paint");
     ui->tabWidget->setTabText(1,"Transform");
@@ -30,8 +26,7 @@ MainWindow::MainWindow(QWidget *parent) :
     zoomCount = 6;
 }
 
-void static setupIcon(QToolButton * button, QString filename){
-
+void static setupIcon(QToolButton *button, QString filename){
     QPixmap map(filename);
     QIcon icon(map);
     button->setIcon(icon);
@@ -39,7 +34,6 @@ void static setupIcon(QToolButton * button, QString filename){
 }
 
 void MainWindow::setupIcons(){
-
     setupIcon(ui->brush_Button, ":/resources/brush.png");
     setupIcon(ui->eraser_Button, ":/resources/eraser.png");
     setupIcon(ui->rotate_Left_Button,":/resources/rotateLeft.png");
@@ -56,11 +50,9 @@ void MainWindow::setupIcons(){
     setupIcon(ui->flip_Vertically, ":/resources/flipVert.png");
     setupIcon(ui->undo_button, ":/resources/undo.png");
     setupIcon(ui->redo_button, ":/resources/redo.png");
-
 }
 
-void MainWindow::setupToolTips()
-{
+void MainWindow::setupToolTips(){
     ui->brush_Button->setToolTip("Brush Tool");
     ui->brushSize->setToolTip("Set Brush Size");
     ui->fill_Bucket_Button->setToolTip("Fill Bucket Tool");
@@ -85,7 +77,6 @@ void MainWindow::setupToolTips()
 }
 
 void MainWindow::connectComponents(){
-
     QObject::connect(ui->brushSize, SIGNAL(valueChanged(int)),this, SLOT(spinnerChanged(int)));
     QObject::connect(ui->actionCanvasSize_2, SIGNAL(triggered()), this, SLOT(openConfigurationSelected()));
     QObject::connect(&configuration, SIGNAL(accepted()), this, SLOT(sendConfigurationInput()));
@@ -95,11 +86,9 @@ void MainWindow::connectComponents(){
     QObject::connect(ui->zoom_In_Button, SIGNAL(clicked()), this, SLOT(zoomIn()));
     QObject::connect(ui->zoom_Out_Button, SIGNAL(clicked()), this, SLOT(zoomOut()));
     QObject::connect(ui->carryOverBox, SIGNAL(stateChanged(int)), this, SLOT(checkBoxChanged(int)));
-
 }
 
-void MainWindow::zoomIn()
-{
+void MainWindow::zoomIn(){
     zoomCount+=1;
     currentScale += 2;
     QTransform trans;
@@ -107,8 +96,7 @@ void MainWindow::zoomIn()
     ui->graphicsView->setTransform(trans);
 }
 
-void MainWindow::zoomOut()
-{
+void MainWindow::zoomOut(){
     if(zoomCount > 1)
     {
         zoomCount-=1;
@@ -120,9 +108,7 @@ void MainWindow::zoomOut()
 
 }
 
-void MainWindow::openProj()
-{
-
+void MainWindow::openProj(){
     QString filename = QFileDialog::getOpenFileName(this, "Open file", "", "Sprite Sheet Project File (*.spp)");
     if(filename != NULL)
     {
@@ -150,13 +136,11 @@ void MainWindow::openProj()
     }
 }
 
-void MainWindow::sendSaveAsSig()
-{
+void MainWindow::sendSaveAsSig(){
     emit sendSaveAs();
 }
 
-void MainWindow::saveAsSelected(QString fileInfo)
-{
+void MainWindow::saveAsSelected(QString fileInfo){
     QString filename = QFileDialog::getSaveFileName(this, "Save file", "", "Sprite Sheet Project File (*.spp)");
     if(filename != NULL)
     {
@@ -168,14 +152,12 @@ void MainWindow::saveAsSelected(QString fileInfo)
     }
 }
 
-void MainWindow::exportToGifSig()
-{
+void MainWindow::exportToGifSig(){
     emit sendExportGif();
 }
 
 //gif writer doesn't seem to produce what we want...
-void MainWindow::exportGif(std::vector<QImage> frameList)
-{
+void MainWindow::exportGif(std::vector<QImage> frameList){
     GifWriter *gifWriter = new GifWriter(); // leaking memory ?
     QString filename = QFileDialog::getSaveFileName(this, "Save gif", "", "Sprite Gif File (*.gif)");
     GifBegin(gifWriter,filename.toLatin1().constData(),frameList[0].width(),frameList[0].height(),5);
@@ -191,24 +173,20 @@ void MainWindow::exportGif(std::vector<QImage> frameList)
 }
 
 void MainWindow::openConfigurationSelected(){
-
     this->configuration.show();
     this->configuration.raise();
     emit disableDraw();
 
 }
 
-void MainWindow::spinnerChanged(int value)
-{
+void MainWindow::spinnerChanged(int value){
     QSpinBox * spin = static_cast<QSpinBox*>(QObject::sender());
-
     Property tosend(spin->objectName());
     tosend.addValue(value);
     emit sendPropertyChange(tosend);
 }
 
-void MainWindow::checkBoxChanged(int value)
-{
+void MainWindow::checkBoxChanged(int value){
     QCheckBox * box = static_cast<QCheckBox*>(QObject::sender());
     Property tosend(box->objectName());
     tosend.addValue(value);
@@ -250,8 +228,7 @@ void MainWindow::updateScreen(QImage * image){
     ui->graphicsView->update();
 }
 
-void MainWindow::updateFrames(std::vector<QImage> frameList, unsigned int currentFrame)
-{
+void MainWindow::updateFrames(std::vector<QImage> frameList, unsigned int currentFrame){
     std::vector<QImage>::iterator imIt = frameList.begin();
     for(unsigned int i =0; i < frames.size(); i++)
     {
@@ -268,8 +245,7 @@ void MainWindow::updateFrames(std::vector<QImage> frameList, unsigned int curren
     }
 }
 
-void MainWindow::addFrameToLayout(QImage * image)
-{
+void MainWindow::addFrameToLayout(QImage * image){
     QLabel * frame = new QLabel();
     frame->show();
     frame->setScaledContents(true);
@@ -280,22 +256,21 @@ void MainWindow::addFrameToLayout(QImage * image)
     frames.push_back(frame);
 }
 
-void MainWindow::deleteFrame(unsigned int frameToDelete)
-{
+void MainWindow::deleteFrame(unsigned int frameToDelete){
     frames.at(frameToDelete)->setStyleSheet("border: 1px solid black");
     ui->framesLayout->removeWidget(frames[frameToDelete]);
     frames.at(frameToDelete)->clear();
     frames.erase(frames.begin()+frameToDelete);
 }
 
-bool MainWindow::eventFilter(QObject* obj, QEvent *event)
-{
+
+bool MainWindow::eventFilter(QObject, QEvent *event){
 
         if(this->configuration.isHidden()){
             emit enableDraw();
         }
 
-        //this will get all the input for every button
+       //this will get all the input for every button
         if(event->type()==QEvent::MouseButtonPress){
             QWidget * child = childAt(static_cast<QMouseEvent *>(event)->pos());
             QLabel* label = dynamic_cast<QLabel*>(child); // type check the input
@@ -328,8 +303,7 @@ bool MainWindow::eventFilter(QObject* obj, QEvent *event)
     return false;
 }
 
-void MainWindow::setActiveButton(unsigned int toolNum)
-{
+void MainWindow::setActiveButton(unsigned int toolNum){
     switch(toolNum)
     {
         case 0:
@@ -370,8 +344,7 @@ void MainWindow::setActiveButton(unsigned int toolNum)
     }
 }
 
-MainWindow::~MainWindow()
-{
+MainWindow::~MainWindow(){
     delete boundary;
     delete ui;
     delete scene;
@@ -383,14 +356,12 @@ PreviewWindow * MainWindow::getPreview(){
 }
 
 
-void MainWindow::on_play_button_pressed()
-{
+void MainWindow::on_play_button_pressed(){
     if(!preview.isVisible()){
         preview.show();
         //change the button icon to pause?
     }
     //else
         //call another slot which will pause the animation
-
 }
 
