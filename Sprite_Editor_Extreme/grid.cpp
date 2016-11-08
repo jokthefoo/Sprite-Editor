@@ -232,33 +232,33 @@ QColor Grid::pixelColor(int x, int y){
 }
 
 // Apply a filter
+// Source: https://forum.qt.io/topic/43435/how-to-mix-two-colors-represented-by-qcolor-type/4
+static QColor blendColors(const QColor& color1, const QColor& color2, qreal ratio)
+{
+    int r = color1.red()*(1-ratio) + color2.red()*ratio;
+    int g = color1.green()*(1-ratio) + color2.green()*ratio;
+    int b = color1.blue()*(1-ratio) + color2.blue()*ratio;
+
+    return QColor(r, g, b, 255);
+}
 
 void Grid::applyFilter(QColor color) {
     if (!filterActive) {
+        filterActive = true;
         for (int i = 0; i < image->width(); i++) {
             for (int j = 0; j < image->height(); j++) {
-                // Source: https://forum.qt.io/topic/43435/how-to-mix-two-colors-represented-by-qcolor-type/4
-                QColor currentColor = image->pixelColor(i, j);
-                int ratio = 0.5; // Blend ratio
-                int r = currentColor.red()*(1-ratio) + color.red()*ratio;
-                if (r > 255) {
-                    r = 255;
-                }
-                int g = currentColor.green()*(1-ratio) + color.green()*ratio;
-                if (g > 255) {
-                    g = 255;
-                }
-                int b = currentColor.blue()*(1-ratio) + color.blue()*ratio;
-                if (b > 255) {
-                    b = 255;
-                }
-                QColor newColor = QColor(r, g, b, 100);
-                image->setPixelColor(i, j, newColor);
+                QColor c= image->pixelColor(i, j);
+                QPainter painter(image);
+                QPen pen;
+                c = blendColors(color,c,1);
+                c.setAlpha(0);
+                pen.setColor(c);
+                painter.drawPoint(i,j);
+                painter.end();
+                filterColor = c;
             }
         }
-
-        filterColor = color;
-        filterActive = true;
+        filterActive = false;
     }
 }
 
