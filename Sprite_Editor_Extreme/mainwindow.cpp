@@ -208,8 +208,9 @@ void MainWindow::sendConfigurationInput(){
 void MainWindow::updateColor(QColor color){
     QPalette p(palette());
     p.setColor(QPalette::Foreground,color);
-    QString temp("background-color:"+color.name());
-    ui->leftColor->setStyleSheet(temp);
+    QString temp("color:"+color.name());
+
+    ui->leftColor->setStyleSheet(temp+"; border: 1px solid black");
     ui->leftColor->update();
 }
 
@@ -264,7 +265,7 @@ void MainWindow::deleteFrame(unsigned int frameToDelete){
 }
 
 
-bool MainWindow::eventFilter(QObject, QEvent *event){
+bool MainWindow::eventFilter(QObject*, QEvent *event){
 
         if(this->configuration.isHidden()){
             emit enableDraw();
