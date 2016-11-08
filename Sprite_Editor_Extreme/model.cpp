@@ -3,7 +3,6 @@
 #include <eraser.h>
 #include <fillbucket.h>
 #include <polygonbrush.h>
-#include <selectionTool.h>
 
 
 //This class represents the project as a collection of frames and holds all configuration settings for the
