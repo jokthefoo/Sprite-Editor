@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>714</width>
+    <width>744</width>
     <height>624</height>
    </rect>
   </property>
@@ -614,7 +614,7 @@ QCheckBox::indicator:disabled, QRadioButton::indicator:disabled
           <rect>
            <x>0</x>
            <y>0</y>
-           <width>481</width>
+           <width>525</width>
            <height>45</height>
           </rect>
          </property>
@@ -969,6 +969,9 @@ QCheckBox::indicator:disabled, QRadioButton::indicator:disabled
           </property>
          </widget>
          <widget class="ColorBox" name="colorFilter">
+          <property name="enabled">
+           <bool>true</bool>
+          </property>
           <property name="geometry">
            <rect>
             <x>20</x>
@@ -1140,8 +1143,8 @@ QCheckBox::indicator:disabled, QRadioButton::indicator:disabled
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>714</width>
-     <height>19</height>
+     <width>744</width>
+     <height>17</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuFile">
@@ -1157,14 +1160,6 @@ QCheckBox::indicator:disabled, QRadioButton::indicator:disabled
    <addaction name="menuFile"/>
   </widget>
   <widget class="QStatusBar" name="statusBar"/>
-  <widget class="QToolBar" name="mainToolBar">
-   <attribute name="toolBarArea">
-    <enum>TopToolBarArea</enum>
-   </attribute>
-   <attribute name="toolBarBreak">
-    <bool>false</bool>
-   </attribute>
-  </widget>
   <action name="actionCanvasSize_2">
    <property name="text">
     <string>Configuration</string>
