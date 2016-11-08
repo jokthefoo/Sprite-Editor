@@ -10,6 +10,7 @@ namespace Ui {
 class PreviewWindow;
 }
 
+//The preview window shows a preview animation of our sprite
 class PreviewWindow : public QMainWindow
 {
     Q_OBJECT

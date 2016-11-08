@@ -7,6 +7,7 @@
 #include <QString>
 #include <QRegularExpression>
 
+//The Grid represents a single frame of our sprite. A single frame is composed of a height, width, and image
 class Grid
 {
 public:

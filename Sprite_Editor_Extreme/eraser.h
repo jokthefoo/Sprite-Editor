@@ -2,7 +2,7 @@
 #define ERASER_H
 #include <tool.h>
 
-
+//Eraser class, which sets the color of the clicked pixel to (0,0,0,0)
 class Eraser : public Tool{
 public:
     Eraser();

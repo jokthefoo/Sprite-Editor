@@ -2,6 +2,8 @@
 #define BRUSH_H
 #include <tool.h>
 
+//Brush class, which draws a single pixel at clicked point, and can draw continuously
+//if the mouse is dragged
 class Brush : public Tool{
 public:
     Brush();
