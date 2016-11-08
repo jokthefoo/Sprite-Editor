@@ -16,5 +16,8 @@
         <file>resources/flipVert.png</file>
         <file>resources/undo.png</file>
         <file>resources/redo.png</file>
+        <file>resources/down_arrow.png</file>
+        <file>resources/handle.png</file>
+        <file>resources/checkbox.png</file>
     </qresource>
 </RCC>
