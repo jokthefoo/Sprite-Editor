@@ -77,6 +77,8 @@ public:
     QToolButton *zoom_In_Button;
     QToolButton *flip_Horizontally;
     QToolButton *flip_Vertically;
+    ColorBox *colorFilter;
+    QCheckBox *colorFilterBox;
     QSpacerItem *verticalSpacer;
     QLabel *label_2;
     QHBoxLayout *horizontalLayout_2;
@@ -192,7 +194,7 @@ public:
         scrollArea->setWidgetResizable(true);
         scrollAreaWidgetContents_2 = new QWidget();
         scrollAreaWidgetContents_2->setObjectName(QStringLiteral("scrollAreaWidgetContents_2"));
-        scrollAreaWidgetContents_2->setGeometry(QRect(0, 0, 554, 68));
+        scrollAreaWidgetContents_2->setGeometry(QRect(0, 0, 548, 85));
         horizontalLayoutWidget = new QWidget(scrollAreaWidgetContents_2);
         horizontalLayoutWidget->setObjectName(QStringLiteral("horizontalLayoutWidget"));
         horizontalLayoutWidget->setGeometry(QRect(0, 0, 551, 61));
@@ -331,6 +333,19 @@ public:
         flip_Vertically->setGeometry(QRect(50, 90, 31, 31));
         sizePolicy.setHeightForWidth(flip_Vertically->sizePolicy().hasHeightForWidth());
         flip_Vertically->setSizePolicy(sizePolicy);
+        colorFilter = new ColorBox(tab_2);
+        colorFilter->setObjectName(QStringLiteral("colorFilter"));
+        colorFilter->setGeometry(QRect(20, 190, 41, 41));
+        sizePolicy.setHeightForWidth(colorFilter->sizePolicy().hasHeightForWidth());
+        colorFilter->setSizePolicy(sizePolicy);
+        colorFilter->setAutoFillBackground(false);
+        colorFilter->setStyleSheet(QStringLiteral("border: 2px solid grey"));
+        colorFilter->setLineWidth(1);
+        colorFilterBox = new QCheckBox(tab_2);
+        colorFilterBox->setObjectName(QStringLiteral("colorFilterBox"));
+        colorFilterBox->setEnabled(true);
+        colorFilterBox->setGeometry(QRect(10, 170, 120, 20));
+        colorFilterBox->setChecked(false);
         tabWidget->addTab(tab_2, QString());
 
         verticalLayout_2->addWidget(tabWidget);
@@ -390,7 +405,7 @@ public:
         MainWindow->setCentralWidget(centralWidget);
         menuBar = new QMenuBar(MainWindow);
         menuBar->setObjectName(QStringLiteral("menuBar"));
-        menuBar->setGeometry(QRect(0, 0, 713, 22));
+        menuBar->setGeometry(QRect(0, 0, 713, 26));
         menuFile = new QMenu(menuBar);
         menuFile->setObjectName(QStringLiteral("menuFile"));
         MainWindow->setMenuBar(menuBar);
@@ -445,6 +460,8 @@ public:
         zoom_In_Button->setText(QString());
         flip_Horizontally->setText(QString());
         flip_Vertically->setText(QString());
+        colorFilter->setText(QString());
+        colorFilterBox->setText(QApplication::translate("MainWindow", "Filter", 0));
         tabWidget->setTabText(tabWidget->indexOf(tab_2), QApplication::translate("MainWindow", "Tab 2", 0));
         label_2->setText(QApplication::translate("MainWindow", "Undo/Redo", 0));
         undo_button->setText(QString());

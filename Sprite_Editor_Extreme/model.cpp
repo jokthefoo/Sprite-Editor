@@ -14,6 +14,7 @@ Model::Model()
     Tool * polygonBrush = new PolygonBrush();
     Tool * selectionTool = new SelectionTool();
     currentColor = Qt::black;
+    filterColor = Qt::white;
     brushSize = 1;
     tools.push_back(brush);
     tools.push_back(eraser);
@@ -93,9 +94,18 @@ QColor Model::getColor()
     return currentColor;
 }
 
+QColor Model::getFilterColor()
+{
+    return filterColor;
+}
+
 void Model::setColor(QColor c)
 {
     currentColor = c;
+}
+
+void Model::setFilterColor(QColor c) {
+    filterColor = c;
 }
 
 Tool * Model::getCurrentTool(){

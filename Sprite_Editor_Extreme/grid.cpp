@@ -8,6 +8,7 @@ Grid::Grid()
     width = default_width;
     image = new QImage(width, height, QImage::Format_ARGB32_Premultiplied);
     image->fill(qRgba(0,0,0,0));
+    filterActive = false;
 
 }
 
@@ -20,6 +21,8 @@ Grid::Grid(const Grid& other){
     p.end();
     height=other.height;
     width=other.width;
+    filterActive = other.filterActive;
+    filterColor = other.filterColor;
 }
 
 Grid::Grid(QImage *image){
@@ -31,6 +34,7 @@ Grid::Grid(QImage *image){
     p.end();
     height=image->height();
     width=image->width();
+    filterActive = false;
 }
 
 Grid& Grid::operator=(const Grid& other)
@@ -70,6 +74,7 @@ Grid::Grid(int h,int w)
     }
     image = new QImage(width, height, QImage::Format_ARGB32);
     image->fill(Qt::transparent);
+    filterActive = false;
 }
 
 void Grid::resize(int h, int w){
@@ -236,4 +241,12 @@ Grid::~Grid()
 QColor Grid::pixelColor(int x, int y)
 {
     return QColor(image->pixel(x, y));
+}
+
+void Grid::applyFilter(QColor) {
+    // TODO
+}
+
+void Grid::removeFilter() {
+    // TODO
 }

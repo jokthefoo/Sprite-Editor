@@ -80,6 +80,7 @@ void MainWindow::setupToolTips()
     ui->add_frame_button->setToolTip("Adds a new empty frame");
     ui->delete_Frame_Button->setToolTip("Deletes the current frame");
     ui->carryOverBox->setToolTip("If checked, the next frame added will be blank. If unchecked, the next frame added will be the same as the previous");
+    ui->colorFilterBox->setToolTip("Apply the color to the entire frame");
 
     // not working : ui->actionCanvasSize_2->setToolTip("Open configuration page");
 }
@@ -95,6 +96,7 @@ void MainWindow::connectComponents(){
     QObject::connect(ui->zoom_In_Button, SIGNAL(clicked()), this, SLOT(zoomIn()));
     QObject::connect(ui->zoom_Out_Button, SIGNAL(clicked()), this, SLOT(zoomOut()));
     QObject::connect(ui->carryOverBox, SIGNAL(stateChanged(int)), this, SLOT(checkBoxChanged(int)));
+    QObject::connect(ui->colorFilterBox, SIGNAL(stateChanged(int)), this, SLOT(checkBoxChanged(int)));
 
 }
 
@@ -230,6 +232,14 @@ void MainWindow::updateColor(QColor color){
     QString temp("background-color:"+color.name());
     ui->leftColor->setStyleSheet(temp);
     ui->leftColor->update();
+}
+
+void MainWindow::updateFilterColor(QColor color){
+    QPalette p(palette());
+    p.setColor(QPalette::Foreground,color);
+    QString temp("background-color:"+color.name());
+    ui->colorFilter->setStyleSheet(temp);
+    ui->colorFilter->update();
 }
 
 void MainWindow::updateScreen(QImage * image){

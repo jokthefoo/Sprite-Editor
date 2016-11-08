@@ -54,6 +54,7 @@ public slots:
     void checkBoxChanged(int);
     void updateScreen(QImage * toShow);
     void updateColor(QColor); // left is false right is true
+    void updateFilterColor(QColor);
     void addFrameToLayout(QImage *);
     void zoomIn();
     void zoomOut();
