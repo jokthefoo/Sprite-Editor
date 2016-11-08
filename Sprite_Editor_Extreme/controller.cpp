@@ -215,9 +215,9 @@ void Controller::receiveButtonInput(QWidget * child){
     }
 }
 
+int animation_counter = 0;
 //Handles displaying the preview
 void Controller::timeoutSendImage(){
-    int animation_counter = 0;
     std::vector<Grid*> g = model->getProject()->getAllFrames();
     // might want to send a pointer of the frames so we aren't copying the vector every time.
 
