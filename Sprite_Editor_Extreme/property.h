@@ -3,8 +3,7 @@
 #include <QString>
 #include <vector>
 
-class Property
-{
+class Property{
 public:
     Property();
     Property(QString);

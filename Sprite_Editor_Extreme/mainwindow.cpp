@@ -7,8 +7,7 @@
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
-    ui(new Ui::MainWindow)
-{
+    ui(new Ui::MainWindow){
 
     ui->setupUi(this);
     ui->tabWidget->setTabText(0, "Paint");
@@ -422,6 +421,5 @@ void MainWindow::on_play_button_pressed(){
     }
     //else
         //call another slot which will pause the animation
-
 }
 

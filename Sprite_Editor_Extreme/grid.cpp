@@ -233,8 +233,7 @@ QColor Grid::pixelColor(int x, int y){
 
 // Apply a filter. Filters did not get fully implemented
 // Source: https://forum.qt.io/topic/43435/how-to-mix-two-colors-represented-by-qcolor-type/4
-static QColor blendColors(const QColor& color1, const QColor& color2, qreal ratio)
-{
+static QColor blendColors(const QColor& color1, const QColor& color2, qreal ratio){
     int r = color1.red()*(1-ratio) + color2.red()*ratio;
     int g = color1.green()*(1-ratio) + color2.green()*ratio;
     int b = color1.blue()*(1-ratio) + color2.blue()*ratio;

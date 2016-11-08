@@ -5,8 +5,7 @@
 #include <QWidget>
 #include <iostream>
 
-class ColorBox : public QLabel
-{
+class ColorBox : public QLabel{
     Q_OBJECT
 public:
     ColorBox();

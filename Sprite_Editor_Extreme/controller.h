@@ -14,8 +14,7 @@
 // following the mvc design pattern : https://en.wikipedia.org/wiki/Model-view-controller
 // The controller receives signals from the MainWindow and decides what to do about the signals.
 // Then changes the model accordingly, and tells the MainWindow what it needs to display.
-class Controller : public QObject
-{
+class Controller : public QObject{
     Q_OBJECT
 
 private:

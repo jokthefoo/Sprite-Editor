@@ -7,8 +7,7 @@
 #include <project.h>
 
 //Tool interface for all of our tools
-class Tool
-{
+class Tool{
 public:
     Tool();
     void virtual applyTool(Grid *, QPointF, QMouseEvent*,QColor, int, Project*);

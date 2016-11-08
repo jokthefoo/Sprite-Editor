@@ -29,5 +29,4 @@ std::vector<Property> ConfigurationForm::parseConfigurationForm(){
         properties.push_back(tosend);
     }
     return properties;
-
 }

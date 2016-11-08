@@ -11,8 +11,7 @@
 
 //The project represents a sprite. A sprite is a collection of grids. Also a buffer for history of all frames
 //and edits made on the sprite
-class Project
-{
+class Project{
 private:
     std::vector<Grid*> frames;
     QHash<unsigned int,QStack<Grid*>> before;

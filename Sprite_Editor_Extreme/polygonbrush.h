@@ -8,8 +8,7 @@
 
 //The polygon tool which creates a polygon by first creating points through click events
 //and then right clicking to connect the points
-class PolygonBrush : public Tool
-{
+class PolygonBrush : public Tool{
 public:
     PolygonBrush();
     ~PolygonBrush();
