@@ -5,7 +5,7 @@ FillBucket::FillBucket(){}
 FillBucket::~FillBucket(){}
 
 // The Fill Bucket tool fills in all connected pixels of the same color to a new color
-void FillBucket::applyTool(Grid * frame, QPointF mousePosition, QMouseEvent * event, QColor color,int,Project* p){
+void FillBucket::applyTool(Grid * frame, QPointF mousePosition, QMouseEvent * event, QColor color,int,Project*){
 
     if (frame->containsCoordinate(mousePosition.x(), mousePosition.y())){ // Restricts action to drawing area
         if (drawing){
@@ -23,7 +23,7 @@ void FillBucket::applyTool(Grid * frame, QPointF mousePosition, QMouseEvent * ev
             drawing = true;
 
             QRgb rgb(frame->getImage()->pixel(x,y));
-            int a = qAlpha(frame->getImage()->alphaChannel().pixel(x, y));
+            //int a = qAlpha(frame->getImage()->alphaChannel().pixel(x, y));
             QColor c(rgb);
 
             if(c.red()==0&&c.blue()==0&&c.green()==0&&c.alpha()==65535){
