@@ -30,7 +30,7 @@ class MainWindow : public QMainWindow
 
 public:
     explicit MainWindow(QWidget *parent = 0);
-    void updateEditor(QImage * image);
+    void updateEditor(QImage *image);
     PreviewWindow * getPreview();
     ~MainWindow();
 
@@ -41,6 +41,8 @@ signals:
     void sendSaveAs();
     void sendExportGif();
     void sendOpenProj(QString,QString,QString);
+    void enableDraw();
+    void disableDraw();
 
 
 public slots:
@@ -52,7 +54,7 @@ public slots:
     void openConfigurationSelected();
     void spinnerChanged(int);
     void checkBoxChanged(int);
-    void updateScreen(QImage * toShow);
+    void updateScreen(QImage *toShow);
     void updateColor(QColor); // left is false right is true
     void updateFilterColor(QColor);
     void addFrameToLayout(QImage *);
@@ -81,9 +83,9 @@ private:
     void connectComponents();
     void setupIcons();
     void setupToolTips();
-    QGraphicsRectItem * boundary; // should move this to the model
-    Ui::MainWindow * ui;
-    QGraphicsScene * scene;
+    QGraphicsRectItem *boundary; // should move this to the model
+    Ui::MainWindow *ui;
+    QGraphicsScene *scene;
 
 };
 

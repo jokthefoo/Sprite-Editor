@@ -22,6 +22,9 @@ Controller::Controller(MainWindow * w)
     QObject::connect(this, &Controller::sendActiveTool, w, &MainWindow::setActiveButton);
     QObject::connect(&timer, &QTimer::timeout, this, &Controller::timeoutSendImage);
     QObject::connect(this, &Controller::sendDeleteFrame, w, &MainWindow::deleteFrame);
+    QObject::connect(w, &MainWindow::enableDraw, this, &Controller::enableDraw);
+    QObject::connect(w, &MainWindow::disableDraw, this, &Controller::disableDraw);
+
 
 
     //send the initial state the to the view
@@ -114,6 +117,16 @@ void Controller::sendAllFrame()
     }
     emit sendFrames(frames, model->getProject()->getWorkingFrame());
 }
+
+void::Controller::disableDraw(){
+    this->allowDrawing = false;
+
+}
+
+void::Controller::enableDraw(){
+    this->allowDrawing = true;
+}
+
 
 void Controller::receiveSaveAs()
 {

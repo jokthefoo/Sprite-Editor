@@ -11,7 +11,7 @@ class Tool
 public:
     Tool();
     void virtual applyTool(Grid *, QPointF, QMouseEvent*,QColor, int, Project*);
-   ~Tool();
+    virtual ~Tool();
     std::atomic_bool drawing;
 private:
 
