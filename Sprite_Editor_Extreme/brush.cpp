@@ -22,9 +22,10 @@ void Brush::applyTool(Grid * frame, QPointF mousePosition, QMouseEvent * event, 
         {
               frame->drawLinePixels(lastPoint,mousePosition,color,brushSize);
               lastPoint = mousePosition;
-        }else if(drawing && event->type() == QEvent::MouseButtonRelease)
-        {
-            drawing = false;
         }
-  }
+    }
+    if(drawing && event->type() == QEvent::MouseButtonRelease)
+    {
+        drawing = false;
+    }
 }

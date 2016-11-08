@@ -313,10 +313,6 @@ void Controller::decodeAction(QString n){
     }else if(name == "redo_button"){
         model->getProject()->redo();
     }
-    else if(name == "selectbutton"){
-        model->changeTool(4);
-        emit sendActiveTool(4);
-    }
     emit sendImage(model->getProject()->getCurrentFrame()->getImage());
     sendAllFrame();
     return;

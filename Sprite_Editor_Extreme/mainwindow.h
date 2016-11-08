@@ -63,9 +63,6 @@ public slots:
     void setActiveButton(unsigned int);
     void deleteFrame(unsigned int);
 
-
-    // void updatePreview(std::vector<Grid>);
-
 protected:
     bool eventFilter(QObject *watched, QEvent *event);
 
