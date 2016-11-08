@@ -3,7 +3,6 @@
 #include <eraser.h>
 #include <fillbucket.h>
 #include <polygonbrush.h>
-#include <selectionTool.h>
 
 
 //This class represents the project as a collection of frames and holds all configuration settings for the
@@ -39,8 +38,7 @@ Model& Model::operator=(const Model& other){
 }
 
 //custom swap method
-void Model::swap(Model& other)
-{
+void Model::swap(Model& other){
     std::swap(currentTool,other.currentTool);
     std::swap(tools,other.tools);
     std::swap(project,other.project);
