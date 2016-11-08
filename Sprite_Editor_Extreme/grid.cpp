@@ -56,7 +56,7 @@ void swap(Grid& first, Grid& second){
 }
 
 // Grid constructor where you can specify height and width
-Grid::Grid(int h,int w){
+Grid::Grid(int w,int h){
     if(h < 1 || h > 1080)
     {
         height = default_height;
@@ -79,10 +79,10 @@ Grid::Grid(int h,int w){
 }
 
 // Allows you to resize a grid
-void Grid::resize(int h, int w){
+void Grid::resize(int w, int h){
     height=h;
     width=w;
-    QImage newImage(h,w,QImage::Format_ARGB32);
+    QImage newImage(w,h,QImage::Format_ARGB32);
     newImage.fill(QColor(0,0,0,0));
     QPainter painter(&newImage);
     painter.drawImage(0,0,*image);
