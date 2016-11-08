@@ -1,5 +1,6 @@
 #include "grid.h"
 
+// Default constructor
 Grid::Grid(){
     height = default_height;
     width = default_width;
@@ -8,6 +9,7 @@ Grid::Grid(){
     filterActive = false;
 }
 
+// Constructor based off exsisting grid
 Grid::Grid(const Grid& other){
     image = new QImage(other.image->size(),QImage::Format_ARGB32_Premultiplied);
     image->fill(qRgba(0,0,0,0));
@@ -21,6 +23,7 @@ Grid::Grid(const Grid& other){
     filterColor = other.filterColor;
 }
 
+// Construct a grid with a given QImage
 Grid::Grid(QImage *image){
     this->image = new QImage(image->size(),QImage::Format_ARGB32_Premultiplied);
     this->image->fill(qRgba(0,0,0,0));
@@ -33,22 +36,26 @@ Grid::Grid(QImage *image){
     filterActive = false;
 }
 
+// Grid copy swap idiom
 Grid& Grid::operator=(const Grid& other){
     Grid temp(other);
     this->swap(temp);
     return *this;
 }
 
+// Grid copy swap idiom
 void Grid::swap(Grid& other){
     this->image->swap(*(other.image));
     std::swap(height,other.height);
     std::swap(width,other.width);
 }
 
+// Grid copy swap idiom
 void swap(Grid& first, Grid& second){
     first.swap(second);
 }
 
+// Grid constructor where you can specify height and width
 Grid::Grid(int h,int w){
     if(h < 1 || h > 1080)
     {
@@ -71,6 +78,7 @@ Grid::Grid(int h,int w){
     filterActive = false;
 }
 
+// Allows you to resize a grid
 void Grid::resize(int h, int w){
     height=h;
     width=w;
@@ -82,17 +90,19 @@ void Grid::resize(int h, int w){
     *image = newImage;
 }
 
+// Return the grid's QImage
 QImage* Grid::getImage(){
     return image;
 }
 
-
+// Rotate a grid
 void Grid::rotateImage(int degrees){
     QTransform trans;
     trans.rotate(degrees);
     *image = image->transformed(trans);
 }
 
+// Flip a grid
 void Grid::flipImage(QString horOrVert){
     if(horOrVert == "hor"){
         *image = image->mirrored(true,false);
@@ -101,6 +111,7 @@ void Grid::flipImage(QString horOrVert){
     }
 }
 
+// Set the color of a specific grid
 void Grid::setPixelColor(int x,int y,QColor color, int brushSize){
     QPainter painter;
     QPen pen;
@@ -119,6 +130,7 @@ void Grid::setPixelColor(int x,int y,QColor color, int brushSize){
 
 }
 
+// Set the color of a line of pixels
 void Grid::drawLinePixels(QPointF lastPoint,QPointF endPoint,QColor color, int brushSize){
     QPainter painter;
     QPen pen;
@@ -137,6 +149,7 @@ void Grid::drawLinePixels(QPointF lastPoint,QPointF endPoint,QColor color, int b
 
 }
 
+// Draw a polygon based on a series of points
 void Grid::drawPolygon(const QPointF* points, int pointCount, QColor color, int brushSize){
     QPainter painter;
     QPen pen;
@@ -147,10 +160,12 @@ void Grid::drawPolygon(const QPointF* points, int pointCount, QColor color, int 
     painter.drawPolygon(points,pointCount);
 }
 
+// Check if the grid contains the point
 bool Grid::containsCoordinate(int x, int y){ // uses cartesian coordinates from top left
      return (x <= width&&y<=height);
 }
 
+// Get a grid from a string loaded in
 void Grid::fromString(QString frame){
     QStringList pixels;
     QRegularExpression re("\\d+ \\d+ \\d+ \\d+ "); // Match the 4 values of a pixel - rgba
@@ -170,6 +185,7 @@ void Grid::fromString(QString frame){
     }
 }
 
+// Get a color from a string of rgba values
 QColor Grid::fromRgba(QString color){
     QStringList values;
     values = color.split(QRegularExpression("\\s+")); // Values are seperated by a space
@@ -187,12 +203,13 @@ QColor Grid::fromRgba(QString color){
     return QColor (r,g,b,a);
 }
 
+// Convert a grid to a string for saving
 QString Grid::toString(){
     QString formatted;
     for(int y = 0; y < height; ++y){
         for(int x = 0; x < width; ++x){
-            QColor color = pixelColor(x, y);
-            formatted += toRgba(color);
+             QColor color = pixelColor(x, y);
+             formatted += toRgba(color);
         }
         formatted += "\n"; // Puts a row of pixels on one line
     }
@@ -204,13 +221,17 @@ QString Grid::toRgba(QColor color){
     return QString::number(color.red())+ " " + QString::number((color.green())) + " " + QString::number(color.blue()) + " " + QString::number(color.alpha()) + " ";
 }
 
+// Destructor
 Grid::~Grid(){
    delete image;
 }
 
+// Get the color of a specific pixel
 QColor Grid::pixelColor(int x, int y){
     return image->pixelColor(x, y);
 }
+
+// Apply a filter
 
 void Grid::applyFilter(QColor color) {
     if (!filterActive) {
@@ -241,6 +262,7 @@ void Grid::applyFilter(QColor color) {
     }
 }
 
+// Remove a filter
 void Grid::removeFilter() {
     if (filterActive) {
         for (int i = 0; i < image->width(); i++) {

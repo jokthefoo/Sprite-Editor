@@ -28,6 +28,8 @@ public:
     QColor fromRgba(QString); // Get a color from a string
     QImage *getImage(); // Returns the Grids QImage
     QColor pixelColor(int, int); // Get the color of a specific pixel
+    QColor getPixelColor(int, int); // Get the color of a specific pixel
+
     QString toString(); // Get the grid's pixels formatted into a string for saving
     QString toRgba(QColor); // Convert a color to string format
 

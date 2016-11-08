@@ -184,20 +184,25 @@ void Controller::receiveButtonInput(QWidget * child){
         QString str = label->objectName();
         int x =  QString::compare(str, "leftColor", Qt::CaseInsensitive);
         if(x == 0){
-            allowDrawing = false;
+            this->disableDraw();
+            int oldbrush = model->getBrushSize();
             QColor c = QColorDialog::getColor(Qt::white);
-            allowDrawing = true;
-            if (c.isValid()){
+            model->setBrushSize(oldbrush);
+            this->enableDraw();
+            if (c.isValid())
+            {
                 model->setColor(c);
                 emit sendColor(model->getColor());
+                return;
             }
         }
         x =  QString::compare(str, "colorFilter", Qt::CaseInsensitive);
         if(x == 0){
-            allowDrawing = false;
+            this->disableDraw();
             QColor c = QColorDialog::getColor(Qt::white);
-            allowDrawing = true;
-            if (c.isValid()){
+            this->enableDraw();
+            if (c.isValid())
+            {
                 model->setFilterColor(c);
                 emit sendFilterColor(model->getFilterColor());
             }
