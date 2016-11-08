@@ -157,7 +157,7 @@ void Project::redo(){
 
 //clear out this project, deletes all data
 void Project::clear(){
-     for(int i  = 0; i < workingframe; i++){
+     for(unsigned int i  = 0; i < workingframe; i++){
           while(before[i].size()>0) delete before[i].pop();
           while(after[i].size()>0) delete after[i].pop();
           frames.clear();

@@ -191,8 +191,8 @@ QString Grid::toString(){
     QString formatted;
     for(int y = 0; y < height; ++y){
         for(int x = 0; x < width; ++x){
-            QColor color = this->pixelColor(x, y);
-            formatted += toRgba(color);
+             QColor color = pixelColor(x, y);
+             formatted += toRgba(color);
         }
         formatted += "\n"; // Puts a row of pixels on one line
     }

@@ -76,6 +76,9 @@ void MainWindow::setupToolTips()
     ui->tabWidget->setTabToolTip(0, "Painting Tools");
     ui->tabWidget->setTabToolTip(1, "Transformation tools");
     ui->leftColor->setToolTip("Set color of brush");
+    ui->rectangle_button->setToolTip("Left click to add corners of the polygon, right click to have the polygon drawn.");
+    ui->undo_button->setToolTip("Undo");
+    ui->redo_button->setToolTip("Redo");
     ui->next_frame_button->setToolTip("Next frame");
     ui->previous_frame_button->setToolTip("Previous frame");
     ui->play_button->setToolTip("Sprite Preview");

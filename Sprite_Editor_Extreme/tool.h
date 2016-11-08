@@ -6,6 +6,7 @@
 #include <QMouseEvent>
 #include <project.h>
 
+//Tool interface for all of our tools
 class Tool
 {
 public:

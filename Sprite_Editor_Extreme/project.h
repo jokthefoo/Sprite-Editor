@@ -9,7 +9,8 @@
 #include <vector>
 #include <grid.h>
 
-
+//The project represents a sprite. A sprite is a collection of grids. Also a buffer for history of all frames
+//and edits made on the sprite
 class Project
 {
 private:

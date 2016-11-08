@@ -39,45 +39,41 @@ Controller::~Controller(){
     delete model;
 }
 
-void Controller::receiveExport()
-{
+// Handles exporting a GIF
+void Controller::receiveExport(){
     std::vector<QImage> frames;
     std::vector<Grid*> temp = model->getProject()->getAllFrames();
-    for(std::vector<Grid*>::iterator it = temp.begin(); it != temp.end(); ++it)
-    {
+    for(std::vector<Grid*>::iterator it = temp.begin(); it != temp.end(); ++it){
         Grid * g = *it;
         frames.push_back(*(g->getImage()));
     }
     emit sendFramesForExport(frames);
 }
 
-void Controller::receiveOpenProj(QString heightWidth, QString numFrames, QString frames)
-{
+// Handles opening a project
+void Controller::receiveOpenProj(QString heightWidth, QString numFrames, QString frames){
     QStringList list;
     list = heightWidth.split(QRegularExpression("\\s+"));
-    int h = list.takeFirst().toInt();
-    int w = list.takeLast().toInt();
+    int height = list.takeFirst().toInt();
+    int width = list.takeLast().toInt();
 
     Project pro;
     *model->getProject()=pro;
 
     QStringList pixels;
     int parse = numFrames.toInt();
-    QRegularExpression re("\\d+ \\d+ \\d+ \\d+ ");
+    QRegularExpression re("\\d+ \\d+ \\d+ \\d+ "); // Regex to parse all the pixels
     QRegularExpressionMatchIterator regIt = re.globalMatch(frames);
-    while(regIt.hasNext())
-    {
+    while(regIt.hasNext()){
         QRegularExpressionMatch match = regIt.next();
         pixels.append(match.capturedTexts());
     }
 
     QStringList frameList;
     QString currFrame;
-    QStringList::iterator listIt = pixels.begin();
-    for(int z = 0; z < parse; z++)
-    {
-        for(int i = 0; i < (h*w); i++)
-        {
+    QStringList::iterator listIt = pixels.begin(); // Add correct number of pixels to a frame
+    for(int z = 0; z < parse; z++){
+        for(int i = 0; i < (height*width); i++){
             currFrame += *listIt;
             listIt++;
         }
@@ -85,17 +81,17 @@ void Controller::receiveOpenProj(QString heightWidth, QString numFrames, QString
         currFrame = "";
     }
 
-    model->getProject()->setCanvasSize(h,w);
+    model->getProject()->setCanvasSize(height,width);
     listIt = frameList.begin();
-    for(int i = 0; i < parse; i++){
-        Grid * grid = new Grid(h,w);
+    for(int i = 0; i < parse; i++){ // Create the frames
+        Grid * grid = new Grid(height,width);
         grid->fromString(*listIt);
         listIt++;
         model->getProject()->addNewFrame(grid);
         emit sendNewFrame(grid->getImage());
     }
-    model->getProject()->removeFrame(0);
-    model->getProject()->changeFrame(0);
+    model->getProject()->removeFrame(0); // Remove temp frame
+    model->getProject()->changeFrame(0); // Set default frame back to 0
     emit sendImage(model->getProject()->getCurrentFrame()->getImage());
     emit sendColor(model->getColor());
     emit sendFilterColor(model->getFilterColor());
@@ -103,33 +99,33 @@ void Controller::receiveOpenProj(QString heightWidth, QString numFrames, QString
     sendAllFrame();
 }
 
-void Controller::sendAllFrame()
-{
+// Sends all the frames to the display
+void Controller::sendAllFrame(){
     std::vector<QImage> frames;
     std::vector<Grid*> temp = model->getProject()->getAllFrames();
-    for(std::vector<Grid*>::iterator it = temp.begin(); it != temp.end(); ++it)
-    {
+    for(std::vector<Grid*>::iterator it = temp.begin(); it != temp.end(); ++it){
         Grid * g = *it;
         frames.push_back(*(g->getImage()));
     }
     emit sendFrames(frames, model->getProject()->getWorkingFrame());
 }
 
+// Disables drawing
 void::Controller::disableDraw(){
     this->allowDrawing = false;
-
 }
 
+// Enables drawing
 void::Controller::enableDraw(){
     this->allowDrawing = true;
 }
 
-
-void Controller::receiveSaveAs()
-{
+// Handles when a save is attempted
+void Controller::receiveSaveAs(){
     emit saveAs(model->getProject()->toString());
 }
 
+// Handles when a property is changed
 void Controller::receivePropertyChange(Property p){
     if(p.values.size()>0){
         if(p.name.toStdString().compare("brushSize")==0){
@@ -145,7 +141,7 @@ void Controller::receivePropertyChange(Property p){
         if (p.name.toStdString().compare("carryOverBox") == 0) {
             if (p.values.front() == 0) {
                 addBlankFrame = false;
-            } else if (p.values.front() == 2) {
+            }else if (p.values.front() == 2) {
                 addBlankFrame = true;
             }
         }
@@ -155,7 +151,7 @@ void Controller::receivePropertyChange(Property p){
                     model->getProject()->getCurrentFrame()->removeFilter();
                     emit sendImage(model->getProject()->getCurrentFrame()->getImage());
                     sendAllFrame();
-                } else if (p.values.front() == 2) {
+                }else if (p.values.front() == 2) {
                     model->getProject()->getCurrentFrame()->applyFilter(model->getFilterColor());
                     emit sendImage(model->getProject()->getCurrentFrame()->getImage());
                     sendAllFrame();
@@ -165,10 +161,9 @@ void Controller::receivePropertyChange(Property p){
     }
 }
 
-void Controller::receiveMouseInput(QPointF point, QMouseEvent *event)
-{
-    if (allowDrawing)
-    {
+// Handles mouse input
+void Controller::receiveMouseInput(QPointF point, QMouseEvent *event){
+    if (allowDrawing){
         if(model->getCurrentTool()!=nullptr){
             if(model->getProject()!=nullptr){
                 Tool * tool = model->getCurrentTool();
@@ -182,10 +177,8 @@ void Controller::receiveMouseInput(QPointF point, QMouseEvent *event)
     }
 }
 
-// decode buttons here
-void Controller::receiveButtonInput(QWidget * child)
-{
-
+// Decode buttons here
+void Controller::receiveButtonInput(QWidget * child){
     QLabel * label = dynamic_cast<QLabel*>(child); // type check the input
     if(label!=NULL){
         QString str = label->objectName();
@@ -203,7 +196,6 @@ void Controller::receiveButtonInput(QWidget * child)
                 return;
             }
         }
-
         x =  QString::compare(str, "colorFilter", Qt::CaseInsensitive);
         if(x == 0){
             this->disableDraw();
@@ -215,18 +207,17 @@ void Controller::receiveButtonInput(QWidget * child)
                 emit sendFilterColor(model->getFilterColor());
             }
         }
-
         return;
     }
-
     QToolButton * button = dynamic_cast<QToolButton*>(child);
     if(button!=NULL){// there's a generic way to do this
         decodeAction(button->objectName());
     }
 }
 
-int animation_counter = 0;
+//Handles displaying the preview
 void Controller::timeoutSendImage(){
+    int animation_counter = 0;
     std::vector<Grid*> g = model->getProject()->getAllFrames();
     // might want to send a pointer of the frames so we aren't copying the vector every time.
 
@@ -243,70 +234,46 @@ void Controller::timeoutSendImage(){
 //decode buttons here:
 void Controller::decodeAction(QString n){
     std::string name = n.toStdString();
-    if(name == "rotate_Right_Button")
-    {
+
+    if(name == "rotate_Right_Button"){
         model->getProject()->addEdit();
         model->rotateImage(90);
-    }
-    else if(name  == "rotate_Left_Button")
-    {
+    }else if(name  == "rotate_Left_Button"){
         model->getProject()->addEdit();
         model->rotateImage(-90);
-    }
-    else if(name  == "flip_Horizontally")
-    {
+    }else if(name  == "flip_Horizontally"){
         model->getProject()->addEdit();
         model->getProject()->getCurrentFrame()->flipImage("hor");
-    }
-    else if(name  == "flip_Vertically")
-    {
+    }else if(name  == "flip_Vertically"){
         model->getProject()->addEdit();
         model->getProject()->getCurrentFrame()->flipImage("vert");
-    }
-    else if(name == "brush_Button")
-    {
+    }else if(name == "brush_Button"){
         model->changeTool(0);
         emit sendActiveTool(0);
-    }
-    else if (name == "eraser_Button")
-    {
+    }else if (name == "eraser_Button"){
         model->changeTool(1);
         emit sendActiveTool(1);
-    }
-    else if (name == "fill_Bucket_Button")
-    {
+    }else if (name == "fill_Bucket_Button"){
         model->changeTool(2);
         emit sendActiveTool(2);
-    }
-    else if (name == "rectangle_button")
-    {
+    }else if (name == "rectangle_button"){
         model->changeTool(3);
         emit sendActiveTool(3);
-    }
-    else if( name == "play_button"){
+    }else if( name == "play_button"){
         timer.start(100);
-    }
-    else if( name == "next_frame_button")
-    {
+    }else if( name == "next_frame_button"){
         model->getProject()->next();
-    }
-    else if( name == "previous_frame_button")
-    {
+    }else if( name == "previous_frame_button"){
         model->getProject()->previous();
-    }
-    else if(name == "add_frame_button")
-    {
-        if (addBlankFrame) {
+    }else if(name == "add_frame_button"){
+        if (addBlankFrame){
             model->getProject()->addEmptyFrame();
-        } else {
+        }else{
             model->getProject()->carryOverNewFrame(*(model->getProject()->getCurrentFrame()));
         }
         emit sendNewFrame(model->getProject()->getCurrentFrame()->getImage());
-    }
-    else if(name == "delete_Frame_Button")
-    {
-        if(model->getProject()->getAllFrames().size() > 1)
-        {
+    }else if(name == "delete_Frame_Button"){
+        if(model->getProject()->getAllFrames().size() > 1){
             emit sendDeleteFrame(model->getProject()->getWorkingFrame());
             model->getProject()->deleteCurrentFrame();
         }
