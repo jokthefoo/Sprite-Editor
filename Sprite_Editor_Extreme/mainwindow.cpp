@@ -203,13 +203,11 @@ void MainWindow::sendConfigurationInput(){
     }
 }
 
-
-
 void MainWindow::updateColor(QColor color){
     QPalette p(palette());
     p.setColor(QPalette::Foreground,color);
-    QString temp("color:"+color.name());
-
+    QString temp("background-color:"+color.name());
+    ui->leftColor->setStyleSheet(temp);
     ui->leftColor->setStyleSheet(temp+"; border: 1px solid black");
     ui->leftColor->update();
 }
