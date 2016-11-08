@@ -8,6 +8,4 @@ void Property::addValue(int value){
     values.push_back(value);
 }
 
-Property::~Property(){
-
-}
+Property::~Property(){}
