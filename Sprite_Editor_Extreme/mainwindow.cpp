@@ -93,6 +93,8 @@ void MainWindow::connectComponents(){
     QObject::connect(ui->brushSize, SIGNAL(valueChanged(int)),this, SLOT(spinnerChanged(int)));
     QObject::connect(ui->actionCanvasSize_2, SIGNAL(triggered()), this, SLOT(openConfigurationSelected()));
     QObject::connect(&configuration, SIGNAL(accepted()), this, SLOT(sendConfigurationInput()));
+    QObject::connect(&configuration, SIGNAL(rejected()), this, SLOT(sendConfigurationInput()));
+    QObject::connect(&configuration, SIGNAL(destroyed()), this, SLOT(sendConfigurationInput()));
     QObject::connect(ui->actionSave_as, SIGNAL(triggered()), this, SLOT(sendSaveAsSig()));
     QObject::connect(ui->actionOpen_project, SIGNAL(triggered()), this, SLOT(openProj()));
     QObject::connect(ui->actionExportToGif, SIGNAL(triggered()), this, SLOT(exportToGifSig()));
@@ -130,7 +132,9 @@ void MainWindow::zoomOut()
 void MainWindow::openProj()
 {
 
+    emit disableDraw();
     QString filename = QFileDialog::getOpenFileName(this, "Open file", "", "Sprite Sheet Project File (*.spp)");
+    emit enableDraw();
     if(filename != NULL)
     {
         QFile file(filename);
@@ -168,7 +172,9 @@ void MainWindow::sendSaveAsSig()
 //saves the file to the specified filename
 void MainWindow::saveAsSelected(QString fileInfo)
 {
+    emit disableDraw();
     QString filename = QFileDialog::getSaveFileName(this, "Save file", "", "Sprite Sheet Project File (*.spp)");
+    emit enableDraw();
     if(filename != NULL)
     {
         QFile file(filename);
@@ -189,7 +195,9 @@ void MainWindow::exportToGifSig()
 void MainWindow::exportGif(std::vector<QImage> frameList)
 {
     GifWriter *gifWriter = new GifWriter(); // leaking memory ?
+    emit disableDraw();
     QString filename = QFileDialog::getSaveFileName(this, "Save gif", "", "Sprite Gif File (*.gif)");
+    emit enableDraw();
     GifBegin(gifWriter,filename.toLatin1().constData(),frameList[0].width(),frameList[0].height(),5);
     QImage image;
     for(unsigned int i = 0; i < frameList.size(); i++)
@@ -235,6 +243,10 @@ void MainWindow::sendConfigurationInput(){
     std::vector<Property>::iterator i;
     for(i = parse.begin(); i != parse.end(); i++){
         emit sendPropertyChange(*i);
+    }
+
+    if(configuration.isHidden()){
+        emit enableDraw();
     }
 }
 
@@ -308,16 +320,15 @@ void MainWindow::deleteFrame(unsigned int frameToDelete){
 }
 
 //capture and filter input from the application
-bool MainWindow::eventFilter(QObject* obj, QEvent *event){
+bool MainWindow::eventFilter(QObject*, QEvent *event){
 
-        if(configuration.isHidden()){
-            emit enableDraw();
-        }
         //this will get all the input for every button
         if(event->type()==QEvent::MouseButtonPress){
+
             QWidget * child = childAt(static_cast<QMouseEvent *>(event)->pos());
             QLabel* label = dynamic_cast<QLabel*>(child); // type check the input
             QToolButton* button = dynamic_cast<QToolButton*>(child);
+
             if(label!=NULL||button!=NULL) {
                 if(button!=NULL){
                     button->animateClick();
@@ -330,6 +341,7 @@ bool MainWindow::eventFilter(QObject* obj, QEvent *event){
             QPoint remapped = ui->graphicsView->mapFromGlobal(QCursor::pos()); // gives coordinates relative to parent
             QPointF  mousePoint = ui->graphicsView->mapToScene(remapped); // converts to cartesian coordinates
             if(ui->graphicsView->rect().contains(remapped)){
+
                  emit sendMouseInput(mousePoint, static_cast<QMouseEvent*>(event));
 
             }
