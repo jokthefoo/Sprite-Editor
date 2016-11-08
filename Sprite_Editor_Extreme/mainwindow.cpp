@@ -283,7 +283,7 @@ void MainWindow::updateFilterColor(QColor color){
 //update the screen graphics
 void MainWindow::updateScreen(QImage *image){
     ui->graphicsView->scene()->clear();
-    boundary =  new QGraphicsRectItem(-0.5,-0.5, image->height()+1, image->width()+1);
+    boundary =  new QGraphicsRectItem(-0.5,-0.5, image->width()+1, image->height()+1);
     ui->graphicsView->scene()->addItem(boundary);
 
     QPainter p(image);

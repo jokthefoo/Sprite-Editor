@@ -81,10 +81,10 @@ void Controller::receiveOpenProj(QString heightWidth, QString numFrames, QString
         currFrame = "";
     }
 
-    model->getProject()->setCanvasSize(height,width);
+    model->getProject()->setCanvasSize(width,height);
     listIt = frameList.begin();
     for(int i = 0; i < parse; i++){ // Create the frames
-        Grid * grid = new Grid(height,width);
+        Grid * grid = new Grid(width,height);
         grid->fromString(*listIt);
         listIt++;
         model->getProject()->addNewFrame(grid);
