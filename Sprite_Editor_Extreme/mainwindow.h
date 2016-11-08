@@ -41,6 +41,8 @@ signals:
     void sendSaveAs();
     void sendExportGif();
     void sendOpenProj(QString,QString,QString);
+    void enableDraw();
+    void disableDraw();
 
 
 public slots:

@@ -119,6 +119,11 @@ public:
         verticalLayout->setObjectName(QStringLiteral("verticalLayout"));
         graphicsView = new QGraphicsView(centralWidget);
         graphicsView->setObjectName(QStringLiteral("graphicsView"));
+        QSizePolicy sizePolicy1(QSizePolicy::Expanding, QSizePolicy::Expanding);
+        sizePolicy1.setHorizontalStretch(89);
+        sizePolicy1.setVerticalStretch(200);
+        sizePolicy1.setHeightForWidth(graphicsView->sizePolicy().hasHeightForWidth());
+        graphicsView->setSizePolicy(sizePolicy1);
 
         verticalLayout->addWidget(graphicsView);
 
@@ -140,38 +145,38 @@ public:
 
         previous_frame_button = new QToolButton(centralWidget);
         previous_frame_button->setObjectName(QStringLiteral("previous_frame_button"));
-        QSizePolicy sizePolicy1(QSizePolicy::Fixed, QSizePolicy::Fixed);
-        sizePolicy1.setHorizontalStretch(0);
-        sizePolicy1.setVerticalStretch(0);
-        sizePolicy1.setHeightForWidth(previous_frame_button->sizePolicy().hasHeightForWidth());
-        previous_frame_button->setSizePolicy(sizePolicy1);
+        QSizePolicy sizePolicy2(QSizePolicy::Fixed, QSizePolicy::Fixed);
+        sizePolicy2.setHorizontalStretch(0);
+        sizePolicy2.setVerticalStretch(0);
+        sizePolicy2.setHeightForWidth(previous_frame_button->sizePolicy().hasHeightForWidth());
+        previous_frame_button->setSizePolicy(sizePolicy2);
         previous_frame_button->setMinimumSize(QSize(90, 30));
 
         horizontalLayout->addWidget(previous_frame_button);
 
         play_button = new QToolButton(centralWidget);
         play_button->setObjectName(QStringLiteral("play_button"));
-        sizePolicy1.setHeightForWidth(play_button->sizePolicy().hasHeightForWidth());
-        play_button->setSizePolicy(sizePolicy1);
+        sizePolicy2.setHeightForWidth(play_button->sizePolicy().hasHeightForWidth());
+        play_button->setSizePolicy(sizePolicy2);
         play_button->setMinimumSize(QSize(90, 40));
 
         horizontalLayout->addWidget(play_button);
 
         next_frame_button = new QToolButton(centralWidget);
         next_frame_button->setObjectName(QStringLiteral("next_frame_button"));
-        sizePolicy1.setHeightForWidth(next_frame_button->sizePolicy().hasHeightForWidth());
-        next_frame_button->setSizePolicy(sizePolicy1);
+        sizePolicy2.setHeightForWidth(next_frame_button->sizePolicy().hasHeightForWidth());
+        next_frame_button->setSizePolicy(sizePolicy2);
         next_frame_button->setMinimumSize(QSize(90, 30));
 
         horizontalLayout->addWidget(next_frame_button);
 
         add_frame_button = new QToolButton(centralWidget);
         add_frame_button->setObjectName(QStringLiteral("add_frame_button"));
-        QSizePolicy sizePolicy2(QSizePolicy::Fixed, QSizePolicy::Fixed);
-        sizePolicy2.setHorizontalStretch(90);
-        sizePolicy2.setVerticalStretch(20);
-        sizePolicy2.setHeightForWidth(add_frame_button->sizePolicy().hasHeightForWidth());
-        add_frame_button->setSizePolicy(sizePolicy2);
+        QSizePolicy sizePolicy3(QSizePolicy::Fixed, QSizePolicy::Fixed);
+        sizePolicy3.setHorizontalStretch(90);
+        sizePolicy3.setVerticalStretch(20);
+        sizePolicy3.setHeightForWidth(add_frame_button->sizePolicy().hasHeightForWidth());
+        add_frame_button->setSizePolicy(sizePolicy3);
         add_frame_button->setMinimumSize(QSize(90, 25));
 
         horizontalLayout->addWidget(add_frame_button);
@@ -192,7 +197,7 @@ public:
         scrollArea->setWidgetResizable(true);
         scrollAreaWidgetContents_2 = new QWidget();
         scrollAreaWidgetContents_2->setObjectName(QStringLiteral("scrollAreaWidgetContents_2"));
-        scrollAreaWidgetContents_2->setGeometry(QRect(0, 0, 554, 68));
+        scrollAreaWidgetContents_2->setGeometry(QRect(0, 0, 480, 68));
         horizontalLayoutWidget = new QWidget(scrollAreaWidgetContents_2);
         horizontalLayoutWidget->setObjectName(QStringLiteral("horizontalLayoutWidget"));
         horizontalLayoutWidget->setGeometry(QRect(0, 0, 551, 61));
@@ -220,10 +225,11 @@ public:
         verticalLayout_2 = new QVBoxLayout();
         verticalLayout_2->setSpacing(6);
         verticalLayout_2->setObjectName(QStringLiteral("verticalLayout_2"));
+        verticalLayout_2->setSizeConstraint(QLayout::SetDefaultConstraint);
         tabWidget = new QTabWidget(centralWidget);
         tabWidget->setObjectName(QStringLiteral("tabWidget"));
-        sizePolicy1.setHeightForWidth(tabWidget->sizePolicy().hasHeightForWidth());
-        tabWidget->setSizePolicy(sizePolicy1);
+        sizePolicy2.setHeightForWidth(tabWidget->sizePolicy().hasHeightForWidth());
+        tabWidget->setSizePolicy(sizePolicy2);
         tabWidget->setMinimumSize(QSize(120, 300));
         tabWidget->setTabPosition(QTabWidget::West);
         tab = new QWidget();
@@ -335,7 +341,7 @@ public:
 
         verticalLayout_2->addWidget(tabWidget);
 
-        verticalSpacer = new QSpacerItem(20, 40, QSizePolicy::Minimum, QSizePolicy::Expanding);
+        verticalSpacer = new QSpacerItem(20, 40, QSizePolicy::Minimum, QSizePolicy::MinimumExpanding);
 
         verticalLayout_2->addItem(verticalSpacer);
 
@@ -349,22 +355,24 @@ public:
         horizontalLayout_2->setObjectName(QStringLiteral("horizontalLayout_2"));
         undo_button = new QToolButton(centralWidget);
         undo_button->setObjectName(QStringLiteral("undo_button"));
-        sizePolicy1.setHeightForWidth(undo_button->sizePolicy().hasHeightForWidth());
-        undo_button->setSizePolicy(sizePolicy1);
-        undo_button->setMinimumSize(QSize(30, 30));
+        sizePolicy2.setHeightForWidth(undo_button->sizePolicy().hasHeightForWidth());
+        undo_button->setSizePolicy(sizePolicy2);
+        undo_button->setMinimumSize(QSize(70, 70));
+        undo_button->setMaximumSize(QSize(70, 70));
         undo_button->setAutoFillBackground(false);
 
         horizontalLayout_2->addWidget(undo_button);
 
-        horizontalSpacer = new QSpacerItem(40, 20, QSizePolicy::Expanding, QSizePolicy::Minimum);
+        horizontalSpacer = new QSpacerItem(40, 20, QSizePolicy::Fixed, QSizePolicy::Minimum);
 
         horizontalLayout_2->addItem(horizontalSpacer);
 
         redo_button = new QToolButton(centralWidget);
         redo_button->setObjectName(QStringLiteral("redo_button"));
-        sizePolicy1.setHeightForWidth(redo_button->sizePolicy().hasHeightForWidth());
-        redo_button->setSizePolicy(sizePolicy1);
-        redo_button->setMinimumSize(QSize(30, 30));
+        sizePolicy2.setHeightForWidth(redo_button->sizePolicy().hasHeightForWidth());
+        redo_button->setSizePolicy(sizePolicy2);
+        redo_button->setMinimumSize(QSize(70, 70));
+        redo_button->setMaximumSize(QSize(70, 70));
         redo_button->setAutoFillBackground(false);
 
         horizontalLayout_2->addWidget(redo_button);
@@ -390,7 +398,7 @@ public:
         MainWindow->setCentralWidget(centralWidget);
         menuBar = new QMenuBar(MainWindow);
         menuBar->setObjectName(QStringLiteral("menuBar"));
-        menuBar->setGeometry(QRect(0, 0, 713, 22));
+        menuBar->setGeometry(QRect(0, 0, 713, 19));
         menuFile = new QMenu(menuBar);
         menuFile->setObjectName(QStringLiteral("menuFile"));
         MainWindow->setMenuBar(menuBar);

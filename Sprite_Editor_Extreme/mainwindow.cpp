@@ -191,8 +191,10 @@ void MainWindow::exportGif(std::vector<QImage> frameList)
 }
 
 void MainWindow::openConfigurationSelected(){
-     this->configuration.show();
-     this->configuration.raise();
+
+    this->configuration.show();
+    this->configuration.raise();
+    emit disableDraw();
 
 }
 
@@ -214,6 +216,7 @@ void MainWindow::checkBoxChanged(int value)
 }
 
 void MainWindow::sendConfigurationInput(){
+    emit enableDraw();
     ConfigurationForm * form = static_cast<ConfigurationForm*>(QObject::sender());
     std::vector<Property> parse = form->parseConfigurationForm();
     std::vector<Property>::iterator i;
@@ -287,6 +290,11 @@ void MainWindow::deleteFrame(unsigned int frameToDelete)
 
 bool MainWindow::eventFilter(QObject* obj, QEvent *event)
 {
+
+        if(this->configuration.isHidden()){
+            emit enableDraw();
+        }
+
         //this will get all the input for every button
         if(event->type()==QEvent::MouseButtonPress){
             QWidget * child = childAt(static_cast<QMouseEvent *>(event)->pos());

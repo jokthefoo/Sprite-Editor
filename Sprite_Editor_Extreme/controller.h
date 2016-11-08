@@ -49,6 +49,8 @@ public slots:
     void receiveSaveAs();
     void receiveOpenProj(QString,QString,QString);
     void timeoutSendImage();
+    void disableDraw();
+    void enableDraw();
 };
 
 #endif // CONTROLLER_H
