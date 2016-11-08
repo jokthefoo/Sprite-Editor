@@ -37,9 +37,10 @@ void FillBucket::applyTool(Grid * frame, QPointF mousePosition, QMouseEvent * ev
             QRgb rgb(frame->getImage()->pixel(x,y));
             int a = qAlpha(frame->getImage()->alphaChannel().pixel(x, y));
             QColor c(rgb);
-            if(a==255){
-                a=0;
-                c.setAlpha(a);
+            if(c.red()==0&&c.blue()==0&&c.green()==0&&c.alpha()==65535){
+                c.setAlpha(0);
+            }else {
+                c = (frame->getPixelColor(x,y));
             }
             floodFill(frame->getImage(), mousePosition.x(), mousePosition.y(), c, color);
             drawing = false;

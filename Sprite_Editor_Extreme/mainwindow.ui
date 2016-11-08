@@ -352,7 +352,7 @@ QMainWindow::separator:hover
 QToolBar::handle
 {
      spacing: 3px; /* spacing between items in the tool bar */
-     background: url(:/images/handle.png);
+     background: url(:/resources/handle.png);
 }
 
 QMenu::separator
@@ -472,7 +472,8 @@ QRadioButton::indicator:hover, QCheckBox::indicator:hover
 
 QCheckBox::indicator:checked
 {
-    image:url(:/images/checkbox.png);
+
+    image:url(:/resources/checkbox.png);
 }
 
 QCheckBox::indicator:disabled, QRadioButton::indicator:disabled
@@ -480,7 +481,7 @@ QCheckBox::indicator:disabled, QRadioButton::indicator:disabled
     border: 1px solid #444;
 }</string>
   </property>
-  <widget class="QWidget" name="centralWidget">
+ <widget class="QWidget" name="centralWidget">
    <layout class="QHBoxLayout" name="horizontalLayout_3">
     <item>
      <layout class="QVBoxLayout" name="verticalLayout" stretch="1,0,0,0">
@@ -1136,8 +1137,8 @@ QCheckBox::indicator:disabled, QRadioButton::indicator:disabled
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>714</width>
-     <height>22</height>
+     <width>788</width>
+     <height>19</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuFile">
