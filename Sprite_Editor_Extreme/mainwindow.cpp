@@ -105,6 +105,8 @@ void MainWindow::connectComponents(){
     QObject::connect(ui->zoom_Out_Button, SIGNAL(clicked()), this, SLOT(zoomOut()));
     QObject::connect(ui->carryOverBox, SIGNAL(stateChanged(int)), this, SLOT(checkBoxChanged(int)));
     QObject::connect(ui->colorFilterBox, SIGNAL(stateChanged(int)), this, SLOT(checkBoxChanged(int)));
+    QObject::connect(&preview, SIGNAL(sendSliderChange(int)), this, SLOT(receiveSliderChange(int)));
+
 
 }
 
@@ -250,6 +252,13 @@ void MainWindow::sendConfigurationInput(){
         emit enableDraw();
     }
 }
+
+void MainWindow::receiveSliderChange(int value){
+    Property p("framerate");
+    p.addValue(value);
+    emit sendPropertyChange(p);
+}
+
 
 //update color picker color
 void MainWindow::updateColor(QColor color){

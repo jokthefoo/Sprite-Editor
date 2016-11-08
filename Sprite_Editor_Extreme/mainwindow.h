@@ -62,6 +62,7 @@ public slots:
     void zoomOut();
     void setActiveButton(unsigned int);
     void deleteFrame(unsigned int);
+    void receiveSliderChange(int);
 
 protected:
     bool eventFilter(QObject *watched, QEvent *event);

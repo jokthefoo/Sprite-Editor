@@ -20,8 +20,14 @@ public:
     Ui::PreviewWindow * get();
     ~PreviewWindow();
 
+signals:
+    void sendSliderChange(int);
+
 public slots:
     void updatePreview(QImage * toShow);
+
+private slots:
+    void on_horizontalSlider_valueChanged(int value);
 
 private:
     Ui::PreviewWindow *ui;

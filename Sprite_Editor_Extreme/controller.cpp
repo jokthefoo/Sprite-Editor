@@ -133,19 +133,27 @@ void Controller::receivePropertyChange(Property p){
                 model->setBrushSize(p.values.front());
             }
         }
-        if(p.name.toStdString().compare("canvasSize")==0){
+        else if(p.name.toStdString().compare("framerate")==0){
+            if(this->timer.isActive()){
+                if(p.values.front()!=0){
+                     this->timer.setInterval(1/p.values.front()*10);
+                }
+            }
+        }
+
+        else if(p.name.toStdString().compare("canvasSize")==0){
             model->getProject()->setCanvasSize(p.values[0],p.values[1]);
             emit sendImage(model->getProject()->getCurrentFrame()->getImage());
             sendAllFrame();
         }
-        if (p.name.toStdString().compare("carryOverBox") == 0) {
+        else if (p.name.toStdString().compare("carryOverBox") == 0) {
             if (p.values.front() == 0) {
                 addBlankFrame = false;
             }else if (p.values.front() == 2) {
                 addBlankFrame = true;
             }
         }
-        if (p.name.toStdString().compare("colorFilterBox") == 0) {
+        else if (p.name.toStdString().compare("colorFilterBox") == 0) {
             if (model->getProject()!= nullptr && model->getProject()->getCurrentFrame()!= nullptr) {
                 if (p.values.front() == 0) {
                     model->getProject()->getCurrentFrame()->removeFilter();
@@ -215,9 +223,9 @@ void Controller::receiveButtonInput(QWidget * child){
     }
 }
 
+int animation_counter = 0;
 //Handles displaying the preview
 void Controller::timeoutSendImage(){
-    int animation_counter = 0;
     std::vector<Grid*> g = model->getProject()->getAllFrames();
     // might want to send a pointer of the frames so we aren't copying the vector every time.
 
