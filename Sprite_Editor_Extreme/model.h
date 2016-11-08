@@ -16,6 +16,7 @@ private:
     Project * project;
     Tool * currentTool;
     QColor currentColor;
+    QColor filterColor;
     std::vector<Tool*> tools;
 
 public:
@@ -26,9 +27,11 @@ public:
     ~Model();
 
     QColor getColor();
+    QColor getFilterColor();
     int getBrushSize();
     void setBrushSize(int);
     void setColor(QColor);
+    void setFilterColor(QColor);
     void rotateImage(int);
     void changeTool(int);
     Project * getProject();

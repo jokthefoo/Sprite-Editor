@@ -77,6 +77,8 @@ public:
     QToolButton *zoom_In_Button;
     QToolButton *flip_Horizontally;
     QToolButton *flip_Vertically;
+    ColorBox *colorFilter;
+    QCheckBox *colorFilterBox;
     QSpacerItem *verticalSpacer;
     QLabel *label_2;
     QHBoxLayout *horizontalLayout_2;
@@ -94,7 +96,7 @@ public:
     {
         if (MainWindow->objectName().isEmpty())
             MainWindow->setObjectName(QStringLiteral("MainWindow"));
-        MainWindow->resize(788, 624);
+        MainWindow->resize(713, 624);
         QSizePolicy sizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
         sizePolicy.setHorizontalStretch(0);
         sizePolicy.setVerticalStretch(0);
@@ -590,11 +592,6 @@ public:
         verticalLayout->setObjectName(QStringLiteral("verticalLayout"));
         graphicsView = new QGraphicsView(centralWidget);
         graphicsView->setObjectName(QStringLiteral("graphicsView"));
-        QSizePolicy sizePolicy1(QSizePolicy::Expanding, QSizePolicy::Expanding);
-        sizePolicy1.setHorizontalStretch(89);
-        sizePolicy1.setVerticalStretch(200);
-        sizePolicy1.setHeightForWidth(graphicsView->sizePolicy().hasHeightForWidth());
-        graphicsView->setSizePolicy(sizePolicy1);
 
         verticalLayout->addWidget(graphicsView);
 
@@ -616,38 +613,38 @@ public:
 
         previous_frame_button = new QToolButton(centralWidget);
         previous_frame_button->setObjectName(QStringLiteral("previous_frame_button"));
-        QSizePolicy sizePolicy2(QSizePolicy::Fixed, QSizePolicy::Fixed);
-        sizePolicy2.setHorizontalStretch(0);
-        sizePolicy2.setVerticalStretch(0);
-        sizePolicy2.setHeightForWidth(previous_frame_button->sizePolicy().hasHeightForWidth());
-        previous_frame_button->setSizePolicy(sizePolicy2);
+        QSizePolicy sizePolicy1(QSizePolicy::Fixed, QSizePolicy::Fixed);
+        sizePolicy1.setHorizontalStretch(0);
+        sizePolicy1.setVerticalStretch(0);
+        sizePolicy1.setHeightForWidth(previous_frame_button->sizePolicy().hasHeightForWidth());
+        previous_frame_button->setSizePolicy(sizePolicy1);
         previous_frame_button->setMinimumSize(QSize(90, 30));
 
         horizontalLayout->addWidget(previous_frame_button);
 
         play_button = new QToolButton(centralWidget);
         play_button->setObjectName(QStringLiteral("play_button"));
-        sizePolicy2.setHeightForWidth(play_button->sizePolicy().hasHeightForWidth());
-        play_button->setSizePolicy(sizePolicy2);
+        sizePolicy1.setHeightForWidth(play_button->sizePolicy().hasHeightForWidth());
+        play_button->setSizePolicy(sizePolicy1);
         play_button->setMinimumSize(QSize(90, 40));
 
         horizontalLayout->addWidget(play_button);
 
         next_frame_button = new QToolButton(centralWidget);
         next_frame_button->setObjectName(QStringLiteral("next_frame_button"));
-        sizePolicy2.setHeightForWidth(next_frame_button->sizePolicy().hasHeightForWidth());
-        next_frame_button->setSizePolicy(sizePolicy2);
+        sizePolicy1.setHeightForWidth(next_frame_button->sizePolicy().hasHeightForWidth());
+        next_frame_button->setSizePolicy(sizePolicy1);
         next_frame_button->setMinimumSize(QSize(90, 30));
 
         horizontalLayout->addWidget(next_frame_button);
 
         add_frame_button = new QToolButton(centralWidget);
         add_frame_button->setObjectName(QStringLiteral("add_frame_button"));
-        QSizePolicy sizePolicy3(QSizePolicy::Fixed, QSizePolicy::Fixed);
-        sizePolicy3.setHorizontalStretch(90);
-        sizePolicy3.setVerticalStretch(20);
-        sizePolicy3.setHeightForWidth(add_frame_button->sizePolicy().hasHeightForWidth());
-        add_frame_button->setSizePolicy(sizePolicy3);
+        QSizePolicy sizePolicy2(QSizePolicy::Fixed, QSizePolicy::Fixed);
+        sizePolicy2.setHorizontalStretch(90);
+        sizePolicy2.setVerticalStretch(20);
+        sizePolicy2.setHeightForWidth(add_frame_button->sizePolicy().hasHeightForWidth());
+        add_frame_button->setSizePolicy(sizePolicy2);
         add_frame_button->setMinimumSize(QSize(90, 25));
 
         horizontalLayout->addWidget(add_frame_button);
@@ -668,7 +665,7 @@ public:
         scrollArea->setWidgetResizable(true);
         scrollAreaWidgetContents_2 = new QWidget();
         scrollAreaWidgetContents_2->setObjectName(QStringLiteral("scrollAreaWidgetContents_2"));
-        scrollAreaWidgetContents_2->setGeometry(QRect(0, 0, 555, 45));
+        scrollAreaWidgetContents_2->setGeometry(QRect(0, 0, 548, 85));
         horizontalLayoutWidget = new QWidget(scrollAreaWidgetContents_2);
         horizontalLayoutWidget->setObjectName(QStringLiteral("horizontalLayoutWidget"));
         horizontalLayoutWidget->setGeometry(QRect(0, 0, 551, 61));
@@ -696,11 +693,10 @@ public:
         verticalLayout_2 = new QVBoxLayout();
         verticalLayout_2->setSpacing(6);
         verticalLayout_2->setObjectName(QStringLiteral("verticalLayout_2"));
-        verticalLayout_2->setSizeConstraint(QLayout::SetDefaultConstraint);
         tabWidget = new QTabWidget(centralWidget);
         tabWidget->setObjectName(QStringLiteral("tabWidget"));
-        sizePolicy2.setHeightForWidth(tabWidget->sizePolicy().hasHeightForWidth());
-        tabWidget->setSizePolicy(sizePolicy2);
+        sizePolicy1.setHeightForWidth(tabWidget->sizePolicy().hasHeightForWidth());
+        tabWidget->setSizePolicy(sizePolicy1);
         tabWidget->setMinimumSize(QSize(120, 300));
         tabWidget->setTabPosition(QTabWidget::West);
         tab = new QWidget();
@@ -808,11 +804,24 @@ public:
         flip_Vertically->setGeometry(QRect(50, 90, 31, 31));
         sizePolicy.setHeightForWidth(flip_Vertically->sizePolicy().hasHeightForWidth());
         flip_Vertically->setSizePolicy(sizePolicy);
+        colorFilter = new ColorBox(tab_2);
+        colorFilter->setObjectName(QStringLiteral("colorFilter"));
+        colorFilter->setGeometry(QRect(20, 190, 41, 41));
+        sizePolicy.setHeightForWidth(colorFilter->sizePolicy().hasHeightForWidth());
+        colorFilter->setSizePolicy(sizePolicy);
+        colorFilter->setAutoFillBackground(false);
+        colorFilter->setStyleSheet(QStringLiteral("border: 2px solid grey"));
+        colorFilter->setLineWidth(1);
+        colorFilterBox = new QCheckBox(tab_2);
+        colorFilterBox->setObjectName(QStringLiteral("colorFilterBox"));
+        colorFilterBox->setEnabled(true);
+        colorFilterBox->setGeometry(QRect(10, 170, 120, 20));
+        colorFilterBox->setChecked(false);
         tabWidget->addTab(tab_2, QString());
 
         verticalLayout_2->addWidget(tabWidget);
 
-        verticalSpacer = new QSpacerItem(20, 40, QSizePolicy::Minimum, QSizePolicy::MinimumExpanding);
+        verticalSpacer = new QSpacerItem(20, 40, QSizePolicy::Minimum, QSizePolicy::Expanding);
 
         verticalLayout_2->addItem(verticalSpacer);
 
@@ -826,24 +835,22 @@ public:
         horizontalLayout_2->setObjectName(QStringLiteral("horizontalLayout_2"));
         undo_button = new QToolButton(centralWidget);
         undo_button->setObjectName(QStringLiteral("undo_button"));
-        sizePolicy2.setHeightForWidth(undo_button->sizePolicy().hasHeightForWidth());
-        undo_button->setSizePolicy(sizePolicy2);
-        undo_button->setMinimumSize(QSize(70, 70));
-        undo_button->setMaximumSize(QSize(70, 70));
+        sizePolicy1.setHeightForWidth(undo_button->sizePolicy().hasHeightForWidth());
+        undo_button->setSizePolicy(sizePolicy1);
+        undo_button->setMinimumSize(QSize(30, 30));
         undo_button->setAutoFillBackground(false);
 
         horizontalLayout_2->addWidget(undo_button);
 
-        horizontalSpacer = new QSpacerItem(40, 20, QSizePolicy::Fixed, QSizePolicy::Minimum);
+        horizontalSpacer = new QSpacerItem(40, 20, QSizePolicy::Expanding, QSizePolicy::Minimum);
 
         horizontalLayout_2->addItem(horizontalSpacer);
 
         redo_button = new QToolButton(centralWidget);
         redo_button->setObjectName(QStringLiteral("redo_button"));
-        sizePolicy2.setHeightForWidth(redo_button->sizePolicy().hasHeightForWidth());
-        redo_button->setSizePolicy(sizePolicy2);
-        redo_button->setMinimumSize(QSize(70, 70));
-        redo_button->setMaximumSize(QSize(70, 70));
+        sizePolicy1.setHeightForWidth(redo_button->sizePolicy().hasHeightForWidth());
+        redo_button->setSizePolicy(sizePolicy1);
+        redo_button->setMinimumSize(QSize(30, 30));
         redo_button->setAutoFillBackground(false);
 
         horizontalLayout_2->addWidget(redo_button);
@@ -924,6 +931,8 @@ public:
         zoom_In_Button->setText(QString());
         flip_Horizontally->setText(QString());
         flip_Vertically->setText(QString());
+        colorFilter->setText(QString());
+        colorFilterBox->setText(QApplication::translate("MainWindow", "Filter", 0));
         tabWidget->setTabText(tabWidget->indexOf(tab_2), QApplication::translate("MainWindow", "Tab 2", 0));
         label_2->setText(QApplication::translate("MainWindow", "Undo/Redo", 0));
         undo_button->setText(QString());

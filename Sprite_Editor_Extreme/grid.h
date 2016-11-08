@@ -41,12 +41,16 @@ public:
     void fromString(QString);
     void setBrushSize(int);
     void flipImage(QString);
+    void applyFilter(QColor);
+    void removeFilter();
 
 protected:
 
     int height;
     int width;
     QImage* image;
+    bool filterActive;
+    QColor filterColor;
 
 };
 

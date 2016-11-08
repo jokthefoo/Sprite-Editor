@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>788</width>
+    <width>713</width>
     <height>624</height>
    </rect>
   </property>
@@ -480,19 +480,12 @@ QCheckBox::indicator:disabled, QRadioButton::indicator:disabled
     border: 1px solid #444;
 }</string>
   </property>
-  <widget class="QWidget" name="centralWidget">
+ <widget class="QWidget" name="centralWidget">
    <layout class="QHBoxLayout" name="horizontalLayout_3">
     <item>
      <layout class="QVBoxLayout" name="verticalLayout" stretch="1,0,0,0">
       <item>
-       <widget class="QGraphicsView" name="graphicsView">
-        <property name="sizePolicy">
-         <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
-          <horstretch>89</horstretch>
-          <verstretch>200</verstretch>
-         </sizepolicy>
-        </property>
-       </widget>
+       <widget class="QGraphicsView" name="graphicsView"/>
       </item>
       <item>
        <layout class="QHBoxLayout" name="horizontalLayout">
@@ -620,8 +613,8 @@ QCheckBox::indicator:disabled, QRadioButton::indicator:disabled
           <rect>
            <x>0</x>
            <y>0</y>
-           <width>555</width>
-           <height>45</height>
+           <width>548</width>
+           <height>85</height>
           </rect>
          </property>
          <widget class="QWidget" name="horizontalLayoutWidget">
@@ -653,9 +646,6 @@ QCheckBox::indicator:disabled, QRadioButton::indicator:disabled
     </item>
     <item>
      <layout class="QVBoxLayout" name="verticalLayout_2" stretch="0,0,0,0,0,0">
-      <property name="sizeConstraint">
-       <enum>QLayout::SetDefaultConstraint</enum>
-      </property>
       <item>
        <widget class="QTabWidget" name="tabWidget">
         <property name="sizePolicy">
@@ -977,6 +967,53 @@ QCheckBox::indicator:disabled, QRadioButton::indicator:disabled
            <string/>
           </property>
          </widget>
+         <widget class="ColorBox" name="colorFilter">
+          <property name="geometry">
+           <rect>
+            <x>20</x>
+            <y>190</y>
+            <width>41</width>
+            <height>41</height>
+           </rect>
+          </property>
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="autoFillBackground">
+           <bool>false</bool>
+          </property>
+          <property name="styleSheet">
+           <string notr="true">border: 2px solid grey</string>
+          </property>
+          <property name="lineWidth">
+           <number>1</number>
+          </property>
+          <property name="text">
+           <string/>
+          </property>
+         </widget>
+         <widget class="QCheckBox" name="colorFilterBox">
+          <property name="enabled">
+           <bool>true</bool>
+          </property>
+          <property name="geometry">
+           <rect>
+            <x>10</x>
+            <y>170</y>
+            <width>120</width>
+            <height>20</height>
+           </rect>
+          </property>
+          <property name="text">
+           <string>Filter</string>
+          </property>
+          <property name="checked">
+           <bool>false</bool>
+          </property>
+         </widget>
         </widget>
        </widget>
       </item>
@@ -984,9 +1021,6 @@ QCheckBox::indicator:disabled, QRadioButton::indicator:disabled
        <spacer name="verticalSpacer">
         <property name="orientation">
          <enum>Qt::Vertical</enum>
-        </property>
-        <property name="sizeType">
-         <enum>QSizePolicy::MinimumExpanding</enum>
         </property>
         <property name="sizeHint" stdset="0">
          <size>
@@ -1015,14 +1049,8 @@ QCheckBox::indicator:disabled, QRadioButton::indicator:disabled
           </property>
           <property name="minimumSize">
            <size>
-            <width>70</width>
-            <height>70</height>
-           </size>
-          </property>
-          <property name="maximumSize">
-           <size>
-            <width>70</width>
-            <height>70</height>
+            <width>30</width>
+            <height>30</height>
            </size>
           </property>
           <property name="autoFillBackground">
@@ -1037,9 +1065,6 @@ QCheckBox::indicator:disabled, QRadioButton::indicator:disabled
          <spacer name="horizontalSpacer">
           <property name="orientation">
            <enum>Qt::Horizontal</enum>
-          </property>
-          <property name="sizeType">
-           <enum>QSizePolicy::Fixed</enum>
           </property>
           <property name="sizeHint" stdset="0">
            <size>
@@ -1059,14 +1084,8 @@ QCheckBox::indicator:disabled, QRadioButton::indicator:disabled
           </property>
           <property name="minimumSize">
            <size>
-            <width>70</width>
-            <height>70</height>
-           </size>
-          </property>
-          <property name="maximumSize">
-           <size>
-            <width>70</width>
-            <height>70</height>
+            <width>30</width>
+            <height>30</height>
            </size>
           </property>
           <property name="autoFillBackground">

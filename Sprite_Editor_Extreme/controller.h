@@ -34,6 +34,7 @@ signals:
     void sendImage(QImage *);
     void sendPreviewImage(QImage *);
     void sendColor(QColor);
+    void sendFilterColor(QColor);
     void sendFrames(std::vector<QImage>, int);
     void sendFramesForExport(std::vector<QImage>);
     void saveAs(QString);

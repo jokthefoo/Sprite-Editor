@@ -17,6 +17,7 @@ Controller::Controller(MainWindow * w)
     QObject::connect(this, &Controller::sendNewFrame, w, &MainWindow::addFrameToLayout);
     QObject::connect(this, &Controller::saveAs, w, &MainWindow::saveAsSelected);
     QObject::connect(this, &Controller::sendColor, w, &MainWindow::updateColor);
+    QObject::connect(this, &Controller::sendFilterColor, w, &MainWindow::updateFilterColor);
     QObject::connect(this, &Controller::sendPreviewImage, w->getPreview(), &PreviewWindow::updatePreview);
     QObject::connect(this, &Controller::sendActiveTool, w, &MainWindow::setActiveButton);
     QObject::connect(&timer, &QTimer::timeout, this, &Controller::timeoutSendImage);
@@ -30,6 +31,7 @@ Controller::Controller(MainWindow * w)
     emit sendImage(model->getProject()->getCurrentFrame()->getImage());
     emit sendNewFrame(model->getProject()->getCurrentFrame()->getImage());
     emit sendColor(model->getColor());
+    emit sendFilterColor(model->getFilterColor());
     emit sendActiveTool(0);
 
     drawing = false;
@@ -99,6 +101,7 @@ void Controller::receiveOpenProj(QString heightWidth, QString numFrames, QString
     model->getProject()->changeFrame(0);
     emit sendImage(model->getProject()->getCurrentFrame()->getImage());
     emit sendColor(model->getColor());
+    emit sendFilterColor(model->getFilterColor());
     emit sendActiveTool(0);
     sendAllFrame();
 }
@@ -149,6 +152,15 @@ void Controller::receivePropertyChange(Property p){
                 addBlankFrame = true;
             }
         }
+        if (p.name.toStdString().compare("colorFilterBox") == 0) {
+            if (model->getProject()!= nullptr && model->getProject()->getCurrentFrame()!= nullptr) {
+                if (p.values.front() == 0) {
+                    model->getProject()->getCurrentFrame()->removeFilter();
+                } else if (p.values.front() == 2) {
+                    model->getProject()->getCurrentFrame()->applyFilter(model->getFilterColor());
+                }
+            }
+        }
     }
 }
 
@@ -187,6 +199,19 @@ void Controller::receiveButtonInput(QWidget * child)
                 emit sendColor(model->getColor());
             }
         }
+
+        x =  QString::compare(str, "colorFilter", Qt::CaseInsensitive);
+        if(x == 0){
+            allowDrawing = false;
+            QColor c = QColorDialog::getColor(Qt::white);
+            allowDrawing = true;
+            if (c.isValid())
+            {
+                model->setFilterColor(c);
+                emit sendFilterColor(model->getFilterColor());
+            }
+        }
+
         return;
     }
 
@@ -287,10 +312,6 @@ void Controller::decodeAction(QString n){
 
     }else if(name == "redo_button"){
         model->getProject()->redo();
-    }
-    else if(name == "selectbutton"){
-        model->changeTool(4);
-        emit sendActiveTool(4);
     }
     emit sendImage(model->getProject()->getCurrentFrame()->getImage());
     sendAllFrame();

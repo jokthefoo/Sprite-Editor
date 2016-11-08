@@ -56,14 +56,12 @@ public slots:
     void checkBoxChanged(int);
     void updateScreen(QImage *toShow);
     void updateColor(QColor); // left is false right is true
+    void updateFilterColor(QColor);
     void addFrameToLayout(QImage *);
     void zoomIn();
     void zoomOut();
     void setActiveButton(unsigned int);
     void deleteFrame(unsigned int);
-
-
-    // void updatePreview(std::vector<Grid>);
 
 protected:
     bool eventFilter(QObject *watched, QEvent *event);
