@@ -231,7 +231,7 @@ QColor Grid::pixelColor(int x, int y){
     return image->pixelColor(x, y);
 }
 
-// Apply a filter
+// Apply a filter. Filters did not get fully implemented
 // Source: https://forum.qt.io/topic/43435/how-to-mix-two-colors-represented-by-qcolor-type/4
 static QColor blendColors(const QColor& color1, const QColor& color2, qreal ratio)
 {
@@ -242,6 +242,7 @@ static QColor blendColors(const QColor& color1, const QColor& color2, qreal rati
     return QColor(r, g, b, 255);
 }
 
+// Filters did not get fully implemented
 void Grid::applyFilter(QColor color) {
     if (!filterActive) {
         filterActive = true;
@@ -262,7 +263,7 @@ void Grid::applyFilter(QColor color) {
     }
 }
 
-// Remove a filter
+// Remove a filter. Filters did not get fully implemented
 void Grid::removeFilter() {
     if (filterActive) {
         for (int i = 0; i < image->width(); i++) {

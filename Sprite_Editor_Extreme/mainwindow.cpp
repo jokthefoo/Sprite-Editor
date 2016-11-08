@@ -27,6 +27,7 @@ MainWindow::MainWindow(QWidget *parent) :
     currentScale = 12;
     ui->graphicsView->scale(currentScale,currentScale);
     zoomCount = 6;
+    // Color filters did not get fully implemented
     ui->colorFilter->hide();
     ui->colorFilterBox->hide();
 }
