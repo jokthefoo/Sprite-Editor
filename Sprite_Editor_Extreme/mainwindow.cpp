@@ -310,7 +310,6 @@ bool MainWindow::eventFilter(QObject* obj, QEvent *event)
             }
         }
 
-
         QWidget * child = childAt(static_cast<QMouseEvent *>(event)->pos());
         QGraphicsScene * scene = dynamic_cast<QGraphicsScene*>(child); // type check the input
         if(scene!=NULL&&(event->type()==QEvent::MouseButtonPress||event->type()==QEvent::MouseMove||event->type()==QEvent::MouseButtonRelease))
