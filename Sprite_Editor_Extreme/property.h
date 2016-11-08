@@ -8,7 +8,7 @@ public:
     Property();
     Property(QString);
     ~Property();
-     QString name;
+    QString name;
     std::vector<int> values;
     void addValue(int);
 };
