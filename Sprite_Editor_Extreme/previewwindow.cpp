@@ -21,7 +21,7 @@ Ui::PreviewWindow * PreviewWindow::get(){
 
 void PreviewWindow::updatePreview(QImage * preview){
     ui->graphicsView->scene()->clear();
-    boundary = new QGraphicsRectItem(0, 0, preview->height(), preview->width());
+    boundary = new QGraphicsRectItem(0, 0, preview->width(), preview->height());
     ui->graphicsView->scene()->addItem(boundary);
     scene->addPixmap(QPixmap::fromImage(*preview));
     ui->graphicsView->update();
