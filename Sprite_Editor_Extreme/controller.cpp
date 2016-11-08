@@ -83,6 +83,7 @@ void Controller::receiveOpenProj(QString heightWidth, QString numFrames, QString
         currFrame = "";
     }
 
+    model->getProject()->setCanvasSize(h,w);
     listIt = frameList.begin();
     for(int i = 0; i < parse; i++){
         Grid * grid = new Grid(h,w);
