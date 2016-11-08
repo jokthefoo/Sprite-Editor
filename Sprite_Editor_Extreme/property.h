@@ -3,13 +3,12 @@
 #include <QString>
 #include <vector>
 
-class Property
-{
+class Property{
 public:
     Property();
     Property(QString);
     ~Property();
-     QString name;
+    QString name;
     std::vector<int> values;
     void addValue(int);
 };

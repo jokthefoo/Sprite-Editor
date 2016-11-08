@@ -28,7 +28,6 @@
 #include <QtWidgets/QSpinBox>
 #include <QtWidgets/QStatusBar>
 #include <QtWidgets/QTabWidget>
-#include <QtWidgets/QToolBar>
 #include <QtWidgets/QToolButton>
 #include <QtWidgets/QVBoxLayout>
 #include <QtWidgets/QWidget>
@@ -90,13 +89,12 @@ public:
     QMenuBar *menuBar;
     QMenu *menuFile;
     QStatusBar *statusBar;
-    QToolBar *mainToolBar;
 
     void setupUi(QMainWindow *MainWindow)
     {
         if (MainWindow->objectName().isEmpty())
             MainWindow->setObjectName(QStringLiteral("MainWindow"));
-        MainWindow->resize(714, 624);
+        MainWindow->resize(744, 624);
         QSizePolicy sizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
         sizePolicy.setHorizontalStretch(0);
         sizePolicy.setVerticalStretch(0);
@@ -666,7 +664,7 @@ public:
         scrollArea->setWidgetResizable(true);
         scrollAreaWidgetContents_2 = new QWidget();
         scrollAreaWidgetContents_2->setObjectName(QStringLiteral("scrollAreaWidgetContents_2"));
-        scrollAreaWidgetContents_2->setGeometry(QRect(0, 0, 481, 45));
+        scrollAreaWidgetContents_2->setGeometry(QRect(0, 0, 525, 45));
         horizontalLayoutWidget = new QWidget(scrollAreaWidgetContents_2);
         horizontalLayoutWidget->setObjectName(QStringLiteral("horizontalLayoutWidget"));
         horizontalLayoutWidget->setGeometry(QRect(0, 0, 551, 61));
@@ -807,6 +805,7 @@ public:
         flip_Vertically->setSizePolicy(sizePolicy);
         colorFilter = new ColorBox(tab_2);
         colorFilter->setObjectName(QStringLiteral("colorFilter"));
+        colorFilter->setEnabled(true);
         colorFilter->setGeometry(QRect(20, 190, 41, 41));
         sizePolicy.setHeightForWidth(colorFilter->sizePolicy().hasHeightForWidth());
         colorFilter->setSizePolicy(sizePolicy);
@@ -877,16 +876,13 @@ public:
         MainWindow->setCentralWidget(centralWidget);
         menuBar = new QMenuBar(MainWindow);
         menuBar->setObjectName(QStringLiteral("menuBar"));
-        menuBar->setGeometry(QRect(0, 0, 714, 19));
+        menuBar->setGeometry(QRect(0, 0, 744, 17));
         menuFile = new QMenu(menuBar);
         menuFile->setObjectName(QStringLiteral("menuFile"));
         MainWindow->setMenuBar(menuBar);
         statusBar = new QStatusBar(MainWindow);
         statusBar->setObjectName(QStringLiteral("statusBar"));
         MainWindow->setStatusBar(statusBar);
-        mainToolBar = new QToolBar(MainWindow);
-        mainToolBar->setObjectName(QStringLiteral("mainToolBar"));
-        MainWindow->addToolBar(Qt::TopToolBarArea, mainToolBar);
 
         menuBar->addAction(menuFile->menuAction());
         menuFile->addSeparator();

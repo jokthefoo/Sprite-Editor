@@ -6,9 +6,7 @@ PolygonBrush::PolygonBrush(){
     drawing = false;
 }
 
-PolygonBrush::~PolygonBrush(){
-
-}
+PolygonBrush::~PolygonBrush(){}
 
 void PolygonBrush::applyTool(Grid * frame, QPointF mousePosition, QMouseEvent * event, QColor color, int brushSize, Project* p){
     // Restricts action to drawing area

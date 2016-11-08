@@ -4,8 +4,7 @@
 #include <QImage>
 
 //The fillbucket class which recursively fills the canvas, or bounded area with a selected color
-class FillBucket : public Tool
-{
+class FillBucket : public Tool{
 public:
     FillBucket();
     ~FillBucket();

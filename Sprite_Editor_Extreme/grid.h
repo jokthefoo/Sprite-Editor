@@ -8,8 +8,7 @@
 #include <QRegularExpression>
 
 //The Grid represents a single frame of our sprite. A single frame is composed of a height, width, and image
-class Grid
-{
+class Grid{
 public:
     Grid(); // Default grid constructor
     Grid(int,int); // Grid constructor allowing you to specify height and width

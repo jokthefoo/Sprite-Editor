@@ -7,8 +7,7 @@
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
-    ui(new Ui::MainWindow)
-{
+    ui(new Ui::MainWindow){
 
     ui->setupUi(this);
     ui->tabWidget->setTabText(0, "Paint");
@@ -27,6 +26,9 @@ MainWindow::MainWindow(QWidget *parent) :
     currentScale = 12;
     ui->graphicsView->scale(currentScale,currentScale);
     zoomCount = 6;
+    // Color filters did not get fully implemented
+    ui->colorFilter->hide();
+    ui->colorFilterBox->hide();
 }
 
 
@@ -428,6 +430,5 @@ void MainWindow::on_play_button_pressed(){
     }
     //else
         //call another slot which will pause the animation
-
 }
 

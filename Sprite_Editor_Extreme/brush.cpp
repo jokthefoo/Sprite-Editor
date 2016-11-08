@@ -6,7 +6,7 @@ Brush::~Brush(){}
 
 //The Brush tool draws a single pixel at the clicked point and continuously
 //draws pixels as the mouse is dragged as long as the button is held down.
-void Brush::applyTool(Grid * frame, QPointF mousePosition, QMouseEvent * event, QColor color, int brushSize, Project* p ){
+void Brush::applyTool(Grid *frame, QPointF mousePosition, QMouseEvent *event, QColor color, int brushSize, Project *p ){
     if(frame->containsCoordinate(mousePosition.x(),mousePosition.y())){ // restricts the action to only when in the drawing area.
         if(event->type() == QEvent::MouseButtonPress && !drawing){ // other wise we would be updating the image every time a mouse event was fired
             p->addEdit();

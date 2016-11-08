@@ -8,7 +8,6 @@ PreviewWindow::PreviewWindow(QWidget *parent) :
     ui->setupUi(this);
     scene = new QGraphicsScene(ui->graphicsView);
     ui->graphicsView->setScene(scene);
-
 }
 
 PreviewWindow::~PreviewWindow(){

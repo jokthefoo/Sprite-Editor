@@ -7,8 +7,7 @@
 #include <tool.h>
 
 
-class Model // the model updates the view by sending signals
-{
+class Model{ // the model updates the view by sending signals
 
 private:
     int brushSize;
@@ -36,7 +35,6 @@ public:
     void changeTool(int);
     Project * getProject();
     Tool * getCurrentTool();
-
 };
 
 #endif // MODEL_H
