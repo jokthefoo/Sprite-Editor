@@ -52,13 +52,14 @@ public slots:
     void openConfigurationSelected();
     void spinnerChanged(int);
     void checkBoxChanged(int);
-    void updateScreen(QImage * toShow);
+    void updateScreen(QImage *,QImage);
     void updateColor(QColor); // left is false right is true
     void addFrameToLayout(QImage *);
     void zoomIn();
     void zoomOut();
     void setActiveButton(unsigned int);
     void deleteFrame(unsigned int);
+    //void updateTest(QImage);
 
 
     // void updatePreview(std::vector<Grid>);

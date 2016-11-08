@@ -29,7 +29,8 @@ SOURCES += main.cpp\
     fillbucket.cpp \
     gif.h \
     polygonbrush.cpp \
-    selectionTool.cpp
+    selectionTool.cpp \
+    mouse.cpp
 
 HEADERS  += mainwindow.h \
     grid.h \
@@ -46,7 +47,8 @@ HEADERS  += mainwindow.h \
     fillbucket.h \
     gif.h \
     polygonbrush.h \
-    selectionTool.h
+    selectionTool.h \
+    mouse.h
 
 FORMS    += mainwindow.ui \
     previewwindow.ui \

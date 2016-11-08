@@ -29,9 +29,10 @@ public:
     Controller(MainWindow*);
     ~Controller();
     void sendAllFrame();
+    QImage testClip();
 
 signals:
-    void sendImage(QImage *);
+    void sendImage(QImage *,QImage);
     void sendPreviewImage(QImage *);
     void sendColor(QColor);
     void sendFrames(std::vector<QImage>, int);
@@ -40,6 +41,7 @@ signals:
     void sendNewFrame(QImage *);
     void sendActiveTool(int);
     void sendDeleteFrame(int);
+    //void testClipUpdate(QImage);
 
 public slots:
     void receiveExport();

@@ -4,6 +4,7 @@
 #include <fillbucket.h>
 #include <polygonbrush.h>
 #include <selectionTool.h>
+#include <mouse.h>
 
 Model::Model()
 {
@@ -13,6 +14,7 @@ Model::Model()
     Tool * fillBucket = new FillBucket();
     Tool * polygonBrush = new PolygonBrush();
     Tool * selectionTool = new SelectionTool();
+    Tool * mouse = new Mouse();
     currentColor = Qt::black;
     brushSize = 1;
     tools.push_back(brush);
@@ -20,6 +22,7 @@ Model::Model()
     tools.push_back(fillBucket);
     tools.push_back(polygonBrush);
     tools.push_back(selectionTool);
+    tools.push_back(mouse);
     currentTool = brush; // need to decide on the default tool
 }
 
@@ -74,6 +77,9 @@ void Model::changeTool(int i){
     }else if (i == 4)
     {
         currentTool = tools[4];
+    }else if (i == 5)
+    {
+        currentTool = tools[5];
     }
 }
 

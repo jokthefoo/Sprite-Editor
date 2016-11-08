@@ -71,6 +71,7 @@ public:
     ColorBox *leftColor;
     QLabel *label;
     QToolButton *select_Button;
+    QToolButton *mouse_Button;
     QWidget *tab_2;
     QToolButton *rotate_Left_Button;
     QToolButton *zoom_Out_Button;
@@ -274,6 +275,10 @@ public:
         select_Button->setObjectName(QStringLiteral("select_Button"));
         select_Button->setGeometry(QRect(10, 90, 31, 31));
         select_Button->setPopupMode(QToolButton::InstantPopup);
+        mouse_Button = new QToolButton(tab);
+        mouse_Button->setObjectName(QStringLiteral("mouse_Button"));
+        mouse_Button->setGeometry(QRect(50, 90, 31, 31));
+        mouse_Button->setPopupMode(QToolButton::InstantPopup);
         tabWidget->addTab(tab, QString());
         tab_2 = new QWidget();
         tab_2->setObjectName(QStringLiteral("tab_2"));
@@ -444,6 +449,7 @@ public:
         leftColor->setText(QString());
         label->setText(QApplication::translate("MainWindow", "Left Color", 0));
         select_Button->setText(QApplication::translate("MainWindow", "Select", 0));
+        mouse_Button->setText(QApplication::translate("MainWindow", "Mouse", 0));
         tabWidget->setTabText(tabWidget->indexOf(tab), QApplication::translate("MainWindow", "Tab 1", 0));
         rotate_Left_Button->setText(QString());
         zoom_Out_Button->setText(QString());
